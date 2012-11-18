@@ -1,0 +1,5 @@
+1. Setting Thresholds for the inter line distance and next potential lines, font size will be differnt in differnt documents
+2. So a model that assigns appropriate weights to all these features and learns from a training set will be necessary
+
+HEURISTIC METHODS ARE HIGHLY DOMAIN DEPENDENT
+
