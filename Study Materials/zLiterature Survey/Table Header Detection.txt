@@ -1,0 +1,15 @@
+Topological discovery after Extracting contents of the table.
+Segregate Header from Table
+Random Forest Classifier  92%
+
+Treat the problem as classifying between Table Header and data
+Classification results of SVM, Logistic Regression and Random Forests
+Focus: Feature Selection, analyze parameter impact
+
+Heuristic Methods to detect separation between Header and Data
+	- Based on Some Scores. Has errors
+	
+Machine Learning Techniques
+Features:
+	Single Row Features
+	Neighbouring Row Features

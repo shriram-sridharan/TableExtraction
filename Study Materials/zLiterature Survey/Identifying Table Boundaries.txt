@@ -1,0 +1,37 @@
+Property: Majority lines belonging to the table areas are sparse in terms of the text density
+
+Sparse Line: A document line is a sparse line if any of the following condition is satisfied: 
+1)The minimum space gap between a pair of consecutive words within
+the line is larger than a threshold sg. 
+2) The length of the line is much shorter than a threshold ll;
+
+Even though sparse lines cover almost all table lines, a few
+non-table lines mingle in. Removing these noise lines can fa-
+cilitate the table boundary detection e±ciently. Therefore,
+for the labeled SPARSE lines, we label them as the following
+six categories: CAPTIONSPARSE, HEADINGSPARSE, FO-
+OTNOTESPARSE, REFERENCESPARSE, HEADERFO-
+OTERSPARSE, and OTHERSPARSE.
+
+Wise choice of features is always vital to the final results.
+
+Feature Set
+1. Orthographic Feature - InitialCaptical, AllCaptical, FontSize, FontType, BoldOrNot, HasDot, HasDigital, AllDigital
+2. Lexical Features - TableKwdBeginning, FigureKwdBeginning, ReferenceKwdBeginning, AbstractKwdBeginning, SpecialCharBeginning, DigitalBeginning, SuperscriptBeginning, SubscriptBeginning, LineItself.
+3. Layout Featuers (Important) - 
+
+Line Construction from Pdf:
+1. Construct words from each characters.
+2. Construct lines from words.
+3. Sparse Lines => More than one text piece in a line/ Conditions 1,2
+
+We divide the table boundary detection problem into four main sub-problems as follows:
+1) Construct the lines in a document page; 
+2) Remove all the non-sparse lines from the line set; 
+3) Remove all the noisy sparse lines; 
+4) Label table lines by considering the keywords
+
+To Read for this Paper
+1. CRF thorough with the theta parameter
+2. Vitterbi/ Modified Vitterbi algorithm
+3. SVM
