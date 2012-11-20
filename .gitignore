@@ -1,5 +1,5 @@
 *.py[cod]
-
+*.xml_tag
 # C extensions
 *.so
 
