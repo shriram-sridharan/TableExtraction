@@ -1,0 +1,1845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml>
+<page number="1" position="absolute" top="0" left="0" height="1263" width="892">
+	<fontspec id="0" size="24" family="Times" color="#000000"/>
+	<fontspec id="1" size="15" family="Times" color="#000000"/>
+	<fontspec id="2" size="12" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="9" family="Times" color="#000000"/>
+<text top="105" left="123" width="669" height="28" font="0"><b>TableSeer: Automatic Table Metadata Extraction and</b></text>
+<text top="135" left="272" width="371" height="28" font="0"><b>Searching in Digital Libraries</b></text>
+<text top="205" left="273" width="369" height="19" font="1">Ying Liu, Kun Bai, Prasenjit Mitra, C. Lee Giles</text>
+<text top="248" left="280" width="349" height="16" font="2">The College of Information Sciences and Technology</text>
+<text top="263" left="357" width="196" height="16" font="2">Pennsylvania State University</text>
+<text top="279" left="371" width="172" height="16" font="2">University Park, PA 16801</text>
+<text top="296" left="331" width="7" height="14" font="3">{</text>
+<text top="295" left="338" width="147" height="16" font="2">yliu, kbai, pmitra, giles</text>
+<text top="296" left="485" width="7" height="14" font="3">}</text>
+<text top="295" left="492" width="87" height="16" font="2">@ist.psu.edu</text>
+<text top="333" left="81" width="97" height="19" font="1">ABSTRACT</text>
+<text top="358" left="81" width="359" height="14" font="3">Tables are ubiquitous in digital libraries. In scientiﬁc docu-</text>
+<text top="374" left="81" width="359" height="14" font="3">ments, tables are widely used to present experimental results</text>
+<text top="389" left="81" width="359" height="14" font="3">or statistical data in a condensed fashion. However, current</text>
+<text top="405" left="81" width="359" height="14" font="3">search engines do not support table search. The diﬃculty</text>
+<text top="421" left="81" width="359" height="14" font="3">of automatic extracting tables from un-tagged documents,</text>
+<text top="437" left="81" width="359" height="14" font="3">the lack of a universal table metadata speciﬁcation, and the</text>
+<text top="452" left="81" width="359" height="14" font="3">limitation of the existing ranking schemes make the table</text>
+<text top="468" left="81" width="359" height="14" font="3">search problem challenging. In this paper, we describe Ta-</text>
+<text top="484" left="81" width="359" height="14" font="3">bleSeer, a search engine for tables. TableSeer crawls digi-</text>
+<text top="499" left="81" width="359" height="14" font="3">tal libraries, detects tables from documents, extracts tables</text>
+<text top="515" left="81" width="359" height="14" font="3">metadata, indexes and ranks tables, and provides a user-</text>
+<text top="531" left="81" width="358" height="14" font="3">friendly search interface. We propose an extensive set of</text>
+<text top="546" left="81" width="359" height="14" font="3">medium-independent metadata for tables that scientists and</text>
+<text top="562" left="81" width="359" height="14" font="3">other users can adopt for representing table information.</text>
+<text top="578" left="81" width="359" height="14" font="3">In addition, we devise a novel page box-cutting method to</text>
+<text top="593" left="81" width="359" height="14" font="3">improve the performance of the table detection. Given a</text>
+<text top="609" left="81" width="359" height="14" font="3">query, TableSeer ranks the matched tables using an innov-</text>
+<text top="625" left="81" width="359" height="14" font="3">ative ranking algorithm – TableRank. TableRank rates each</text>
+<text top="641" left="81" width="359" height="14" font="3">&lt;query, table&gt; pair with a tailored vector space model and</text>
+<text top="656" left="81" width="359" height="14" font="3">a speciﬁc term weighting scheme. Overall, TableSeer elimi-</text>
+<text top="672" left="81" width="359" height="14" font="3">nates the burden of manually extract table data from digital</text>
+<text top="688" left="81" width="359" height="14" font="3">libraries and enables users to automatically examine tables.</text>
+<text top="703" left="81" width="359" height="14" font="3">We demonstrate the value of TableSeer with empirical stud-</text>
+<text top="719" left="81" width="164" height="14" font="3">ies on scientiﬁc documents.</text>
+<text top="755" left="81" width="270" height="19" font="1">Categories and Subject Descriptors</text>
+<text top="780" left="81" width="359" height="14" font="3">H.3.3 [Information Search and Retrieval]: Information</text>
+<text top="796" left="81" width="227" height="14" font="3">Search and Retrieval – search process</text>
+<text top="821" left="81" width="114" height="19" font="1">General Terms</text>
+<text top="846" left="81" width="362" height="14" font="3">Algorithms, Experimentation, Documentation, Performance,</text>
+<text top="862" left="81" width="41" height="14" font="3">Design</text>
+<text top="887" left="81" width="77" height="19" font="1">Keywords</text>
+<text top="912" left="81" width="359" height="14" font="3">accessibility, architectures, data management, information</text>
+<text top="975" left="81" width="359" height="13" font="4">Permission to make digital or hard copies of all or part of this work for</text>
+<text top="989" left="81" width="359" height="13" font="4">personal or classroom use is granted without fee provided that copies are</text>
+<text top="1002" left="81" width="359" height="13" font="4">not made or distributed for proﬁt or commercial advantage and that copies</text>
+<text top="1016" left="81" width="359" height="13" font="4">bear this notice and the full citation on the ﬁrst page. To copy otherwise, to</text>
+<text top="1029" left="81" width="359" height="13" font="4">republish, to post on servers or to redistribute to lists, requires prior speciﬁc</text>
+<text top="1042" left="81" width="115" height="13" font="4">permission and/or a fee.</text>
+<text top="1056" left="81" width="339" height="13" font="4">JCDL’07, June 17–23, 2007, Vancouver, British Columbia, CANADA.</text>
+<text top="1069" left="81" width="234" height="13" font="4">Copyright 2007 ACM 1-59593-354-9/06/0006 ...</text>
+<text top="1068" left="315" width="7" height="14" font="3">$</text>
+<text top="1069" left="322" width="24" height="13" font="4">5.00.</text>
+<text top="336" left="475" width="361" height="14" font="3">retrieval, knowledge organization, scientiﬁc applications, sys-</text>
+<text top="352" left="475" width="65" height="14" font="3">tem design</text>
+<text top="383" left="475" width="174" height="19" font="1">1. INTRODUCTION</text>
+<text top="406" left="489" width="345" height="14" font="3">Tables are ubiquitous in scientiﬁc publications, web pages,</text>
+<text top="421" left="475" width="359" height="14" font="3">ﬁnancial reports, news papers, magazine articles, etc. Ta-</text>
+<text top="437" left="475" width="359" height="14" font="3">bles present structural data and relational information in</text>
+<text top="453" left="475" width="359" height="14" font="3">a two-dimensional format and in a condensed fashion. Re-</text>
+<text top="469" left="475" width="359" height="14" font="3">searchers always use tables to concisely display their latest</text>
+<text top="484" left="475" width="359" height="14" font="3">experimental results or statistical data. Other researchers,</text>
+<text top="500" left="475" width="359" height="14" font="3">for example, who are conducting the empirical studies in the</text>
+<text top="516" left="475" width="359" height="14" font="3">same topic, can quickly obtain valuable insights by examin-</text>
+<text top="531" left="475" width="359" height="14" font="3">ing these tables. Along with the rapid expansion of digital</text>
+<text top="547" left="475" width="359" height="14" font="3">libraries, tables become an important information source for</text>
+<text top="563" left="475" width="359" height="14" font="3">information retrieval and the demand for searching table is</text>
+<text top="578" left="475" width="359" height="14" font="3">increasing. For example, a bio-chemist may want to search</text>
+<text top="594" left="475" width="359" height="14" font="3">tables containing experimental results about “mutant genes”</text>
+<text top="610" left="475" width="359" height="14" font="3">or an economist may look for the tables about “the GDP</text>
+<text top="625" left="475" width="359" height="14" font="3">growth of USA in 2000-2007.” However, existing search en-</text>
+<text top="641" left="475" width="359" height="14" font="3">gines do not support table search. When applying a table</text>
+<text top="657" left="475" width="359" height="14" font="3">search query to the popular search engines, we observe that</text>
+<text top="673" left="475" width="359" height="14" font="3">a ﬂood of unwanted and sometimes unsolicited results will</text>
+<text top="688" left="475" width="359" height="14" font="3">be returned. Moreover, we also notice that within the top n</text>
+<text top="704" left="475" width="359" height="14" font="3">returned results, the ranking order does not precisely reﬂect</text>
+<text top="720" left="475" width="170" height="14" font="3">the relevance to the queries.</text>
+<text top="735" left="489" width="345" height="14" font="3">Automatic table extraction is critical to the success of</text>
+<text top="751" left="475" width="359" height="14" font="3">table search. However, current search engines do not sup-</text>
+<text top="767" left="475" width="359" height="14" font="3">port it. Automatic table extraction is important because</text>
+<text top="782" left="475" width="359" height="14" font="3">there exists no table markup language that scientists and</text>
+<text top="798" left="475" width="359" height="14" font="3">other users have adopted for representing table information</text>
+<text top="814" left="475" width="359" height="14" font="3">in documents. There is not yet a universal metadata speci-</text>
+<text top="829" left="475" width="359" height="14" font="3">ﬁcation for tables. Scientists and scholars who now want to</text>
+<text top="845" left="475" width="359" height="14" font="3">extract data from tables in published papers have to do it</text>
+<text top="861" left="475" width="359" height="14" font="3">manually, establishing there on metadata formats. In order</text>
+<text top="877" left="475" width="359" height="14" font="3">to eliminate the burden and enable users to automatically</text>
+<text top="892" left="475" width="359" height="14" font="3">examine these tables, we design TableSeer, a system to auto-</text>
+<text top="908" left="475" width="359" height="14" font="3">matically extract table metadata and search tables in digital</text>
+<text top="924" left="475" width="52" height="14" font="3">libraries.</text>
+<text top="939" left="489" width="345" height="14" font="3">Automatic table extraction and table searching in digital</text>
+<text top="955" left="475" width="359" height="14" font="3">libraries are challenging problems for several reasons. First,</text>
+<text top="971" left="475" width="359" height="14" font="3">although considerable research has been done to extract ta-</text>
+<text top="986" left="475" width="359" height="14" font="3">bles from HTML or Image documents, extracting un-tagged</text>
+<text top="1002" left="475" width="359" height="14" font="3">tables (e.g., in Portable Document Format (PDF)) is diﬃ-</text>
+<text top="1018" left="475" width="359" height="14" font="3">cult. Second, tables present unique challenges to informa-</text>
+<text top="1033" left="475" width="359" height="14" font="3">tion retrieval (IR) systems because of diverse media, dif-</text>
+<text top="1049" left="475" width="359" height="14" font="3">ferent press layouts, cell types, aﬃliate table elements, etc.</text>
+<text top="1065" left="475" width="359" height="14" font="3">Along with the increasing demands of information sharing,</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1263" width="892">
+	<fontspec id="5" size="6" family="Times" color="#000000"/>
+<text top="84" left="81" width="359" height="14" font="3">an extensive and universal table metadata speciﬁcation is</text>
+<text top="100" left="81" width="359" height="14" font="3">needed to facilitate the table information processing, ex-</text>
+<text top="116" left="81" width="359" height="14" font="3">tracting, and reusing. Additionally, such a standard rep-</text>
+<text top="132" left="81" width="359" height="14" font="3">resentation can heavily reduce the workload of table infor-</text>
+<text top="147" left="81" width="359" height="14" font="3">mation extraction and increase the accuracy of the table</text>
+<text top="163" left="81" width="359" height="14" font="3">indexing and searching. Third, the ranking schemes of cur-</text>
+<text top="179" left="81" width="359" height="14" font="3">rent search engines are inadequate and not designed for ta-</text>
+<text top="194" left="81" width="359" height="14" font="3">ble search. The returned ranking order does not correctly</text>
+<text top="210" left="81" width="291" height="14" font="3">reﬂect the relevance of the tables to the queries.</text>
+<text top="226" left="94" width="345" height="14" font="3">Our paper has four main contributions: a table search</text>
+<text top="241" left="81" width="359" height="14" font="3">engine TableSeer, a set of universal medium-independent</text>
+<text top="257" left="81" width="359" height="14" font="3">metadata speciﬁcation for tables, an automatic table de-</text>
+<text top="273" left="81" width="359" height="14" font="3">tector and table metadata extractor with a novel page box-</text>
+<text top="288" left="81" width="358" height="14" font="3">cutting method, and an innovative table ranking algorithm</text>
+<text top="304" left="81" width="359" height="14" font="3">TableRank. TableSeer crawls scientiﬁc documents from digi-</text>
+<text top="320" left="81" width="359" height="14" font="3">tal libraries, identiﬁes documents with tables, extracts tables</text>
+<text top="336" left="81" width="359" height="14" font="3">from documents, represents each table with a unique table</text>
+<text top="351" left="81" width="359" height="14" font="3">metadata ﬁle, indexes tables and provides an interface to en-</text>
+<text top="367" left="81" width="359" height="14" font="3">able the end-users to search for tables. TableRank considers</text>
+<text top="383" left="81" width="359" height="14" font="3">multiple features of a table and the document it appears in,</text>
+<text top="398" left="81" width="359" height="14" font="3">and aggregates these features to determine the ﬁnal ranking</text>
+<text top="414" left="81" width="262" height="14" font="3">of each table with respect to an user query.</text>
+<text top="430" left="94" width="345" height="14" font="3">In this paper, we focus on PDF documents because of</text>
+<text top="445" left="81" width="359" height="14" font="3">two reasons. First, PDF gains popularity in digital libraries</text>
+<text top="461" left="81" width="358" height="14" font="3">due to the compatibility of output on a variety of devices.</text>
+<text top="477" left="81" width="359" height="14" font="3">Second, PDF documents are overlooked in table extraction</text>
+<text top="492" left="81" width="359" height="14" font="3">ﬁeld. Please note that TableSeer can easily be extended</text>
+<text top="508" left="81" width="359" height="14" font="3">to deal with documents in other media, e.g., PPT, HTML,</text>
+<text top="524" left="81" width="108" height="14" font="3">Word, Image, etc.</text>
+<text top="540" left="94" width="345" height="14" font="3">Extensive experimental studies have been conducted to</text>
+<text top="555" left="81" width="359" height="14" font="3">provide support for the table metadata extraction and the</text>
+<text top="571" left="81" width="358" height="14" font="3">table ranking function. In order to evaluate the perfor-</text>
+<text top="587" left="81" width="359" height="14" font="3">mance of our T ableRank schema, we compare TableSeer</text>
+<text top="602" left="81" width="359" height="14" font="3">with several popular web search engines. Because all the</text>
+<text top="618" left="81" width="359" height="14" font="3">popular web search engines make no eﬀort at treating ta-</text>
+<text top="634" left="81" width="359" height="14" font="3">bles specially, we propose two methods to set up the com-</text>
+<text top="649" left="81" width="359" height="14" font="3">mon test-beds (see Section 5.4). Empirical results show that</text>
+<text top="665" left="81" width="359" height="14" font="3">TableSeer achieves encouraging results compared to Google</text>
+<text top="681" left="81" width="45" height="14" font="3">Scholar</text>
+<text top="679" left="127" width="5" height="9" font="5">1</text>
+<text top="681" left="138" width="82" height="14" font="3">and CiteSeer</text>
+<text top="679" left="220" width="5" height="9" font="5">2</text>
+<text top="681" left="226" width="4" height="14" font="3">.</text>
+<text top="696" left="94" width="345" height="14" font="3">The remainder of the paper is organized as follows. Sec-</text>
+<text top="712" left="81" width="359" height="14" font="3">tion 2 is the related work. Section 3 presents the architecture</text>
+<text top="728" left="81" width="359" height="14" font="3">of TableSeer and a proposal for medium-independent table</text>
+<text top="744" left="81" width="359" height="14" font="3">metadata. In Section 4, we describe the table ranking algo-</text>
+<text top="759" left="81" width="359" height="14" font="3">rithm. Section 5 discusses the experiments and an analysis</text>
+<text top="775" left="81" width="289" height="14" font="3">of the results and Section 6 makes a conclusion.</text>
+<text top="811" left="81" width="179" height="19" font="1">2. RELATED WORK</text>
+<text top="834" left="94" width="345" height="14" font="3">A search engine is an information retrieval system de-</text>
+<text top="850" left="81" width="359" height="14" font="3">signed to help ﬁnd information[1]. Most commonly search</text>
+<text top="865" left="81" width="359" height="14" font="3">engines are Web search engine, which searches for infor-</text>
+<text top="881" left="81" width="359" height="14" font="3">mation on the public Web. For example, Google, Yahoo!</text>
+<text top="897" left="81" width="359" height="14" font="3">search, Microsoft MSN Search, ASK.com, etc. Other kinds</text>
+<text top="912" left="81" width="359" height="14" font="3">of search engine are enterprize search engines, which search</text>
+<text top="928" left="81" width="359" height="14" font="3">on intranets, personal search engines, and mobile search en-</text>
+<text top="944" left="81" width="358" height="14" font="3">gines. Diﬀerent selection and relevance criteria may apply in</text>
+<text top="959" left="81" width="359" height="14" font="3">diﬀerent environments, or for diﬀerent uses. More recently,</text>
+<text top="975" left="81" width="359" height="14" font="3">more and more lights are shed on specialty search engines.</text>
+<text top="991" left="81" width="359" height="14" font="3">Some of them support search on various kinds of documents</text>
+<text top="1006" left="81" width="106" height="14" font="3">(e.g., map search</text>
+<text top="1005" left="187" width="5" height="9" font="5">1</text>
+<text top="1006" left="193" width="89" height="14" font="3">, image search</text>
+<text top="1005" left="282" width="5" height="9" font="5">1</text>
+<text top="1006" left="288" width="85" height="14" font="3">, video search</text>
+<text top="1005" left="373" width="5" height="9" font="5">3</text>
+<text top="1006" left="380" width="60" height="14" font="3">, etc.), as</text>
+<text top="1032" left="81" width="5" height="9" font="5">1</text>
+<text top="1034" left="88" width="150" height="14" font="3">http://www.google.com/</text>
+<text top="1047" left="81" width="5" height="9" font="5">2</text>
+<text top="1049" left="88" width="163" height="14" font="3">http://citeseer.ist.psu.edu/</text>
+<text top="1063" left="81" width="5" height="9" font="5">3</text>
+<text top="1065" left="88" width="161" height="14" font="3">http://www.youtube.com/</text>
+<text top="84" left="475" width="326" height="14" font="3">well as on document components (e.g., citation search</text>
+<text top="83" left="802" width="5" height="9" font="5">2</text>
+<text top="84" left="808" width="26" height="14" font="3">, ac-</text>
+<text top="100" left="475" width="134" height="14" font="3">knowledgement search</text>
+<text top="98" left="609" width="5" height="9" font="5">2</text>
+<text top="100" left="616" width="218" height="14" font="3">, etc). However, none of them meets</text>
+<text top="116" left="475" width="152" height="14" font="3">the table search demand.</text>
+<text top="132" left="489" width="345" height="14" font="3">Although table-related research has recently received con-</text>
+<text top="147" left="475" width="359" height="14" font="3">siderable attention, most of the research focuses on the ta-</text>
+<text top="163" left="475" width="359" height="14" font="3">ble extraction. Some researchers try to associate the table</text>
+<text top="179" left="475" width="359" height="14" font="3">extraction with question answering (QA) or information re-</text>
+<text top="194" left="475" width="359" height="14" font="3">trieval. For example, Pyreddy and Croft [14] design a char-</text>
+<text top="210" left="475" width="359" height="14" font="3">acter alignment graph (CAG) to extract tables for informa-</text>
+<text top="226" left="475" width="359" height="14" font="3">tion retrieval. TINTIN [14] is a system that incorporates in-</text>
+<text top="241" left="475" width="359" height="14" font="3">dexing and searching concepts into the table detection ﬁeld.</text>
+<text top="257" left="475" width="359" height="14" font="3">However, it only roughly divided the information of a table</text>
+<text top="273" left="475" width="359" height="14" font="3">into two parts: table captions or table entries. Hu [17] de-</text>
+<text top="288" left="475" width="359" height="14" font="3">signs a system that extracts table-related information, stores</text>
+<text top="304" left="475" width="359" height="14" font="3">them in databases, and generates a man-machine dialog to</text>
+<text top="320" left="475" width="359" height="14" font="3">access the table data via a spoken language interface. None</text>
+<text top="336" left="475" width="359" height="14" font="3">of above provide a real web search engine to tables. To the</text>
+<text top="351" left="475" width="359" height="14" font="3">best of our knowledge, TableSeer is the ﬁrst table search</text>
+<text top="367" left="475" width="359" height="14" font="3">engine, which supports the automatic table metadata ex-</text>
+<text top="383" left="475" width="155" height="14" font="3">traction and table search.</text>
+<text top="398" left="489" width="345" height="14" font="3">Researchers in the automatic table extraction ﬁeld largely</text>
+<text top="414" left="475" width="359" height="14" font="3">focus on analyzing the table structure in a speciﬁc document</text>
+<text top="430" left="475" width="359" height="14" font="3">media. Zanibbi [15] provides a survey with detailed descrip-</text>
+<text top="445" left="475" width="359" height="14" font="3">tion of each method. All the methods can be divided into</text>
+<text top="461" left="475" width="359" height="14" font="3">three categories: pre-deﬁned layout based [10], heuristics</text>
+<text top="477" left="475" width="359" height="14" font="3">based [7][9][11][16], and statistical based [14]. Pre-deﬁned</text>
+<text top="492" left="475" width="359" height="14" font="3">layout based algorithms usually work well for one domain,</text>
+<text top="508" left="475" width="359" height="14" font="3">but is diﬃcult to extend. Heuristics based methods need a</text>
+<text top="524" left="475" width="359" height="14" font="3">complex post-processing and the performance relies largely</text>
+<text top="540" left="475" width="359" height="14" font="3">on the choice of features and the quality of training data.</text>
+<text top="555" left="475" width="359" height="14" font="3">Most approaches described so far utilize purely geometric</text>
+<text top="571" left="475" width="359" height="14" font="3">features (e.g. pixel distribution, line-art, white streams) to</text>
+<text top="587" left="475" width="359" height="14" font="3">determine the logical structure of the table, and diﬀerent</text>
+<text top="602" left="475" width="359" height="14" font="3">document mediums require diﬀerent process methodologies:</text>
+<text top="618" left="475" width="359" height="14" font="3">OCR [5], X-Y cut [8], tag classiﬁcation and keyword search-</text>
+<text top="634" left="475" width="359" height="14" font="3">ing [3][4][19] etc. Most of them use trial-and-error methods</text>
+<text top="649" left="475" width="359" height="14" font="3">and no general table ground-truth data set is publicly avail-</text>
+<text top="665" left="475" width="359" height="14" font="3">able to train and test these algorithms [20]. For a table</text>
+<text top="681" left="475" width="359" height="14" font="3">search query, the matched tables may be contained in di-</text>
+<text top="696" left="475" width="359" height="14" font="3">verse media, which require diﬀerent methods to extract. It</text>
+<text top="712" left="475" width="359" height="14" font="3">is inconvenient to divide the documents into diﬀerent groups</text>
+<text top="728" left="475" width="359" height="14" font="3">and apply the corresponding algorithms. Thus, good table</text>
+<text top="744" left="475" width="359" height="14" font="3">representation schemes are needed. Wang [18] proposed a</text>
+<text top="759" left="475" width="359" height="14" font="3">table model to show the table layout. The well-known table</text>
+<text top="775" left="475" width="359" height="14" font="3">representation schemes are designed by the World Wide Web</text>
+<text top="791" left="475" width="359" height="14" font="3">Consortium (W3C) in the speciﬁcation of XHTML (The</text>
+<text top="806" left="475" width="359" height="14" font="3">Extensible HyperText Markup Language) and by the Or-</text>
+<text top="822" left="475" width="359" height="14" font="3">ganization for the Advancement of Structured Information</text>
+<text top="838" left="475" width="359" height="14" font="3">Standards (OASIS). Wang [20][21] develops a software tool</text>
+<text top="853" left="475" width="359" height="14" font="3">to generate documents that include similar table elements</text>
+<text top="869" left="475" width="359" height="14" font="3">based on the given table ground truth. Akira Amano [2]</text>
+<text top="885" left="475" width="359" height="14" font="3">proposes a representation of table form document based on</text>
+<text top="900" left="475" width="359" height="14" font="3">XML. However, none of them covers table structure and lay-</text>
+<text top="916" left="475" width="359" height="14" font="3">out information, as well as the table-related information and</text>
+<text top="932" left="475" width="359" height="14" font="3">the document background. Our table metadata can provide</text>
+<text top="948" left="475" width="359" height="14" font="3">a concise and universal metadata speciﬁcation to represent</text>
+<text top="963" left="475" width="359" height="14" font="3">the information and all the necessary facts of a table in any</text>
+<text top="979" left="475" width="308" height="14" font="3">document medium for the table searching purpose.</text>
+<text top="1010" left="475" width="359" height="19" font="1">3. THE ARCHITECTURE OF TABLESEER</text>
+<text top="1042" left="475" width="173" height="19" font="1">3.1 System Overview</text>
+<text top="1065" left="489" width="345" height="14" font="3">Figure 1 shows the architecture of TableSeer, which con-</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1263" width="892">
+	<fontspec id="6" size="7" family="Times" color="#000000"/>
+	<fontspec id="7" size="4" family="Times" color="#000000"/>
+	<fontspec id="8" size="14" family="Times" color="#000000"/>
+<text top="150" left="290" width="49" height="13" font="6">Table Crawling </text>
+<text top="157" left="301" width="26" height="13" font="6">Request</text>
+<text top="93" left="283" width="53" height="13" font="6">Crawler Manager</text>
+<text top="122" left="287" width="24" height="13" font="6">request</text>
+<text top="95" left="199" width="37" height="13" font="6">Downloader</text>
+<text top="99" left="117" width="38" height="13" font="6">World Wide </text>
+<text top="107" left="116" width="39" height="13" font="6">Web (WWW)</text>
+<text top="137" left="185" width="22" height="10" font="5">Storage </text>
+<text top="143" left="186" width="20" height="10" font="5">System</text>
+<text top="107" left="371" width="19" height="13" font="6">Table </text>
+<text top="115" left="371" width="16" height="13" font="6">Filter</text>
+<text top="201" left="126" width="53" height="13" font="6">Text Information </text>
+<text top="209" left="139" width="25" height="13" font="6">Stripper</text>
+<text top="238" left="132" width="34" height="13" font="6">TEXT Files</text>
+<text top="206" left="227" width="5" height="17" font="6">Do</text>
+<text top="215" left="227" width="6" height="20" font="6">cum</text>
+<text top="229" left="227" width="4" height="22" font="6">ent </text>
+<text top="240" left="227" width="4" height="20" font="6">Lev</text>
+<text top="252" left="227" width="6" height="20" font="6">el M</text>
+<text top="264" left="227" width="4" height="18" font="6">eta</text>
+<text top="274" left="227" width="4" height="22" font="6">data</text>
+<text top="287" left="227" width="2" height="13" font="6"> </text>
+<text top="232" left="219" width="4" height="23" font="6">Extr</text>
+<text top="245" left="219" width="4" height="22" font="6">acto</text>
+<text top="259" left="219" width="2" height="13" font="6">r</text>
+<text top="217" left="268" width="47" height="13" font="6">Document Title</text>
+<text top="290" left="268" width="48" height="13" font="6">Body Text Font</text>
+<text top="235" left="265" width="55" height="13" font="6"> Author/ Affilation</text>
+<text top="272" left="271" width="42" height="13" font="6">Page Number</text>
+<text top="311" left="266" width="52" height="13" font="6">Doc Column Info</text>
+<text top="195" left="266" width="54" height="13" font="6">Docment Source </text>
+<text top="203" left="271" width="43" height="13" font="6">(e.g., Journal)</text>
+<text top="253" left="269" width="46" height="13" font="6">Document Age</text>
+<text top="300" left="289" width="14" height="9" font="7">… ...</text>
+<text top="267" left="130" width="55" height="13" font="6">Page Box Cutting</text>
+<text top="295" left="135" width="44" height="13" font="6">Box Classifier</text>
+<text top="329" left="116" width="34" height="13" font="6">Small-font </text>
+<text top="337" left="122" width="20" height="13" font="6">Boxes</text>
+<text top="329" left="212" width="34" height="13" font="6">Large-font </text>
+<text top="337" left="218" width="20" height="13" font="6">Boxes</text>
+<text top="329" left="166" width="32" height="13" font="6">Body-text </text>
+<text top="337" left="171" width="20" height="13" font="6">Boxes</text>
+<text top="377" left="114" width="51" height="13" font="6">Table Boundary </text>
+<text top="385" left="125" width="26" height="13" font="6">Detector</text>
+<text top="387" left="187" width="38" height="13" font="6">Table Level </text>
+<text top="395" left="191" width="30" height="13" font="6">Metadata </text>
+<text top="403" left="191" width="29" height="13" font="6">Extractor</text>
+<text top="424" left="115" width="50" height="13" font="6">Table Structure </text>
+<text top="432" left="125" width="27" height="13" font="6">Aanlyzer</text>
+<text top="219" left="364" width="25" height="13" font="6">Indexer </text>
+<text top="227" left="363" width="27" height="13" font="6">(Lucene)</text>
+<text top="332" left="359" width="40" height="13" font="6">Table Query </text>
+<text top="340" left="367" width="24" height="13" font="6">Engine </text>
+<text top="356" left="355" width="47" height="13" font="6">Table Ranking </text>
+<text top="364" left="362" width="31" height="13" font="6">Algorithm</text>
+<text top="155" left="369" width="19" height="9" font="7">Table </text>
+<text top="163" left="366" width="24" height="9" font="7">Crawler</text>
+<text top="148" left="232" width="30" height="13" font="6">Doc(e.g., </text>
+<text top="155" left="238" width="15" height="13" font="6">PDF)</text>
+<text top="374" left="264" width="61" height="13" font="6">Table Column/Row </text>
+<text top="381" left="279" width="30" height="13" font="6">Headings</text>
+<text top="459" left="262" width="63" height="13" font="6">Table Index Number</text>
+<text top="395" left="264" width="61" height="13" font="6">Table Column/Row </text>
+<text top="403" left="281" width="25" height="13" font="6">Number</text>
+<text top="438" left="267" width="53" height="13" font="6">Table Annotation</text>
+<text top="341" left="272" width="43" height="13" font="6">Table Caption</text>
+<text top="418" left="263" width="62" height="13" font="6">Table Body Content</text>
+<text top="448" left="291" width="14" height="9" font="7">… ...</text>
+<text top="359" left="271" width="45" height="13" font="6">Table Position</text>
+<text top="444" left="184" width="19" height="9" font="7">Table </text>
+<text top="452" left="179" width="30" height="9" font="7">Metadata </text>
+<text top="460" left="179" width="29" height="9" font="7">Extractor</text>
+<text top="271" left="345" width="30" height="13" font="6">Metadata </text>
+<text top="279" left="351" width="17" height="13" font="6">Index</text>
+<text top="271" left="391" width="14" height="13" font="6">Doc </text>
+<text top="279" left="389" width="17" height="13" font="6">Index</text>
+<text top="411" left="345" width="66" height="13" font="6">Web Browser/ Query </text>
+<text top="419" left="364" width="27" height="13" font="6">Interface</text>
+<text top="454" left="355" width="21" height="13" font="6">Query </text>
+<text top="462" left="348" width="31" height="13" font="6">Keywords</text>
+<text top="468" left="397" width="14" height="9" font="7">User</text>
+<text top="502" left="119" width="282" height="14" font="3">Figure 1: The Architecture of TableSeer</text>
+<text top="530" left="81" width="366" height="14" font="3">sists of a number of important components: 1) a table crawler,</text>
+<text top="546" left="81" width="359" height="14" font="3">2) a table metadata extractor, 3) a table metadata indexer,</text>
+<text top="561" left="81" width="359" height="14" font="3">4) a table ranking algorithm, and 5) a table searching query</text>
+<text top="577" left="81" width="359" height="14" font="3">interface. In summary, TableSeer crawls scientiﬁc docu-</text>
+<text top="593" left="81" width="359" height="14" font="3">ments from the digital libraries, identiﬁes the documents</text>
+<text top="608" left="81" width="359" height="14" font="3">with tables, detects each table using a novel document page</text>
+<text top="624" left="81" width="359" height="14" font="3">box-cutting method, extracts the metadata for each identi-</text>
+<text top="640" left="81" width="359" height="14" font="3">ﬁed table, ranks the matched tables against the end-user’s</text>
+<text top="655" left="81" width="359" height="14" font="3">query with the TableRank algorithm, and displays the or-</text>
+<text top="671" left="81" width="245" height="14" font="3">dered results in a user-friendly interface.</text>
+<text top="700" left="81" width="185" height="19" font="1">3.2 The Table Crawler</text>
+<text top="723" left="94" width="345" height="14" font="3">TableSeer harvests online scientiﬁc documents by crawling</text>
+<text top="739" left="81" width="359" height="14" font="3">open-access digital libraries and scientists’ webpages. The</text>
+<text top="755" left="81" width="359" height="14" font="3">crawler supports a number of document media, such as PDF,</text>
+<text top="771" left="81" width="359" height="14" font="3">HTML, WORD, PowerPoint, etc. TableSeer is designed to</text>
+<text top="786" left="81" width="359" height="14" font="3">be able to handle all the document media listed above. In</text>
+<text top="802" left="81" width="359" height="14" font="3">this paper, the table crawlers pay attention to the scientiﬁc</text>
+<text top="818" left="81" width="359" height="14" font="3">documents in the PDF format because they gain more and</text>
+<text top="833" left="81" width="359" height="14" font="3">more popularity in digital libraries. In addition, comparing</text>
+<text top="849" left="81" width="359" height="14" font="3">to other document media that have been extensively studied</text>
+<text top="865" left="81" width="359" height="14" font="3">in the table detection ﬁeld, PDF documents have been over-</text>
+<text top="880" left="81" width="359" height="14" font="3">looked. Our table crawlers use a depth-ﬁrst crawling policy</text>
+<text top="896" left="81" width="323" height="14" font="3">with a maximum depth of ﬁve (from the seed URLs).</text>
+<text top="927" left="81" width="274" height="19" font="1">3.3 The Table Metadata Extractor</text>
+<text top="950" left="94" width="345" height="14" font="3">The table metadata extractor comprises of three key parts:</text>
+<text top="965" left="81" width="359" height="14" font="3">1) a text information stripper (TIS ), 2) a table box detector</text>
+<text top="981" left="81" width="359" height="14" font="3">with the page box-cutting method, and 3) a table metadata</text>
+<text top="997" left="81" width="359" height="14" font="3">extractor from both the document level and the table level.</text>
+<text top="1027" left="85" width="254" height="17" font="8">3.3.1 Text Information Stripper (TIS)</text>
+<text top="1049" left="94" width="345" height="14" font="3">Initially, for each PDF document, TIS strips out the text</text>
+<text top="1065" left="81" width="359" height="14" font="3">information from the original PDF source ﬁle word by word</text>
+<text top="264" left="475" width="359" height="14" font="3">Figure 2: An Example of a PDF Document Segment</text>
+<text top="279" left="475" width="325" height="14" font="3">and the Corresponding Document Content File</text>
+<text top="303" left="475" width="216" height="14" font="3">through analyzing the text operators</text>
+<text top="301" left="692" width="5" height="9" font="5">4</text>
+<text top="303" left="702" width="125" height="14" font="3">and the related glyph</text>
+<text top="301" left="828" width="5" height="9" font="5">4</text>
+<text top="318" left="475" width="359" height="14" font="3">information. TableSeer reconstructs these words into lines</text>
+<text top="334" left="475" width="359" height="14" font="3">with the aid of their position information and saves the lines</text>
+<text top="350" left="475" width="359" height="14" font="3">into a Document Content File in the TXT format. For each</text>
+<text top="365" left="475" width="359" height="14" font="3">document page, TableSeer analyzes the text information and</text>
+<text top="381" left="475" width="359" height="14" font="3">merges them into diﬀerent physical component levels (lines,</text>
+<text top="397" left="475" width="359" height="14" font="3">paragraphs, boxes, pages) according to their font and po-</text>
+<text top="412" left="475" width="359" height="14" font="3">sition information. Figure 2 shows an example segment of</text>
+<text top="428" left="475" width="359" height="14" font="3">a PDF document and its corresponding Document Content</text>
+<text top="444" left="475" width="359" height="14" font="3">File. The text ﬁle also records the coordinates of the left-</text>
+<text top="459" left="475" width="87" height="14" font="3">most word (X</text>
+<text top="465" left="563" width="5" height="9" font="5">0</text>
+<text top="459" left="569" width="14" height="14" font="3">, Y</text>
+<text top="465" left="583" width="5" height="9" font="5">0</text>
+<text top="459" left="589" width="245" height="14" font="3">), the line width W , the line height H,</text>
+<text top="475" left="475" width="359" height="14" font="3">the font size F , as well as the text content of each line. All</text>
+<text top="491" left="475" width="359" height="14" font="3">the lines are ordered in the same sequence as shown in the</text>
+<text top="507" left="475" width="97" height="14" font="3">PDF document.</text>
+<text top="532" left="479" width="355" height="17" font="8">3.3.2 Table Box Detection and Table Metadata Ex-</text>
+<text top="548" left="529" width="52" height="17" font="8">traction</text>
+<text top="570" left="489" width="345" height="14" font="3">Automatic table metadata extraction includes two tasks:</text>
+<text top="585" left="475" width="359" height="14" font="3">table detection and metadata extraction. To eﬀectively de-</text>
+<text top="601" left="475" width="359" height="14" font="3">tect tables, we design a novel page box-cutting method as</text>
+<text top="617" left="475" width="359" height="14" font="3">following. The details of metadata extraction are addressed</text>
+<text top="632" left="475" width="41" height="14" font="3">in [13].</text>
+<text top="648" left="489" width="345" height="14" font="3">The input of the box-cutting method is a Document Con-</text>
+<text top="664" left="475" width="359" height="14" font="3">tent File shown in Figure 2. We deﬁne a page box as a</text>
+<text top="680" left="475" width="359" height="14" font="3">rectangle of adjacently connected lines with a uniform font</text>
+<text top="695" left="475" width="359" height="14" font="3">size in the same document page. Whether two lines merge</text>
+<text top="711" left="475" width="359" height="14" font="3">into a same page box is decided by two factors: the font size</text>
+<text top="727" left="475" width="207" height="14" font="3">and the position. We treat a line l</text>
+<text top="732" left="682" width="6" height="9" font="5">η</text>
+<text top="727" left="693" width="140" height="14" font="3">in a Document Content</text>
+<text top="742" left="475" width="128" height="14" font="3">File as the seed line l</text>
+<text top="748" left="604" width="22" height="9" font="5">seed</text>
+<text top="742" left="630" width="58" height="14" font="3">of a box b</text>
+<text top="748" left="688" width="5" height="9" font="5">θ</text>
+<text top="742" left="694" width="139" height="14" font="3">. Initially, η = 1, θ = 1,</text>
+<text top="758" left="475" width="30" height="14" font="3">and l</text>
+<text top="763" left="505" width="6" height="9" font="5">η</text>
+<text top="758" left="516" width="113" height="14" font="3">is the only line in b</text>
+<text top="763" left="629" width="5" height="9" font="5">θ</text>
+<text top="758" left="635" width="106" height="14" font="3">. If the next line l</text>
+<text top="763" left="741" width="20" height="9" font="5">η+1</text>
+<text top="758" left="765" width="68" height="14" font="3">in the same</text>
+<text top="774" left="475" width="359" height="14" font="3">Document Content File satisﬁes the following three condi-</text>
+<text top="789" left="475" width="115" height="14" font="3">tions, we combine l</text>
+<text top="795" left="590" width="20" height="9" font="5">η+1</text>
+<text top="789" left="615" width="33" height="14" font="3">into b</text>
+<text top="795" left="649" width="5" height="9" font="5">θ</text>
+<text top="789" left="659" width="52" height="14" font="3">and set l</text>
+<text top="795" left="711" width="20" height="9" font="5">η+1</text>
+<text top="789" left="736" width="72" height="14" font="3">as the new l</text>
+<text top="795" left="808" width="22" height="9" font="5">seed</text>
+<text top="789" left="830" width="4" height="14" font="3">.</text>
+<text top="805" left="475" width="75" height="14" font="3">Otherwise, l</text>
+<text top="810" left="551" width="20" height="9" font="5">η+1</text>
+<text top="805" left="577" width="78" height="14" font="3">will be the l</text>
+<text top="810" left="655" width="22" height="9" font="5">seed</text>
+<text top="805" left="684" width="93" height="14" font="3">of a new box b</text>
+<text top="810" left="777" width="19" height="9" font="5">θ+1</text>
+<text top="805" left="797" width="37" height="14" font="3">. C1)</text>
+<text top="821" left="475" width="40" height="14" font="3">F ont(l</text>
+<text top="826" left="515" width="20" height="9" font="5">η+1</text>
+<text top="821" left="536" width="64" height="14" font="3">) = F ont(l</text>
+<text top="826" left="600" width="22" height="9" font="5">seed</text>
+<text top="821" left="623" width="44" height="14" font="3">); C2) l</text>
+<text top="826" left="667" width="20" height="9" font="5">η+1</text>
+<text top="821" left="692" width="89" height="14" font="3">is adjacent to l</text>
+<text top="826" left="781" width="22" height="9" font="5">seed</text>
+<text top="821" left="803" width="30" height="14" font="3">; C3)</text>
+<text top="836" left="475" width="4" height="14" font="3">l</text>
+<text top="842" left="479" width="20" height="9" font="5">η+1</text>
+<text top="836" left="505" width="116" height="14" font="3">is close enough to l</text>
+<text top="842" left="620" width="22" height="9" font="5">seed</text>
+<text top="836" left="643" width="4" height="14" font="3">.</text>
+<text top="852" left="489" width="345" height="14" font="3">TableSeer deﬁnes “adjacent” as no other lines exist be-</text>
+<text top="868" left="475" width="46" height="14" font="3">tween l</text>
+<text top="873" left="521" width="20" height="9" font="5">η+1</text>
+<text top="868" left="549" width="34" height="14" font="3">and l</text>
+<text top="873" left="583" width="22" height="9" font="5">seed</text>
+<text top="868" left="605" width="4" height="14" font="3">.</text>
+<text top="868" left="623" width="211" height="14" font="3">Diﬀerent deﬁnitions of the “close</text>
+<text top="884" left="475" width="359" height="14" font="3">enough” may generate diﬀerent box cutting results. We de-</text>
+<text top="899" left="475" width="169" height="14" font="3">ﬁne the “close enough” as: Y</text>
+<text top="904" left="644" width="5" height="9" font="5">0</text>
+<text top="899" left="650" width="9" height="14" font="3">(l</text>
+<text top="904" left="660" width="20" height="9" font="5">η+1</text>
+<text top="899" left="681" width="30" height="14" font="3">)−(Y</text>
+<text top="904" left="710" width="5" height="9" font="5">0</text>
+<text top="899" left="716" width="10" height="14" font="3">(l</text>
+<text top="905" left="726" width="22" height="9" font="5">seed</text>
+<text top="899" left="748" width="38" height="14" font="3">)+H(l</text>
+<text top="905" left="786" width="22" height="9" font="5">seed</text>
+<text top="899" left="809" width="25" height="14" font="3">)) ≤</text>
+<text top="915" left="475" width="6" height="14" font="3">δ</text>
+<text top="913" left="482" width="4" height="9" font="5">l</text>
+<text top="915" left="486" width="16" height="14" font="3">. δ</text>
+<text top="913" left="503" width="4" height="9" font="5">l</text>
+<text top="915" left="511" width="323" height="14" font="3">is the maximal whitespace between two adjacent lines</text>
+<text top="931" left="475" width="359" height="14" font="3">in the same paragraph. Figure 3 displays an example of a</text>
+<text top="946" left="475" width="359" height="14" font="3">PDF document page together with the boxes segmented by</text>
+<text top="962" left="475" width="176" height="14" font="3">our page box-cutting method.</text>
+<text top="978" left="489" width="345" height="14" font="3">For all the segmented boxes in a document, TableSeer</text>
+<text top="993" left="475" width="338" height="14" font="3">classiﬁes them into three categories: small-font boxes B</text>
+<text top="991" left="814" width="14" height="9" font="5">SF</text>
+<text top="993" left="830" width="4" height="14" font="3">,</text>
+<text top="1009" left="475" width="113" height="14" font="3">large-font boxes B</text>
+<text top="1007" left="589" width="15" height="9" font="5">LF</text>
+<text top="1009" left="606" width="164" height="14" font="3">, and regular-font boxes B</text>
+<text top="1007" left="770" width="15" height="9" font="5">RF</text>
+<text top="1009" left="788" width="46" height="14" font="3">, whose</text>
+<text top="1025" left="475" width="359" height="14" font="3">font sizes are smaller than, larger than, or equal to the font</text>
+<text top="1040" left="475" width="193" height="14" font="3">size of the document body text F</text>
+<text top="1046" left="668" width="5" height="9" font="5">b</text>
+<text top="1040" left="673" width="160" height="14" font="3">. Based on the observation</text>
+<text top="1063" left="476" width="5" height="9" font="5">4</text>
+<text top="1065" left="482" width="251" height="14" font="3">PDF Reference Fifth Edition, Version 1.6</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1263" width="892">
+	<fontspec id="9" size="8" family="Times" color="#000000"/>
+	<fontspec id="10" size="5" family="Times" color="#000000"/>
+<text top="304" left="81" width="359" height="14" font="3">Figure 3: An Example of the Page Box-Cutting Ap-</text>
+<text top="320" left="81" width="47" height="14" font="3">proach</text>
+<text top="366" left="81" width="359" height="14" font="3">and statistical study on the proceeding/journal templates,</text>
+<text top="382" left="81" width="359" height="14" font="3">we summarize a set of heuristic rules (see Table 1 ), which</text>
+<text top="397" left="81" width="359" height="14" font="3">are crucial for mapping boxes to diﬀerent logical components</text>
+<text top="413" left="81" width="359" height="14" font="3">(titles, authors, aﬃliations, abstract, references, etc.) and</text>
+<text top="429" left="81" width="304" height="14" font="3">speciﬁc physical components (tables, ﬁgures, etc.).</text>
+<text top="475" left="92" width="336" height="14" font="3">Table 1: Heuristic Rules for Table Box Dections</text>
+<text top="488" left="89" width="29" height="11" font="9">Rules</text>
+<text top="488" left="135" width="42" height="11" font="9">Content</text>
+<text top="504" left="100" width="6" height="11" font="9">1</text>
+<text top="504" left="135" width="268" height="11" font="9">• Document title, author, aﬃliation, heading ∈ B</text>
+<text top="502" left="403" width="14" height="8" font="10">LF</text>
+<text top="504" left="419" width="3" height="11" font="9">.</text>
+<text top="516" left="100" width="6" height="11" font="9">2</text>
+<text top="516" left="135" width="302" height="11" font="9">• Document title, author, aﬃliation, abstract ∈ Page 1,</text>
+<text top="528" left="135" width="84" height="11" font="9">in a ﬁxed order.</text>
+<text top="540" left="100" width="6" height="11" font="9">3</text>
+<text top="540" left="135" width="302" height="11" font="9">• Figure caption, table caption, table body, footnote, Ref-</text>
+<text top="552" left="135" width="100" height="11" font="9">erence usually ∈ B</text>
+<text top="550" left="235" width="13" height="8" font="10">SF</text>
+<text top="552" left="251" width="3" height="11" font="9">.</text>
+<text top="565" left="100" width="6" height="11" font="9">4</text>
+<text top="565" left="135" width="6" height="11" font="9">•</text>
+<text top="565" left="154" width="264" height="11" font="9">Table caption, table body, footnote, Reference ∈ B</text>
+<text top="563" left="418" width="14" height="8" font="10">LF</text>
+<text top="565" left="434" width="3" height="11" font="9">.</text>
+<text top="577" left="100" width="6" height="11" font="9">5</text>
+<text top="577" left="135" width="187" height="11" font="9">• ∀ Figure and table have captions.</text>
+<text top="589" left="100" width="6" height="11" font="9">6</text>
+<text top="589" left="135" width="302" height="11" font="9">• ∀ Figure captions are beneath the ﬁgure; ∀ table captions</text>
+<text top="601" left="135" width="104" height="11" font="9">are above the table.</text>
+<text top="613" left="100" width="6" height="11" font="9">7</text>
+<text top="613" left="135" width="302" height="11" font="9">• Table captions start with keywords “Table” or “TABLE”</text>
+<text top="625" left="135" width="301" height="11" font="9">while Figure captions start with “Figure” or “FIGURE”.</text>
+<text top="657" left="94" width="345" height="14" font="3">TableSeer detects tables in at most three iterations (see</text>
+<text top="673" left="81" width="359" height="14" font="3">algorithm 1). In each iteration, we use a keyword match-</text>
+<text top="688" left="81" width="359" height="14" font="3">ing method and a whitespace checking method to examine</text>
+<text top="704" left="81" width="359" height="14" font="3">one group of the boxes. We create a predeﬁned keyword</text>
+<text top="720" left="81" width="38" height="14" font="3">list K</text>
+<text top="718" left="119" width="4" height="9" font="5">l</text>
+<text top="720" left="130" width="309" height="14" font="3">that records all the possible starting keywords of</text>
+<text top="735" left="81" width="359" height="14" font="3">the table captions in scientiﬁc documents, such as “Table”,</text>
+<text top="751" left="81" width="359" height="14" font="3">“TABLE”, “table”, “Form”, “form”, “FORM”, “Figure”,</text>
+<text top="767" left="81" width="359" height="14" font="3">“FIGURE”, “ﬁgure”, etc. In the ﬁrst iteration, we process</text>
+<text top="782" left="81" width="31" height="14" font="3">all B</text>
+<text top="780" left="112" width="14" height="9" font="5">SF</text>
+<text top="782" left="134" width="288" height="14" font="3">in the document page by page. If we ﬁnd a B</text>
+<text top="780" left="423" width="14" height="9" font="5">SF</text>
+<text top="798" left="81" width="238" height="14" font="3">that starts with a keyword listed in K</text>
+<text top="796" left="319" width="4" height="9" font="5">l</text>
+<text top="798" left="324" width="116" height="14" font="3">, we treat this box</text>
+<text top="814" left="81" width="359" height="14" font="3">as a table candidate. If we detect the tabular structure by</text>
+<text top="829" left="81" width="342" height="14" font="3">checking the whitespace information, we conﬁrm this B</text>
+<text top="828" left="423" width="14" height="9" font="5">SF</text>
+<text top="845" left="81" width="359" height="14" font="3">as a real table. Once we get the font size of a table in a doc-</text>
+<text top="861" left="81" width="359" height="14" font="3">ument, the font size of all tables in this document should</text>
+<text top="877" left="81" width="359" height="14" font="3">be ﬁxed, and we can ignore all the other boxes in diﬀerent</text>
+<text top="892" left="81" width="359" height="14" font="3">font sizes. If we do not ﬁnd any table in the ﬁrst iteration,</text>
+<text top="908" left="81" width="227" height="14" font="3">we start the second iteration on all B</text>
+<text top="906" left="308" width="15" height="9" font="5">RF</text>
+<text top="908" left="330" width="109" height="14" font="3">because there still</text>
+<text top="924" left="81" width="331" height="14" font="3">is a percentage of documents that display tables in F</text>
+<text top="929" left="411" width="5" height="9" font="5">b</text>
+<text top="924" left="417" width="22" height="14" font="3">. If</text>
+<text top="939" left="81" width="359" height="14" font="3">we fail in this iteration again, we start checking the boxes</text>
+<text top="955" left="81" width="27" height="14" font="3">in B</text>
+<text top="953" left="109" width="15" height="9" font="5">LF</text>
+<text top="955" left="125" width="314" height="14" font="3">. Usually we success in detecting tables in the ﬁrst</text>
+<text top="971" left="81" width="359" height="14" font="3">iteration. The table caption and the table body may be de-</text>
+<text top="986" left="81" width="359" height="14" font="3">tected in two adjacent boxes because of the sparse layout or</text>
+<text top="1002" left="81" width="359" height="14" font="3">the trivial font diﬀerence. TableSeer deals with such cases</text>
+<text top="1018" left="81" width="212" height="14" font="3">as well. When we detects a box b</text>
+<text top="1023" left="293" width="7" height="9" font="5">n</text>
+<text top="1018" left="306" width="133" height="14" font="3">started with words in</text>
+<text top="1033" left="81" width="35" height="14" font="3">the K</text>
+<text top="1032" left="117" width="4" height="9" font="5">l</text>
+<text top="1033" left="126" width="314" height="14" font="3">without tabular structures, we check the whitespace</text>
+<text top="1049" left="81" width="151" height="14" font="3">information of the box b</text>
+<text top="1054" left="232" width="7" height="9" font="5">n</text>
+<text top="1049" left="240" width="118" height="14" font="3">’s neighbor boxes b</text>
+<text top="1054" left="358" width="21" height="9" font="5">n−1</text>
+<text top="1049" left="380" width="12" height="14" font="3">, b</text>
+<text top="1054" left="392" width="21" height="9" font="5">n+1</text>
+<text top="1049" left="413" width="26" height="14" font="3">, re-</text>
+<text top="1065" left="81" width="62" height="14" font="3">spectively.</text>
+<text top="84" left="489" width="201" height="14" font="3">Using Figure 3 as an example, F</text>
+<text top="90" left="690" width="5" height="9" font="5">b</text>
+<text top="84" left="701" width="133" height="14" font="3">is 9.23, boxes 1, 2, 3,</text>
+<text top="100" left="475" width="64" height="14" font="3">4, 6 are B</text>
+<text top="98" left="540" width="15" height="9" font="5">LF</text>
+<text top="100" left="557" width="229" height="14" font="3">, boxes 5, 10, 8, 12, 13, 14, 15 are B</text>
+<text top="98" left="786" width="14" height="9" font="5">SF</text>
+<text top="100" left="803" width="31" height="14" font="3">, and</text>
+<text top="116" left="475" width="132" height="14" font="3">boxes 7, 9, 11 are B</text>
+<text top="114" left="608" width="15" height="9" font="5">RF</text>
+<text top="116" left="625" width="208" height="14" font="3">. In the ﬁrst iteration, we detect</text>
+<text top="132" left="475" width="359" height="14" font="3">the keyword “Table“ in box 12 without tabular structures.</text>
+<text top="147" left="475" width="359" height="14" font="3">We check its neighbors – box 11 and box 13. Box 13 is</text>
+<text top="163" left="475" width="359" height="14" font="3">conﬁrmed as a real table. With the ﬁxed table font size</text>
+<text top="179" left="475" width="359" height="14" font="3">(8.76 ), we only have to check the boxes in the same font size</text>
+<text top="194" left="475" width="359" height="14" font="3">to detect other tables in the same document. With our page</text>
+<text top="210" left="475" width="359" height="14" font="3">box-cutting method, TableSeer excludes more than (93.6%)</text>
+<text top="226" left="475" width="359" height="14" font="3">areas in the document shown in Figure 3 since the very</text>
+<text top="241" left="475" width="359" height="14" font="3">beginning. Our experimental results show that the eﬃciency</text>
+<text top="257" left="475" width="348" height="14" font="3">and accuracy of the table detection are heavily improved.</text>
+<text top="292" left="482" width="338" height="14" font="3">Algorithm 1: Pseudo code of table detection using the</text>
+<text top="308" left="482" width="152" height="14" font="3">page box-cutting method</text>
+<text top="327" left="489" width="38" height="14" font="3">begin</text>
+<text top="340" left="510" width="87" height="14" font="3">η ← 1, θ ← 1, l</text>
+<text top="345" left="597" width="5" height="9" font="5">s</text>
+<text top="340" left="607" width="22" height="14" font="3">← l</text>
+<text top="345" left="629" width="6" height="9" font="5">η</text>
+<text top="340" left="636" width="77" height="14" font="3">, f ound ← 0;</text>
+<text top="354" left="510" width="28" height="14" font="3">for l</text>
+<text top="359" left="538" width="6" height="9" font="5">η</text>
+<text top="354" left="549" width="39" height="14" font="3">∈ l do</text>
+<text top="367" left="531" width="20" height="14" font="3">if l</text>
+<text top="372" left="551" width="20" height="9" font="5">η+1</text>
+<text top="367" left="577" width="108" height="14" font="3">does not satisfy C</text>
+<text top="372" left="684" width="20" height="9" font="5">1−3</text>
+<text top="367" left="709" width="31" height="14" font="3">then</text>
+<text top="381" left="553" width="61" height="14" font="3">compare b</text>
+<text top="387" left="614" width="5" height="9" font="5">θ</text>
+<text top="381" left="620" width="112" height="14" font="3">.f ontsize() with F</text>
+<text top="387" left="733" width="5" height="9" font="5">b</text>
+<text top="381" left="738" width="4" height="14" font="3">;</text>
+<text top="398" left="553" width="54" height="14" font="3">classify b</text>
+<text top="403" left="606" width="5" height="9" font="5">θ</text>
+<text top="398" left="617" width="80" height="14" font="3">into one of B</text>
+<text top="396" left="698" width="14" height="9" font="5">SF</text>
+<text top="398" left="714" width="17" height="14" font="3">, B</text>
+<text top="396" left="731" width="15" height="9" font="5">LF</text>
+<text top="398" left="748" width="17" height="14" font="3">, B</text>
+<text top="396" left="765" width="15" height="9" font="5">RF</text>
+<text top="398" left="783" width="4" height="14" font="3">;</text>
+<text top="411" left="553" width="63" height="14" font="3">θ ← θ + 1;</text>
+<text top="428" left="531" width="4" height="14" font="3">l</text>
+<text top="434" left="535" width="20" height="9" font="5">η+1</text>
+<text top="428" left="560" width="19" height="14" font="3">∈ b</text>
+<text top="434" left="579" width="5" height="9" font="5">θ</text>
+<text top="428" left="585" width="10" height="14" font="3">, l</text>
+<text top="434" left="596" width="22" height="9" font="5">seed</text>
+<text top="428" left="622" width="22" height="14" font="3">← l</text>
+<text top="434" left="644" width="20" height="9" font="5">η+1</text>
+<text top="428" left="664" width="10" height="14" font="3">, l</text>
+<text top="434" left="674" width="6" height="9" font="5">η</text>
+<text top="428" left="685" width="22" height="14" font="3">← l</text>
+<text top="434" left="707" width="20" height="9" font="5">η+1</text>
+<text top="428" left="728" width="4" height="14" font="3">;</text>
+<text top="446" left="510" width="102" height="14" font="3">while !found do</text>
+<text top="463" left="531" width="57" height="14" font="3">for b ∈ B</text>
+<text top="461" left="589" width="61" height="9" font="5">(SF,RF,LF )</text>
+<text top="463" left="656" width="17" height="14" font="3">do</text>
+<text top="479" left="553" width="136" height="14" font="3">if ∃ b[StartWord] ∈ K</text>
+<text top="477" left="690" width="4" height="9" font="5">l</text>
+<text top="479" left="699" width="31" height="14" font="3">then</text>
+<text top="492" left="574" width="230" height="14" font="3">if there is tabular structure in b or its</text>
+<text top="506" left="574" width="123" height="14" font="3">neighbor boxes then</text>
+<text top="519" left="595" width="32" height="14" font="3">get F</text>
+<text top="524" left="627" width="24" height="9" font="5">table</text>
+<text top="519" left="652" width="121" height="14" font="3">; f ound ← 1; break;</text>
+<text top="547" left="531" width="185" height="14" font="3">foreach b with b.f ontsize = F</text>
+<text top="552" left="717" width="24" height="9" font="5">table</text>
+<text top="547" left="746" width="17" height="14" font="3">do</text>
+<text top="563" left="553" width="136" height="14" font="3">if ∃ b[StartWord] ∈ K</text>
+<text top="561" left="690" width="4" height="9" font="5">l</text>
+<text top="563" left="699" width="105" height="14" font="3">and has a tabular</text>
+<text top="576" left="553" width="90" height="14" font="3">structure then</text>
+<text top="589" left="574" width="70" height="14" font="3">b is a table;</text>
+<text top="619" left="489" width="25" height="14" font="3">end</text>
+<text top="665" left="475" width="161" height="19" font="1">3.4 Table Metadata</text>
+<text top="688" left="489" width="345" height="14" font="3">Some characteristics of our table metadata extraction are:</text>
+<text top="704" left="475" width="359" height="14" font="3">1) The table metadata should have meaningful names. 2)</text>
+<text top="720" left="475" width="359" height="14" font="3">They should be easily stored for indexing and searching. 3)</text>
+<text top="735" left="475" width="359" height="14" font="3">They can be combined diﬀerently according to the users’</text>
+<text top="751" left="475" width="359" height="14" font="3">purposes. For example, only sharing the text or displaying</text>
+<text top="767" left="475" width="115" height="14" font="3">the original layout.</text>
+<text top="782" left="489" width="345" height="14" font="3">Tables present unique challenges to IR systems because</text>
+<text top="798" left="475" width="359" height="14" font="3">of the diverse media, diﬀerent press layouts, cell types, ta-</text>
+<text top="814" left="475" width="359" height="14" font="3">ble elements, etc. No formal rules/standards exist for de-</text>
+<text top="829" left="475" width="359" height="14" font="3">signing table or for searching them. In order to be able to</text>
+<text top="845" left="475" width="359" height="14" font="3">characterize tables occurring in very diverse composite doc-</text>
+<text top="861" left="475" width="359" height="14" font="3">uments, we have designed a rich and ﬂexible representation</text>
+<text top="877" left="475" width="359" height="14" font="3">scheme for table metadata that describe tables in digital</text>
+<text top="892" left="475" width="359" height="14" font="3">documents. We classify the table metadata into six mutu-</text>
+<text top="908" left="475" width="359" height="14" font="3">ally exclusive categories: 1) table environment/geography</text>
+<text top="924" left="475" width="359" height="14" font="3">(Document-level), 2) table-frame metadata, 3) table aﬃli-</text>
+<text top="939" left="475" width="365" height="14" font="3">ated metadata, 4) table-layout metadata, 5) table cell-content</text>
+<text top="955" left="475" width="359" height="14" font="3">metadata, 6) and table-type metadata. Figure 4 shows a</text>
+<text top="971" left="475" width="198" height="14" font="3">segment of a table metadata ﬁle.</text>
+<text top="986" left="489" width="345" height="14" font="3">Table Environment/Geography Metadata. The ta-</text>
+<text top="1002" left="475" width="359" height="14" font="3">ble environment/geography metadata includes the informa-</text>
+<text top="1018" left="475" width="359" height="14" font="3">tion of the document where a table is located, such as Doc-</text>
+<text top="1033" left="475" width="359" height="14" font="3">ument Medium Type (HTML, PDF, image, PS, text, email,</text>
+<text top="1049" left="475" width="359" height="14" font="3">etc), Document Page Number of the table (the index number</text>
+<text top="1065" left="475" width="359" height="14" font="3">of the page where the table is located), Document Title (the</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1263" width="892">
+<text top="84" left="81" width="359" height="14" font="3">paper title shown in the journal or conference proceedings,</text>
+<text top="100" left="81" width="359" height="14" font="3">usually in a large font size), Document Author, Document</text>
+<text top="116" left="81" width="359" height="14" font="3">Origination (the name of the journal or conference), Docu-</text>
+<text top="132" left="81" width="359" height="14" font="3">ment Age, Table Starting Position (the X and Y-axis coordi-</text>
+<text top="147" left="81" width="359" height="14" font="3">nates of the starting place of the table), etc. This metadata</text>
+<text top="163" left="81" width="359" height="14" font="3">can facilitate the table searching if users only know pieces</text>
+<text top="179" left="81" width="359" height="14" font="3">of the document information or wish to restrict the search</text>
+<text top="194" left="81" width="184" height="14" font="3">to certain types of documents.</text>
+<text top="210" left="94" width="345" height="14" font="3">Table-Frame Metadata. The Table Frame metadata</text>
+<text top="226" left="81" width="359" height="14" font="3">records whether there are frames in the four sides around a</text>
+<text top="241" left="81" width="359" height="14" font="3">table. The values can be left, right, top, bottom, all, none,</text>
+<text top="257" left="81" width="188" height="14" font="3">top and bottom, left and right.</text>
+<text top="273" left="94" width="345" height="14" font="3">Table Aﬃliated Metadata. A table has several aﬃl-</text>
+<text top="288" left="81" width="359" height="14" font="3">iated elements. Table Caption is the caption (sentence(s))</text>
+<text top="304" left="81" width="359" height="14" font="3">that appears along with the table, e.g., “Table 1. Molecular</text>
+<text top="320" left="81" width="359" height="14" font="3">Properties of Tested Polymers”. Table Caption Position is</text>
+<text top="336" left="81" width="359" height="14" font="3">the position of the caption with relation to the body of the</text>
+<text top="351" left="81" width="359" height="14" font="3">table: above or below. Table Footnote is text that explains</text>
+<text top="367" left="81" width="359" height="14" font="3">the information in the table and usually appears below the</text>
+<text top="383" left="81" width="359" height="14" font="3">table body. Table Reference Text is the text in the docu-</text>
+<text top="398" left="81" width="359" height="14" font="3">ment body that refers to the table and discusses the content</text>
+<text top="414" left="81" width="73" height="14" font="3">of the table.</text>
+<text top="430" left="94" width="345" height="14" font="3">Table Layout Metadata helps to capture the visualiza-</text>
+<text top="445" left="81" width="359" height="14" font="3">tion of the original table. It is composed of Table Width (the</text>
+<text top="461" left="81" width="359" height="14" font="3">width of the table boundary), Table Length (the length of</text>
+<text top="477" left="81" width="359" height="14" font="3">the table boundary), Number of Columns, Number of Rows,</text>
+<text top="492" left="81" width="359" height="14" font="3">Stub Separator (vertical ruling), Boxhead Separator (hor-</text>
+<text top="508" left="81" width="359" height="14" font="3">izontal ruling), and Column Width, Row Length, Column</text>
+<text top="524" left="81" width="359" height="14" font="3">Headers, Row Headers, and Horizontal Alignment (the val-</text>
+<text top="540" left="81" width="250" height="14" font="3">ues can be “ﬂush left, right, and central).</text>
+<text top="555" left="94" width="345" height="14" font="3">Table Cell Content Data refers to the values in each</text>
+<text top="571" left="81" width="359" height="14" font="3">cell of a table, and enables people to search tables based on</text>
+<text top="587" left="81" width="359" height="14" font="3">the contents of their cells. Content in Cell[i, j] is the content</text>
+<text top="602" left="81" width="200" height="14" font="3">in the cell that is located in the i</text>
+<text top="600" left="280" width="11" height="9" font="5">th</text>
+<text top="602" left="296" width="82" height="14" font="3">row and the j</text>
+<text top="600" left="380" width="11" height="9" font="5">th</text>
+<text top="602" left="396" width="44" height="14" font="3">column</text>
+<text top="618" left="81" width="61" height="14" font="3">of a table.</text>
+<text top="634" left="94" width="345" height="14" font="3">Table Cell Type Metadata records the type of a table</text>
+<text top="649" left="81" width="359" height="14" font="3">based on the type of its cells: Numerical and/or Symbolic.</text>
+<text top="665" left="81" width="359" height="14" font="3">If the table contains cells with numeric information, it gets</text>
+<text top="681" left="81" width="359" height="14" font="3">a type Numerical, if it has symbols, like, text, equations,</text>
+<text top="696" left="81" width="359" height="14" font="3">etc., then it is marked Symbolic, Numerical tables can also</text>
+<text top="712" left="81" width="359" height="14" font="3">be further divided into number tables, mathematical equa-</text>
+<text top="728" left="81" width="359" height="14" font="3">tion tables, percentage tables, and so on. Symbolical tables</text>
+<text top="744" left="81" width="359" height="14" font="3">include character tables, image tables, formula tables, and</text>
+<text top="759" left="81" width="358" height="14" font="3">so on. A table can have both numerical and symbolic cells.</text>
+<text top="792" left="112" width="55" height="13" font="6">&lt;table-metadata&gt;</text>
+<text top="801" left="112" width="36" height="13" font="6">&lt;property&gt;</text>
+<text top="811" left="112" width="93" height="13" font="6">  &lt;name&gt;Paper Title&lt;/name&gt;</text>
+<text top="820" left="112" width="177" height="13" font="6">  &lt;value&gt;Dissolution of albite glass and crystal&lt;/value&gt;</text>
+<text top="830" left="112" width="38" height="13" font="6">&lt;/property&gt;</text>
+<text top="849" left="112" width="36" height="13" font="6">&lt;property&gt;</text>
+<text top="858" left="112" width="103" height="13" font="6">  &lt;name&gt;Table Caption&lt;/name&gt;</text>
+<text top="868" left="112" width="292" height="13" font="6">  &lt;value&gt;Table 2. Comparison of crystalline and amorphous albite dissolution rates&lt;/value&gt;</text>
+<text top="877" left="112" width="38" height="13" font="6">&lt;/property&gt;</text>
+<text top="896" left="112" width="36" height="13" font="6">&lt;property&gt;</text>
+<text top="906" left="112" width="123" height="13" font="6">  &lt;name&gt;Table Column Head&lt;/name&gt;</text>
+<text top="915" left="112" width="225" height="13" font="6">  &lt;value&gt;Type of experiment Initial pH Final pH Temperature&lt;/value&gt;</text>
+<text top="925" left="112" width="108" height="13" font="6">  &lt;description&gt;…...&lt;/description&gt;</text>
+<text top="934" left="112" width="38" height="13" font="6">&lt;/property&gt;</text>
+<text top="944" left="136" width="14" height="13" font="6">…...</text>
+<text top="953" left="112" width="58" height="13" font="6">&lt;/table-metadata&gt;</text>
+<text top="988" left="85" width="349" height="14" font="3">Figure 4: An Example of the Table Metadata File</text>
+<text top="1008" left="81" width="359" height="19" font="1">3.5 The Table Ranking Algorithm – TableR-</text>
+<text top="1026" left="121" width="29" height="19" font="1">ank</text>
+<text top="1049" left="94" width="345" height="14" font="3">One key question in information retrieval is how to rank</text>
+<text top="1065" left="81" width="359" height="14" font="3">matched results based on their relevance to a query. How-</text>
+<text top="84" left="475" width="359" height="14" font="3">ever, the existing ranking schemes are inadequate and are</text>
+<text top="100" left="475" width="359" height="14" font="3">not designed for table search. Our TableSeer search en-</text>
+<text top="116" left="475" width="359" height="14" font="3">gine has an innovative table ranking algorithm – TableRank.</text>
+<text top="132" left="475" width="359" height="14" font="3">Given a user query, TableRank returns the matched tables</text>
+<text top="147" left="475" width="359" height="14" font="3">in a descendant order according to their relevance scores.</text>
+<text top="163" left="475" width="359" height="14" font="3">Diﬀerent from the popular web search engines, our TableR-</text>
+<text top="179" left="475" width="359" height="14" font="3">ank rates the &lt;query, table&gt; pairs instead of the &lt;query,</text>
+<text top="194" left="475" width="108" height="14" font="3">document&gt; pairs.</text>
+<text top="210" left="489" width="345" height="14" font="3">TableRank tailors the traditional vector space model to</text>
+<text top="226" left="475" width="359" height="14" font="3">rate the &lt;query, table&gt; pair by replacing the document vec-</text>
+<text top="241" left="475" width="359" height="14" font="3">tors with the table vectors. As shown in Table 1, each row</text>
+<text top="257" left="475" width="359" height="14" font="3">is a query or a table vector. To determine the weight for</text>
+<text top="273" left="475" width="359" height="14" font="3">each term in the vector space, we design an innovative term</text>
+<text top="288" left="475" width="359" height="14" font="3">weighting scheme: Table Term Frequency - Inverse Table</text>
+<text top="304" left="475" width="359" height="14" font="3">Term Frequency (TTF-ITTF), a tailored TF-IDF [6] weight-</text>
+<text top="320" left="475" width="359" height="14" font="3">ing scheme. Compared with TF-IDF, TTF-ITTF demon-</text>
+<text top="336" left="475" width="359" height="14" font="3">strates two major advantages. First, it calculates the term</text>
+<text top="351" left="475" width="359" height="14" font="3">frequency in the table metadata ﬁle instead of the whole</text>
+<text top="367" left="475" width="359" height="14" font="3">document, which prevents the false positive results. Sec-</text>
+<text top="383" left="475" width="359" height="14" font="3">ond, it calculates the weight of a term with a comprehensive</text>
+<text top="398" left="475" width="31" height="14" font="3">view.</text>
+<text top="414" left="489" width="345" height="14" font="3">We divide the features we consider into two groups: query-</text>
+<text top="430" left="475" width="359" height="14" font="3">dependent features and query-independent features. Query-</text>
+<text top="445" left="475" width="359" height="14" font="3">dependent features include the traditional features of a doc-</text>
+<text top="461" left="475" width="359" height="14" font="3">ument (e.g., the document title, the author/aﬃliation, the</text>
+<text top="477" left="475" width="359" height="14" font="3">abstract, etc) and the structural features of a table (e.g.,</text>
+<text top="492" left="475" width="359" height="14" font="3">the table caption, the table column header, etc). Query-</text>
+<text top="508" left="475" width="359" height="14" font="3">independent features include the document citation, the doc-</text>
+<text top="524" left="475" width="359" height="14" font="3">ument freshness, and the document origination, etc. We</text>
+<text top="540" left="475" width="359" height="14" font="3">consider the query-independent features because when sev-</text>
+<text top="555" left="475" width="359" height="14" font="3">eral similar tables match the end-user’s query, intuitively,</text>
+<text top="571" left="475" width="359" height="14" font="3">the end-user is most interested in the tables in newly pub-</text>
+<text top="587" left="475" width="359" height="14" font="3">lished articles (document freshness) with the high quality,</text>
+<text top="602" left="475" width="359" height="14" font="3">such as a top conference (document origination) or with a</text>
+<text top="618" left="475" width="359" height="14" font="3">large number of citations (document citation). They are the</text>
+<text top="634" left="475" width="359" height="14" font="3">tables that the user probably has not seen before and is seek-</text>
+<text top="649" left="475" width="359" height="14" font="3">ing. Overall, TableRank considers features at three levels: 1)</text>
+<text top="665" left="475" width="359" height="14" font="3">the term level, 2) the table level, and 3) the document level</text>
+<text top="681" left="475" width="282" height="14" font="3">to determine the ﬁnal ranking score of a table.</text>
+<text top="696" left="489" width="345" height="14" font="3">TableRank algorithm ﬁrst applies each impact feature to</text>
+<text top="712" left="475" width="359" height="14" font="3">weight the terms in the vector space, then aggregates all</text>
+<text top="728" left="475" width="359" height="14" font="3">these features to determine the ﬁnal weight values. Co-</text>
+<text top="744" left="475" width="359" height="14" font="3">sine measure is used to determine the similarity between</text>
+<text top="759" left="475" width="359" height="14" font="3">the query vectors and the table vectors. Section 4 addresses</text>
+<text top="775" left="475" width="176" height="14" font="3">the algorithm in great detail.</text>
+<text top="799" left="475" width="358" height="19" font="1">3.6 The Table Index and the Search Interface</text>
+<text top="822" left="489" width="345" height="14" font="3">Most existing text retrieval techniques rely on indexing</text>
+<text top="838" left="475" width="358" height="14" font="3">keywords. Unfortunately, keywords or index terms alone</text>
+<text top="853" left="475" width="359" height="14" font="3">cannot adequately capture the document contents, resulting</text>
+<text top="869" left="475" width="359" height="14" font="3">in poor retrieval performance. In TableSeer, we eliminates</text>
+<text top="885" left="475" width="359" height="14" font="3">this risk by indexing table metadata ﬁles, which concen-</text>
+<text top="900" left="475" width="359" height="14" font="3">trates the table-related information into a small-size docu-</text>
+<text top="916" left="475" width="297" height="14" font="3">ment. TableSeer uses the Lucene Index Toolbox</text>
+<text top="914" left="772" width="5" height="9" font="5">5</text>
+<text top="916" left="784" width="50" height="14" font="3">to index</text>
+<text top="932" left="475" width="359" height="14" font="3">tables. A “document” is created where the table metadata</text>
+<text top="947" left="475" width="359" height="14" font="3">ﬁll the “ﬁelds”. TableSeer oﬀers two levels of searches: ba-</text>
+<text top="963" left="475" width="359" height="14" font="3">sic searches and advanced searches. A basic search allows a</text>
+<text top="979" left="475" width="359" height="14" font="3">search with simple keywords and then the matched results</text>
+<text top="994" left="475" width="359" height="14" font="3">are returned in ranked order. For advanced searching, users</text>
+<text top="1010" left="475" width="359" height="14" font="3">can set more complex queries (see Figure 3). Unlike the cur-</text>
+<text top="1026" left="475" width="359" height="14" font="3">rent search engines that index and check whole documents,</text>
+<text top="1042" left="475" width="359" height="14" font="3">TableSeer indexes and checks only the table metadata ﬁles.</text>
+<text top="1063" left="476" width="5" height="9" font="5">5</text>
+<text top="1065" left="482" width="285" height="14" font="3">http://lucene.apache.org/java/docs/index.html</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1263" width="892">
+	<fontspec id="11" size="7" family="Times" color="#007f00"/>
+<text top="84" left="94" width="345" height="14" font="3">In order to facilitate the browsing of results, TableSeer</text>
+<text top="100" left="81" width="359" height="14" font="3">provides a user-friendly interface to present the sorted re-</text>
+<text top="116" left="81" width="359" height="14" font="3">sults. Figure 4 shows that, for each matched table, area 1</text>
+<text top="132" left="81" width="359" height="14" font="3">lists the basic document information, e.g., the document ti-</text>
+<text top="147" left="81" width="359" height="14" font="3">tle, author, and aﬃliation. Area 2 lists the table location</text>
+<text top="163" left="81" width="359" height="14" font="3">information and highlights the references to the table in the</text>
+<text top="179" left="81" width="359" height="14" font="3">text. Area 3 provides links for the original whole PDF docu-</text>
+<text top="194" left="81" width="359" height="14" font="3">ment and the table metadata ﬁle. Area 4 includes the snap-</text>
+<text top="210" left="81" width="359" height="14" font="3">shot of the matched tables. Once clicked, table information</text>
+<text top="226" left="81" width="211" height="14" font="3">is enlarged for better visualization.</text>
+<text top="491" left="81" width="358" height="14" font="3">Figure 5: An Example of the Advanced Search In-</text>
+<text top="506" left="81" width="47" height="14" font="3">terface</text>
+<text top="594" left="148" width="5" height="12" font="11">1</text>
+<text top="658" left="121" width="5" height="12" font="11">3</text>
+<text top="645" left="343" width="5" height="12" font="11">4</text>
+<text top="637" left="266" width="5" height="12" font="11">2</text>
+<text top="744" left="81" width="359" height="14" font="3">Figure 6: An Example of the Query Result by Ad-</text>
+<text top="759" left="81" width="99" height="14" font="3">vanced Search</text>
+<text top="783" left="81" width="359" height="19" font="1">4. TABLERANK – THE TABLE RANKING</text>
+<text top="804" left="112" width="116" height="19" font="1">ALGORITHM</text>
+<text top="836" left="81" width="359" height="19" font="1">4.1 Similarity Measurement with a Tailored</text>
+<text top="853" left="121" width="153" height="19" font="1">Vector Space Model</text>
+<text top="877" left="94" width="345" height="14" font="3">We formalize the notations of the table ranking prob-</text>
+<text top="892" left="81" width="359" height="14" font="3">lem used throughout this paper. We represent the set of</text>
+<text top="908" left="81" width="278" height="14" font="3">crawled and extracted tables as T = {∪ tb</text>
+<text top="913" left="359" width="5" height="9" font="5">j</text>
+<text top="908" left="364" width="75" height="14" font="3">, j ∈ [1, b]},</text>
+<text top="924" left="81" width="359" height="14" font="3">where b is the total number of tables in a set of documents,</text>
+<text top="939" left="81" width="60" height="14" font="3">D = {∪d</text>
+<text top="945" left="141" width="7" height="9" font="5">α</text>
+<text top="939" left="149" width="291" height="14" font="3">, α ∈ [1, N ]}, where N is the total number of</text>
+<text top="955" left="81" width="359" height="14" font="3">documents. F (T, D) is the mapping function from T → D.</text>
+<text top="971" left="81" width="19" height="14" font="3">∀tb</text>
+<text top="976" left="99" width="5" height="9" font="5">j</text>
+<text top="971" left="109" width="44" height="14" font="3">∈ T, ∃d</text>
+<text top="976" left="153" width="7" height="9" font="5">α</text>
+<text top="971" left="165" width="140" height="14" font="3">∈ D where the table tb</text>
+<text top="976" left="305" width="5" height="9" font="5">j</text>
+<text top="971" left="316" width="124" height="14" font="3">comes from the doc-</text>
+<text top="986" left="81" width="51" height="14" font="3">ument d</text>
+<text top="992" left="132" width="7" height="9" font="5">α</text>
+<text top="986" left="140" width="70" height="14" font="3">. Also, ∀tb</text>
+<text top="992" left="210" width="5" height="9" font="5">j</text>
+<text top="986" left="222" width="73" height="14" font="3">∈ T , ∃ T M</text>
+<text top="992" left="295" width="5" height="9" font="5">j</text>
+<text top="986" left="307" width="51" height="14" font="3">= {∪ m</text>
+<text top="992" left="358" width="6" height="9" font="5">k</text>
+<text top="986" left="365" width="74" height="14" font="3">, k ∈ [1, d]},</text>
+<text top="1002" left="81" width="56" height="14" font="3">where, m</text>
+<text top="1007" left="137" width="6" height="9" font="5">k</text>
+<text top="1002" left="149" width="281" height="14" font="3">is the metadata proposed to represent table tb</text>
+<text top="1007" left="430" width="5" height="9" font="5">j</text>
+<text top="1002" left="436" width="4" height="14" font="3">,</text>
+<text top="1018" left="81" width="203" height="14" font="3">and d is the number of metadata.</text>
+<text top="1033" left="94" width="53" height="14" font="3">A term t</text>
+<text top="1039" left="147" width="4" height="9" font="5">i</text>
+<text top="1033" left="156" width="283" height="14" font="3">may repeatedly appear in diﬀerent table meta-</text>
+<text top="1049" left="81" width="44" height="14" font="3">data m</text>
+<text top="1055" left="125" width="6" height="9" font="5">k</text>
+<text top="1049" left="137" width="302" height="14" font="3">(e.g., table caption, table column/row header, ta-</text>
+<text top="1065" left="81" width="359" height="14" font="3">ble reference text, even the document title). In particular,</text>
+<text top="84" left="475" width="359" height="14" font="3">terms reﬂecting the core idea usually appear more frequently</text>
+<text top="100" left="475" width="246" height="14" font="3">and broadly. We believe that diﬀerent m</text>
+<text top="106" left="721" width="6" height="9" font="5">k</text>
+<text top="100" left="732" width="102" height="14" font="3">have diﬀerent in-</text>
+<text top="116" left="475" width="209" height="14" font="3">ﬂuences on the results and each m</text>
+<text top="121" left="684" width="6" height="9" font="5">k</text>
+<text top="116" left="696" width="138" height="14" font="3">has an assigned weight</text>
+<text top="132" left="475" width="28" height="14" font="3">M W</text>
+<text top="137" left="503" width="6" height="9" font="5">k</text>
+<text top="132" left="510" width="274" height="14" font="3">[12]. The same terms appearing in diﬀerent m</text>
+<text top="137" left="784" width="6" height="9" font="5">k</text>
+<text top="132" left="795" width="39" height="14" font="3">should</text>
+<text top="147" left="475" width="359" height="14" font="3">be treated separately. Likewise, the same terms appearing</text>
+<text top="163" left="475" width="87" height="14" font="3">in the same m</text>
+<text top="168" left="562" width="6" height="9" font="5">k</text>
+<text top="163" left="573" width="156" height="14" font="3">should be treated equally.</text>
+<text top="179" left="489" width="66" height="14" font="3">Let sim(tb</text>
+<text top="184" left="555" width="5" height="9" font="5">j</text>
+<text top="179" left="560" width="273" height="14" font="3">, Q) denote the similarity between the table</text>
+<text top="194" left="475" width="11" height="14" font="3">tb</text>
+<text top="200" left="486" width="5" height="9" font="5">j</text>
+<text top="194" left="497" width="337" height="14" font="3">and the query Q. Both of the table and the query can</text>
+<text top="210" left="475" width="359" height="14" font="3">be represented as a vector. Each vector is composed of a set</text>
+<text top="226" left="475" width="359" height="14" font="3">of alphabetically ordered terms. All the table vectors and</text>
+<text top="241" left="475" width="359" height="14" font="3">query vectors construct a vector matrix as shown in Table 2.</text>
+<text top="257" left="475" width="353" height="14" font="3">Each row in the matrix represents the vector of a table tb</text>
+<text top="262" left="828" width="5" height="9" font="5">j</text>
+<text top="273" left="475" width="253" height="14" font="3">(j ∈ [1, b]) or the query Q. Each table tb</text>
+<text top="278" left="728" width="5" height="9" font="5">j</text>
+<text top="273" left="739" width="95" height="14" font="3">has k metadata</text>
+<text top="288" left="475" width="155" height="14" font="3">elements describing it. w</text>
+<text top="294" left="631" width="21" height="9" font="5">i,j,k</text>
+<text top="288" left="658" width="164" height="14" font="3">is the term weight of the i</text>
+<text top="287" left="822" width="11" height="9" font="5">th</text>
+<text top="304" left="475" width="82" height="14" font="3">term in the k</text>
+<text top="302" left="558" width="11" height="9" font="5">th</text>
+<text top="304" left="575" width="149" height="14" font="3">metadata of the table tb</text>
+<text top="309" left="724" width="5" height="9" font="5">j</text>
+<text top="304" left="735" width="37" height="14" font="3">and w</text>
+<text top="310" left="773" width="22" height="9" font="5">i,q,k</text>
+<text top="304" left="801" width="33" height="14" font="3">refers</text>
+<text top="320" left="475" width="139" height="14" font="3">the term weight of the i</text>
+<text top="318" left="614" width="11" height="9" font="5">th</text>
+<text top="320" left="629" width="114" height="14" font="3">query term in the k</text>
+<text top="318" left="743" width="11" height="9" font="5">th</text>
+<text top="320" left="758" width="76" height="14" font="3">metadata. If</text>
+<text top="336" left="475" width="28" height="14" font="3">the i</text>
+<text top="334" left="503" width="11" height="9" font="5">th</text>
+<text top="336" left="519" width="236" height="14" font="3">term does not occur in the metadata m</text>
+<text top="341" left="755" width="6" height="9" font="5">k</text>
+<text top="336" left="765" width="68" height="14" font="3">of the table</text>
+<text top="351" left="475" width="11" height="14" font="3">tb</text>
+<text top="357" left="486" width="5" height="9" font="5">j</text>
+<text top="351" left="492" width="16" height="14" font="3">, w</text>
+<text top="357" left="508" width="21" height="9" font="5">i,j,k</text>
+<text top="351" left="534" width="109" height="14" font="3">= 0. Otherwise, w</text>
+<text top="357" left="643" width="21" height="9" font="5">i,j,k</text>
+<text top="351" left="669" width="142" height="14" font="3">&gt; 0. The term weight w</text>
+<text top="357" left="811" width="22" height="9" font="5">i,q,k</text>
+<text top="367" left="475" width="268" height="14" font="3">follows the same rule. As discussed, a term t</text>
+<text top="372" left="743" width="4" height="9" font="5">i</text>
+<text top="367" left="752" width="82" height="14" font="3">can appear in</text>
+<text top="383" left="475" width="359" height="14" font="3">multiple metadata. If the user speciﬁes the query term lo-</text>
+<text top="398" left="475" width="359" height="14" font="3">cation, e.g., the metadata “Table Caption,” the query term</text>
+<text top="414" left="475" width="359" height="14" font="3">will only be ﬁlled in the metadata “Table Caption” columns.</text>
+<text top="430" left="475" width="341" height="14" font="3">Otherwise, it will be ﬁlled to every metadata in Table 2.</text>
+<text top="445" left="489" width="345" height="14" font="3">TableRank constructs the vector matrix and measures the</text>
+<text top="461" left="475" width="359" height="14" font="3">similarity between the query and each table by computing</text>
+<text top="477" left="475" width="359" height="14" font="3">the cosine of the angle between these two vectors (the equa-</text>
+<text top="492" left="475" width="176" height="14" font="3">tion is shown in Equation 1).</text>
+<text top="529" left="518" width="40" height="14" font="3">sim(tb</text>
+<text top="535" left="558" width="5" height="9" font="5">j</text>
+<text top="529" left="564" width="76" height="14" font="3">, Q) = cos(tb</text>
+<text top="535" left="640" width="5" height="9" font="5">j</text>
+<text top="529" left="646" width="37" height="14" font="3">, Q) =</text>
+<text top="517" left="703" width="5" height="9" font="5">s</text>
+<text top="528" left="703" width="18" height="9" font="5">i=1</text>
+<text top="520" left="724" width="10" height="14" font="3">w</text>
+<text top="525" left="734" width="21" height="9" font="5">i,j,k</text>
+<text top="520" left="756" width="10" height="14" font="3">w</text>
+<text top="525" left="766" width="22" height="9" font="5">i,q,k</text>
+<text top="539" left="717" width="15" height="14" font="3">|tb</text>
+<text top="544" left="732" width="5" height="9" font="5">j</text>
+<text top="539" left="738" width="22" height="14" font="3">||Q|</text>
+<text top="529" left="816" width="18" height="14" font="3">(1)</text>
+<text top="568" left="475" width="148" height="14" font="3">where, the ﬁnal weight w</text>
+<text top="573" left="623" width="21" height="9" font="5">i,j,k</text>
+<text top="568" left="649" width="42" height="14" font="3">of the i</text>
+<text top="566" left="691" width="11" height="9" font="5">th</text>
+<text top="568" left="707" width="77" height="14" font="3">term in the k</text>
+<text top="566" left="784" width="11" height="9" font="5">th</text>
+<text top="568" left="799" width="35" height="14" font="3">meta-</text>
+<text top="583" left="475" width="111" height="14" font="3">data of the table tb</text>
+<text top="589" left="586" width="5" height="9" font="5">j</text>
+<text top="583" left="595" width="238" height="14" font="3">is computed by Equation 2. The weight-</text>
+<text top="599" left="475" width="299" height="14" font="3">ing scheme is also applicable to the query term w</text>
+<text top="605" left="775" width="22" height="9" font="5">i,q,k</text>
+<text top="599" left="798" width="4" height="14" font="3">.</text>
+<text top="628" left="475" width="165" height="19" font="1">4.2 Term Weighting</text>
+<text top="651" left="489" width="323" height="14" font="3">Equation 2 shows that the ﬁnal weight of a term w</text>
+<text top="657" left="812" width="21" height="9" font="5">i,j,k</text>
+<text top="667" left="475" width="297" height="14" font="3">comes from three levels: the term-level weight w</text>
+<text top="665" left="773" width="56" height="9" font="5">T ermLevel</text>
+<text top="673" left="773" width="21" height="9" font="5">i,j,k</text>
+<text top="667" left="830" width="4" height="14" font="3">,</text>
+<text top="683" left="475" width="198" height="14" font="3">the table-level weight boost T LB</text>
+<text top="688" left="673" width="12" height="9" font="5">i,j</text>
+<text top="683" left="686" width="147" height="14" font="3">, and the document-level</text>
+<text top="698" left="475" width="113" height="14" font="3">weight boost DLB</text>
+<text top="704" left="588" width="5" height="9" font="5">j</text>
+<text top="698" left="594" width="4" height="14" font="3">.</text>
+<text top="739" left="542" width="10" height="14" font="3">w</text>
+<text top="744" left="552" width="21" height="9" font="5">i,j,k</text>
+<text top="739" left="578" width="25" height="14" font="3">= w</text>
+<text top="736" left="603" width="56" height="9" font="5">T ermLevel</text>
+<text top="745" left="603" width="21" height="9" font="5">i,j,k</text>
+<text top="739" left="663" width="40" height="14" font="3">∗ T LB</text>
+<text top="744" left="703" width="12" height="9" font="5">i,j</text>
+<text top="739" left="719" width="42" height="14" font="3">∗ DLB</text>
+<text top="744" left="761" width="5" height="9" font="5">j</text>
+<text top="739" left="816" width="18" height="14" font="3">(2)</text>
+<text top="763" left="489" width="345" height="14" font="3">In addition to the term-level weight, which contributes</text>
+<text top="779" left="475" width="359" height="14" font="3">a great proportion to the ﬁnal weight of a term, there are</text>
+<text top="795" left="475" width="359" height="14" font="3">two levels of boost factors. TLB refers to those table-level</text>
+<text top="810" left="475" width="359" height="14" font="3">features that improve the weight of a term (e.g., table fre-</text>
+<text top="826" left="475" width="359" height="14" font="3">quency) while DLB refers to those document-level features</text>
+<text top="842" left="475" width="359" height="14" font="3">that improve the weight of a term (e.g., journal rank, docu-</text>
+<text top="857" left="475" width="90" height="14" font="3">ment citation).</text>
+<text top="886" left="479" width="201" height="17" font="8">4.2.1 The Term-Level Weight</text>
+<text top="908" left="489" width="345" height="14" font="3">T ableRank uses an innovative weighting scheme: Table</text>
+<text top="924" left="475" width="359" height="14" font="3">Term Frequency - Inverse Table Term Frequency (TTF-</text>
+<text top="939" left="475" width="359" height="14" font="3">ITTF) scheme. T T F IT T F is adapted from the TF-IDF[6]</text>
+<text top="955" left="475" width="359" height="14" font="3">weighting scheme, a widely used weighting method for free-</text>
+<text top="971" left="475" width="359" height="14" font="3">text documents. However, it is not suitable for table rank-</text>
+<text top="986" left="475" width="359" height="14" font="3">ing because it only considers the term frequency and in-</text>
+<text top="1002" left="475" width="359" height="14" font="3">verse document frequency and ignores many other impor-</text>
+<text top="1018" left="475" width="359" height="14" font="3">tant impact factors, e.g, term position. In contrast to TF-</text>
+<text top="1033" left="475" width="359" height="14" font="3">IDF, TTF-ITTF demonstrates two major diﬀerences. First,</text>
+<text top="1049" left="475" width="359" height="14" font="3">TTF-ITTF calculates term frequency in a table metadata</text>
+<text top="1065" left="475" width="359" height="14" font="3">ﬁle instead of the whole document. Second, the position of</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1263" width="892">
+<text top="94" left="226" width="463" height="14" font="3">Table 2: The Vector Space Model for rating &lt;Query, Table&gt; pairs</text>
+<text top="109" left="226" width="11" height="11" font="9">m</text>
+<text top="113" left="237" width="5" height="8" font="10">1</text>
+<text top="109" left="243" width="28" height="11" font="9">(M W</text>
+<text top="113" left="271" width="5" height="8" font="10">1</text>
+<text top="109" left="277" width="5" height="11" font="9">)</text>
+<text top="109" left="394" width="11" height="11" font="9">m</text>
+<text top="113" left="405" width="5" height="8" font="10">2</text>
+<text top="109" left="411" width="28" height="11" font="9">(M W</text>
+<text top="113" left="439" width="5" height="8" font="10">2</text>
+<text top="109" left="445" width="5" height="11" font="9">)</text>
+<text top="109" left="514" width="10" height="11" font="9">...</text>
+<text top="109" left="589" width="11" height="11" font="9">m</text>
+<text top="114" left="599" width="6" height="8" font="10">k</text>
+<text top="109" left="606" width="28" height="11" font="9">(M W</text>
+<text top="114" left="634" width="6" height="8" font="10">k</text>
+<text top="109" left="641" width="5" height="11" font="9">)</text>
+<text top="109" left="710" width="26" height="11" font="9">T LB</text>
+<text top="109" left="753" width="27" height="11" font="9">DLB</text>
+<text top="125" left="185" width="5" height="11" font="9">t</text>
+<text top="129" left="190" width="14" height="8" font="10">1,1</text>
+<text top="125" left="249" width="10" height="11" font="9">...</text>
+<text top="125" left="304" width="5" height="11" font="9">t</text>
+<text top="129" left="309" width="14" height="8" font="10">x,1</text>
+<text top="125" left="353" width="5" height="11" font="9">t</text>
+<text top="129" left="357" width="14" height="8" font="10">1,2</text>
+<text top="125" left="417" width="10" height="11" font="9">...</text>
+<text top="125" left="472" width="5" height="11" font="9">t</text>
+<text top="129" left="476" width="14" height="8" font="10">y,2</text>
+<text top="125" left="514" width="10" height="11" font="9">...</text>
+<text top="125" left="547" width="5" height="11" font="9">t</text>
+<text top="129" left="551" width="14" height="8" font="10">1,k</text>
+<text top="125" left="612" width="10" height="11" font="9">...</text>
+<text top="125" left="668" width="5" height="11" font="9">t</text>
+<text top="129" left="672" width="15" height="8" font="10">z,k</text>
+<text top="125" left="718" width="10" height="11" font="9">...</text>
+<text top="125" left="762" width="10" height="11" font="9">...</text>
+<text top="140" left="137" width="16" height="11" font="9">tb1</text>
+<text top="140" left="179" width="9" height="11" font="9">w</text>
+<text top="144" left="187" width="22" height="8" font="10">1,1,1</text>
+<text top="140" left="249" width="10" height="11" font="9">...</text>
+<text top="140" left="298" width="9" height="11" font="9">w</text>
+<text top="144" left="307" width="23" height="8" font="10">x,1,1</text>
+<text top="140" left="346" width="9" height="11" font="9">w</text>
+<text top="144" left="355" width="22" height="8" font="10">1,1,2</text>
+<text top="140" left="417" width="10" height="11" font="9">...</text>
+<text top="140" left="466" width="9" height="11" font="9">w</text>
+<text top="144" left="474" width="23" height="8" font="10">y,1,2</text>
+<text top="140" left="514" width="10" height="11" font="9">...</text>
+<text top="140" left="540" width="9" height="11" font="9">w</text>
+<text top="144" left="549" width="23" height="8" font="10">1,1,k</text>
+<text top="140" left="612" width="10" height="11" font="9">...</text>
+<text top="140" left="662" width="9" height="11" font="9">w</text>
+<text top="144" left="670" width="23" height="8" font="10">z,1,k</text>
+<text top="140" left="718" width="10" height="11" font="9">...</text>
+<text top="140" left="762" width="10" height="11" font="9">...</text>
+<text top="152" left="137" width="16" height="11" font="9">tb2</text>
+<text top="152" left="179" width="9" height="11" font="9">w</text>
+<text top="156" left="187" width="22" height="8" font="10">1,2,1</text>
+<text top="152" left="249" width="10" height="11" font="9">...</text>
+<text top="152" left="298" width="9" height="11" font="9">w</text>
+<text top="156" left="307" width="23" height="8" font="10">x,2,1</text>
+<text top="152" left="346" width="9" height="11" font="9">w</text>
+<text top="156" left="355" width="22" height="8" font="10">1,2,2</text>
+<text top="152" left="417" width="10" height="11" font="9">...</text>
+<text top="152" left="466" width="9" height="11" font="9">w</text>
+<text top="156" left="474" width="23" height="8" font="10">y,2,2</text>
+<text top="152" left="514" width="10" height="11" font="9">...</text>
+<text top="152" left="540" width="9" height="11" font="9">w</text>
+<text top="156" left="549" width="23" height="8" font="10">1,2,k</text>
+<text top="152" left="612" width="10" height="11" font="9">...</text>
+<text top="152" left="662" width="9" height="11" font="9">w</text>
+<text top="156" left="670" width="23" height="8" font="10">z,2,k</text>
+<text top="152" left="718" width="10" height="11" font="9">...</text>
+<text top="152" left="762" width="10" height="11" font="9">...</text>
+<text top="166" left="144" width="4" height="11" font="9">.</text>
+<text top="172" left="144" width="4" height="11" font="9">.</text>
+<text top="178" left="144" width="4" height="11" font="9">.</text>
+<text top="178" left="189" width="10" height="11" font="9">...</text>
+<text top="166" left="252" width="3" height="11" font="9">.</text>
+<text top="172" left="252" width="3" height="11" font="9">.</text>
+<text top="178" left="252" width="3" height="11" font="9">.</text>
+<text top="178" left="309" width="10" height="11" font="9">...</text>
+<text top="178" left="357" width="10" height="11" font="9">...</text>
+<text top="166" left="420" width="3" height="11" font="9">.</text>
+<text top="172" left="420" width="3" height="11" font="9">.</text>
+<text top="178" left="420" width="3" height="11" font="9">.</text>
+<text top="178" left="477" width="10" height="11" font="9">...</text>
+<text top="166" left="517" width="3" height="11" font="9">.</text>
+<text top="172" left="517" width="3" height="11" font="9">.</text>
+<text top="178" left="517" width="3" height="11" font="9">.</text>
+<text top="178" left="551" width="10" height="11" font="9">...</text>
+<text top="166" left="615" width="3" height="11" font="9">.</text>
+<text top="172" left="615" width="3" height="11" font="9">.</text>
+<text top="178" left="615" width="3" height="11" font="9">.</text>
+<text top="178" left="673" width="10" height="11" font="9">...</text>
+<text top="178" left="718" width="10" height="11" font="9">...</text>
+<text top="178" left="762" width="10" height="11" font="9">...</text>
+<text top="190" left="139" width="10" height="11" font="9">tb</text>
+<text top="194" left="148" width="5" height="8" font="10">b</text>
+<text top="190" left="179" width="9" height="11" font="9">w</text>
+<text top="194" left="188" width="22" height="8" font="10">1,b,1</text>
+<text top="190" left="249" width="10" height="11" font="9">...</text>
+<text top="190" left="298" width="9" height="11" font="9">w</text>
+<text top="194" left="307" width="23" height="8" font="10">x,b,1</text>
+<text top="190" left="347" width="9" height="11" font="9">w</text>
+<text top="194" left="355" width="22" height="8" font="10">1,b,2</text>
+<text top="190" left="417" width="10" height="11" font="9">...</text>
+<text top="190" left="466" width="9" height="11" font="9">w</text>
+<text top="194" left="474" width="22" height="8" font="10">y,b,2</text>
+<text top="190" left="514" width="10" height="11" font="9">...</text>
+<text top="190" left="540" width="9" height="11" font="9">w</text>
+<text top="194" left="549" width="22" height="8" font="10">1,b,k</text>
+<text top="190" left="612" width="10" height="11" font="9">...</text>
+<text top="190" left="662" width="9" height="11" font="9">w</text>
+<text top="194" left="670" width="23" height="8" font="10">z,b,k</text>
+<text top="190" left="718" width="10" height="11" font="9">...</text>
+<text top="190" left="762" width="10" height="11" font="9">...</text>
+<text top="205" left="142" width="9" height="11" font="9">Q</text>
+<text top="205" left="179" width="9" height="11" font="9">w</text>
+<text top="209" left="187" width="22" height="8" font="10">1,q,1</text>
+<text top="205" left="346" width="9" height="11" font="9">w</text>
+<text top="209" left="355" width="22" height="8" font="10">1,q,2</text>
+<text top="205" left="514" width="10" height="11" font="9">...</text>
+<text top="205" left="540" width="9" height="11" font="9">w</text>
+<text top="209" left="549" width="23" height="8" font="10">1,q,k</text>
+<text top="205" left="718" width="10" height="11" font="9">...</text>
+<text top="205" left="762" width="10" height="11" font="9">...</text>
+<text top="217" left="130" width="31" height="11" font="9">IT T F</text>
+<text top="217" left="189" width="10" height="11" font="9">...</text>
+<text top="217" left="249" width="10" height="11" font="9">...</text>
+<text top="217" left="309" width="10" height="11" font="9">...</text>
+<text top="217" left="417" width="10" height="11" font="9">...</text>
+<text top="217" left="477" width="10" height="11" font="9">...</text>
+<text top="217" left="514" width="10" height="11" font="9">...</text>
+<text top="217" left="551" width="10" height="11" font="9">...</text>
+<text top="217" left="612" width="10" height="11" font="9">...</text>
+<text top="217" left="673" width="10" height="11" font="9">...</text>
+<text top="217" left="718" width="10" height="11" font="9">...</text>
+<text top="217" left="762" width="10" height="11" font="9">...</text>
+<text top="253" left="81" width="359" height="14" font="3">a term in the table and the document is considered. There-</text>
+<text top="269" left="81" width="79" height="14" font="3">fore, we have</text>
+<text top="308" left="94" width="10" height="14" font="3">w</text>
+<text top="305" left="104" width="56" height="9" font="5">T ermLevel</text>
+<text top="314" left="104" width="21" height="9" font="5">i,j,k</text>
+<text top="308" left="165" width="81" height="14" font="3">= T T F IT T F</text>
+<text top="313" left="246" width="21" height="9" font="5">i,j,k</text>
+<text top="308" left="272" width="43" height="14" font="3">= T T F</text>
+<text top="313" left="315" width="21" height="9" font="5">i,j,k</text>
+<text top="308" left="341" width="46" height="14" font="3">∗ IT T F</text>
+<text top="313" left="387" width="21" height="9" font="5">i,j,k</text>
+<text top="308" left="422" width="18" height="14" font="3">(3)</text>
+<text top="331" left="81" width="70" height="14" font="3">where T T F</text>
+<text top="336" left="151" width="21" height="9" font="5">i,j,k</text>
+<text top="331" left="179" width="256" height="14" font="3">is the term frequency of the table term t</text>
+<text top="336" left="435" width="4" height="9" font="5">i</text>
+<text top="347" left="81" width="118" height="14" font="3">in the metadata m</text>
+<text top="352" left="198" width="6" height="9" font="5">k</text>
+<text top="347" left="211" width="89" height="14" font="3">of the table tb</text>
+<text top="352" left="301" width="5" height="9" font="5">j</text>
+<text top="347" left="312" width="64" height="14" font="3">and IT T F</text>
+<text top="352" left="377" width="21" height="9" font="5">i,j,k</text>
+<text top="347" left="405" width="34" height="14" font="3">is the</text>
+<text top="362" left="81" width="359" height="14" font="3">inverse table term frequency. Like in the case of inverse</text>
+<text top="378" left="81" width="323" height="14" font="3">document frequency, the idea behind using the IT T F</text>
+<text top="383" left="403" width="21" height="9" font="5">i,j,k</text>
+<text top="378" left="430" width="9" height="14" font="3">is</text>
+<text top="394" left="81" width="359" height="14" font="3">that a term that occurs in a few tables is likely to be a better</text>
+<text top="409" left="81" width="359" height="14" font="3">discriminator than a term that appears in most or all tables.</text>
+<text top="433" left="85" width="240" height="17" font="8">4.2.2 The Table-Level Boost (TLB)</text>
+<text top="455" left="94" width="345" height="14" font="3">Intuitively, a table itself is also important and inﬂuences</text>
+<text top="471" left="81" width="361" height="14" font="3">the weight of terms in it. Besides term-level features, TableR-</text>
+<text top="487" left="81" width="359" height="14" font="3">ank also considers table-level features like: 1) the table fre-</text>
+<text top="502" left="81" width="359" height="14" font="3">quency, 2) the length of the text that exposits the table</text>
+<text top="518" left="81" width="359" height="14" font="3">content in the document (namely the table reference text),</text>
+<text top="534" left="81" width="359" height="14" font="3">and 3) the table position. These factors are embodied in the</text>
+<text top="549" left="81" width="278" height="14" font="3">Table Level Boosting (TLB) factor as follows:</text>
+<text top="586" left="160" width="30" height="14" font="3">T LB</text>
+<text top="591" left="190" width="12" height="9" font="5">i,j</text>
+<text top="586" left="207" width="25" height="14" font="3">= B</text>
+<text top="591" left="232" width="15" height="9" font="5">tbf</text>
+<text top="586" left="252" width="24" height="14" font="3">+ B</text>
+<text top="591" left="276" width="14" height="9" font="5">trt</text>
+<text top="586" left="294" width="49" height="14" font="3">+ (r ∗ B</text>
+<text top="591" left="343" width="10" height="9" font="5">tp</text>
+<text top="586" left="354" width="5" height="14" font="3">)</text>
+<text top="586" left="422" width="18" height="14" font="3">(4)</text>
+<text top="606" left="94" width="50" height="14" font="3">where B</text>
+<text top="611" left="144" width="15" height="9" font="5">tbf</text>
+<text top="606" left="165" width="259" height="14" font="3">is the boost value of the table frequency, B</text>
+<text top="611" left="425" width="14" height="9" font="5">trt</text>
+<text top="622" left="81" width="332" height="14" font="3">is the boost value of the table reference text, and B</text>
+<text top="627" left="413" width="10" height="9" font="5">tp</text>
+<text top="622" left="430" width="9" height="14" font="3">is</text>
+<text top="637" left="81" width="359" height="14" font="3">the boost value of the table position, and r is a constant</text>
+<text top="653" left="81" width="359" height="14" font="3">∈[0,1]. If users specify the table position in the query, r = 1,</text>
+<text top="669" left="81" width="97" height="14" font="3">otherwise r = 0.</text>
+<text top="693" left="85" width="274" height="17" font="8">4.2.3 The Document-Level Boost (DLB)</text>
+<text top="715" left="94" width="345" height="14" font="3">Unlike TTF-ITTF and TLB, Document Level Boosting</text>
+<text top="730" left="81" width="359" height="14" font="3">(DLB) considers query-independent (static) factors. DLB</text>
+<text top="746" left="81" width="359" height="14" font="3">indicates the overall importance of a document where a table</text>
+<text top="762" left="81" width="359" height="14" font="3">appears. For a high quality document, its tables are also</text>
+<text top="777" left="81" width="359" height="14" font="3">inclined to be important and the terms should receive a high</text>
+<text top="793" left="81" width="151" height="14" font="3">document-level boosting.</text>
+<text top="809" left="94" width="125" height="14" font="3">Given a document d</text>
+<text top="814" left="220" width="5" height="9" font="5">j</text>
+<text top="809" left="225" width="25" height="14" font="3">, IV</text>
+<text top="814" left="250" width="5" height="9" font="5">j</text>
+<text top="809" left="262" width="177" height="14" font="3">denotes its document Impor-</text>
+<text top="824" left="81" width="226" height="14" font="3">tance Value (IV). T ableRank sets IV</text>
+<text top="830" left="306" width="5" height="9" font="5">j</text>
+<text top="824" left="317" width="117" height="14" font="3">for the document d</text>
+<text top="830" left="434" width="5" height="9" font="5">j</text>
+<text top="840" left="81" width="359" height="14" font="3">by considering the following three factors: the inherited cita-</text>
+<text top="856" left="81" width="359" height="14" font="3">tion value (IC) from the ones who cite the document, 2) the</text>
+<text top="871" left="81" width="344" height="14" font="3">document origin (DO, and 3) the document freshness(DF</text>
+<text top="877" left="424" width="5" height="9" font="5">j</text>
+<text top="871" left="430" width="9" height="14" font="3">).</text>
+<text top="887" left="81" width="209" height="14" font="3">Suppose there are x documents (d</text>
+<text top="892" left="289" width="5" height="9" font="5">1</text>
+<text top="887" left="296" width="13" height="14" font="3">, d</text>
+<text top="892" left="309" width="5" height="9" font="5">2</text>
+<text top="887" left="315" width="31" height="14" font="3">, ..., d</text>
+<text top="892" left="346" width="6" height="9" font="5">x</text>
+<text top="887" left="353" width="86" height="14" font="3">) that cite the</text>
+<text top="903" left="81" width="71" height="14" font="3">document d</text>
+<text top="908" left="152" width="5" height="9" font="5">j</text>
+<text top="903" left="158" width="55" height="14" font="3">, then IV</text>
+<text top="908" left="213" width="5" height="9" font="5">j</text>
+<text top="903" left="224" width="216" height="14" font="3">is deﬁned using the following recur-</text>
+<text top="919" left="81" width="94" height="14" font="3">sive equation 5.</text>
+<text top="950" left="81" width="32" height="14" font="3">DLB</text>
+<text top="955" left="112" width="5" height="9" font="5">j</text>
+<text top="950" left="122" width="30" height="14" font="3">= IV</text>
+<text top="955" left="152" width="5" height="9" font="5">j</text>
+<text top="950" left="161" width="32" height="14" font="3">= IC</text>
+<text top="955" left="193" width="5" height="9" font="5">j</text>
+<text top="950" left="200" width="31" height="14" font="3">∗ DO</text>
+<text top="955" left="231" width="5" height="9" font="5">j</text>
+<text top="950" left="238" width="29" height="14" font="3">∗ DF</text>
+<text top="955" left="267" width="5" height="9" font="5">j</text>
+<text top="950" left="277" width="20" height="14" font="3">= (</text>
+<text top="938" left="313" width="6" height="9" font="5">x</text>
+<text top="948" left="313" width="20" height="9" font="5">v=1</text>
+<text top="940" left="336" width="15" height="14" font="3">IV</text>
+<text top="946" left="351" width="6" height="9" font="5">v</text>
+<text top="959" left="324" width="8" height="14" font="3">x</text>
+<text top="950" left="360" width="37" height="14" font="3">) ∗ DO</text>
+<text top="955" left="397" width="5" height="9" font="5">j</text>
+<text top="950" left="405" width="29" height="14" font="3">∗ DF</text>
+<text top="955" left="434" width="5" height="9" font="5">j</text>
+<text top="971" left="422" width="18" height="14" font="3">(5)</text>
+<text top="986" left="94" width="345" height="14" font="3">(IC) relies on the nature of the scientiﬁc document itself</text>
+<text top="1002" left="81" width="358" height="14" font="3">by using its crucial citation link structure as a major indi-</text>
+<text top="1018" left="81" width="334" height="14" font="3">cator. In essence, a citation link from one document D</text>
+<text top="1023" left="414" width="7" height="9" font="5">α</text>
+<text top="1018" left="427" width="12" height="14" font="3">to</text>
+<text top="1033" left="81" width="124" height="14" font="3">another document D</text>
+<text top="1039" left="205" width="6" height="9" font="5">β</text>
+<text top="1033" left="216" width="212" height="14" font="3">can be seen as an endorsement of D</text>
+<text top="1039" left="428" width="7" height="9" font="5">α</text>
+<text top="1033" left="436" width="4" height="14" font="3">.</text>
+<text top="1049" left="81" width="127" height="14" font="3">We represent it as D</text>
+<text top="1054" left="207" width="7" height="9" font="5">α</text>
+<text top="1049" left="219" width="29" height="14" font="3">→ D</text>
+<text top="1055" left="249" width="6" height="9" font="5">β</text>
+<text top="1049" left="261" width="126" height="14" font="3">and the document D</text>
+<text top="1055" left="388" width="6" height="9" font="5">β</text>
+<text top="1049" left="400" width="39" height="14" font="3">is con-</text>
+<text top="1065" left="81" width="213" height="14" font="3">sidered older than the document D</text>
+<text top="1070" left="294" width="7" height="9" font="5">α</text>
+<text top="1065" left="302" width="137" height="14" font="3">. The number of times</text>
+<text top="385" left="490" width="329" height="14" font="3">Figure 7: An Example of the Citation Network</text>
+<text top="411" left="475" width="11" height="14" font="3">D</text>
+<text top="416" left="487" width="7" height="9" font="5">α</text>
+<text top="411" left="499" width="283" height="14" font="3">is cited and the quality of the ones that cite D</text>
+<text top="416" left="782" width="7" height="9" font="5">α</text>
+<text top="411" left="795" width="39" height="14" font="3">are in-</text>
+<text top="426" left="475" width="190" height="14" font="3">dicative of the importance of D</text>
+<text top="432" left="665" width="7" height="9" font="5">α</text>
+<text top="426" left="673" width="161" height="14" font="3">. Using this way, academic</text>
+<text top="442" left="475" width="359" height="14" font="3">documents construct a citation network which is a Directed</text>
+<text top="458" left="475" width="359" height="14" font="3">Acyclic Graph (DAG) as shown in Figure 7. Our algorithm</text>
+<text top="474" left="475" width="359" height="14" font="3">computes the document importance of each document using</text>
+<text top="489" left="475" width="359" height="14" font="3">this citation network. Each node in the DAG highlights the</text>
+<text top="505" left="475" width="359" height="14" font="3">fact that the importance of a node is essentially obtained</text>
+<text top="521" left="475" width="358" height="14" font="3">as a weighted sum of contribution coming from every path</text>
+<text top="536" left="475" width="138" height="14" font="3">entering into the node.</text>
+<text top="552" left="489" width="22" height="14" font="3">DO</text>
+<text top="557" left="511" width="5" height="9" font="5">j</text>
+<text top="552" left="521" width="313" height="14" font="3">can be set based on the journal/conference prestige.</text>
+<text top="568" left="475" width="359" height="14" font="3">In each research ﬁeld, scholarly journals or conferences are</text>
+<text top="583" left="475" width="359" height="14" font="3">scored based on the opinions of ﬁeld experts. We get this</text>
+<text top="599" left="475" width="359" height="14" font="3">information from three sources: the impact ranking for the</text>
+<text top="615" left="475" width="359" height="14" font="3">computer science publications estimated by CiteSeer, for</text>
+<text top="630" left="475" width="218" height="14" font="3">chemistry papers listed in Wikipedia</text>
+<text top="629" left="694" width="5" height="9" font="5">6</text>
+<text top="630" left="700" width="133" height="14" font="3">, and a comprehensive</text>
+<text top="646" left="475" width="291" height="14" font="3">journal impact factor for all the ﬁelds in CNCSIS</text>
+<text top="644" left="767" width="5" height="9" font="5">7</text>
+<text top="646" left="774" width="60" height="14" font="3">. Diﬀerent</text>
+<text top="662" left="475" width="359" height="14" font="3">scoring schemes have diﬀerent score ranges from [0, 3.31] to</text>
+<text top="678" left="475" width="359" height="14" font="3">[0, 53.055]. We normalized the diﬀerent ranges into the same</text>
+<text top="693" left="475" width="130" height="14" font="3">measure range [1, 10].</text>
+<text top="709" left="489" width="21" height="14" font="3">DF</text>
+<text top="714" left="509" width="5" height="9" font="5">j</text>
+<text top="709" left="520" width="313" height="14" font="3">is set according to the publication date of the doc-</text>
+<text top="725" left="475" width="359" height="14" font="3">ument. T ableRank assigns more weight to fresher docu-</text>
+<text top="740" left="475" width="359" height="14" font="3">ments for two reasons: 1) Researchers usually are inclined</text>
+<text top="756" left="475" width="359" height="14" font="3">to search for the more recently published documents because</text>
+<text top="772" left="475" width="359" height="14" font="3">these documents typically reﬂect the latest research trends</text>
+<text top="787" left="475" width="359" height="14" font="3">and results. 2) There is a need to eliminate “The Rich Get</text>
+<text top="803" left="475" width="359" height="14" font="3">Richer” phenomenon which is begot by the boosting value of</text>
+<text top="819" left="475" width="359" height="14" font="3">the citation frequency (the more citation, the higher boost-</text>
+<text top="834" left="475" width="359" height="14" font="3">ing is). The documents with high citation counts are in-</text>
+<text top="850" left="475" width="359" height="14" font="3">clined to be cited again because they are more easily to be</text>
+<text top="866" left="475" width="359" height="14" font="3">found. However, newly published documents are unlikely to</text>
+<text top="882" left="475" width="359" height="14" font="3">attract attention and be cited within a short period of time.</text>
+<text top="897" left="475" width="359" height="14" font="3">Considering these two reasons, we boost the rankings of re-</text>
+<text top="913" left="475" width="359" height="14" font="3">cent documents. The more recent the document, the greater</text>
+<text top="929" left="475" width="359" height="14" font="3">the boost is. On the other side, because of the high-speed of</text>
+<text top="944" left="475" width="359" height="14" font="3">information propagation and the convenient source sharing</text>
+<text top="960" left="475" width="153" height="14" font="3">(e.g., DBLP bibliography</text>
+<text top="958" left="628" width="5" height="9" font="5">8</text>
+<text top="960" left="634" width="200" height="14" font="3">), in our T ableRank, we only ap-</text>
+<text top="976" left="475" width="359" height="14" font="3">ply the DF boost to fresh documents, which are published</text>
+<text top="991" left="475" width="145" height="14" font="3">within recent two years.</text>
+<text top="1018" left="476" width="5" height="9" font="5">6</text>
+<text top="1020" left="482" width="180" height="14" font="3">http://en.wikipedia.org/wiki/</text>
+<text top="1034" left="475" width="236" height="14" font="3">List of scientiﬁc journals in chemistry/</text>
+<text top="1047" left="476" width="5" height="9" font="5">7</text>
+<text top="1049" left="482" width="241" height="14" font="3">http://www.cncsis.ro/PDF/IF 2004.pdf</text>
+<text top="1063" left="476" width="5" height="9" font="5">8</text>
+<text top="1065" left="482" width="270" height="14" font="3">http://www.informatik.uni-trier.de/ ley/db/</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1263" width="892">
+<text top="94" left="109" width="301" height="14" font="3">Table 3: The testing set for table detection</text>
+<text top="109" left="120" width="31" height="11" font="9">Fields</text>
+<text top="109" left="199" width="58" height="11" font="9">Documents</text>
+<text top="109" left="273" width="34" height="11" font="9">Tables</text>
+<text top="125" left="109" width="54" height="11" font="9">Chemistry</text>
+<text top="125" left="219" width="18" height="11" font="9">100</text>
+<text top="125" left="273" width="18" height="11" font="9">245</text>
+<text top="137" left="116" width="39" height="11" font="9">Biology</text>
+<text top="137" left="222" width="12" height="11" font="9">50</text>
+<text top="137" left="273" width="12" height="11" font="9">84</text>
+<text top="150" left="89" width="94" height="11" font="9">Computer Science</text>
+<text top="150" left="222" width="12" height="11" font="9">50</text>
+<text top="150" left="273" width="12" height="11" font="9">68</text>
+<text top="170" left="81" width="359" height="19" font="1">5. EXPERIMENTS AND RESULTS ANALY-</text>
+<text top="190" left="112" width="27" height="19" font="1">SIS</text>
+<text top="214" left="94" width="345" height="14" font="3">In this section, we demonstrate the experimental results</text>
+<text top="229" left="81" width="359" height="14" font="3">of evaluating the table search engine, TableSeer. Before de-</text>
+<text top="245" left="81" width="359" height="14" font="3">scribing the experimental details, we ﬁrst discuss document</text>
+<text top="261" left="81" width="61" height="14" font="3">collection.</text>
+<text top="286" left="81" width="201" height="19" font="1">5.1 Document Collection</text>
+<text top="310" left="94" width="345" height="14" font="3">Although TableSeer can be used to search for tables con-</text>
+<text top="325" left="81" width="359" height="14" font="3">tained in documents of varying formats and media types, we</text>
+<text top="341" left="81" width="359" height="14" font="3">focus on tables in scientiﬁc documents in PDF in this work.</text>
+<text top="357" left="81" width="359" height="14" font="3">The document collection comes from three sources: 1) scien-</text>
+<text top="372" left="81" width="276" height="14" font="3">tiﬁc digital libraries (Royal Chemistry Society</text>
+<text top="370" left="357" width="5" height="9" font="5">9</text>
+<text top="372" left="363" width="76" height="14" font="3">), 2) the web</text>
+<text top="388" left="81" width="359" height="14" font="3">pages of research scientists in chemistry departments in uni-</text>
+<text top="404" left="81" width="179" height="14" font="3">versities, For example, UCLA</text>
+<text top="402" left="260" width="11" height="9" font="5">10</text>
+<text top="404" left="276" width="163" height="14" font="3">lists numerous addresses of</text>
+<text top="419" left="81" width="359" height="14" font="3">academic institutions in the ﬁeld of chemistry, which are set</text>
+<text top="435" left="81" width="359" height="14" font="3">as seeds for the table crawler. and 3) the CiteSeer archive.</text>
+<text top="451" left="81" width="359" height="14" font="3">The total number of collected PDF documents is approxi-</text>
+<text top="466" left="81" width="359" height="14" font="3">mately 10,000. These documents belong to more than 50</text>
+<text top="482" left="81" width="359" height="14" font="3">journals and conferences in a variety of research ﬁelds, e.g.,</text>
+<text top="498" left="81" width="359" height="14" font="3">chemistry, biology, computer science, etc. All the documents</text>
+<text top="514" left="81" width="359" height="14" font="3">span the years 1990 to 2006. In addition, the original hier-</text>
+<text top="529" left="81" width="359" height="14" font="3">archy of documents are also recorded, e.g., coming from a</text>
+<text top="545" left="81" width="359" height="14" font="3">same journal, or a same web site.A random selection of 100</text>
+<text top="561" left="81" width="359" height="14" font="3">documents indicates that 78% of them has at least one table</text>
+<text top="576" left="81" width="235" height="14" font="3">and most of them have more than one.</text>
+<text top="602" left="81" width="348" height="19" font="1">5.2 Experimental Results of Table Detection</text>
+<text top="625" left="94" width="345" height="14" font="3">We perform a ﬁve-user study to evaluate the quality of</text>
+<text top="641" left="81" width="359" height="14" font="3">the table detection and the table metadata extraction sepa-</text>
+<text top="656" left="81" width="359" height="14" font="3">rately. Each user randomly checks 20 documents and all the</text>
+<text top="672" left="81" width="359" height="14" font="3">corresponding table metadata ﬁles. The evaluation metrics</text>
+<text top="688" left="81" width="359" height="14" font="3">are precision and recall. The experiment on table detection</text>
+<text top="704" left="81" width="359" height="14" font="3">is conducted on a document set with 200 randomly selected</text>
+<text top="719" left="81" width="359" height="14" font="3">PDF documents, which are from journal/conference cate-</text>
+<text top="735" left="81" width="359" height="14" font="3">gories of Chemistry, Biology, and Computer Science from</text>
+<text top="751" left="81" width="359" height="14" font="3">RSC and CiteSeer. Given the number of true tables ex-</text>
+<text top="766" left="81" width="359" height="14" font="3">tracted by TableSeer A, the number of true positive tables</text>
+<text top="782" left="81" width="359" height="14" font="3">but overlooked B, and the number of true negative tables</text>
+<text top="798" left="81" width="295" height="14" font="3">that is misidentiﬁed as tables C, the Precision is</text>
+<text top="796" left="390" width="8" height="9" font="5">A</text>
+<text top="806" left="382" width="25" height="9" font="5">A+C</text>
+<text top="798" left="409" width="31" height="14" font="3">, and</text>
+<text top="817" left="81" width="76" height="14" font="3">the Recall is</text>
+<text top="815" left="173" width="8" height="9" font="5">A</text>
+<text top="825" left="164" width="25" height="9" font="5">A+B</text>
+<text top="817" left="192" width="248" height="14" font="3">. Within the 200 documents, 397 tables</text>
+<text top="834" left="81" width="359" height="14" font="3">exist (see Table 3). TableSeer recognizes 371 tables and all</text>
+<text top="850" left="81" width="359" height="14" font="3">of them are real tables, which means the number of true</text>
+<text top="865" left="81" width="359" height="14" font="3">negative tables is 0. Based on these limited experimental</text>
+<text top="881" left="81" width="358" height="14" font="3">results, the precision value is 100% and the recall value is</text>
+<text top="897" left="81" width="40" height="14" font="3">93.5%.</text>
+<text top="912" left="94" width="345" height="14" font="3">Three main reasons explain why we miss 26 true positive</text>
+<text top="928" left="81" width="359" height="14" font="3">tables. First, in some PDF documents, tables are created</text>
+<text top="944" left="81" width="359" height="14" font="3">as embedded images. In the current state, TableSeer only</text>
+<text top="960" left="81" width="359" height="14" font="3">processes the text-based tables and simply ﬁlters out the</text>
+<text top="975" left="81" width="359" height="14" font="3">image tables. However, these images and their location in-</text>
+<text top="991" left="81" width="359" height="14" font="3">formation are stored. Existing approaches dealing with im-</text>
+<text top="1007" left="81" width="359" height="14" font="3">age table extraction [5] [8] can be easily integrated into the</text>
+<text top="1022" left="81" width="359" height="14" font="3">TableSeer to ﬁx this problem. Second, we deﬁne a keyword</text>
+<text top="1047" left="81" width="5" height="9" font="5">9</text>
+<text top="1049" left="88" width="124" height="14" font="3">http://www.rsc.org/</text>
+<text top="1063" left="76" width="11" height="9" font="5">10</text>
+<text top="1065" left="88" width="285" height="14" font="3">http://www.chem.ucla.edu/VL/Academic.html</text>
+<text top="84" left="475" width="359" height="14" font="3">list to detect table candidates. This predeﬁned keyword list</text>
+<text top="100" left="475" width="359" height="14" font="3">contains all the possible starting keywords of table captions,</text>
+<text top="116" left="475" width="359" height="14" font="3">such as “Table, TABLE, Form, FORM,” etc. Most tables</text>
+<text top="132" left="475" width="359" height="14" font="3">have one of these keywords in their captions. However, some</text>
+<text top="147" left="475" width="359" height="14" font="3">tables are labeled using other keywords, especially the doc-</text>
+<text top="163" left="475" width="359" height="14" font="3">uments in computer science ﬁeld, which name the tables as</text>
+<text top="179" left="475" width="359" height="14" font="3">“Figure,” which are confusing with real ﬁgures. To avoid</text>
+<text top="194" left="475" width="359" height="14" font="3">real ﬁgures and to keep high eﬃciency, TableSeer overlooks</text>
+<text top="210" left="475" width="359" height="14" font="3">such “wrongly labeled tables in current stage. However, this</text>
+<text top="226" left="475" width="359" height="14" font="3">problem can be overcame by heuristics that identify the grid-</text>
+<text top="241" left="475" width="359" height="14" font="3">structure cells by white-space analysis. Third, the perfor-</text>
+<text top="257" left="475" width="359" height="14" font="3">mance of the text information stripper directly aﬀects the</text>
+<text top="273" left="475" width="280" height="14" font="3">table extraction results. Currently, PDFBOX</text>
+<text top="271" left="757" width="11" height="9" font="5">11</text>
+<text top="273" left="774" width="59" height="14" font="3">is used to</text>
+<text top="288" left="475" width="359" height="14" font="3">fetch all the text information in the documents. Characters</text>
+<text top="304" left="475" width="359" height="14" font="3">missing and space insertions are two typical errors inherited</text>
+<text top="320" left="475" width="359" height="14" font="3">from PDFBOX, which may tamper with the table caption.</text>
+<text top="336" left="475" width="359" height="14" font="3">For example, the word “Table” can be splintered into “a</text>
+<text top="351" left="475" width="359" height="14" font="3">ble.” This problem is orthogonal to our work and we hope</text>
+<text top="367" left="475" width="359" height="14" font="3">that these problems will be addressed independently by the</text>
+<text top="383" left="475" width="179" height="14" font="3">designers of the text stripper.</text>
+<text top="411" left="475" width="359" height="19" font="1">5.3 Experimental Results of Table Metadata</text>
+<text top="428" left="516" width="82" height="19" font="1">Extraction</text>
+<text top="452" left="489" width="345" height="14" font="3">We evaluate the table metadata extractor of TableSeer us-</text>
+<text top="467" left="475" width="359" height="14" font="3">ing the 371 recognized tables from the document set. Pre-</text>
+<text top="483" left="475" width="359" height="14" font="3">cision and recall remains the measurement functions. A is</text>
+<text top="499" left="475" width="359" height="14" font="3">the number of true positive metadata extracted by our al-</text>
+<text top="514" left="475" width="358" height="14" font="3">gorithms and labeled with the correct metadata labels, B</text>
+<text top="530" left="475" width="359" height="14" font="3">is the number of true positive metadata but overlooked by</text>
+<text top="546" left="475" width="359" height="14" font="3">TableSeer, C is the number of true negative metadata that</text>
+<text top="562" left="475" width="232" height="14" font="3">are misidentiﬁed as another metadata.</text>
+<text top="577" left="489" width="345" height="14" font="3">Table 4 demonstrates the performance of the metadata ex-</text>
+<text top="593" left="475" width="359" height="14" font="3">traction over the test set. Apparently, TableSeer has good</text>
+<text top="609" left="475" width="359" height="14" font="3">performance on table metadata extraction. The main rea-</text>
+<text top="624" left="475" width="359" height="14" font="3">sons for inaccuracy of the recall are: First, some journal</text>
+<text top="640" left="475" width="359" height="14" font="3">names and volume information were mislabeled as “Docu-</text>
+<text top="656" left="475" width="359" height="14" font="3">ment Title” metadata. Most journals put the journal names</text>
+<text top="671" left="475" width="359" height="14" font="3">and the publication information in the page header or footer.</text>
+<text top="687" left="475" width="359" height="14" font="3">However, some of the documents display the journal/volume</text>
+<text top="703" left="475" width="359" height="14" font="3">information in the ordinary position where the document ti-</text>
+<text top="718" left="475" width="359" height="14" font="3">tle is. This problem can be solved by adding heuristic rules</text>
+<text top="734" left="475" width="359" height="14" font="3">that look for patterns to identify journal/volume informa-</text>
+<text top="750" left="475" width="359" height="14" font="3">tion. Second, some documents omit the keyword “Abstract”</text>
+<text top="765" left="475" width="359" height="14" font="3">when they start the abstract section using the same font</text>
+<text top="781" left="475" width="359" height="14" font="3">size as the size of the author/aﬃliation section. This can</text>
+<text top="797" left="475" width="359" height="14" font="3">be ﬁxed by restricting the size of the author/aﬃliation sec-</text>
+<text top="813" left="475" width="359" height="14" font="3">tion and by looking for text similarity. The abstract usually</text>
+<text top="828" left="475" width="359" height="14" font="3">has similar keywords as in the main text, whereas the au-</text>
+<text top="844" left="475" width="359" height="14" font="3">thor/aﬃliation will have distinct words than the main text.</text>
+<text top="860" left="475" width="359" height="14" font="3">Third, some table footnotes, especially short ones, are recog-</text>
+<text top="875" left="475" width="359" height="14" font="3">nized as a row of the table because some tables have such</text>
+<text top="891" left="475" width="114" height="14" font="3">cross-column rows.</text>
+<text top="907" left="489" width="345" height="14" font="3">In order to obtain the table reference text metadata, a</text>
+<text top="922" left="475" width="359" height="14" font="3">“keyword matching” method is used to collect all the sen-</text>
+<text top="938" left="475" width="359" height="14" font="3">tences where the table keywords appear. Some explanations</text>
+<text top="954" left="475" width="359" height="14" font="3">also exist around without the keywords. However, it is ex-</text>
+<text top="969" left="475" width="359" height="14" font="3">tremely diﬃcult to separate them from other texts. Fur-</text>
+<text top="985" left="475" width="359" height="14" font="3">thermore, for those tables that use a cross-line to separate</text>
+<text top="1001" left="475" width="359" height="14" font="3">diﬀerent parts, we only recognize the ﬁrst part because of</text>
+<text top="1017" left="475" width="359" height="14" font="3">the diﬃculty in telling whether the cross-line belongs to the</text>
+<text top="1032" left="475" width="359" height="14" font="3">table or the body text of the document. This can be solved</text>
+<text top="1063" left="470" width="11" height="9" font="5">11</text>
+<text top="1065" left="482" width="149" height="14" font="3">http://www.pdfbox.org/</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1263" width="892">
+<text top="94" left="85" width="345" height="14" font="3">Table 4: Table Metadata Extraction Performance</text>
+<text top="107" left="115" width="83" height="11" font="9">Table Metadata</text>
+<text top="107" left="240" width="79" height="11" font="9">Precision(P %)</text>
+<text top="107" left="335" width="64" height="11" font="9">Recall(R %)</text>
+<text top="122" left="114" width="84" height="11" font="9">Document Type</text>
+<text top="122" left="263" width="33" height="11" font="9">100.00</text>
+<text top="122" left="335" width="33" height="11" font="9">100.00</text>
+<text top="135" left="92" width="128" height="11" font="9">Document Page Number</text>
+<text top="135" left="263" width="33" height="11" font="9">100.00</text>
+<text top="135" left="335" width="33" height="11" font="9">100.00</text>
+<text top="147" left="89" width="135" height="11" font="9">The page number of table</text>
+<text top="147" left="263" width="33" height="11" font="9">100.00</text>
+<text top="147" left="335" width="33" height="11" font="9">100.00</text>
+<text top="160" left="115" width="83" height="11" font="9">Document Title</text>
+<text top="160" left="266" width="27" height="11" font="9">95.65</text>
+<text top="160" left="335" width="27" height="11" font="9">95.65</text>
+<text top="172" left="109" width="95" height="11" font="9">Document Author</text>
+<text top="172" left="266" width="27" height="11" font="9">92.58</text>
+<text top="172" left="335" width="27" height="11" font="9">92.58</text>
+<text top="185" left="119" width="75" height="11" font="9">Table Caption</text>
+<text top="185" left="266" width="27" height="11" font="9">95.96</text>
+<text top="185" left="335" width="27" height="11" font="9">95.96</text>
+<text top="197" left="99" width="114" height="11" font="9">Table Column Header</text>
+<text top="197" left="266" width="27" height="11" font="9">93.79</text>
+<text top="197" left="335" width="27" height="11" font="9">93.79</text>
+<text top="210" left="119" width="75" height="11" font="9">Table Content</text>
+<text top="210" left="266" width="27" height="11" font="9">90.15</text>
+<text top="210" left="335" width="27" height="11" font="9">90.15</text>
+<text top="222" left="96" width="121" height="11" font="9">Table Caption Position</text>
+<text top="222" left="263" width="33" height="11" font="9">100.00</text>
+<text top="222" left="335" width="33" height="11" font="9">100.00</text>
+<text top="235" left="117" width="79" height="11" font="9">Table Footnote</text>
+<text top="235" left="266" width="27" height="11" font="9">82.77</text>
+<text top="235" left="335" width="27" height="11" font="9">82.77</text>
+<text top="248" left="102" width="108" height="11" font="9">Table Reference text</text>
+<text top="248" left="263" width="33" height="11" font="9">100.00</text>
+<text top="248" left="335" width="33" height="11" font="9">100.00</text>
+<text top="273" left="81" width="359" height="14" font="3">by using the font-size diﬀerence, existence of cells, and the</text>
+<text top="289" left="81" width="183" height="14" font="3">indication of the white spaces.</text>
+<text top="317" left="81" width="342" height="19" font="1">5.4 Experimental Results of Table Ranking</text>
+<text top="340" left="94" width="345" height="14" font="3">Comparison of ranking methods is complicated for two</text>
+<text top="356" left="81" width="359" height="14" font="3">main reasons. First, it is diﬃcult to ﬁnd a common test-</text>
+<text top="371" left="81" width="347" height="14" font="3">bed for diﬀerent search engines. Although Google Co-op</text>
+<text top="369" left="428" width="11" height="9" font="5">12</text>
+<text top="387" left="81" width="359" height="14" font="3">can enable the comparison between TableRank and Google</text>
+<text top="403" left="81" width="359" height="14" font="3">by harnessing the power of Google search technology, the</text>
+<text top="418" left="81" width="359" height="14" font="3">dynamic web and continued crawlers imply that the two</text>
+<text top="434" left="81" width="359" height="14" font="3">sets of documents may not be the same. Second, even with</text>
+<text top="450" left="81" width="359" height="14" font="3">a common test-bed, no universally recognized measurement</text>
+<text top="465" left="81" width="264" height="14" font="3">of quality for a table ranking scheme exists.</text>
+<text top="481" left="94" width="345" height="14" font="3">In order to set up a well-accepted measurement, we es-</text>
+<text top="497" left="81" width="359" height="14" font="3">tablish a “golden standard ” to deﬁne the “correct” rank-</text>
+<text top="512" left="81" width="358" height="14" font="3">ing based on human judgement. A survey of six experi-</text>
+<text top="528" left="81" width="359" height="14" font="3">enced testers, who frequently use search functions of dif-</text>
+<text top="544" left="81" width="359" height="14" font="3">ferent search engines, generated the “golden standard” of</text>
+<text top="560" left="81" width="359" height="14" font="3">each document set in the test-bed. For each issued query,</text>
+<text top="575" left="81" width="359" height="14" font="3">the testers determine how many results, among the returned</text>
+<text top="591" left="81" width="239" height="14" font="3">hits, the testers order the relevant lists.</text>
+<text top="607" left="94" width="345" height="14" font="3">For each ranking scheme, we apply pairwise accuracy to</text>
+<text top="622" left="81" width="199" height="14" font="3">evaluate the ranking quality. If H</text>
+<text top="628" left="279" width="8" height="9" font="5">R</text>
+<text top="622" left="292" width="147" height="14" font="3">is the ranking decided by</text>
+<text top="638" left="81" width="149" height="14" font="3">human judgement and T</text>
+<text top="643" left="230" width="8" height="9" font="5">R</text>
+<text top="638" left="244" width="196" height="14" font="3">is ranking decided by the search</text>
+<text top="654" left="81" width="359" height="14" font="3">engines, the pairwise accuracy can be deﬁned as the frac-</text>
+<text top="669" left="81" width="359" height="14" font="3">tion of times that search engines and human judges agree</text>
+<text top="687" left="81" width="276" height="14" font="3">on the ordering of tables: pairwise accuracy =</text>
+<text top="684" left="363" width="12" height="9" font="5">|H</text>
+<text top="687" left="376" width="8" height="8" font="10">R</text>
+<text top="684" left="397" width="7" height="9" font="5">T</text>
+<text top="687" left="403" width="8" height="8" font="10">R</text>
+<text top="684" left="412" width="3" height="9" font="5">|</text>
+<text top="695" left="381" width="9" height="9" font="5">H</text>
+<text top="698" left="390" width="8" height="8" font="10">R</text>
+<text top="687" left="417" width="22" height="14" font="3">. In</text>
+<text top="704" left="81" width="359" height="14" font="3">this section, we provide quantitative comparisons between</text>
+<text top="720" left="81" width="359" height="14" font="3">TableRank and other popular web search engines based on</text>
+<text top="735" left="81" width="359" height="14" font="3">experimental results. The average ranks of the six human</text>
+<text top="751" left="81" width="359" height="14" font="3">testers is obtained and the results are ranked using this av-</text>
+<text top="767" left="81" width="109" height="14" font="3">erage to obtain H</text>
+<text top="772" left="189" width="8" height="9" font="5">R</text>
+<text top="767" left="199" width="241" height="14" font="3">. We will use a distance based measure</text>
+<text top="783" left="81" width="236" height="14" font="3">among the ranked orders in the future.</text>
+<text top="798" left="94" width="345" height="14" font="3">Before evaluating the performance of the table ranking,</text>
+<text top="814" left="81" width="359" height="14" font="3">we identify the returned true tables because most search en-</text>
+<text top="830" left="81" width="359" height="14" font="3">gines can not identify documents with tables. We should</text>
+<text top="845" left="81" width="359" height="14" font="3">ﬁlter out all the false tables and only compare the ranking</text>
+<text top="861" left="81" width="359" height="14" font="3">on these real tables. We randomly select 100 terms such as</text>
+<text top="877" left="81" width="359" height="14" font="3">“gene”, “protein”, “query,”, and use each term as a query in</text>
+<text top="892" left="81" width="359" height="14" font="3">TableSeer. For the other two search engines: Google Scholar</text>
+<text top="908" left="81" width="359" height="14" font="3">and CiteSeer, the query is set as the term together with an</text>
+<text top="924" left="81" width="359" height="14" font="3">additional keyword “Table.” An example is applying “Al-</text>
+<text top="939" left="81" width="359" height="14" font="3">kaline” to TableSeer and applying the combination of the</text>
+<text top="955" left="81" width="359" height="14" font="3">term ”alkaline” and “Table” to Google Scholar. The combi-</text>
+<text top="971" left="81" width="359" height="14" font="3">nation includes “alkaline, Table”, “alkaline Table”, “Table,</text>
+<text top="987" left="81" width="359" height="14" font="3">alkaline”, “Table alkaline”, etc. Because it is not easy to</text>
+<text top="1002" left="81" width="359" height="14" font="3">know the total number of tables in the test-bed, we use</text>
+<text top="1018" left="81" width="359" height="14" font="3">the precision value as the measurement. Another reason is</text>
+<text top="1034" left="81" width="359" height="14" font="3">that with the growing size of the Web collections, users are</text>
+<text top="1063" left="76" width="11" height="9" font="5">12</text>
+<text top="1065" left="88" width="185" height="14" font="3">http://www.google.com/coop/</text>
+<text top="94" left="475" width="359" height="14" font="3">Table 5: The Basic Ranking Results on the Manu-</text>
+<text top="110" left="475" width="197" height="14" font="3">ally Created Document Sets</text>
+<text top="125" left="501" width="43" height="11" font="9">Ranking</text>
+<text top="125" left="578" width="130" height="11" font="9">The Method to set-up</text>
+<text top="137" left="578" width="63" height="11" font="9">the test-bed</text>
+<text top="125" left="723" width="71" height="11" font="9">Accuracy (%)</text>
+<text top="152" left="504" width="36" height="11" font="9">Google</text>
+<text top="152" left="578" width="114" height="11" font="9">Custom search engine</text>
+<text top="152" left="723" width="21" height="11" font="9">51.8</text>
+<text top="165" left="483" width="78" height="11" font="9">Google Scholar</text>
+<text top="165" left="578" width="98" height="11" font="9">bottom-up method</text>
+<text top="165" left="723" width="27" height="11" font="9">52.72</text>
+<text top="177" left="501" width="44" height="11" font="9">CiteSeer</text>
+<text top="177" left="578" width="98" height="11" font="9">bottom-up method</text>
+<text top="177" left="723" width="27" height="11" font="9">55.35</text>
+<text top="190" left="497" width="51" height="11" font="9">TableSeer</text>
+<text top="190" left="578" width="74" height="11" font="9">Both methods</text>
+<text top="190" left="723" width="27" height="11" font="9">69.61</text>
+<text top="217" left="475" width="359" height="14" font="3">now primarily interested in high accuracy, deﬁned as high</text>
+<text top="233" left="475" width="359" height="14" font="3">precision. High precision is very important because users</text>
+<text top="248" left="475" width="359" height="14" font="3">typically look at very few results and mostly look at the</text>
+<text top="264" left="475" width="359" height="14" font="3">top N items of the returned results from the search engines.</text>
+<text top="280" left="475" width="359" height="14" font="3">Recognizing this trend, we manually examine the ﬁrst 20 re-</text>
+<text top="296" left="475" width="359" height="14" font="3">sults returned by both each search engine. Comparing with</text>
+<text top="311" left="475" width="359" height="14" font="3">the precision value of our TableSeer (100%), the precision</text>
+<text top="327" left="475" width="359" height="14" font="3">value of Google Scholar is 73.4% and the precision value</text>
+<text top="343" left="475" width="359" height="14" font="3">of CiteSeer is 76.7%. Thus, it can be seen that TableSeer</text>
+<text top="358" left="475" width="253" height="14" font="3">outperforms the other two search engines.</text>
+<text top="374" left="489" width="345" height="14" font="3">The remaining question is which search engine has the</text>
+<text top="390" left="475" width="359" height="14" font="3">best ranking scheme. We adopted two methods to set up the</text>
+<text top="405" left="475" width="359" height="14" font="3">common test-bed: the manually “bottom-up” method and</text>
+<text top="421" left="475" width="359" height="14" font="3">the custom search engine method. The manually “bottom-</text>
+<text top="437" left="475" width="359" height="14" font="3">up” method constructs a test-bed using the following two</text>
+<text top="452" left="475" width="359" height="14" font="3">steps: 1) applying a query (e.g., DNA) together the key-</text>
+<text top="468" left="475" width="359" height="14" font="3">word “Table” to an existing search engine, e.g., CiteSeer ;</text>
+<text top="484" left="475" width="359" height="14" font="3">2) from the numerous returned results, we pick out a set of</text>
+<text top="500" left="475" width="359" height="14" font="3">“real” hits in PDF format together with their ranking or-</text>
+<text top="515" left="475" width="359" height="14" font="3">ders. We set these PDF documents as the common test-bed</text>
+<text top="531" left="475" width="359" height="14" font="3">for both TableRank and other search engines. In the second</text>
+<text top="547" left="475" width="359" height="14" font="3">custom search engine method, we set up a common test bed</text>
+<text top="562" left="475" width="359" height="14" font="3">for TableRank and Google using the Google Custom Search</text>
+<text top="578" left="475" width="359" height="14" font="3">engine API. We registered a Google account and used the</text>
+<text top="594" left="475" width="211" height="14" font="3">Google custom search engine API</text>
+<text top="592" left="686" width="5" height="9" font="5">6</text>
+<text top="594" left="698" width="135" height="14" font="3">to build a customized</text>
+<text top="609" left="475" width="359" height="14" font="3">search engine. We set the seed URLs (e.g., a chemistry</text>
+<text top="625" left="475" width="93" height="14" font="3">journal website</text>
+<text top="623" left="568" width="11" height="9" font="5">13</text>
+<text top="625" left="580" width="254" height="14" font="3">) as one or several websites where Table-</text>
+<text top="641" left="475" width="359" height="14" font="3">Seer crawls. All the documents in the seed URLs construct</text>
+<text top="656" left="475" width="359" height="14" font="3">the common test-bed. For all the documents in the common</text>
+<text top="672" left="475" width="359" height="14" font="3">test-beds, TableSeer extracts and indexes the metadata ﬁle</text>
+<text top="688" left="475" width="359" height="14" font="3">for each table. We tried 20 randomly selected search queries</text>
+<text top="704" left="475" width="359" height="14" font="3">on both TableSeer and the Google custom search engine to</text>
+<text top="719" left="475" width="359" height="14" font="3">compare their search results. Table 5 displays the average</text>
+<text top="735" left="475" width="275" height="14" font="3">pairwise accuracy results made by six testers.</text>
+<text top="751" left="489" width="345" height="14" font="3">TableRank decides the relevance score for each result by</text>
+<text top="766" left="475" width="359" height="14" font="3">comprehensively considering multiple impact factors from</text>
+<text top="782" left="475" width="359" height="14" font="3">diﬀerent perspectives. In order to ﬁnd out how well each im-</text>
+<text top="798" left="475" width="359" height="14" font="3">pact factor performs and how heavily each of them inﬂuence</text>
+<text top="813" left="475" width="359" height="14" font="3">the ﬁnal ranking order, we implement TableRank algorithm</text>
+<text top="829" left="475" width="359" height="14" font="3">on each impact factor, independently, and apply varied com-</text>
+<text top="845" left="475" width="359" height="14" font="3">bination of the impact factors by gradually adding one new</text>
+<text top="860" left="475" width="359" height="14" font="3">factor at a time. Such implementation can not only reveal</text>
+<text top="876" left="475" width="359" height="14" font="3">how sensitive TableRank is to each impact factor, but also</text>
+<text top="892" left="475" width="323" height="14" font="3">show how to adjust the parameters for better results.</text>
+<text top="908" left="489" width="345" height="14" font="3">The results for individual impact factors are shown in Ta-</text>
+<text top="923" left="475" width="359" height="14" font="3">ble 6, which shows the application of a single factor each</text>
+<text top="939" left="475" width="359" height="14" font="3">time. The ﬁrst run with the applied traditional TFIDF</text>
+<text top="955" left="475" width="359" height="14" font="3">weighting scheme on the whole document shows the ac-</text>
+<text top="970" left="475" width="359" height="14" font="3">curacy rate compared to the “golden standard”. On the</text>
+<text top="986" left="475" width="359" height="14" font="3">second and the third runs, we updated the TFIDF to the</text>
+<text top="1002" left="475" width="359" height="14" font="3">TTFITTF weighting scheme with/without the metadata</text>
+<text top="1017" left="475" width="359" height="14" font="3">weighting scheme. Next, the TLB factors are tried, and</text>
+<text top="1049" left="470" width="11" height="9" font="5">13</text>
+<text top="1051" left="482" width="250" height="14" font="3">http:/www.rsc.orgdelivery ArticleLinking</text>
+<text top="1065" left="475" width="215" height="14" font="3">DisplayArticleForFree.cfm?doi=b2*</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1263" width="892">
+<text top="94" left="81" width="358" height="14" font="3">Table 6: Results for Individual Impact Factor in</text>
+<text top="110" left="81" width="152" height="14" font="3">TableRank Algorithm</text>
+<text top="125" left="112" width="79" height="11" font="9">Impact Factors</text>
+<text top="125" left="230" width="71" height="11" font="9">Accuracy (%)</text>
+<text top="140" left="133" width="37" height="11" font="9">TFIDF</text>
+<text top="140" left="230" width="27" height="11" font="9">50.19</text>
+<text top="153" left="89" width="125" height="11" font="9">TTFITTF without MW</text>
+<text top="153" left="230" width="27" height="11" font="9">61.46</text>
+<text top="165" left="97" width="108" height="11" font="9">TTFITTF with MW</text>
+<text top="165" left="230" width="27" height="11" font="9">63.55</text>
+<text top="178" left="139" width="24" height="11" font="9">TLB</text>
+<text top="178" left="230" width="27" height="11" font="9">29.60</text>
+<text top="191" left="139" width="25" height="11" font="9">DLB</text>
+<text top="191" left="230" width="27" height="11" font="9">40.33</text>
+<text top="203" left="124" width="55" height="11" font="9">All factors</text>
+<text top="203" left="230" width="27" height="11" font="9">69.61</text>
+<text top="223" left="81" width="358" height="14" font="3">Table 7: The Ablation Experiment to Learn the</text>
+<text top="239" left="81" width="359" height="14" font="3">Real Contribution of Each Factor of TableRank Al-</text>
+<text top="255" left="81" width="55" height="14" font="3">gorithm</text>
+<text top="270" left="90" width="81" height="11" font="9">Without Factor</text>
+<text top="270" left="189" width="71" height="11" font="9">Accuracy (%)</text>
+<text top="270" left="277" width="135" height="11" font="9">Decrease in Accuracy (%)</text>
+<text top="286" left="118" width="25" height="11" font="9">DLB</text>
+<text top="286" left="211" width="27" height="11" font="9">68.50</text>
+<text top="286" left="277" width="21" height="11" font="9">1.11</text>
+<text top="298" left="119" width="24" height="11" font="9">TLB</text>
+<text top="298" left="211" width="27" height="11" font="9">69.46</text>
+<text top="298" left="277" width="21" height="11" font="9">0.15</text>
+<text top="311" left="119" width="23" height="11" font="9">MW</text>
+<text top="311" left="211" width="27" height="11" font="9">68.19</text>
+<text top="311" left="277" width="21" height="11" font="9">1.42</text>
+<text top="323" left="89" width="84" height="11" font="9">TTFITTF, MW</text>
+<text top="323" left="211" width="27" height="11" font="9">58.05</text>
+<text top="323" left="277" width="21" height="11" font="9">9.56</text>
+<text top="344" left="81" width="262" height="14" font="3">in the last run, the DLB factors are tested.</text>
+<text top="360" left="94" width="345" height="14" font="3">It is no surprise to see that TTFITTF with/without meta-</text>
+<text top="376" left="81" width="359" height="14" font="3">data weight contribute heavily to the ﬁnal ranking quality,</text>
+<text top="392" left="81" width="359" height="14" font="3">and TLB and DLB do not perform well in isolation. Even</text>
+<text top="407" left="81" width="359" height="14" font="3">Table 6 shows the eﬀectiveness of each individual factor. In</text>
+<text top="423" left="81" width="359" height="14" font="3">order to have a better measurement of the contribution of</text>
+<text top="439" left="81" width="359" height="14" font="3">each factor, in the context of all the other factors, we per-</text>
+<text top="454" left="81" width="359" height="14" font="3">form an ablation experiment. The basic idea is to compare</text>
+<text top="470" left="81" width="358" height="14" font="3">the ranking results based on all the factors except the stud-</text>
+<text top="486" left="81" width="359" height="14" font="3">ied ones with the ranking results generated by TableRank</text>
+<text top="501" left="81" width="359" height="14" font="3">with all the factors. The detailed results are shown in Ta-</text>
+<text top="517" left="81" width="33" height="14" font="3">ble 7.</text>
+<text top="533" left="94" width="345" height="14" font="3">The results in Table 6 are consistent with the results of the</text>
+<text top="548" left="81" width="359" height="14" font="3">ablation experiment in Table 7. Table 7 reconﬁrms the vital</text>
+<text top="564" left="81" width="359" height="14" font="3">role of the TTFITTF weighting scheme. TTFITTF acts as</text>
+<text top="580" left="81" width="359" height="14" font="3">the most important impact factor, and second and third in</text>
+<text top="596" left="81" width="359" height="14" font="3">importance are the metadata weight and DLB respectively.</text>
+<text top="627" left="81" width="347" height="19" font="1">6. CONCLUSIONS AND FUTURE WORK</text>
+<text top="650" left="94" width="345" height="14" font="3">To facilitate table extracting and searching, we devise a</text>
+<text top="666" left="81" width="359" height="14" font="3">novel table-speciﬁc search engine, TableSeer. An extensive</text>
+<text top="682" left="81" width="359" height="14" font="3">set of table metadata is proposed to precisely represent a ta-</text>
+<text top="697" left="81" width="359" height="14" font="3">ble. Because the traditional TF-IDF approach is no longer</text>
+<text top="713" left="81" width="359" height="14" font="3">suitable for table search, we also studies how to calculate</text>
+<text top="729" left="81" width="359" height="14" font="3">the ranking scores of tables contained in scientiﬁc documents</text>
+<text top="745" left="81" width="359" height="14" font="3">based on multiple ranking factors from three levels: the term</text>
+<text top="760" left="81" width="359" height="14" font="3">level, the table level, and the document level. We propose a</text>
+<text top="776" left="81" width="359" height="14" font="3">novel table ranking algorithm, TableRank, which combines</text>
+<text top="792" left="81" width="359" height="14" font="3">the query-dependent features with the query-independent</text>
+<text top="807" left="81" width="359" height="14" font="3">features of a document to rank tables and their containing</text>
+<text top="823" left="81" width="359" height="14" font="3">documents in response to an end-users query. Experimental</text>
+<text top="839" left="81" width="359" height="14" font="3">results demonstrate that TableSeer outperforms the widely</text>
+<text top="854" left="81" width="359" height="14" font="3">used search engine, e.g. Google Scholar on searching infor-</text>
+<text top="870" left="81" width="165" height="14" font="3">mation contained in tables.</text>
+<text top="886" left="94" width="345" height="14" font="3">Scientiﬁc documents are the focus of our current work.</text>
+<text top="901" left="81" width="359" height="14" font="3">However, there are a large numbers of tables in documents</text>
+<text top="917" left="81" width="359" height="14" font="3">in other areas. Current parameter settings are based on</text>
+<text top="933" left="81" width="359" height="14" font="3">empirical results and further work is needed to establish op-</text>
+<text top="949" left="81" width="359" height="14" font="3">timal settings for ranking and searching. Future user studies</text>
+<text top="964" left="81" width="296" height="14" font="3">will indicate the validity of the ranking methods.</text>
+<text top="996" left="81" width="152" height="19" font="1">7. REFERENCES</text>
+<text top="1011" left="87" width="245" height="13" font="4">[1] http:/en.wikipedia.orgwikisearch engine.</text>
+<text top="1026" left="87" width="349" height="13" font="4">[2] N. A. A. Amano. Graph grammar based analysis system of</text>
+<text top="1039" left="107" width="329" height="13" font="4">complex table form document. In International Conference</text>
+<text top="1053" left="107" width="315" height="13" font="4">on Document Analysis and Recognition (ICDAR), pages</text>
+<text top="1066" left="107" width="81" height="13" font="4">916–920, 2003.</text>
+<text top="86" left="482" width="296" height="13" font="4">[3] W. G. B. Krupl, M. Herzog. Using visual cues for</text>
+<text top="99" left="502" width="325" height="13" font="4">extraction of tabular data from arbitrary html documents.</text>
+<text top="113" left="502" width="314" height="13" font="4">In In Proc. of the 14th Int’l Conf. on World Wide Web,</text>
+<text top="126" left="502" width="129" height="13" font="4">pages 1000–1001, 2005.</text>
+<text top="141" left="482" width="341" height="13" font="4">[4] S. T. H. Chen and J. Tsai. Mining tables from large scale</text>
+<text top="154" left="502" width="306" height="13" font="4">html texts. In In Proc. 18th Int’l Conf. Computational</text>
+<text top="168" left="502" width="228" height="13" font="4">Liguistics, Saarbrucken, Germany, 2000.</text>
+<text top="183" left="482" width="325" height="13" font="4">[5] X. W. W. B. D. Pinto, A. McCallum. Table extraction</text>
+<text top="196" left="502" width="286" height="13" font="4">using conditional random ﬁelds. In In proceeding of</text>
+<text top="210" left="502" width="312" height="13" font="4">Proceedings of the 26th ACM SIGIR, Toronto, Canada,</text>
+<text top="223" left="502" width="57" height="13" font="4">July 2003.</text>
+<text top="238" left="482" width="341" height="13" font="4">[6] C. B. G. Salton. Term-weighting approaches in automatic</text>
+<text top="252" left="502" width="326" height="13" font="4">text retrieval. In Information Processing and Management</text>
+<text top="265" left="502" width="154" height="13" font="4">24(5), pages 513–523, 1988.</text>
+<text top="280" left="482" width="343" height="13" font="4">[7] J. T. K. H.T. Ng, C. Y. Lim. Learning to recognize tables</text>
+<text top="293" left="502" width="326" height="13" font="4">in free text. In In Proc. of the 37th Annual Meeting of the</text>
+<text top="307" left="502" width="250" height="13" font="4">Association of Computational Linguistics on</text>
+<text top="320" left="502" width="271" height="13" font="4">Computational Linguistics, pages 443–450, 1999.</text>
+<text top="335" left="482" width="302" height="13" font="4">[8] R. H. J. Ha and I. Philips. Recursive x-y cut using</text>
+<text top="349" left="502" width="300" height="13" font="4">bounding boxes of connected components. In In Proc.</text>
+<text top="362" left="502" width="304" height="13" font="4">Third Int’l Conf. Document Analysis and Recognition,</text>
+<text top="376" left="502" width="116" height="13" font="4">pages 952–955, 1955.</text>
+<text top="391" left="482" width="352" height="13" font="4">[9] N. G. J. Shin. Table recognition and evaluation. In In Proc.</text>
+<text top="404" left="502" width="298" height="13" font="4">of the Class of 2005 Senior Conf., Computer Science</text>
+<text top="417" left="502" width="289" height="13" font="4">Department, Swarthmore College, pages 8–13, 2005.</text>
+<text top="432" left="475" width="333" height="13" font="4">[10] T. W. J.H. Shamilian, H.S. Baird. A retargetable table</text>
+<text top="446" left="502" width="305" height="13" font="4">reader. In In Proc. of the 4th Int’l Conf. on Document</text>
+<text top="459" left="502" width="264" height="13" font="4">Analysis and Recognition, pages 158–163, 1997.</text>
+<text top="474" left="475" width="326" height="13" font="4">[11] T. G. Kieninger. Table structure recognition based on</text>
+<text top="488" left="502" width="277" height="13" font="4">robust block segmentation. In In Proc. Document</text>
+<text top="501" left="502" width="321" height="13" font="4">Recognition V, SPIE, volume 3305, pages 22–32, January</text>
+<text top="515" left="502" width="29" height="13" font="4">1998.</text>
+<text top="530" left="475" width="343" height="13" font="4">[12] Y. Liu, K. Bai, P. Mitra, and C. L. Giles. Tablerank: An</text>
+<text top="543" left="502" width="294" height="13" font="4">algorithm for table search and retrieval. In Technical</text>
+<text top="556" left="502" width="73" height="13" font="4">Report, 2006.</text>
+<text top="571" left="475" width="321" height="13" font="4">[13] Y. Liu, P. Mitra, C. L. Giles, and K. Bai. Automatic</text>
+<text top="585" left="502" width="311" height="13" font="4">extraction of table metadata from digital documents. In</text>
+<text top="598" left="502" width="157" height="13" font="4">JCDL, pages 339–340, 2006.</text>
+<text top="613" left="475" width="355" height="13" font="4">[14] P. Pyreddy and W. Croft. Tintin: A system for retrieval in</text>
+<text top="627" left="502" width="320" height="13" font="4">text tables. In In Proceedings of the Second International</text>
+<text top="640" left="502" width="300" height="13" font="4">Conference on Digital Libraries, pages 193–200, 1997.</text>
+<text top="655" left="475" width="300" height="13" font="4">[15] D. B. R. Zanibbi and J. Cordy. A survey of table</text>
+<text top="669" left="502" width="310" height="13" font="4">recognition: Models, observations, transformations, and</text>
+<text top="682" left="502" width="327" height="13" font="4">inferences. In Int’l J. Document Analysis and Recognition,</text>
+<text top="695" left="502" width="173" height="13" font="4">Vol. 7, No.1, pages 1–16, 2004.</text>
+<text top="710" left="475" width="339" height="13" font="4">[16] A. D. T. Kieninger. Applying the t-rec table recognition</text>
+<text top="724" left="502" width="332" height="13" font="4">system to the business letter domain. In In Proc. of the 6th</text>
+<text top="737" left="502" width="322" height="13" font="4">Int’l Conf. on Document Analysis and Recognition, pages</text>
+<text top="751" left="502" width="144" height="13" font="4">518–522, September 2001.</text>
+<text top="766" left="475" width="358" height="13" font="4">[17] J. Wang and J. Hu. A machine learning based approach for</text>
+<text top="779" left="502" width="329" height="13" font="4">table detection on the web. In Proceedings of the 11th Int’l</text>
+<text top="793" left="502" width="312" height="13" font="4">Conf. on World Wide Web (WWW’02), pages 242–250,</text>
+<text top="806" left="502" width="55" height="13" font="4">Nov 2002.</text>
+<text top="821" left="475" width="350" height="13" font="4">[18] X. Wang. Tabular abstraction, editing, and formatting. In</text>
+<text top="834" left="502" width="314" height="13" font="4">Ph.D. Thesis, Dept. of Computer Science, University of</text>
+<text top="848" left="502" width="87" height="13" font="4">Waterloo, 1996.</text>
+<text top="863" left="475" width="349" height="13" font="4">[19] J. H. Y. Wang. Detecting tables in html documents. In In</text>
+<text top="876" left="502" width="292" height="13" font="4">Proc. of the 5th IAPR Int’l Workshop on Document</text>
+<text top="890" left="502" width="221" height="13" font="4">Analysis Systems, Princeton, NJ, 2002.</text>
+<text top="905" left="475" width="356" height="13" font="4">[20] R. H. Y. Wang, I.T. Philips. Automatic table ground truth</text>
+<text top="918" left="502" width="331" height="13" font="4">generation and a background-analysis-based table structure</text>
+<text top="932" left="502" width="325" height="13" font="4">extraction method. In In Proc. of the 6th Int’l Conference</text>
+<text top="945" left="502" width="280" height="13" font="4">on Document Analysis and Recognition, page 528,</text>
+<text top="958" left="502" width="92" height="13" font="4">September 2001.</text>
+<text top="973" left="475" width="300" height="13" font="4">[21] R. M. H. Y. Wang, L.T. Phillips. Table structure</text>
+<text top="987" left="502" width="321" height="13" font="4">understanding and its performance evaluation. In Pattern</text>
+<text top="1000" left="502" width="267" height="13" font="4">Recognition, 37(7), pages 1479–1497, July 2004.</text>
+</page>
+</pdf2xml>

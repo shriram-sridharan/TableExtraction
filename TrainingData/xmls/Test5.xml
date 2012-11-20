@@ -1,0 +1,1700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml>
+<page number="1" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="0" size="24" family="Times" color="#000000"/>
+	<fontspec id="1" size="15" family="Times" color="#000000"/>
+	<fontspec id="2" size="12" family="Times" color="#000000"/>
+	<fontspec id="3" size="11" family="Times" color="#000000"/>
+	<fontspec id="4" size="9" family="Times" color="#000000"/>
+<text top="105" left="114" width="687" height="28" font="0"><b>Identifying Table Boundaries in Digital Documents via</b></text>
+<text top="135" left="316" width="282" height="28" font="0"><b>Sparse Line Detection</b></text>
+<text top="204" left="309" width="297" height="19" font="1">Ying Liu, Prasenjit Mitra, C. Lee Giles</text>
+<text top="223" left="298" width="320" height="16" font="2">College of Information Sciences and Technology</text>
+<text top="238" left="344" width="226" height="16" font="2">The Pennsylvania State University</text>
+<text top="254" left="350" width="215" height="16" font="2">University Park, PA, USA, 16802</text>
+<text top="275" left="233" width="448" height="19" font="1">yliu@ist.psu.edu, pmitra@ist.psu.edu, giles@ist.psu.edu</text>
+<text top="316" left="81" width="97" height="19" font="1">ABSTRACT</text>
+<text top="341" left="81" width="359" height="14" font="3">Most prior work on information extraction has focused on</text>
+<text top="357" left="81" width="359" height="14" font="3">extracting information from text in digital documents. How-</text>
+<text top="372" left="81" width="359" height="14" font="3">ever, often, the most important information being reported</text>
+<text top="388" left="81" width="359" height="14" font="3">in an article is presented in tabular form in a digital docu-</text>
+<text top="404" left="81" width="359" height="14" font="3">ment. If the data reported in tables can be extracted and</text>
+<text top="419" left="81" width="359" height="14" font="3">stored in a database, the data can be queried and joined</text>
+<text top="435" left="81" width="359" height="14" font="3">with other data using database management systems. In</text>
+<text top="451" left="81" width="359" height="14" font="3">order to prepare the data source for table search, accurately</text>
+<text top="467" left="81" width="359" height="14" font="3">detecting the table boundary plays a crucial role for the</text>
+<text top="482" left="81" width="359" height="14" font="3">later table structure decomposition. Table boundary detec-</text>
+<text top="498" left="81" width="359" height="14" font="3">tion and content extraction is a challenging problem because</text>
+<text top="514" left="81" width="359" height="14" font="3">tabular formats are not standardized across all documents.</text>
+<text top="529" left="81" width="359" height="14" font="3">In this paper, we propose a simple but eﬀective preprocess-</text>
+<text top="545" left="81" width="359" height="14" font="3">ing method to improve the table boundary detection per-</text>
+<text top="561" left="81" width="359" height="14" font="3">formance by considering the sparse-line property of table</text>
+<text top="576" left="81" width="359" height="14" font="3">rows. Our method easily simpliﬁes the table boundary de-</text>
+<text top="592" left="81" width="359" height="14" font="3">tection problem into the sparse line analysis problem with</text>
+<text top="608" left="81" width="359" height="14" font="3">much less noise. We design eight line label types and ap-</text>
+<text top="623" left="81" width="359" height="14" font="3">ply two machine learning techniques, Conditional Random</text>
+<text top="639" left="81" width="359" height="14" font="3">Field (CRF) and Support Vector Machines (SVM), on the</text>
+<text top="655" left="81" width="359" height="14" font="3">table boundary detection ﬁeld. The experimental results</text>
+<text top="671" left="81" width="359" height="14" font="3">not only compare the performances between the machine</text>
+<text top="686" left="81" width="359" height="14" font="3">learning methods and the heuristical-based method, but also</text>
+<text top="702" left="81" width="359" height="14" font="3">demonstrate the eﬀectiveness of the sparse line analysis in</text>
+<text top="718" left="81" width="180" height="14" font="3">the table boundary detection.</text>
+<text top="750" left="81" width="270" height="19" font="1">Categories and Subject Descriptors</text>
+<text top="775" left="81" width="374" height="14" font="3">H.3 [INFORMATION STORAGE AND RETRIEVAL];</text>
+<text top="791" left="81" width="158" height="14" font="3">H.3.7 [Digital Libraries]</text>
+<text top="812" left="81" width="114" height="19" font="1">General Terms</text>
+<text top="838" left="81" width="151" height="14" font="3">Algorithms, Performance</text>
+<text top="859" left="81" width="77" height="19" font="1">Keywords</text>
+<text top="885" left="81" width="359" height="14" font="3">Table Boundary Detection, Sparse Line Property, Table La-</text>
+<text top="901" left="81" width="359" height="14" font="3">beling, Conditional Random Field, Support Vector Machine,</text>
+<text top="916" left="81" width="133" height="14" font="3">Table Data Collection</text>
+<text top="975" left="81" width="359" height="13" font="4">Permission to make digital or hard copies of all or part of this work for</text>
+<text top="988" left="81" width="359" height="13" font="4">personal or classroom use is granted without fee provided that copies are</text>
+<text top="1002" left="81" width="359" height="13" font="4">not made or distributed for proﬁt or commercial advantage and that copies</text>
+<text top="1015" left="81" width="359" height="13" font="4">bear this notice and the full citation on the ﬁrst page. To copy otherwise, to</text>
+<text top="1029" left="81" width="359" height="13" font="4">republish, to post on servers or to redistribute to lists, requires prior speciﬁc</text>
+<text top="1042" left="81" width="115" height="13" font="4">permission and/or a fee.</text>
+<text top="1056" left="81" width="304" height="13" font="4">CIKM’08, October 26–30, 2008, Napa Valley, California, USA.</text>
+<text top="1069" left="81" width="244" height="13" font="4">Copyright 2008 ACM 978-1-59593-991-3/08/10 ...</text>
+<text top="1068" left="325" width="7" height="14" font="3">$</text>
+<text top="1069" left="332" width="24" height="13" font="4">5.00.</text>
+<text top="316" left="475" width="174" height="19" font="1">1. INTRODUCTION</text>
+<text top="339" left="489" width="345" height="14" font="3">Table, as a speciﬁc document component, is widely used in</text>
+<text top="354" left="475" width="359" height="14" font="3">web pages, scientiﬁc documents, ﬁnancial reports, etc. Re-</text>
+<text top="370" left="475" width="359" height="14" font="3">searchers always use tables to concisely display the latest ex-</text>
+<text top="386" left="475" width="359" height="14" font="3">perimental results or statistical ﬁnancial data in a condensed</text>
+<text top="402" left="475" width="359" height="14" font="3">fashion. Other researchers, for example, who are conducting</text>
+<text top="417" left="475" width="359" height="14" font="3">the empirical studies in the same topic, can quickly obtain</text>
+<text top="433" left="475" width="359" height="14" font="3">valuable insights via examining these tables. Along with the</text>
+<text top="449" left="475" width="359" height="14" font="3">rapid expansion of the Internet, tables become a valuable in-</text>
+<text top="464" left="475" width="359" height="14" font="3">formation source in the information retrieval ﬁeld. Based on</text>
+<text top="480" left="475" width="359" height="14" font="3">the increasing demands to unlock the information in tables,</text>
+<text top="496" left="475" width="359" height="14" font="3">more applications appear in the table-related ﬁelds, e.g., the</text>
+<text top="511" left="475" width="359" height="14" font="3">table search [12]. Although approaches on table analysis are</text>
+<text top="527" left="475" width="359" height="14" font="3">diverse, they share two same analyzing steps: table bound-</text>
+<text top="543" left="475" width="359" height="14" font="3">ary detection and table structure decomposition. For the</text>
+<text top="558" left="475" width="359" height="14" font="3">further table content storage and sharing (e.g., the table</text>
+<text top="574" left="475" width="359" height="14" font="3">data extraction and the table search), locating the table</text>
+<text top="590" left="475" width="320" height="14" font="3">boundary in a document is the ﬁrst and crucial step.</text>
+<text top="606" left="489" width="345" height="14" font="3">Diﬀerent from most table detection works, which are the</text>
+<text top="621" left="475" width="359" height="14" font="3">pre-deﬁned layout based and the rule-based methods, we</text>
+<text top="637" left="475" width="359" height="14" font="3">apply machine learning techniques on the table boundary</text>
+<text top="653" left="475" width="359" height="14" font="3">detection ﬁeld in this paper. Pre-deﬁned layout based algo-</text>
+<text top="668" left="475" width="359" height="14" font="3">rithms usually work well for one domain, but are diﬃcult to</text>
+<text top="684" left="475" width="359" height="14" font="3">extend. For the rule-based methods, the performance is al-</text>
+<text top="700" left="475" width="358" height="14" font="3">ways heavily aﬀected by the quality of the rules. When the</text>
+<text top="715" left="475" width="359" height="14" font="3">testing data set is large enough, it is diﬃcult to determine</text>
+<text top="731" left="475" width="359" height="14" font="3">the “good” values for thresholds. Machine learning methods</text>
+<text top="747" left="475" width="359" height="14" font="3">are good choices to deal with such problems. Wang et al.</text>
+<text top="762" left="475" width="359" height="14" font="3">[23] applied the decision tree and Support Vector Machine</text>
+<text top="778" left="475" width="359" height="14" font="3">(SVM) techniques to classify the web tables into genuine ta-</text>
+<text top="794" left="475" width="359" height="14" font="3">bles and non-genuine tables. However, their work starts with</text>
+<text top="810" left="475" width="359" height="14" font="3">the identiﬁed tables without any detail about how to detect</text>
+<text top="825" left="475" width="359" height="14" font="3">the table boundary in a document page. David et al. [19]</text>
+<text top="841" left="475" width="359" height="14" font="3">compared the experimental results of extracting the tables</text>
+<text top="857" left="475" width="359" height="14" font="3">from plain-text government statistical reports using Condi-</text>
+<text top="872" left="475" width="359" height="14" font="3">tional Random Fields (CRF) and Hidden Markov Models</text>
+<text top="888" left="475" width="359" height="14" font="3">(HMM) respectively. Unfortunately, many adopted line la-</text>
+<text top="904" left="475" width="359" height="14" font="3">bels (e.g., separator) in [19] are too speciﬁc to be applicable</text>
+<text top="919" left="475" width="292" height="14" font="3">in other document medium (e.g., HTML, PDF).</text>
+<text top="935" left="489" width="347" height="14" font="3">In general, table boundary detection problem can be trans-</text>
+<text top="951" left="475" width="359" height="14" font="3">formed into the problem of identifying the table lines, which</text>
+<text top="966" left="475" width="359" height="14" font="3">constitute the table boundaries. By the observation of tables</text>
+<text top="982" left="475" width="359" height="14" font="3">with diverse layouts from diﬀerent documents, we identify</text>
+<text top="998" left="475" width="359" height="14" font="3">that all the table lines share an important property: ma-</text>
+<text top="1014" left="475" width="359" height="14" font="3">jority lines belonging to the table areas are sparse in terms</text>
+<text top="1029" left="475" width="359" height="14" font="3">of the text density. Existing ﬁlter-out based table-line dis-</text>
+<text top="1045" left="475" width="359" height="14" font="3">covering methods identify the table lines from the entire set</text>
+<text top="1061" left="475" width="359" height="14" font="3">of lines of a document according to certain rules, which in</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="84" left="81" width="359" height="14" font="3">turn results in low recall. However, for applications such</text>
+<text top="100" left="81" width="359" height="14" font="3">as table search [12], recall is more important than precision</text>
+<text top="116" left="81" width="359" height="14" font="3">because once the false negative table lines are removed, it is</text>
+<text top="131" left="81" width="359" height="14" font="3">diﬃcult to retrieve them back. However, the false positive</text>
+<text top="147" left="81" width="359" height="14" font="3">rate can be easily lowered in later table structure decompo-</text>
+<text top="163" left="81" width="359" height="14" font="3">sition step. In this paper, we propose a novel but eﬀective</text>
+<text top="178" left="81" width="359" height="14" font="3">method to quickly locate the boundary of a table by taking</text>
+<text top="194" left="81" width="359" height="14" font="3">advantage of the aforementioned property. We also pro-</text>
+<text top="210" left="81" width="359" height="14" font="3">pose an exclusive based method for identifying table lines,</text>
+<text top="225" left="81" width="359" height="14" font="3">which generates high recall and saves substantial eﬀort to</text>
+<text top="241" left="81" width="359" height="14" font="3">analyze the noisy lines. To our best knowledge, there are no</text>
+<text top="257" left="81" width="359" height="14" font="3">proposed works that compare the machine learning based</text>
+<text top="273" left="81" width="359" height="14" font="3">methods with the rule-based methods on the table bound-</text>
+<text top="288" left="81" width="359" height="14" font="3">ary detection. In this paper, we apply two machine learning</text>
+<text top="304" left="81" width="359" height="14" font="3">methods (CRF and SVM) on the table boundary detection</text>
+<text top="320" left="81" width="359" height="14" font="3">Furthermore, we elaborate the feature selection, analyze the</text>
+<text top="335" left="81" width="359" height="14" font="3">factor eﬀects of diﬀerent features, and compare the perfor-</text>
+<text top="351" left="81" width="359" height="14" font="3">mance of CRF/SVM approaches with our proposed rule-</text>
+<text top="367" left="81" width="88" height="14" font="3">based method.</text>
+<text top="382" left="94" width="351" height="14" font="3">Instead of extracting tables from the HTML documents [23]</text>
+<text top="398" left="81" width="359" height="14" font="3">or the plain-text documents [19], we focus on Portable Docu-</text>
+<text top="414" left="81" width="359" height="14" font="3">ment Format (PDF). PDF is a widely used document format</text>
+<text top="429" left="81" width="359" height="14" font="3">in digital libraries because it can preserve the appearance</text>
+<text top="445" left="81" width="359" height="14" font="3">of the original document. Although a good number of re-</text>
+<text top="461" left="81" width="359" height="14" font="3">searches have been done to discover the document layout by</text>
+<text top="476" left="81" width="359" height="14" font="3">converting the PDFs to other types of ﬁles (e.g., image, html,</text>
+<text top="492" left="81" width="359" height="14" font="3">text) in the past two decades, automatically identifying the</text>
+<text top="508" left="81" width="358" height="14" font="3">document logical structures information (e.g., words, text</text>
+<text top="524" left="81" width="359" height="14" font="3">lines, paragraphs, etc) and extracting the document compo-</text>
+<text top="539" left="81" width="359" height="14" font="3">nents (e.g., ﬁgures, tables, mathematical formulas, etc) as</text>
+<text top="555" left="81" width="359" height="14" font="3">well as the content [2] are still a challenging problem. The</text>
+<text top="571" left="81" width="359" height="14" font="3">major reasons are as follows: 1) the structural information is</text>
+<text top="586" left="81" width="359" height="14" font="3">not explicitly marked up because of the un-tagged nature of</text>
+<text top="602" left="81" width="358" height="14" font="3">PDF format; 2) the text sequences are often messily gener-</text>
+<text top="618" left="81" width="359" height="14" font="3">ated by the existing PDF-to-text tools; 3) new noises can be</text>
+<text top="633" left="81" width="359" height="14" font="3">generated by some necessary tools (e.g., OCR), if converting</text>
+<text top="649" left="81" width="247" height="14" font="3">the PDFs into other media (e.g., image).</text>
+<text top="665" left="94" width="345" height="14" font="3">The rest of the paper is organized as follows. Section 2</text>
+<text top="680" left="81" width="359" height="14" font="3">reviews several relevant studies in table boundary detection</text>
+<text top="696" left="81" width="359" height="14" font="3">area and the applied machine learning methods in this ﬁeld.</text>
+<text top="712" left="81" width="359" height="14" font="3">Section 3 introduces the sparse-line property of the table</text>
+<text top="728" left="81" width="359" height="14" font="3">lines. Section 4 describes in detail the sparse line detection</text>
+<text top="743" left="81" width="359" height="14" font="3">and the noise line removing using the conditional random</text>
+<text top="759" left="81" width="359" height="14" font="3">ﬁeld and support vector machine (SVM) techniques. We</text>
+<text top="775" left="81" width="359" height="14" font="3">elaborate the label types and the feature sets. Section 5 ex-</text>
+<text top="790" left="81" width="359" height="14" font="3">plains the line construction before the line labeling. Section</text>
+<text top="806" left="81" width="359" height="14" font="3">6 explains how to locate the table boundary based on the</text>
+<text top="822" left="81" width="359" height="14" font="3">labeled lines as well as the table keywords. The detailed ex-</text>
+<text top="837" left="81" width="359" height="14" font="3">perimental results are displayed in Section 7. We conclude</text>
+<text top="853" left="81" width="302" height="14" font="3">our paper with plans for future work in Section 8.</text>
+<text top="885" left="81" width="189" height="19" font="1">2. RELATED WORKS</text>
+<text top="916" left="81" width="297" height="19" font="1">2.1 Related works on Table Detection</text>
+<text top="939" left="94" width="345" height="14" font="3">Researchers in the automatic table extraction ﬁeld largely</text>
+<text top="955" left="81" width="359" height="14" font="3">focus on analyzing the table structure in a speciﬁc document</text>
+<text top="970" left="81" width="359" height="14" font="3">media. Chen et al. [3] used heuristic rules and cell similar-</text>
+<text top="986" left="81" width="359" height="14" font="3">ities to identify tables. They tested their table detection</text>
+<text top="1002" left="81" width="359" height="14" font="3">algorithm on 918 tables from airline information web pages</text>
+<text top="1017" left="81" width="358" height="14" font="3">and achieved an F-measure of 86.50%. Penn et al. [18]</text>
+<text top="1033" left="81" width="359" height="14" font="3">proposed a set of rules for identifying genuinely tabular in-</text>
+<text top="1049" left="81" width="359" height="14" font="3">formation and news links in HTML documents. They tested</text>
+<text top="1065" left="81" width="359" height="14" font="3">their algorithm on 75 web site front-pages and achieved an</text>
+<text top="84" left="475" width="359" height="14" font="3">F-measure of 88.05%. Yoshida et al. proposed a method to</text>
+<text top="100" left="475" width="359" height="14" font="3">integrate WWW tables according to the category of objects</text>
+<text top="116" left="475" width="359" height="14" font="3">presented in each table [27]. Their data set contains 35,232</text>
+<text top="131" left="475" width="359" height="14" font="3">table tags gathered from the web. They estimated their</text>
+<text top="147" left="475" width="359" height="14" font="3">algorithm parameters using all table data and then evalu-</text>
+<text top="163" left="475" width="359" height="14" font="3">ated algorithm accuracy on 175 of the tables. The average</text>
+<text top="178" left="475" width="272" height="14" font="3">F-measure reported in their paper is 82.65%.</text>
+<text top="194" left="489" width="345" height="14" font="3">Zanibbi [28] provides a survey with detailed description of</text>
+<text top="210" left="475" width="359" height="14" font="3">each method. All the methods can be divided into three cat-</text>
+<text top="225" left="475" width="359" height="14" font="3">egories: pre-deﬁned layout based [22], heuristics based [17,</text>
+<text top="241" left="475" width="359" height="14" font="3">6, 9, 8], and statistical based. Pre-deﬁned layout based al-</text>
+<text top="257" left="475" width="358" height="14" font="3">gorithms usually work well for one domain, but is diﬃcult</text>
+<text top="273" left="475" width="359" height="14" font="3">to extend. Heuristics based methods need a complex post-</text>
+<text top="288" left="475" width="359" height="14" font="3">processing and the performance relies largely on the choice of</text>
+<text top="304" left="475" width="359" height="14" font="3">features and the quality of training data. Most approaches</text>
+<text top="320" left="475" width="359" height="14" font="3">described so far utilize purely geometric features (e.g. pixel</text>
+<text top="335" left="475" width="359" height="14" font="3">distribution, line-art, white streams) to determine the log-</text>
+<text top="351" left="475" width="359" height="14" font="3">ical structure of the table, and diﬀerent document medi-</text>
+<text top="367" left="475" width="359" height="14" font="3">ums require diﬀerent process methodologies: OCR [19], X-Y</text>
+<text top="382" left="475" width="359" height="14" font="3">cut [4], tag classiﬁcation and keyword searching [10][3][24]</text>
+<text top="398" left="475" width="359" height="14" font="3">etc. In the past two decades, a good number of researches</text>
+<text top="414" left="475" width="359" height="14" font="3">have been done to discover the document layout by convert-</text>
+<text top="429" left="475" width="359" height="14" font="3">ing the PDFs to image ﬁles. However, the image analysis</text>
+<text top="445" left="475" width="359" height="14" font="3">step can introduce noise (e.g., some text may not be recog-</text>
+<text top="461" left="475" width="359" height="14" font="3">nized or some images may not be correctly recognized). In</text>
+<text top="476" left="475" width="359" height="14" font="3">addition,because of the limited information in the bitmap</text>
+<text top="492" left="475" width="359" height="14" font="3">images, most of them only work on some speciﬁc document</text>
+<text top="508" left="475" width="359" height="14" font="3">types with minimal object overlap: e.g., business letters,</text>
+<text top="524" left="475" width="359" height="14" font="3">technical journals, and newspapers. Some researchers com-</text>
+<text top="539" left="475" width="359" height="14" font="3">bine the traditional layout analysis on images with low-level</text>
+<text top="555" left="475" width="358" height="14" font="3">content extracted from the PDF ﬁle. Even if the version 6</text>
+<text top="571" left="475" width="359" height="14" font="3">of PDF allows a user to create a ﬁle containing structure</text>
+<text top="586" left="475" width="359" height="14" font="3">information, most of them do not contain such information.</text>
+<text top="602" left="489" width="345" height="14" font="3">Chao et al. [2] reported their work on extract the layout</text>
+<text top="618" left="475" width="359" height="14" font="3">and content from PDF documents. Hadjar et al. have de-</text>
+<text top="633" left="475" width="359" height="14" font="3">veloped a tool for extracting the structures from PDF docu-</text>
+<text top="649" left="475" width="359" height="14" font="3">ments. They believe that, to discover the logical components</text>
+<text top="665" left="475" width="359" height="14" font="3">of a document, all/most of the page objects need to be ana-</text>
+<text top="680" left="475" width="359" height="14" font="3">lyzed such as text objects, image objects, path objects, etc,</text>
+<text top="696" left="475" width="359" height="14" font="3">which are listed by PDF document content stream. How-</text>
+<text top="712" left="475" width="358" height="14" font="3">ever, the object overlapping problem happens frequently. If</text>
+<text top="728" left="475" width="359" height="14" font="3">all the objects are analyzed, more eﬀort needs to be spent to</text>
+<text top="743" left="475" width="359" height="14" font="3">ﬁrstly segment these objects from each other. In addition,</text>
+<text top="759" left="475" width="359" height="14" font="3">even such objects/structures are identiﬁed, they are still too</text>
+<text top="775" left="475" width="359" height="14" font="3">high level to fulﬁll many special goals, e.g., detecting the ta-</text>
+<text top="790" left="475" width="359" height="14" font="3">bles, ﬁgures, mathematical formulas, footnotes, references,</text>
+<text top="806" left="475" width="359" height="14" font="3">etc. Instead of converting the PDF documents into other</text>
+<text top="822" left="475" width="359" height="14" font="3">types of media (e.g., image or HTML) and then applying</text>
+<text top="837" left="475" width="359" height="14" font="3">the existing techniques, we process PDF documents directly</text>
+<text top="853" left="475" width="116" height="14" font="3">from the text level.</text>
+<text top="882" left="475" width="320" height="19" font="1">2.2 Related works on table analysis with</text>
+<text top="900" left="516" width="225" height="19" font="1">machine learning approaches</text>
+<text top="923" left="489" width="345" height="14" font="3">Several machine learning approaches are applied in the</text>
+<text top="939" left="475" width="359" height="14" font="3">table analysis ﬁeld, e.g., decision tree [20], Naive Bayes clas-</text>
+<text top="955" left="475" width="359" height="14" font="3">siﬁer [29], Support Vector Machine (SVM) [1], Conditional</text>
+<text top="970" left="475" width="359" height="14" font="3">random ﬁelds (CRF) [11]etc. Hurst mentioned in [5] that a</text>
+<text top="986" left="475" width="359" height="14" font="3">Naive Bayes classiﬁer algorithm produced adequate results</text>
+<text top="1002" left="475" width="359" height="14" font="3">but no detailed algorithm and experimental information was</text>
+<text top="1017" left="475" width="359" height="14" font="3">provided. Wang et. al. tried both the decision tree classiﬁer</text>
+<text top="1033" left="475" width="359" height="14" font="3">and SVM to classify each given table entity as either gen-</text>
+<text top="1049" left="475" width="359" height="14" font="3">uine or non-genuine table based on features from layout,</text>
+<text top="1065" left="475" width="359" height="14" font="3">content type, and word group perspectives. Decision tree</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="5" size="5" family="Times" color="#ff0000"/>
+	<fontspec id="6" size="5" family="Times" color="#000000"/>
+	<fontspec id="7" size="5" family="Times" color="#0000ff"/>
+<text top="84" left="81" width="359" height="14" font="3">learning is one of the most widely used and practical meth-</text>
+<text top="100" left="81" width="359" height="14" font="3">ods for inductive inference. It is a method for approximat-</text>
+<text top="116" left="81" width="359" height="14" font="3">ing discrete-valued functions that is robust to noisy data.</text>
+<text top="131" left="81" width="359" height="14" font="3">Comparing with our work, they started with the detected</text>
+<text top="147" left="81" width="359" height="14" font="3">tables and all features are related to the table itself (e.g.,</text>
+<text top="163" left="81" width="359" height="14" font="3">the number of columns). How to detect these tables, the</text>
+<text top="178" left="81" width="307" height="14" font="3">key problem of our paper, is missing in their work.</text>
+<text top="194" left="94" width="345" height="14" font="3">Conditional random ﬁelds (CRFs) is initially introduced</text>
+<text top="210" left="81" width="359" height="14" font="3">by Laﬀerty et al. [11] in 2001 as a framework for building</text>
+<text top="225" left="81" width="359" height="14" font="3">probabilistic models to segment and label sequence data.</text>
+<text top="241" left="81" width="359" height="14" font="3">After the birth, CRF is applied in bio-informatics, computa-</text>
+<text top="257" left="81" width="359" height="14" font="3">tional linguistics and speech recognition ﬁelds. Conditional</text>
+<text top="273" left="81" width="359" height="14" font="3">Random Fields (CRF) have been shown to be useful in part-</text>
+<text top="288" left="81" width="359" height="14" font="3">of-speech tagging [11], shallow parsing [21], named entity</text>
+<text top="304" left="81" width="359" height="14" font="3">recognition for newswire data [15], as well as table detection</text>
+<text top="320" left="81" width="359" height="14" font="3">[19]. To the best of our knowledge, Pinto et al. [19] did the</text>
+<text top="335" left="81" width="359" height="14" font="3">most related work as we did. Comparing with our work, the</text>
+<text top="351" left="81" width="359" height="14" font="3">diﬀerence spans the following areas: 1) they extract table</text>
+<text top="367" left="81" width="359" height="14" font="3">from a more speciﬁc document type – plain-text government</text>
+<text top="382" left="81" width="359" height="14" font="3">statistical reports; 2) because of the speciﬁc document na-</text>
+<text top="398" left="81" width="359" height="14" font="3">ture, they adopted several special labels and corresponding</text>
+<text top="414" left="81" width="359" height="14" font="3">features (e.g., BLANKLINE label and SEPARATOR fea-</text>
+<text top="429" left="81" width="359" height="14" font="3">tures), which are not applicable for other document types;</text>
+<text top="445" left="81" width="359" height="14" font="3">3) their features focus on white space, text, and separa-</text>
+<text top="461" left="81" width="359" height="14" font="3">tor instead of of the coordinate features, which are impor-</text>
+<text top="476" left="81" width="359" height="14" font="3">tant for the table structure decomposition; 4) although they</text>
+<text top="492" left="81" width="359" height="14" font="3">claimed that their paper concentrated on locating the table</text>
+<text top="508" left="81" width="359" height="14" font="3">and identifying the row positions and types, they did pro-</text>
+<text top="524" left="81" width="359" height="14" font="3">vide the detail about the table locating. In order to improve</text>
+<text top="539" left="81" width="359" height="14" font="3">the performance table data extraction, we zoom in the ta-</text>
+<text top="555" left="81" width="359" height="14" font="3">ble boundary detection problem and elaborate the feature</text>
+<text top="571" left="81" width="359" height="14" font="3">selection in our paper. Moreover, we consider the coordi-</text>
+<text top="586" left="81" width="359" height="14" font="3">nate features, which not only play a crucial role in the table</text>
+<text top="602" left="81" width="359" height="14" font="3">boundary ﬁeld, but also are unavoidable in the later cell</text>
+<text top="618" left="81" width="359" height="14" font="3">segmentation phase. Diﬀerent from most CRF applications,</text>
+<text top="633" left="81" width="316" height="14" font="3">the input data is a document line instead of a word.</text>
+<text top="661" left="103" width="58" height="10" font="5">Red rectangle:</text>
+<text top="670" left="103" width="48" height="10" font="5">Sparse lines</text>
+<text top="682" left="113" width="34" height="10" font="6">Outside </text>
+<text top="690" left="113" width="42" height="10" font="6">rectangle: </text>
+<text top="699" left="113" width="48" height="10" font="6">Non-sparse </text>
+<text top="708" left="113" width="19" height="10" font="6">lines</text>
+<text top="852" left="378" width="45" height="10" font="7">Line label: </text>
+<text top="861" left="378" width="35" height="10" font="7">Headers/</text>
+<text top="869" left="378" width="30" height="10" font="7">Footers</text>
+<text top="670" left="379" width="43" height="10" font="7">Line label:</text>
+<text top="678" left="379" width="37" height="10" font="7">Headings</text>
+<text top="754" left="376" width="45" height="10" font="7">Line label: </text>
+<text top="762" left="376" width="38" height="10" font="7">Headings</text>
+<text top="814" left="106" width="45" height="10" font="7">Line label: </text>
+<text top="823" left="106" width="32" height="10" font="7">Caption</text>
+<text top="721" left="107" width="45" height="10" font="7">Line label: </text>
+<text top="730" left="107" width="32" height="10" font="7">Caption</text>
+<text top="843" left="101" width="50" height="10" font="7">Sparse lines </text>
+<text top="851" left="101" width="55" height="10" font="7">without label:</text>
+<text top="860" left="101" width="70" height="10" font="7">OTHERSPARSE</text>
+<text top="897" left="116" width="289" height="14" font="3">Figure 1: The sparse lines in a PDF page</text>
+<text top="942" left="81" width="322" height="19" font="1">3. THE SPARSE-LINE PROPERTY OF</text>
+<text top="963" left="112" width="69" height="19" font="1">TABLES</text>
+<text top="986" left="94" width="345" height="14" font="3">Tables present structural data and relational information</text>
+<text top="1002" left="81" width="359" height="14" font="3">in a two-dimensional format and in a condensed fashion.</text>
+<text top="1017" left="81" width="359" height="14" font="3">Scientiﬁc researchers always use tables to concisely display</text>
+<text top="1033" left="81" width="359" height="14" font="3">their latest experimental results or statistical data. Other</text>
+<text top="1049" left="81" width="359" height="14" font="3">researchers can quickly obtain valuable insights by examin-</text>
+<text top="1065" left="81" width="359" height="14" font="3">ing and citing tables. Tables have become an important in-</text>
+<text top="84" left="475" width="359" height="14" font="3">formation source for information retrieval. The demand for</text>
+<text top="100" left="475" width="359" height="14" font="3">locating such information (table search) is increasing. To</text>
+<text top="116" left="475" width="359" height="14" font="3">successfully get the table data from a PDF document, de-</text>
+<text top="131" left="475" width="359" height="14" font="3">tecting the boundary of the table is a crucial phase. Based</text>
+<text top="147" left="475" width="359" height="14" font="3">on the observation, we notice that diﬀerent lines in the same</text>
+<text top="163" left="475" width="359" height="14" font="3">document page have diﬀerent widths, text densities, and the</text>
+<text top="178" left="475" width="359" height="14" font="3">sizes of the internal spaces between words. A document page</text>
+<text top="194" left="475" width="359" height="14" font="3">contains at least one column. Many journals/conferences</text>
+<text top="210" left="475" width="359" height="14" font="3">require two (e.g., ACM and IEEE templates) or three even</text>
+<text top="225" left="475" width="359" height="14" font="3">four columns. In a document, some lines have the same</text>
+<text top="241" left="475" width="359" height="14" font="3">length as the width of the document column, some are longer</text>
+<text top="257" left="475" width="359" height="14" font="3">(e.g., cross over multiple document columns) or shorter (e.g.,</text>
+<text top="273" left="475" width="359" height="14" font="3">the heading “1. INTRODUCTION” in our paper) than a</text>
+<text top="288" left="475" width="359" height="14" font="3">column. From the internal space perspective, the major-</text>
+<text top="304" left="475" width="359" height="14" font="3">ity of the lines contain normal space sizes between adjacent</text>
+<text top="320" left="475" width="359" height="14" font="3">words while some lines have large spaces. In this paper, we</text>
+<text top="335" left="475" width="171" height="14" font="3">deﬁne sparse line as follows.</text>
+<text top="363" left="490" width="345" height="14" font="3">Definition 1. Sparse Line: A document line is a sparse</text>
+<text top="378" left="475" width="359" height="14" font="3">line if any of the following condition is satisﬁed: 1). The</text>
+<text top="394" left="475" width="366" height="14" font="3">minimum space gap between a pair of consecutive words within</text>
+<text top="410" left="475" width="359" height="14" font="3">the line is larger than a threshold sg. 2). The length of the</text>
+<text top="425" left="475" width="241" height="14" font="3">line is much shorter than a threshold ll;</text>
+<text top="453" left="489" width="345" height="14" font="3">Since the majority of the lines in a document belong to</text>
+<text top="468" left="475" width="359" height="14" font="3">the non-sparse category, separating the document lines into</text>
+<text top="484" left="475" width="359" height="14" font="3">sparse/non-sparse categories according to the text internal</text>
+<text top="500" left="475" width="359" height="14" font="3">space/density and then getting rid of the non-sparse cate-</text>
+<text top="515" left="475" width="362" height="14" font="3">gory become a fruitful preprocessing step for the table bound-</text>
+<text top="531" left="475" width="359" height="14" font="3">ary detection. Such a method has two advantages: 1) the</text>
+<text top="547" left="475" width="359" height="14" font="3">sparse lines cover nearly the entire table content lines; 2)</text>
+<text top="562" left="475" width="359" height="14" font="3">Narrowing down the table boundary to the sparse lines at</text>
+<text top="578" left="475" width="359" height="14" font="3">the early stage can save substantial time and eﬀort to ana-</text>
+<text top="594" left="475" width="93" height="14" font="3">lyze noise lines.</text>
+<text top="609" left="489" width="345" height="14" font="3">There are tables whose cells can cross over multiple table</text>
+<text top="625" left="475" width="359" height="14" font="3">columns. In order to collect all such cells, method proposed</text>
+<text top="641" left="475" width="359" height="14" font="3">in [26] sets up constraints on the number of such long cells</text>
+<text top="657" left="475" width="359" height="14" font="3">within a table boundary. However, determining a reasonable</text>
+<text top="672" left="475" width="359" height="14" font="3">value is diﬃcult. For example, if the value is set up too tight,</text>
+<text top="688" left="475" width="359" height="14" font="3">part of a table could be missed out. If the value is loose,</text>
+<text top="704" left="475" width="359" height="14" font="3">noise lines will be included into the table boundary. Unlike</text>
+<text top="719" left="475" width="359" height="14" font="3">the approach in [26], our method treats the long cells as non-</text>
+<text top="735" left="475" width="359" height="14" font="3">sparse lines and remove temporally. To decide whether a</text>
+<text top="751" left="475" width="359" height="14" font="3">sparse line should be included into the same table boundary,</text>
+<text top="766" left="475" width="359" height="14" font="3">we only need to check the vertical space gaps between this</text>
+<text top="782" left="475" width="359" height="14" font="3">sparse line and its previous neighbor sparse line. Once we</text>
+<text top="798" left="475" width="359" height="14" font="3">merge these two sparse lines into the same table boundary,</text>
+<text top="813" left="475" width="359" height="14" font="3">the previously temporally removed long lines (if exists any)</text>
+<text top="829" left="475" width="341" height="14" font="3">between those two sparse lines should be retrieved back.</text>
+<text top="845" left="489" width="345" height="14" font="3">Diﬀerent deﬁnitions of the “much shorter than” may gen-</text>
+<text top="861" left="475" width="359" height="14" font="3">erate diﬀerent sparse line labeling results. We deﬁne it as</text>
+<text top="876" left="475" width="359" height="14" font="3">the half of the document column width. We show a snap-</text>
+<text top="892" left="475" width="359" height="14" font="3">shot of a PDF document page in Figure 1 as an example.</text>
+<text top="908" left="475" width="359" height="14" font="3">We highlight the sparse lines in red rectangles. Apparently,</text>
+<text top="923" left="475" width="359" height="14" font="3">the table body content lines are labeled as sparse lines. Ten</text>
+<text top="939" left="475" width="359" height="14" font="3">sparse lines are not located within the table boundary: two</text>
+<text top="955" left="475" width="359" height="14" font="3">heading lines, one footer line, three caption lines, and four</text>
+<text top="970" left="475" width="359" height="14" font="3">short lines that are the last line in a paragraph. We label</text>
+<text top="986" left="475" width="359" height="14" font="3">them as sparse lines because they satisfy the second con-</text>
+<text top="1002" left="475" width="359" height="14" font="3">dition. Since such short-length lines also happen in some</text>
+<text top="1017" left="475" width="359" height="14" font="3">table rows with only one ﬁlled cell, we consider them as</text>
+<text top="1033" left="475" width="359" height="14" font="3">sparse lines to avoid missing out the potential table lines.</text>
+<text top="1049" left="475" width="359" height="14" font="3">Such noise non-table sparse lines are very few because they</text>
+<text top="1065" left="475" width="359" height="14" font="3">usually only exist at the headings or the last line of a para-</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="8" size="6" family="Times" color="#000000"/>
+	<fontspec id="9" size="19" family="Times" color="#000000"/>
+	<fontspec id="10" size="8" family="Times" color="#000000"/>
+<text top="84" left="81" width="359" height="14" font="3">graph. In addition, the short length restriction also reduce</text>
+<text top="100" left="81" width="359" height="14" font="3">the frequency. We can easily get rid of them based on the</text>
+<text top="116" left="81" width="174" height="14" font="3">coordinate information later.</text>
+<text top="151" left="81" width="344" height="19" font="1">4. MACHINE LEARNING TECHNIQUES</text>
+<text top="184" left="81" width="236" height="19" font="1">4.1 Support Vector Machines</text>
+<text top="207" left="94" width="345" height="14" font="3">SVM [1] is a binary classiﬁcation method which ﬁnds an</text>
+<text top="223" left="81" width="359" height="14" font="3">optimal separating hyperplane x : wx + b = 0 to maximize</text>
+<text top="238" left="81" width="359" height="14" font="3">the margin between two classes of training samples, which</text>
+<text top="254" left="81" width="359" height="14" font="3">is the distance between the plus-plane x : wx + b = 1 and</text>
+<text top="270" left="81" width="359" height="14" font="3">the minus-plane x : wx + b = −1. Thus, for separable noise-</text>
+<text top="286" left="81" width="359" height="14" font="3">less data, maximizing the margin equals minimizing the ob-</text>
+<text top="301" left="81" width="127" height="14" font="3">jective function ||w||</text>
+<text top="299" left="208" width="5" height="9" font="8">2</text>
+<text top="301" left="221" width="123" height="14" font="3">subject to ∀i, wyi(x</text>
+<text top="307" left="343" width="4" height="9" font="8">i</text>
+<text top="301" left="353" width="87" height="14" font="3">+ b) ≥ 1. In</text>
+<text top="317" left="81" width="359" height="14" font="3">the noiseless case, only the so-called support vectors, vec-</text>
+<text top="333" left="81" width="359" height="14" font="3">tors closest to the optimal separating hyperplane, are use-</text>
+<text top="348" left="81" width="359" height="14" font="3">ful to determine the optimal separating hyperplane. Un-</text>
+<text top="364" left="81" width="359" height="14" font="3">like classiﬁcation methods where minimizing loss functions</text>
+<text top="380" left="81" width="359" height="14" font="3">on wrongly classiﬁed samples are aﬀected seriously by im-</text>
+<text top="395" left="81" width="359" height="14" font="3">balanced data, the decision hyperplane in SVM is not af-</text>
+<text top="411" left="81" width="359" height="14" font="3">fected much. However, for inseparable noisy data, SVM</text>
+<text top="427" left="81" width="230" height="14" font="3">minimizes the objective function: ||w||</text>
+<text top="425" left="311" width="5" height="9" font="8">2</text>
+<text top="427" left="319" width="23" height="14" font="3">+ C</text>
+<text top="424" left="360" width="7" height="9" font="8">n</text>
+<text top="435" left="360" width="18" height="9" font="8">i=1</text>
+<text top="427" left="381" width="6" height="14" font="3">ε</text>
+<text top="432" left="387" width="4" height="9" font="8">i</text>
+<text top="427" left="396" width="43" height="14" font="3">subject</text>
+<text top="442" left="81" width="52" height="14" font="3">to ∀i, wy</text>
+<text top="448" left="133" width="4" height="9" font="8">i</text>
+<text top="442" left="138" width="13" height="14" font="3">(x</text>
+<text top="448" left="151" width="4" height="9" font="8">i</text>
+<text top="442" left="159" width="73" height="14" font="3">+ b) ≥ 1 − ε</text>
+<text top="448" left="232" width="4" height="9" font="8">i</text>
+<text top="442" left="237" width="42" height="14" font="3">, and ε</text>
+<text top="448" left="278" width="4" height="9" font="8">i</text>
+<text top="442" left="287" width="76" height="14" font="3">≥ 0, where ε</text>
+<text top="448" left="363" width="4" height="9" font="8">i</text>
+<text top="442" left="373" width="67" height="14" font="3">is the slack</text>
+<text top="458" left="81" width="359" height="14" font="3">variable, which measures the degree of misclassiﬁcation of a</text>
+<text top="474" left="81" width="54" height="14" font="3">sample x</text>
+<text top="479" left="134" width="4" height="9" font="8">i</text>
+<text top="474" left="139" width="300" height="14" font="3">. This noisy objective function has included a loss</text>
+<text top="490" left="81" width="271" height="14" font="3">function that is aﬀected by imbalanced data.</text>
+<text top="505" left="94" width="345" height="14" font="3">In order to increase the importance of recall in SVM, a</text>
+<text top="521" left="81" width="359" height="14" font="3">cut-oﬀ classiﬁcation threshold value t &lt; 0 should be selected.</text>
+<text top="537" left="81" width="359" height="14" font="3">In methods with outputs of class probability [0, 1], then a</text>
+<text top="552" left="81" width="359" height="14" font="3">threshold value t &lt; 0.5 should be chosen. As noted before,</text>
+<text top="568" left="81" width="358" height="14" font="3">for noiseless data, SVM is stable, but for noisy data, SVM is</text>
+<text top="584" left="81" width="359" height="14" font="3">aﬀected much by imbalanced support vectors. In our work,</text>
+<text top="599" left="81" width="359" height="14" font="3">the latter approach is applied for SVM, i.e., when t &lt; 0,</text>
+<text top="615" left="81" width="359" height="14" font="3">recall is to be improved but precision decreases. When t &gt; 0,</text>
+<text top="631" left="81" width="174" height="14" font="3">a reverse change is expected.</text>
+<text top="656" left="81" width="252" height="19" font="1">4.2 Conditional Random Fields</text>
+<text top="679" left="94" width="345" height="14" font="3">Conditional Random Fields (CRFs) are undirected sta-</text>
+<text top="695" left="81" width="359" height="14" font="3">tistical graphical models, which are well suited to sequence</text>
+<text top="711" left="81" width="362" height="14" font="3">analysis. The primary advantage of CRFs over Hidden Mark-</text>
+<text top="727" left="81" width="359" height="14" font="3">ov Models (HMM) is their conditional nature, resulting in</text>
+<text top="742" left="81" width="359" height="14" font="3">the relaxation of the independence assumptions required by</text>
+<text top="758" left="81" width="359" height="14" font="3">HMMs in order to ensure tractable inference. Addition-</text>
+<text top="774" left="81" width="359" height="14" font="3">ally, CRFs avoid the label bias problem, a weakness exhib-</text>
+<text top="789" left="81" width="359" height="14" font="3">ited by Maximum Entropy Markov Models (MEMMs) and</text>
+<text top="805" left="81" width="359" height="14" font="3">other conditional Markov models based on directed graph-</text>
+<text top="821" left="81" width="160" height="14" font="3">ical models. Let o =&lt; o</text>
+<text top="826" left="241" width="5" height="9" font="8">1</text>
+<text top="821" left="247" width="13" height="14" font="3">, o</text>
+<text top="826" left="260" width="5" height="9" font="8">2</text>
+<text top="821" left="266" width="30" height="14" font="3">, ..., o</text>
+<text top="826" left="296" width="7" height="9" font="8">n</text>
+<text top="821" left="311" width="129" height="14" font="3">&gt; be an sequence of</text>
+<text top="836" left="81" width="359" height="14" font="3">observed input data sequence, for example in our case as</text>
+<text top="852" left="81" width="359" height="14" font="3">a sequence of input lines of text in a PDF document page.</text>
+<text top="868" left="81" width="359" height="14" font="3">Let S be a set of states in a ﬁnite state machine, each corre-</text>
+<text top="883" left="81" width="359" height="14" font="3">sponding to a label l ∈ L (e.g., sparse line, non-sparse line,</text>
+<text top="899" left="81" width="181" height="14" font="3">heading line, etc.) Let s =&lt; s</text>
+<text top="904" left="262" width="5" height="9" font="8">1</text>
+<text top="899" left="268" width="13" height="14" font="3">, s</text>
+<text top="904" left="281" width="5" height="9" font="8">2</text>
+<text top="899" left="287" width="30" height="14" font="3">, ..., s</text>
+<text top="904" left="317" width="7" height="9" font="8">n</text>
+<text top="899" left="329" width="111" height="14" font="3">&gt; be the sequence</text>
+<text top="915" left="81" width="359" height="14" font="3">of states in S that correspond to the labels assigned to the</text>
+<text top="931" left="81" width="359" height="14" font="3">lines in the input sequence o. Linear-chain CRFs deﬁne the</text>
+<text top="946" left="81" width="359" height="14" font="3">conditional probability of a state sequence given an input</text>
+<text top="962" left="81" width="92" height="14" font="3">sequence to be:</text>
+<text top="1010" left="131" width="54" height="14" font="3">P (s|o) =</text>
+<text top="1002" left="195" width="7" height="14" font="3">1</text>
+<text top="1019" left="191" width="9" height="14" font="3">Z</text>
+<text top="1025" left="200" width="5" height="9" font="8">o</text>
+<text top="1010" left="208" width="27" height="14" font="3">exp(</text>
+<text top="997" left="241" width="7" height="9" font="8">n</text>
+<text top="1030" left="236" width="18" height="9" font="8">i=1</text>
+<text top="997" left="262" width="10" height="9" font="8">m</text>
+<text top="1030" left="257" width="19" height="9" font="8">j=1</text>
+<text top="1010" left="279" width="8" height="14" font="3">λ</text>
+<text top="1016" left="287" width="5" height="9" font="8">j</text>
+<text top="1010" left="293" width="7" height="14" font="3">f</text>
+<text top="1016" left="300" width="5" height="9" font="8">j</text>
+<text top="1010" left="306" width="12" height="14" font="3">(s</text>
+<text top="1016" left="317" width="18" height="9" font="8">i−1</text>
+<text top="1010" left="336" width="13" height="14" font="3">, s</text>
+<text top="1016" left="349" width="4" height="9" font="8">i</text>
+<text top="1010" left="354" width="36" height="14" font="3">, o, i))</text>
+<text top="1010" left="422" width="18" height="14" font="3">(1)</text>
+<text top="1049" left="94" width="50" height="14" font="3">where Z</text>
+<text top="1054" left="144" width="5" height="9" font="8">o</text>
+<text top="1049" left="155" width="285" height="14" font="3">is a normalization factor of all state sequences,</text>
+<text top="1065" left="81" width="328" height="14" font="3">the sum of the ”scores” of all possible state sequences. f</text>
+<text top="1070" left="409" width="5" height="9" font="8">j</text>
+<text top="1065" left="414" width="12" height="14" font="3">(s</text>
+<text top="1070" left="426" width="18" height="9" font="8">i−1</text>
+<text top="1065" left="445" width="4" height="14" font="3">,</text>
+<text top="84" left="475" width="6" height="14" font="3">s</text>
+<text top="90" left="482" width="4" height="9" font="8">i</text>
+<text top="84" left="486" width="347" height="14" font="3">, o, i) is one arbitrary feature function of m functions that</text>
+<text top="100" left="475" width="277" height="14" font="3">describes a feature over its arguments, and λ</text>
+<text top="105" left="752" width="5" height="9" font="8">j</text>
+<text top="100" left="763" width="71" height="14" font="3">is a learned</text>
+<text top="116" left="475" width="227" height="14" font="3">weight for each such feature function.</text>
+<text top="163" left="536" width="9" height="14" font="3">Z</text>
+<text top="168" left="545" width="5" height="9" font="8">o</text>
+<text top="163" left="555" width="11" height="14" font="3">=</text>
+<text top="183" left="570" width="19" height="9" font="8">s∈S</text>
+<text top="163" left="592" width="27" height="14" font="3">exp(</text>
+<text top="150" left="625" width="7" height="9" font="8">n</text>
+<text top="182" left="620" width="18" height="9" font="8">i=1</text>
+<text top="182" left="648" width="5" height="9" font="8">j</text>
+<text top="163" left="663" width="8" height="14" font="3">λ</text>
+<text top="168" left="671" width="5" height="9" font="8">j</text>
+<text top="163" left="677" width="7" height="14" font="3">f</text>
+<text top="168" left="684" width="5" height="9" font="8">j</text>
+<text top="163" left="690" width="12" height="14" font="3">(s</text>
+<text top="168" left="701" width="18" height="9" font="8">i−1</text>
+<text top="163" left="720" width="13" height="14" font="3">, s</text>
+<text top="168" left="733" width="4" height="9" font="8">i</text>
+<text top="163" left="738" width="36" height="14" font="3">, o, i))</text>
+<text top="163" left="816" width="18" height="14" font="3">(2)</text>
+<text top="201" left="489" width="241" height="14" font="3">Intuitively, the learned feature weight λ</text>
+<text top="206" left="729" width="5" height="9" font="8">j</text>
+<text top="201" left="740" width="94" height="14" font="3">for each feature</text>
+<text top="216" left="475" width="7" height="14" font="3">f</text>
+<text top="222" left="482" width="5" height="9" font="8">j</text>
+<text top="216" left="494" width="340" height="14" font="3">should be positive for features that are correlated with</text>
+<text top="232" left="475" width="359" height="14" font="3">the target label, negative for features that anti-correlated</text>
+<text top="248" left="475" width="359" height="14" font="3">with the label, and near zero for relatively uninformative</text>
+<text top="263" left="475" width="359" height="14" font="3">features. These weights set to maximize the conditional</text>
+<text top="279" left="475" width="359" height="14" font="3">log likelihood of labeled sequences in a training set D =</text>
+<text top="295" left="475" width="46" height="14" font="3">&lt; o, l &gt;</text>
+<text top="301" left="522" width="14" height="9" font="8">(1)</text>
+<text top="295" left="537" width="70" height="14" font="3">, ..., &lt; o, l &gt;</text>
+<text top="301" left="607" width="16" height="9" font="8">(n)</text>
+<text top="295" left="623" width="4" height="14" font="3">:</text>
+<text top="342" left="537" width="56" height="14" font="3">LL(D) =</text>
+<text top="329" left="604" width="7" height="9" font="8">n</text>
+<text top="362" left="598" width="18" height="9" font="8">i=1</text>
+<text top="342" left="619" width="44" height="14" font="3">log(P (l</text>
+<text top="348" left="663" width="13" height="9" font="8">(i)</text>
+<text top="342" left="677" width="12" height="14" font="3">|o</text>
+<text top="348" left="689" width="13" height="9" font="8">(i)</text>
+<text top="342" left="702" width="19" height="14" font="3">) −</text>
+<text top="329" left="729" width="10" height="9" font="8">m</text>
+<text top="362" left="725" width="19" height="9" font="8">j=1</text>
+<text top="333" left="752" width="8" height="14" font="3">λ</text>
+<text top="331" left="760" width="5" height="9" font="8">2</text>
+<text top="339" left="760" width="5" height="9" font="8">j</text>
+<text top="351" left="748" width="15" height="14" font="3">2σ</text>
+<text top="351" left="764" width="5" height="9" font="8">2</text>
+<text top="342" left="816" width="18" height="14" font="3">(3)</text>
+<text top="380" left="489" width="345" height="14" font="3">When the training state sequence are fully labeled and un-</text>
+<text top="396" left="475" width="359" height="14" font="3">ambiguous, the objective function is convex, thus the model</text>
+<text top="411" left="475" width="359" height="14" font="3">is guaranteed to ﬁnd the optimal weight settings in terms</text>
+<text top="427" left="475" width="359" height="14" font="3">of LL(D). Once these settings are found, the labeling for</text>
+<text top="443" left="475" width="359" height="14" font="3">a new, unlabeled sequence can be done using a modiﬁed</text>
+<text top="458" left="475" width="109" height="14" font="3">Viterbi algorithm.</text>
+<text top="474" left="489" width="345" height="14" font="3">We use a weight parameter θ to boost features correspond-</text>
+<text top="490" left="475" width="359" height="14" font="3">ing to the true class during the testing process. Similar to</text>
+<text top="505" left="475" width="359" height="14" font="3">the classiﬁcation threshold t in SVM, θ can tune the trade-oﬀ</text>
+<text top="521" left="475" width="359" height="14" font="3">between recall and precision, and may be able to improve</text>
+<text top="537" left="475" width="359" height="14" font="3">the overall performance, since the probability of the true</text>
+<text top="553" left="475" width="359" height="14" font="3">class increases. During the testing process, the sequence of</text>
+<text top="568" left="475" width="359" height="14" font="3">labels s is determined by maximizing the probability model</text>
+<text top="584" left="475" width="59" height="14" font="3">P (s|o) =</text>
+<text top="582" left="548" width="5" height="9" font="8">1</text>
+<text top="592" left="544" width="8" height="9" font="8">Z</text>
+<text top="595" left="551" width="5" height="8" font="6">o</text>
+<text top="584" left="559" width="27" height="14" font="3">exp(</text>
+<text top="581" left="600" width="7" height="9" font="8">n</text>
+<text top="592" left="600" width="18" height="9" font="8">i=1</text>
+<text top="581" left="636" width="10" height="9" font="8">m</text>
+<text top="592" left="636" width="19" height="9" font="8">j=1</text>
+<text top="584" left="658" width="8" height="14" font="3">λ</text>
+<text top="589" left="666" width="5" height="9" font="8">j</text>
+<text top="584" left="672" width="7" height="14" font="3">f</text>
+<text top="589" left="679" width="5" height="9" font="8">j</text>
+<text top="584" left="684" width="12" height="14" font="3">(s</text>
+<text top="589" left="696" width="18" height="9" font="8">i−1</text>
+<text top="584" left="715" width="13" height="14" font="3">, s</text>
+<text top="589" left="728" width="4" height="9" font="8">i</text>
+<text top="584" left="732" width="38" height="14" font="3">, o, i, θ</text>
+<text top="589" left="770" width="5" height="9" font="8">s</text>
+<text top="584" left="776" width="58" height="14" font="3">)), where</text>
+<text top="605" left="475" width="7" height="14" font="3">f</text>
+<text top="610" left="482" width="5" height="9" font="8">j</text>
+<text top="605" left="488" width="12" height="14" font="3">(s</text>
+<text top="610" left="500" width="18" height="9" font="8">i−1</text>
+<text top="605" left="518" width="13" height="14" font="3">, s</text>
+<text top="610" left="531" width="4" height="9" font="8">i</text>
+<text top="605" left="536" width="38" height="14" font="3">, o, i, θ</text>
+<text top="610" left="573" width="5" height="9" font="8">s</text>
+<text top="605" left="579" width="21" height="14" font="3">) =</text>
+<text top="602" left="619" width="3" height="9" font="8">|</text>
+<text top="612" left="619" width="18" height="9" font="8">i=1</text>
+<text top="605" left="640" width="17" height="14" font="3">o|θ</text>
+<text top="610" left="657" width="5" height="9" font="8">s</text>
+<text top="613" left="662" width="4" height="8" font="6">i</text>
+<text top="605" left="668" width="5" height="14" font="3">t</text>
+<text top="610" left="673" width="5" height="9" font="8">j</text>
+<text top="605" left="679" width="12" height="14" font="3">(s</text>
+<text top="610" left="691" width="18" height="9" font="8">i−1</text>
+<text top="605" left="709" width="13" height="14" font="3">, s</text>
+<text top="610" left="722" width="4" height="9" font="8">i</text>
+<text top="605" left="727" width="46" height="14" font="3">, o, i), θ</text>
+<text top="610" left="773" width="5" height="9" font="8">s</text>
+<text top="605" left="784" width="50" height="14" font="3">is a vec-</text>
+<text top="620" left="475" width="58" height="14" font="3">tor with θ</text>
+<text top="626" left="533" width="5" height="9" font="8">s</text>
+<text top="629" left="538" width="4" height="8" font="6">i</text>
+<text top="620" left="548" width="66" height="14" font="3">= θ when s</text>
+<text top="626" left="614" width="4" height="9" font="8">i</text>
+<text top="620" left="623" width="70" height="14" font="3">= true, or θ</text>
+<text top="626" left="693" width="5" height="9" font="8">s</text>
+<text top="629" left="698" width="4" height="8" font="6">i</text>
+<text top="620" left="708" width="66" height="14" font="3">= 1 when s</text>
+<text top="626" left="774" width="4" height="9" font="8">i</text>
+<text top="620" left="783" width="51" height="14" font="3">= f alse,</text>
+<text top="636" left="475" width="35" height="14" font="3">and λ</text>
+<text top="641" left="510" width="5" height="9" font="8">j</text>
+<text top="636" left="521" width="245" height="14" font="3">is the parameters learned while training.</text>
+<text top="659" left="475" width="131" height="19" font="1">4.3 Line Labels</text>
+<text top="683" left="489" width="345" height="14" font="3">Diﬀerent from the traditional table boundary detection</text>
+<text top="698" left="475" width="359" height="14" font="3">works, we use an exclusive method to label all the potential</text>
+<text top="714" left="475" width="359" height="14" font="3">table lines. Figure 2 shows the inclusion-relation of the line</text>
+<text top="730" left="475" width="359" height="14" font="3">types in a document page. The size of each block does not</text>
+<text top="745" left="475" width="359" height="14" font="3">represent the ratio of a line type in the page. Each line type</text>
+<text top="761" left="475" width="340" height="14" font="3">corresponds to a label in the machine learning methods.</text>
+<text top="849" left="525" width="119" height="31" font="9">Non-Sparse </text>
+<text top="875" left="556" width="51" height="31" font="9">Lines</text>
+<text top="792" left="651" width="59" height="22" font="2">Captions</text>
+<text top="813" left="649" width="63" height="22" font="2">Headings</text>
+<text top="833" left="650" width="61" height="22" font="2">footnotes</text>
+<text top="850" left="646" width="71" height="22" font="2">references</text>
+<text top="872" left="641" width="80" height="11" font="10">Headers &amp; footers</text>
+<text top="887" left="652" width="57" height="22" font="2">formulas</text>
+<text top="906" left="667" width="27" height="22" font="2">…...</text>
+<text top="805" left="743" width="62" height="16" font="4">Sparse lines</text>
+<text top="840" left="739" width="77" height="16" font="4">True table lines</text>
+<text top="874" left="744" width="74" height="16" font="4">Labeled Table </text>
+<text top="888" left="768" width="23" height="16" font="4">lines</text>
+<text top="904" left="740" width="69" height="16" font="4">True negative</text>
+<text top="918" left="757" width="37" height="16" font="4">(recall) </text>
+<text top="938" left="745" width="70" height="16" font="4">False Positive</text>
+<text top="951" left="754" width="55" height="16" font="4">(precision) </text>
+<text top="986" left="475" width="359" height="14" font="3">Figure 2: Composition of a PDF page with line types</text>
+<text top="1017" left="489" width="345" height="14" font="3">We design a set of labels by examining a large number</text>
+<text top="1033" left="475" width="359" height="14" font="3">of lines in scientiﬁc PDF documents. Each line will be ini-</text>
+<text top="1049" left="475" width="359" height="14" font="3">tially labeled as either SPARSE or NONSPARSE. A line</text>
+<text top="1065" left="475" width="359" height="14" font="3">labeled as NONSPARSE satisﬁes neither of the conditions</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="11" size="14" family="Times" color="#000000"/>
+<text top="84" left="81" width="359" height="14" font="3">in Section 3. NONSPARSE lines usually cover the follow-</text>
+<text top="100" left="81" width="359" height="14" font="3">ing document components: document title, abstract, para-</text>
+<text top="116" left="81" width="359" height="14" font="3">graphs, etc. SPARSE lines cover other speciﬁc document</text>
+<text top="131" left="81" width="359" height="14" font="3">components entirely/partially: tables, mathematical formu-</text>
+<text top="147" left="81" width="359" height="14" font="3">las, texts in ﬁgures, short headings, aﬃliations, document</text>
+<text top="163" left="81" width="242" height="14" font="3">headers and footers, and references, etc.</text>
+<text top="178" left="94" width="345" height="14" font="3">Even though sparse lines cover almost all table lines, a few</text>
+<text top="194" left="81" width="359" height="14" font="3">non-table lines mingle in. Removing these noise lines can fa-</text>
+<text top="210" left="81" width="359" height="14" font="3">cilitate the table boundary detection eﬃciently. Therefore,</text>
+<text top="225" left="81" width="359" height="14" font="3">for the labeled SPARSE lines, we label them as the following</text>
+<text top="241" left="81" width="365" height="14" font="3">six categories: CAPTIONSPARSE, HEADINGSPARSE, FO-</text>
+<text top="257" left="81" width="359" height="14" font="3">OTNOTESPARSE, REFERENCESPARSE, HEADERFO-</text>
+<text top="273" left="81" width="359" height="14" font="3">OTERSPARSE, and OTHERSPARSE. CAPTIONSPARSE</text>
+<text top="288" left="81" width="359" height="14" font="3">refers to a line that is the ﬁrst line of a table caption or</text>
+<text top="304" left="81" width="359" height="14" font="3">a ﬁgure caption. HEADINGSPARSE marks short docu-</text>
+<text top="320" left="81" width="359" height="14" font="3">ment headings. Usually the lines labeled with the HEAD-</text>
+<text top="335" left="81" width="359" height="14" font="3">INGSPARSE or the CAPTIONSPARSE, or FOOTNOTES-</text>
+<text top="351" left="81" width="359" height="14" font="3">PARSE only satisfy the second condition mentioned in Sec-</text>
+<text top="367" left="81" width="359" height="14" font="3">tion 3. To label a line with these labels, additional features</text>
+<text top="382" left="81" width="359" height="14" font="3">should be considered. For HEADINGSPARSE lines, the</text>
+<text top="398" left="81" width="359" height="14" font="3">font size and type are the key features. For CAPTION-</text>
+<text top="414" left="81" width="359" height="14" font="3">SPARSE lines, we should examine whether the line starts</text>
+<text top="429" left="81" width="358" height="14" font="3">with the deﬁned keywords or not (e.g., Table or Figure).</text>
+<text top="445" left="81" width="359" height="14" font="3">For FOOTNOTESPARSE lines, the speciﬁc starting sym-</text>
+<text top="461" left="81" width="359" height="14" font="3">bol is the most important factor. To identify the HEAD-</text>
+<text top="476" left="81" width="359" height="14" font="3">ERFOOTERSPARSE lines, checking the Y-axis coordinate</text>
+<text top="492" left="81" width="359" height="14" font="3">is key. Although a large part of lines with these labels also</text>
+<text top="508" left="81" width="359" height="14" font="3">exist in non-sparse line group, we can easily zoom in the</text>
+<text top="524" left="81" width="359" height="14" font="3">table boundary into the last category OTHERSPARSE by</text>
+<text top="539" left="81" width="353" height="14" font="3">removing such lines from sparse line set with this method.</text>
+<text top="565" left="81" width="132" height="19" font="1">4.4 Feature sets</text>
+<text top="588" left="94" width="345" height="14" font="3">Wise choice of features is always vital to the ﬁnal results.</text>
+<text top="604" left="81" width="359" height="14" font="3">The feature based statistical model CRFs reduce the prob-</text>
+<text top="620" left="81" width="359" height="14" font="3">lems to ﬁnding an appropriate feature set. This section out-</text>
+<text top="635" left="81" width="359" height="14" font="3">lines the main features used in these experiments. Overall,</text>
+<text top="651" left="81" width="359" height="14" font="3">our features can be classiﬁed into three categories: the or-</text>
+<text top="667" left="81" width="359" height="14" font="3">thographic features, the lexical features, and the document</text>
+<text top="682" left="81" width="359" height="14" font="3">layout features. Instead of the features about white space</text>
+<text top="698" left="81" width="342" height="14" font="3">and separators in [19], we emphasize the layout features.</text>
+<text top="725" left="85" width="196" height="17" font="11">4.4.1 Orthographic features</text>
+<text top="747" left="94" width="345" height="14" font="3">Most related works treat the vocabulary as the simplest</text>
+<text top="763" left="81" width="359" height="14" font="3">and most obvious feature set. Such features deﬁne how these</text>
+<text top="778" left="81" width="359" height="14" font="3">input data appear (e.g., capitalization etc), based on regular</text>
+<text top="794" left="81" width="359" height="14" font="3">expressions as well as preﬁxes and suﬃxes. Because the line</text>
+<text top="810" left="81" width="359" height="14" font="3">layout is much more important than their appearance for our</text>
+<text top="825" left="81" width="359" height="14" font="3">line labeling problem, we do not have to consider so many</text>
+<text top="841" left="81" width="359" height="14" font="3">orthographic features as they did. Our orthographic fea-</text>
+<text top="857" left="81" width="359" height="14" font="3">tures include: InitialCaptical, AllCaptical, FontSize, Font-</text>
+<text top="873" left="81" width="327" height="14" font="3">Type, BoldOrNot, HasDot, HasDigital, AllDigital, etc.</text>
+<text top="899" left="85" width="154" height="17" font="11">4.4.2 Lexical features</text>
+<text top="921" left="94" width="345" height="14" font="3">The lexical features includes: TableKwdBeginning, Fig-</text>
+<text top="937" left="81" width="363" height="14" font="3">ureKwdBeginning, ReferenceKwdBeginning, AbstractKwdBe-</text>
+<text top="953" left="81" width="372" height="14" font="3">ginning, SpecialCharBeginning, DigitalBeginning, Superscript-</text>
+<text top="969" left="81" width="254" height="14" font="3">Beginning, SubscriptBeginning, LineItself.</text>
+<text top="995" left="85" width="152" height="17" font="11">4.4.3 Layout features</text>
+<text top="1017" left="94" width="345" height="14" font="3">Our crucial features come from the layout perspective.</text>
+<text top="1033" left="81" width="372" height="14" font="3">The layout features include: LineNumFromDocTop, LineNum-</text>
+<text top="1049" left="81" width="367" height="14" font="3">ToDocBottom, NumOfTextPieces, LineWidth, CharacterDen-</text>
+<text top="1065" left="81" width="359" height="14" font="3">sity, LargestSpaceInLine, LeftX, rightX, MiddleX, DisTo-</text>
+<text top="84" left="475" width="359" height="14" font="3">PrevLine, DisToNextLine. Table 1 lists the detailed descrip-</text>
+<text top="100" left="475" width="174" height="14" font="3">tion for every layout feature.</text>
+<text top="134" left="475" width="359" height="14" font="3">Table 1: The main document layout features in our</text>
+<text top="150" left="475" width="78" height="14" font="3">experiment</text>
+<text top="166" left="483" width="142" height="11" font="10">Document Layout Features</text>
+<text top="166" left="641" width="60" height="11" font="10">Description</text>
+<text top="181" left="483" width="127" height="11" font="10">LineN umF romDocT op</text>
+<text top="181" left="641" width="170" height="11" font="10">Index number from the page top</text>
+<text top="193" left="483" width="131" height="11" font="10">LineN umT oDocBottom</text>
+<text top="193" left="641" width="177" height="11" font="10">Index number to the page bottom</text>
+<text top="206" left="483" width="106" height="11" font="10">N umOf T extP ieces</text>
+<text top="206" left="641" width="115" height="11" font="10">Number of text pieces</text>
+<text top="218" left="483" width="60" height="11" font="10">LineW idth</text>
+<text top="218" left="641" width="90" height="11" font="10">Width of the line</text>
+<text top="231" left="483" width="100" height="11" font="10">CharacterDensity</text>
+<text top="231" left="641" width="179" height="11" font="10">LineW idth/Number of characters</text>
+<text top="244" left="483" width="113" height="11" font="10">LargestSpaceInLine</text>
+<text top="244" left="641" width="151" height="11" font="10">Largest space within the line</text>
+<text top="256" left="483" width="35" height="11" font="10">Lef tX</text>
+<text top="256" left="641" width="169" height="11" font="10">X-axis value of leftmost line end</text>
+<text top="269" left="483" width="33" height="11" font="10">EndX</text>
+<text top="269" left="641" width="177" height="11" font="10">X-axis value of rightmost line end</text>
+<text top="281" left="483" width="48" height="11" font="10">M iddleX</text>
+<text top="281" left="641" width="148" height="11" font="10">X-axis value of middle point</text>
+<text top="294" left="483" width="108" height="11" font="10">T heDisT oP revLine</text>
+<text top="294" left="641" width="169" height="11" font="10">Vertical gap to the previous line</text>
+<text top="306" left="483" width="109" height="11" font="10">T heDisT oN extLine</text>
+<text top="306" left="641" width="148" height="11" font="10">Vertical gap to the next line</text>
+<text top="329" left="479" width="187" height="17" font="11">4.4.4 Conjunction features</text>
+<text top="351" left="489" width="345" height="14" font="3">So far all the previous features are described over a single</text>
+<text top="367" left="475" width="359" height="14" font="3">predicate. In order to capture relationships that a linear</text>
+<text top="382" left="475" width="359" height="14" font="3">combination of features cannot capture, we look at the con-</text>
+<text top="398" left="475" width="359" height="14" font="3">junction of features. CRFs provide the function to deter-</text>
+<text top="414" left="475" width="359" height="14" font="3">mine the label of a line by taking into account information</text>
+<text top="429" left="475" width="359" height="14" font="3">from another line. In our work, we set the window size of</text>
+<text top="445" left="475" width="359" height="14" font="3">features as -1, 0, 1 to conjunct the current line with the</text>
+<text top="461" left="475" width="359" height="14" font="3">previous line and the following ﬁle. In order to avoid the</text>
+<text top="476" left="475" width="359" height="14" font="3">overﬂowed memory and exacerbated overﬁting generated by</text>
+<text top="492" left="475" width="359" height="14" font="3">the all possible conjunctions and only generate those fea-</text>
+<text top="508" left="475" width="359" height="14" font="3">ture conjunctions with signiﬁcant improvement functions,</text>
+<text top="523" left="475" width="359" height="14" font="3">we turn to feature induction as described in [14]. We start</text>
+<text top="539" left="475" width="359" height="14" font="3">with no feature and choose new features interactively. In</text>
+<text top="555" left="475" width="359" height="14" font="3">each iteration, we evaluate some sets of candidates using</text>
+<text top="571" left="475" width="351" height="14" font="3">the Gaussian prior, and add the best ones into the model.</text>
+<text top="606" left="475" width="299" height="19" font="1">5. LINE CONSTRUCTION IN PDFS</text>
+<text top="629" left="489" width="345" height="14" font="3">Diﬀerent from most CRF applications, the unit of our</text>
+<text top="645" left="475" width="359" height="14" font="3">problem is a document line, instead of a single word. Be-</text>
+<text top="661" left="475" width="359" height="14" font="3">fore classifying the document lines, we have to construct the</text>
+<text top="676" left="475" width="359" height="14" font="3">lines ﬁrst. To construct the document lines, we deal with</text>
+<text top="692" left="475" width="359" height="14" font="3">the PDF source ﬁle character by character as well as the</text>
+<text top="708" left="475" width="359" height="14" font="3">related glyph information through analyzing the text opera-</text>
+<text top="724" left="475" width="23" height="14" font="3">tors</text>
+<text top="722" left="499" width="5" height="9" font="8">1</text>
+<text top="724" left="506" width="328" height="14" font="3">. Adobe’s Acrobat word-ﬁnder provides the coordinate</text>
+<text top="739" left="475" width="359" height="14" font="3">of the four corners of the quad(s) of the word. The PDFlib</text>
+<text top="755" left="475" width="359" height="14" font="3">Text Extraction Toolkit (TET) also provides the function</text>
+<text top="771" left="475" width="359" height="14" font="3">to extract the text in the diﬀerent levels (character, word,</text>
+<text top="786" left="475" width="359" height="14" font="3">line, paragraph, etc.). However, it only provides the content</text>
+<text top="802" left="475" width="359" height="14" font="3">instead of other style information in all the levels except the</text>
+<text top="818" left="475" width="359" height="14" font="3">character level. If we want to do some further work, con-</text>
+<text top="833" left="475" width="359" height="14" font="3">tent itself is usually not enough. We have to calculate the</text>
+<text top="849" left="475" width="359" height="14" font="3">corresponding coordinates for the higher levels by merging</text>
+<text top="865" left="475" width="359" height="14" font="3">the characters. Similar to Xpdf library, we adopt a bottom-</text>
+<text top="880" left="475" width="359" height="14" font="3">up approach to reconstruct these characters into words then</text>
+<text top="896" left="475" width="359" height="14" font="3">lines with the aid of their position information and saves</text>
+<text top="912" left="475" width="359" height="14" font="3">the results. To convert characters into words then lines, we</text>
+<text top="928" left="475" width="359" height="14" font="3">adopt some heuristics based on the distance between char-</text>
+<text top="943" left="475" width="359" height="14" font="3">acters/words. For each document page, we construct lines</text>
+<text top="959" left="475" width="359" height="14" font="3">according to their internal word relative position informa-</text>
+<text top="975" left="475" width="359" height="14" font="3">tion and width. Within a same word, diﬀerent characters</text>
+<text top="990" left="475" width="359" height="14" font="3">have the same font properties. However, within a same line,</text>
+<text top="1006" left="475" width="359" height="14" font="3">font diversity may exist among diﬀerent words (e.g., the</text>
+<text top="1022" left="475" width="359" height="14" font="3">superscript, the subscript, or mathematical symbols). The</text>
+<text top="1037" left="475" width="359" height="14" font="3">main unique place of our method is that we only analyze the</text>
+<text top="1063" left="476" width="5" height="9" font="8">1</text>
+<text top="1065" left="482" width="251" height="14" font="3">PDF Reference Fifth Edition, Version 1.6</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="12" size="10" family="Times" color="#000000"/>
+	<fontspec id="13" size="3" family="Times" color="#000000"/>
+<text top="84" left="81" width="359" height="14" font="3">coordinate information. Font information, the frequently</text>
+<text top="100" left="81" width="359" height="14" font="3">adopted parameter, is not used in our method as the rule</text>
+<text top="116" left="81" width="359" height="14" font="3">to decide whether merge the next word into the same line</text>
+<text top="131" left="81" width="359" height="14" font="3">or not. Therefore, the font information does not aﬀect the</text>
+<text top="147" left="81" width="246" height="14" font="3">performance of the sparse line detection.</text>
+<text top="181" left="81" width="358" height="14" font="3">Table 2: The parameter thresholds we adopted for</text>
+<text top="197" left="81" width="140" height="14" font="3">word reconstruction</text>
+<text top="210" left="89" width="8" height="11" font="10">P</text>
+<text top="210" left="233" width="52" height="11" font="10">Deﬁnition</text>
+<text top="222" left="89" width="8" height="11" font="10">α</text>
+<text top="222" left="123" width="272" height="11" font="10">the vertical distance between two top Y-axis values:</text>
+<text top="234" left="211" width="53" height="11" font="10">alpha = Y</text>
+<text top="238" left="264" width="17" height="8" font="6">i+1</text>
+<text top="234" left="284" width="19" height="11" font="10">− Y</text>
+<text top="238" left="303" width="4" height="8" font="6">i</text>
+<text top="247" left="89" width="7" height="11" font="10">β</text>
+<text top="247" left="113" width="293" height="11" font="10">the vertical distance between two bottom Y-axis values:</text>
+<text top="262" left="214" width="45" height="11" font="10">beta = Y</text>
+<text top="268" left="258" width="17" height="8" font="6">i+1</text>
+<text top="262" left="279" width="19" height="11" font="10">− Y</text>
+<text top="268" left="298" width="4" height="8" font="6">i</text>
+<text top="275" left="89" width="6" height="11" font="10">γ</text>
+<text top="275" left="120" width="279" height="11" font="10">the horizontal distance between these two characters:</text>
+<text top="291" left="219" width="33" height="11" font="10">γ = X</text>
+<text top="295" left="252" width="17" height="8" font="6">i+1</text>
+<text top="291" left="272" width="22" height="11" font="10">− X</text>
+<text top="296" left="294" width="4" height="8" font="6">i</text>
+<text top="303" left="89" width="5" height="11" font="10">δ</text>
+<text top="303" left="160" width="199" height="11" font="10">the vertical distance of two characters</text>
+<text top="316" left="89" width="6" height="11" font="10">θ</text>
+<text top="316" left="143" width="232" height="11" font="10">the maximal width of the space with a word</text>
+<text top="328" left="89" width="6" height="11" font="10">η</text>
+<text top="328" left="156" width="207" height="11" font="10">the maximum vertical distance between</text>
+<text top="340" left="183" width="152" height="11" font="10">two characters in a same line</text>
+<text top="351" left="94" width="345" height="14" font="3">Formally, we deﬁne a document as a set of pages D =</text>
+<text top="367" left="81" width="9" height="14" font="3">∪</text>
+<text top="365" left="90" width="7" height="9" font="8">n</text>
+<text top="374" left="90" width="20" height="9" font="8">k=1</text>
+<text top="367" left="111" width="14" height="14" font="3">(P</text>
+<text top="372" left="125" width="6" height="9" font="8">k</text>
+<text top="367" left="132" width="308" height="14" font="3">), where n is the total page number. Each page</text>
+<text top="383" left="81" width="9" height="14" font="3">P</text>
+<text top="388" left="90" width="6" height="9" font="8">k</text>
+<text top="383" left="96" width="343" height="14" font="3">, can be denoted as an aggregation of characters C ∈</text>
+<text top="398" left="81" width="101" height="14" font="3">{Character}. c</text>
+<text top="404" left="181" width="4" height="9" font="8">i</text>
+<text top="398" left="193" width="35" height="14" font="3">and c</text>
+<text top="404" left="228" width="18" height="9" font="8">i+1</text>
+<text top="398" left="254" width="186" height="14" font="3">are a pair adjacent (no other</text>
+<text top="414" left="81" width="359" height="14" font="3">character exists between them) characters. Initially, we get</text>
+<text top="430" left="81" width="225" height="14" font="3">the coordinate of the ﬁrst character c</text>
+<text top="435" left="306" width="5" height="9" font="8">0</text>
+<text top="430" left="317" width="122" height="14" font="3">in a document page.</text>
+<text top="446" left="81" width="359" height="14" font="3">All the characters in C share a common set of attributes</text>
+<text top="461" left="81" width="359" height="14" font="3">{([X, X ], [Y, Y ], W, H, F, T )}, where [X, Y ] is the pair of</text>
+<text top="477" left="81" width="359" height="14" font="3">coordinators of the upper-left corner of the character while</text>
+<text top="495" left="81" width="359" height="14" font="3">[X , Y ] is the coordinates of the bottom-right corner of</text>
+<text top="510" left="81" width="359" height="14" font="3">the character. The original point of the X-Y axes is the</text>
+<text top="526" left="81" width="359" height="14" font="3">left-bottom corner of a document page. W/H denotes the</text>
+<text top="542" left="81" width="359" height="14" font="3">width/height of the component, F is the font size, and T is</text>
+<text top="557" left="81" width="359" height="14" font="3">the text. Figure 3 shows the coordinates of an example char-</text>
+<text top="573" left="81" width="359" height="14" font="3">acter. not use the font size because in many journals and</text>
+<text top="589" left="81" width="359" height="14" font="3">archives, the font information (the font type and the font</text>
+<text top="604" left="81" width="359" height="14" font="3">size) is not so standard as we imaged. Considering such un-</text>
+<text top="620" left="81" width="359" height="14" font="3">reliable information will incur more error to the ﬁnal results.</text>
+<text top="680" left="256" width="24" height="13" font="12">char</text>
+<text top="709" left="267" width="3" height="13" font="12">i</text>
+<text top="680" left="321" width="24" height="13" font="12">char</text>
+<text top="709" left="325" width="16" height="13" font="12">i+1</text>
+<text top="764" left="348" width="8" height="13" font="12">X</text>
+<text top="658" left="153" width="8" height="13" font="12">Y</text>
+<text top="680" left="190" width="24" height="13" font="12">char</text>
+<text top="709" left="195" width="13" height="13" font="12">i-1</text>
+<text top="664" left="238" width="0" height="15" font="10">y</text>
+<text top="718" left="238" width="0" height="15" font="10">y`</text>
+<text top="750" left="243" width="5" height="15" font="10">x</text>
+<text top="750" left="276" width="9" height="15" font="10">x`</text>
+<text top="796" left="81" width="359" height="14" font="3">Figure 3: The coordinates of a character in a PDF</text>
+<text top="812" left="81" width="110" height="14" font="3">document page.</text>
+<text top="848" left="94" width="345" height="14" font="3">Since the character C is the fundamental component of a</text>
+<text top="864" left="81" width="359" height="14" font="3">document, other components can be constructed recursively</text>
+<text top="880" left="81" width="243" height="14" font="3">from it. For example, a document page P</text>
+<text top="885" left="324" width="6" height="9" font="8">k</text>
+<text top="880" left="334" width="105" height="14" font="3">can be denoted as</text>
+<text top="898" left="81" width="200" height="14" font="3">an aggregation of words W = {w</text>
+<text top="903" left="281" width="5" height="9" font="8">j</text>
+<text top="898" left="287" width="14" height="14" font="3">|w</text>
+<text top="903" left="301" width="5" height="9" font="8">j</text>
+<text top="898" left="311" width="35" height="14" font="3">= ([X</text>
+<text top="903" left="346" width="8" height="9" font="8">w</text>
+<text top="906" left="354" width="4" height="8" font="6">j</text>
+<text top="898" left="361" width="14" height="14" font="3">, Y</text>
+<text top="903" left="375" width="8" height="9" font="8">w</text>
+<text top="906" left="383" width="4" height="8" font="6">j</text>
+<text top="898" left="389" width="36" height="14" font="3">]), ([X</text>
+<text top="904" left="425" width="8" height="9" font="8">w</text>
+<text top="907" left="433" width="4" height="8" font="6">j</text>
+<text top="918" left="81" width="8" height="14" font="3">Y</text>
+<text top="925" left="89" width="8" height="9" font="8">w</text>
+<text top="928" left="97" width="4" height="8" font="6">j</text>
+<text top="918" left="103" width="28" height="14" font="3">]), W</text>
+<text top="924" left="131" width="8" height="9" font="8">w</text>
+<text top="927" left="139" width="4" height="8" font="6">j</text>
+<text top="918" left="146" width="18" height="14" font="3">, H</text>
+<text top="924" left="163" width="8" height="9" font="8">w</text>
+<text top="927" left="171" width="4" height="8" font="6">j</text>
+<text top="918" left="178" width="15" height="14" font="3">, F</text>
+<text top="924" left="193" width="8" height="9" font="8">w</text>
+<text top="927" left="201" width="4" height="8" font="6">j</text>
+<text top="918" left="207" width="14" height="14" font="3">, T</text>
+<text top="924" left="221" width="8" height="9" font="8">w</text>
+<text top="927" left="229" width="4" height="8" font="6">j</text>
+<text top="918" left="236" width="146" height="14" font="3">}. A document word w</text>
+<text top="924" left="381" width="5" height="9" font="8">j</text>
+<text top="918" left="393" width="47" height="14" font="3">is equal</text>
+<text top="934" left="81" width="26" height="14" font="3">to ∪</text>
+<text top="932" left="107" width="10" height="9" font="8">m</text>
+<text top="940" left="107" width="18" height="9" font="8">i=1</text>
+<text top="934" left="125" width="6" height="14" font="3">c</text>
+<text top="939" left="131" width="4" height="9" font="8">i</text>
+<text top="934" left="136" width="303" height="14" font="3">, where m is the total number of characters in the</text>
+<text top="950" left="81" width="45" height="14" font="3">word w</text>
+<text top="955" left="126" width="5" height="9" font="8">j</text>
+<text top="950" left="132" width="308" height="14" font="3">. Figure 4 enumerates all the relative positions of</text>
+<text top="965" left="81" width="182" height="14" font="3">a pair of adjacent characters c</text>
+<text top="971" left="263" width="4" height="9" font="8">i</text>
+<text top="965" left="272" width="33" height="14" font="3">and c</text>
+<text top="971" left="304" width="18" height="9" font="8">i+1</text>
+<text top="965" left="323" width="116" height="14" font="3">. Their coordinates</text>
+<text top="983" left="81" width="43" height="14" font="3">are ([X</text>
+<text top="989" left="124" width="4" height="9" font="8">i</text>
+<text top="983" left="128" width="18" height="14" font="3">, X</text>
+<text top="990" left="146" width="4" height="9" font="8">i</text>
+<text top="983" left="152" width="22" height="14" font="3">], [Y</text>
+<text top="989" left="174" width="4" height="9" font="8">i</text>
+<text top="983" left="178" width="14" height="14" font="3">, Y</text>
+<text top="990" left="193" width="4" height="9" font="8">i</text>
+<text top="983" left="200" width="60" height="14" font="3">]) and ([X</text>
+<text top="989" left="260" width="18" height="9" font="8">i+1</text>
+<text top="983" left="279" width="18" height="14" font="3">, X</text>
+<text top="990" left="296" width="18" height="9" font="8">i+1</text>
+<text top="983" left="315" width="22" height="14" font="3">], [Y</text>
+<text top="989" left="337" width="18" height="9" font="8">i+1</text>
+<text top="983" left="355" width="14" height="14" font="3">, Y</text>
+<text top="990" left="370" width="18" height="9" font="8">i+1</text>
+<text top="983" left="388" width="51" height="14" font="3">) respec-</text>
+<text top="999" left="81" width="359" height="14" font="3">tively. For the word reconstruction, we deﬁne several param-</text>
+<text top="1015" left="81" width="294" height="14" font="3">eters and thresholds, which are listed in Table 2:</text>
+<text top="1030" left="94" width="345" height="14" font="3">Figure 4 (a) presents a common character pair in the same</text>
+<text top="1049" left="81" width="45" height="14" font="3">line. Y</text>
+<text top="1054" left="126" width="18" height="9" font="8">i+1</text>
+<text top="1049" left="151" width="26" height="14" font="3">= Y</text>
+<text top="1054" left="177" width="4" height="9" font="8">i</text>
+<text top="1049" left="181" width="94" height="14" font="3">(α = 0) and Y</text>
+<text top="1055" left="275" width="18" height="9" font="8">i+1</text>
+<text top="1049" left="301" width="26" height="14" font="3">= Y</text>
+<text top="1055" left="326" width="4" height="9" font="8">i</text>
+<text top="1049" left="334" width="105" height="14" font="3">(β = 0). If γ is</text>
+<text top="1065" left="81" width="340" height="14" font="3">smaller than a given threshold θ, the second character c</text>
+<text top="1070" left="421" width="18" height="9" font="8">i+1</text>
+<text top="101" left="504" width="16" height="9" font="8">char</text>
+<text top="121" left="511" width="2" height="9" font="8">i</text>
+<text top="101" left="537" width="16" height="9" font="8">char</text>
+<text top="121" left="540" width="11" height="9" font="8">i+1</text>
+<text top="101" left="588" width="16" height="9" font="8">char</text>
+<text top="121" left="595" width="2" height="9" font="8">i</text>
+<text top="84" left="621" width="16" height="9" font="8">char</text>
+<text top="104" left="624" width="11" height="9" font="8">i+1</text>
+<text top="101" left="672" width="16" height="9" font="8">char</text>
+<text top="121" left="679" width="2" height="9" font="8">i</text>
+<text top="114" left="705" width="16" height="9" font="8">char</text>
+<text top="134" left="708" width="11" height="9" font="8">i+1</text>
+<text top="101" left="756" width="16" height="9" font="8">char</text>
+<text top="121" left="763" width="2" height="9" font="8">i</text>
+<text top="91" left="789" width="16" height="9" font="8">char</text>
+<text top="121" left="792" width="11" height="9" font="8">i+1</text>
+<text top="85" left="587" width="0" height="9" font="13">α</text>
+<text top="79" left="520" width="10" height="9" font="13">α=0</text>
+<text top="131" left="527" width="3" height="9" font="13">γ</text>
+<text top="146" left="530" width="10" height="9" font="13">β=0</text>
+<text top="133" left="611" width="3" height="9" font="13">γ</text>
+<text top="122" left="644" width="0" height="9" font="13">β</text>
+<text top="84" left="695" width="3" height="9" font="13">γ</text>
+<text top="138" left="661" width="0" height="9" font="13">β</text>
+<text top="101" left="726" width="0" height="9" font="13">α</text>
+<text top="139" left="779" width="3" height="9" font="13">γ</text>
+<text top="89" left="777" width="0" height="9" font="13">α</text>
+<text top="138" left="744" width="0" height="9" font="13">β</text>
+<text top="203" left="504" width="16" height="9" font="8">char</text>
+<text top="233" left="511" width="2" height="9" font="8">i</text>
+<text top="213" left="538" width="16" height="9" font="8">char</text>
+<text top="233" left="540" width="11" height="9" font="8">i+1</text>
+<text top="251" left="527" width="3" height="9" font="13">γ</text>
+<text top="201" left="558" width="0" height="9" font="13">α</text>
+<text top="249" left="560" width="0" height="9" font="13">β</text>
+<text top="236" left="588" width="16" height="9" font="8">char</text>
+<text top="256" left="595" width="2" height="9" font="8">i</text>
+<text top="189" left="621" width="16" height="9" font="8">char</text>
+<text top="209" left="624" width="11" height="9" font="8">i+1</text>
+<text top="206" left="587" width="0" height="9" font="13">α</text>
+<text top="268" left="611" width="3" height="9" font="13">γ</text>
+<text top="242" left="629" width="0" height="9" font="13">β</text>
+<text top="189" left="672" width="16" height="9" font="8">char</text>
+<text top="209" left="679" width="2" height="9" font="8">i</text>
+<text top="236" left="705" width="16" height="9" font="8">char</text>
+<text top="256" left="708" width="11" height="9" font="8">i+1</text>
+<text top="174" left="695" width="3" height="9" font="13">γ</text>
+<text top="243" left="681" width="0" height="9" font="13">β</text>
+<text top="206" left="714" width="0" height="9" font="13">α</text>
+<text top="236" left="756" width="16" height="9" font="8">char</text>
+<text top="256" left="758" width="11" height="9" font="8">i+1</text>
+<text top="189" left="789" width="16" height="9" font="8">char</text>
+<text top="209" left="796" width="2" height="9" font="8">i</text>
+<text top="206" left="760" width="0" height="9" font="13">α</text>
+<text top="268" left="779" width="3" height="9" font="13">γ</text>
+<text top="242" left="793" width="0" height="9" font="13">β</text>
+<text top="159" left="524" width="9" height="10" font="6">(a)</text>
+<text top="159" left="609" width="9" height="10" font="6">(b)</text>
+<text top="159" left="693" width="8" height="10" font="6">(c)</text>
+<text top="159" left="777" width="9" height="10" font="6">(d)</text>
+<text top="284" left="524" width="9" height="10" font="6">(e)</text>
+<text top="284" left="610" width="7" height="10" font="6">(f)</text>
+<text top="284" left="693" width="9" height="10" font="6">(g)</text>
+<text top="284" left="777" width="9" height="10" font="6">(h)</text>
+<text top="314" left="475" width="359" height="14" font="3">Figure 4: The coordinates of the example cases of</text>
+<text top="329" left="475" width="131" height="14" font="3">the character pairs</text>
+<text top="376" left="475" width="107" height="14" font="3">can merge with c</text>
+<text top="382" left="582" width="4" height="9" font="8">i</text>
+<text top="376" left="592" width="241" height="14" font="3">into a same word. Otherwise, we treat</text>
+<text top="392" left="475" width="6" height="14" font="3">c</text>
+<text top="397" left="481" width="4" height="9" font="8">i</text>
+<text top="392" left="491" width="283" height="14" font="3">as the last character of the current word and c</text>
+<text top="397" left="774" width="18" height="9" font="8">i+1</text>
+<text top="392" left="798" width="36" height="14" font="3">as the</text>
+<text top="408" left="475" width="201" height="14" font="3">starting character of a new word.</text>
+<text top="423" left="489" width="345" height="14" font="3">Figure 4 (b) – (e) display several examples of the same-</text>
+<text top="439" left="475" width="359" height="14" font="3">line character neighbors with partial vertical overlaps. Su-</text>
+<text top="455" left="475" width="359" height="14" font="3">perscript is a typical case of Figure 4 (b) while subscript is</text>
+<text top="471" left="475" width="359" height="14" font="3">a typical case of Figure 4 (c). Figure 4 (d) and (e) show</text>
+<text top="486" left="475" width="359" height="14" font="3">the font size changing within a document line. All these</text>
+<text top="502" left="475" width="359" height="14" font="3">character pairs are also same-line characters. Every case</text>
+<text top="518" left="475" width="294" height="14" font="3">has to satisfy some ﬁxed conditions as follows: Y</text>
+<text top="523" left="769" width="18" height="9" font="8">i+1</text>
+<text top="518" left="792" width="23" height="14" font="3">≥ Y</text>
+<text top="523" left="815" width="4" height="9" font="8">i</text>
+<text top="518" left="823" width="11" height="14" font="3">≥</text>
+<text top="535" left="475" width="8" height="14" font="3">Y</text>
+<text top="542" left="483" width="18" height="9" font="8">i+1</text>
+<text top="535" left="508" width="25" height="14" font="3">≥ Y</text>
+<text top="542" left="533" width="4" height="9" font="8">i</text>
+<text top="535" left="547" width="106" height="14" font="3">(Figure 4 (b)), Y</text>
+<text top="541" left="653" width="4" height="9" font="8">i</text>
+<text top="535" left="664" width="25" height="14" font="3">≥ Y</text>
+<text top="541" left="690" width="18" height="9" font="8">i+1</text>
+<text top="535" left="715" width="25" height="14" font="3">≥ Y</text>
+<text top="542" left="740" width="4" height="9" font="8">i</text>
+<text top="535" left="754" width="25" height="14" font="3">≥ Y</text>
+<text top="542" left="779" width="18" height="9" font="8">i+1</text>
+<text top="535" left="804" width="30" height="14" font="3">(Fig-</text>
+<text top="554" left="475" width="81" height="14" font="3">ure 4 (c)), Y</text>
+<text top="560" left="556" width="18" height="9" font="8">i+1</text>
+<text top="554" left="582" width="26" height="14" font="3">≥ Y</text>
+<text top="560" left="608" width="4" height="9" font="8">i</text>
+<text top="554" left="620" width="26" height="14" font="3">≥ Y</text>
+<text top="561" left="646" width="4" height="9" font="8">i</text>
+<text top="554" left="661" width="26" height="14" font="3">≥ Y</text>
+<text top="561" left="687" width="18" height="9" font="8">i+1</text>
+<text top="554" left="712" width="122" height="14" font="3">(Figure 4 (d)), and</text>
+<text top="573" left="475" width="8" height="14" font="3">Y</text>
+<text top="578" left="483" width="4" height="9" font="8">i</text>
+<text top="573" left="493" width="23" height="14" font="3">≥ Y</text>
+<text top="578" left="516" width="18" height="9" font="8">i+1</text>
+<text top="573" left="539" width="23" height="14" font="3">≥ Y</text>
+<text top="579" left="563" width="18" height="9" font="8">i+1</text>
+<text top="573" left="586" width="23" height="14" font="3">≥ Y</text>
+<text top="579" left="610" width="4" height="9" font="8">i</text>
+<text top="573" left="622" width="211" height="14" font="3">(Figure 4 (e)). For these cases, we</text>
+<text top="589" left="475" width="100" height="14" font="3">decide whether c</text>
+<text top="594" left="575" width="4" height="9" font="8">i</text>
+<text top="589" left="584" width="32" height="14" font="3">and c</text>
+<text top="594" left="616" width="18" height="9" font="8">i+1</text>
+<text top="589" left="639" width="195" height="14" font="3">go into the same word or not, by</text>
+<text top="605" left="475" width="242" height="14" font="3">comparing γ with the same threshold θ;</text>
+<text top="620" left="489" width="345" height="14" font="3">To analyze the character pairs in Figure 4 (f) – (h), we</text>
+<text top="636" left="475" width="359" height="14" font="3">introduce another threshold η: the maximum vertical dis-</text>
+<text top="652" left="475" width="359" height="14" font="3">tance between two characters in a same document line. In</text>
+<text top="667" left="475" width="211" height="14" font="3">4(f ), the ﬁxed constraint is δ = (Y</text>
+<text top="674" left="686" width="18" height="9" font="8">i+1</text>
+<text top="667" left="708" width="22" height="14" font="3">− Y</text>
+<text top="673" left="730" width="4" height="9" font="8">i</text>
+<text top="667" left="735" width="99" height="14" font="3">) &gt; 0. In Figure</text>
+<text top="686" left="475" width="257" height="14" font="3">4(g) and (h), the ﬁxed constraint is δ = (Y</text>
+<text top="692" left="733" width="4" height="9" font="8">i</text>
+<text top="686" left="744" width="22" height="14" font="3">− Y</text>
+<text top="691" left="765" width="18" height="9" font="8">i+1</text>
+<text top="686" left="784" width="50" height="14" font="3">) &gt; 0. If</text>
+<text top="702" left="475" width="50" height="14" font="3">δ &gt; η, C</text>
+<text top="707" left="526" width="4" height="9" font="8">i</text>
+<text top="702" left="534" width="36" height="14" font="3">and C</text>
+<text top="707" left="570" width="18" height="9" font="8">i+1</text>
+<text top="702" left="593" width="241" height="14" font="3">will belong to diﬀerent lines. Otherwise,</text>
+<text top="718" left="475" width="359" height="14" font="3">we treat them as the character neighbors in a same line and</text>
+<text top="733" left="475" width="359" height="14" font="3">decide whether they go to the a same word. Starting a new</text>
+<text top="749" left="475" width="359" height="14" font="3">document column in a page is a typical example with large</text>
+<text top="765" left="475" width="359" height="14" font="3">γ for case f , and starting the next line is a typical exam-</text>
+<text top="780" left="475" width="359" height="14" font="3">ple with large but minus γ for case h. Using the Table 1</text>
+<text top="796" left="475" width="359" height="14" font="3">in Figure1 as the example, we show the merged words in</text>
+<text top="812" left="475" width="346" height="14" font="3">Figure 5. Each red rectangle refers an independent word.</text>
+<text top="999" left="475" width="359" height="14" font="3">Figure 5: The merged words in a table after the</text>
+<text top="1014" left="475" width="168" height="14" font="3">character → word phase</text>
+<text top="1049" left="489" width="153" height="14" font="3">Now a document page p</text>
+<text top="1054" left="642" width="6" height="9" font="8">k</text>
+<text top="1049" left="655" width="179" height="14" font="3">can be denoted as an aggre-</text>
+<text top="1065" left="475" width="359" height="14" font="3">gation of words W . Similar to the characters, we can also</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="84" left="81" width="359" height="14" font="3">treat words as rectangle objects in a document page. The</text>
+<text top="100" left="81" width="359" height="14" font="3">coordinate nature of characters in the previous section is</text>
+<text top="116" left="81" width="359" height="14" font="3">also applicable to the words. For a pair of word neighbors,</text>
+<text top="131" left="81" width="10" height="14" font="3">w</text>
+<text top="137" left="91" width="4" height="9" font="8">i</text>
+<text top="131" left="100" width="37" height="14" font="3">and w</text>
+<text top="137" left="137" width="18" height="9" font="8">i+1</text>
+<text top="131" left="155" width="284" height="14" font="3">, the possible relative locations are same of the</text>
+<text top="147" left="81" width="359" height="14" font="3">cases listed in Figure 4. Using the concept in Section 5.1, we</text>
+<text top="163" left="81" width="359" height="14" font="3">should treat the word here as the character there and treat</text>
+<text top="178" left="81" width="359" height="14" font="3">the text piece here as the word there. We believe that in the</text>
+<text top="194" left="81" width="359" height="14" font="3">non-sparse lines, all the words can be merged into one piece.</text>
+<text top="210" left="81" width="359" height="14" font="3">The parameters and the thresholds in Table 2 can be reused</text>
+<text top="225" left="81" width="359" height="14" font="3">with only the value resets of γ and θ. Still using the Table</text>
+<text top="241" left="81" width="359" height="14" font="3">1 in Figure1 as the example, we show the merged lines in</text>
+<text top="257" left="81" width="54" height="14" font="3">Figure 6.</text>
+<text top="273" left="94" width="345" height="14" font="3">After the combination, we check the number of text pieces</text>
+<text top="288" left="81" width="359" height="14" font="3">in each line along the Y-axis sequence, if the number is larger</text>
+<text top="304" left="81" width="359" height="14" font="3">than one, we label this line as the sparse line. If the number</text>
+<text top="320" left="81" width="359" height="14" font="3">is one but it satisfy the ﬁrst condition in Section 3, we also</text>
+<text top="335" left="81" width="359" height="14" font="3">treat it as a sparse line. Still using the Table 1 in Figure1</text>
+<text top="351" left="81" width="359" height="14" font="3">as the example, we show the merged lines in Figure 6. For</text>
+<text top="367" left="81" width="359" height="14" font="3">all the eight lines, the number of text pieces are 1, 1, 1, 1,</text>
+<text top="382" left="81" width="359" height="14" font="3">5, 5, 4, and 1 respectively. We treat line 5, 6, and 7 are</text>
+<text top="398" left="81" width="359" height="14" font="3">sparse lines because they contain more than one text piece.</text>
+<text top="414" left="81" width="359" height="14" font="3">We also treat the line 3 and 4 as sparse lines because of the</text>
+<text top="429" left="81" width="75" height="14" font="3">small width.</text>
+<text top="611" left="129" width="261" height="14" font="3">Figure 6: The merged lines in a table</text>
+<text top="659" left="81" width="359" height="19" font="1">6. DETECTING THE TABLE BOUNDARY</text>
+<text top="680" left="112" width="244" height="19" font="1">BASED ON THE KEYWORDS</text>
+<text top="704" left="94" width="345" height="14" font="3">After the sparse line detection and noisy line removal,</text>
+<text top="719" left="81" width="359" height="14" font="3">we can easily detect the table boundary by combining the</text>
+<text top="735" left="81" width="359" height="14" font="3">lines labeled as OTHERSPASE with the table keywords.</text>
+<text top="751" left="81" width="359" height="14" font="3">Here we deﬁne the main table content rows as the table</text>
+<text top="766" left="81" width="359" height="14" font="3">boundary, which does not have to include the table caption</text>
+<text top="782" left="81" width="359" height="14" font="3">and the footnote. In order to enhance the performance of the</text>
+<text top="798" left="81" width="359" height="14" font="3">table starting location detection, we consider the keyword</text>
+<text top="813" left="81" width="359" height="14" font="3">information. We can directly detect the table boundary by</text>
+<text top="829" left="81" width="359" height="14" font="3">detecting the tabular structure within the sparse line areas.</text>
+<text top="845" left="94" width="345" height="14" font="3">In our method, we deﬁne a keyword list, which lists all the</text>
+<text top="861" left="81" width="359" height="14" font="3">possible starting keywords of table captions, such as “Table,</text>
+<text top="876" left="81" width="359" height="14" font="3">TABLE, Form, FORM,” etc. Most tables have one of these</text>
+<text top="892" left="81" width="359" height="14" font="3">keywords in their captions. If more than one tables are dis-</text>
+<text top="908" left="81" width="359" height="14" font="3">played together, the keyword is very useful to separate the</text>
+<text top="923" left="81" width="359" height="14" font="3">tables from one another. Once we detect a line (not only the</text>
+<text top="939" left="81" width="359" height="14" font="3">sparse line) starting with a keyword, we treat it as a table</text>
+<text top="955" left="81" width="359" height="14" font="3">caption candidate. Then we check other lines that are lo-</text>
+<text top="970" left="81" width="359" height="14" font="3">cated around the caption and merge them into a sparse area</text>
+<text top="986" left="81" width="359" height="14" font="3">according to the vertical distances between adjacent lines.</text>
+<text top="1002" left="81" width="359" height="14" font="3">Such sparse-line areas are the detected table boundary. The</text>
+<text top="1017" left="81" width="359" height="14" font="3">vertical distance is the key feature to ﬁlter out most remain-</text>
+<text top="1033" left="81" width="359" height="14" font="3">ing noise lines. Because the texts within the detected table</text>
+<text top="1049" left="81" width="359" height="14" font="3">boundary will be analyzed carefully in the later table struc-</text>
+<text top="1065" left="81" width="359" height="14" font="3">ture decomposition phase, we treat recall more important</text>
+<text top="84" left="475" width="359" height="14" font="3">than precision here. Once we locate the table boundary, we</text>
+<text top="100" left="475" width="359" height="14" font="3">check this area and try to retrieve the long table lines that</text>
+<text top="116" left="475" width="316" height="14" font="3">are labeled as non-sparse lines to improve the recall.</text>
+<text top="150" left="475" width="291" height="19" font="1">7. EXPERIMENTS AND RESULTS</text>
+<text top="173" left="489" width="345" height="14" font="3">In this section, we demonstrate the experimental results of</text>
+<text top="189" left="475" width="359" height="14" font="3">evaluating our table boundary detection with two machine</text>
+<text top="205" left="475" width="359" height="14" font="3">learning methods. Our experiments can be divided into four</text>
+<text top="220" left="475" width="359" height="14" font="3">parts: the performance evaluation of diﬀerent methods, dif-</text>
+<text top="236" left="475" width="359" height="14" font="3">ferent feature settings, diﬀerent datasets, and diﬀerent pa-</text>
+<text top="252" left="475" width="102" height="14" font="3">rameter settings.</text>
+<text top="277" left="475" width="106" height="19" font="1">7.1 Data Set</text>
+<text top="300" left="489" width="312" height="14" font="3">We focus on tables in PDF scientiﬁc documents.</text>
+<text top="300" left="815" width="19" height="14" font="3">Al-</text>
+<text top="316" left="475" width="359" height="14" font="3">though Wang [25] tried to build a general table ground truth</text>
+<text top="331" left="475" width="359" height="14" font="3">database, he focused on the web tables. No benchmark</text>
+<text top="347" left="475" width="359" height="14" font="3">dataset exists in PDF table analysis ﬁeld. In our work, we</text>
+<text top="363" left="475" width="359" height="14" font="3">directly analyze PDF documents instead of converting them</text>
+<text top="379" left="475" width="143" height="14" font="3">to HTML or Image ﬁle.</text>
+<text top="394" left="489" width="345" height="14" font="3">Instead of analyzing tables from a speciﬁc domain, we aim</text>
+<text top="410" left="475" width="359" height="14" font="3">to collect tables as much diﬀerent varieties as possible from</text>
+<text top="426" left="475" width="359" height="14" font="3">digital libraries. The collection of this paper comes from</text>
+<text top="441" left="475" width="359" height="14" font="3">diverse journals and proceedings in three sources: chemical</text>
+<text top="457" left="475" width="308" height="14" font="3">scientiﬁc digital libraries (Royal Chemistry Society</text>
+<text top="455" left="784" width="5" height="9" font="8">2</text>
+<text top="457" left="790" width="44" height="14" font="3">), Cite-</text>
+<text top="473" left="475" width="23" height="14" font="3">seer</text>
+<text top="471" left="498" width="5" height="9" font="8">3</text>
+<text top="473" left="505" width="101" height="14" font="3">, and archeology</text>
+<text top="471" left="606" width="5" height="9" font="8">4</text>
+<text top="473" left="618" width="216" height="14" font="3">in chemistry, computer science and</text>
+<text top="488" left="475" width="359" height="14" font="3">archeology ﬁelds. The size of each PDF repository we col-</text>
+<text top="504" left="475" width="359" height="14" font="3">lected exceeds 100, 000, 10, 000 and 8, 000 respectively in</text>
+<text top="520" left="475" width="359" height="14" font="3">terms of scientiﬁc papers. All the documents span the years</text>
+<text top="535" left="475" width="359" height="14" font="3">1950 to 2008. From these documents, we randomly choose</text>
+<text top="551" left="475" width="359" height="14" font="3">300 pages with and without tables for our experiments as</text>
+<text top="567" left="475" width="359" height="14" font="3">the training set. Among these pages, we refer 100 pages</text>
+<text top="583" left="475" width="359" height="14" font="3">from the chemistry ﬁeld as the dataset H, 100 pages from</text>
+<text top="598" left="475" width="359" height="14" font="3">the computer science ﬁeld as the dataset S, and 100 come</text>
+<text top="614" left="475" width="359" height="14" font="3">from the archeology ﬁeld as the dataset A. The total num-</text>
+<text top="630" left="475" width="359" height="14" font="3">ber of the lines in three datasets are 10177, 13151, and 9741</text>
+<text top="645" left="475" width="359" height="14" font="3">respectively. For every document line, we manually identify</text>
+<text top="661" left="475" width="359" height="14" font="3">it with a label deﬁned in section 5.3. In order to get an accu-</text>
+<text top="677" left="475" width="359" height="14" font="3">rate and robust evaluation on the table boundary detection</text>
+<text top="692" left="475" width="359" height="14" font="3">performance, we adopt a hold-out method by randomly di-</text>
+<text top="708" left="475" width="359" height="14" font="3">viding the dataset into ﬁve parts and in each round we train</text>
+<text top="724" left="475" width="359" height="14" font="3">four of the ﬁve parts and tested on the remaining one part.</text>
+<text top="739" left="475" width="359" height="14" font="3">The ﬁnal overall performance comes from the combined ﬁve</text>
+<text top="755" left="475" width="359" height="14" font="3">results. In our experiment, we use the java-implemented,</text>
+<text top="771" left="475" width="359" height="14" font="3">ﬁrst-order CRF implementation – Mallet – to train two ver-</text>
+<text top="787" left="475" width="359" height="14" font="3">sions of the CRF with binary features and the actual values.</text>
+<text top="802" left="475" width="209" height="14" font="3">For SVM, we adopt SVM light [7].</text>
+<text top="818" left="489" width="345" height="14" font="3">We divide the table boundary detection problem into four</text>
+<text top="834" left="475" width="359" height="14" font="3">main sub-problems as follows: 1) Construct the lines in a</text>
+<text top="849" left="475" width="359" height="14" font="3">document page; 2) Remove all the non-sparse lines from the</text>
+<text top="865" left="475" width="359" height="14" font="3">line set; 3) Remove all the noisy sparse lines; 4) Label table</text>
+<text top="881" left="475" width="359" height="14" font="3">lines by considering the keywords. In this section, we check</text>
+<text top="896" left="475" width="359" height="14" font="3">the performance of each step and analyze the impact eﬀect</text>
+<text top="912" left="475" width="138" height="14" font="3">of diﬀerent feature set.</text>
+<text top="937" left="475" width="248" height="19" font="1">7.2 Text Extraction from PDFs</text>
+<text top="960" left="489" width="345" height="14" font="3">PDF document content stream lists each PDF document</text>
+<text top="976" left="475" width="359" height="14" font="3">as a sequence of pages, which in turn can be recursively de-</text>
+<text top="992" left="475" width="359" height="14" font="3">composed into a series of components, such as text, graph-</text>
+<text top="1007" left="475" width="359" height="14" font="3">ics, and images. The corresponding objects to those com-</text>
+<text top="1032" left="476" width="5" height="9" font="8">2</text>
+<text top="1033" left="482" width="124" height="14" font="3">http://www.rsc.org/</text>
+<text top="1047" left="476" width="5" height="9" font="8">3</text>
+<text top="1049" left="482" width="163" height="14" font="3">http://citeseer.ist.psu.edu/</text>
+<text top="1063" left="476" width="5" height="9" font="8">4</text>
+<text top="1065" left="482" width="357" height="14" font="3">http://www.saa.org/publications/AmAntiq/AmAntiq.html</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="84" left="81" width="358" height="14" font="3">ponents are text objects, image objects, path objects, etc.</text>
+<text top="100" left="81" width="359" height="14" font="3">Most of the existing works to discover the logical compo-</text>
+<text top="116" left="81" width="358" height="14" font="3">nents of a document focus on analyzing most if not all of</text>
+<text top="131" left="81" width="359" height="14" font="3">the page objects. For example, regrouping all the objects to</text>
+<text top="147" left="81" width="359" height="14" font="3">form the image is a traditional task for document analysis</text>
+<text top="163" left="81" width="359" height="14" font="3">system. However, the object overlapping problem happens</text>
+<text top="178" left="81" width="359" height="14" font="3">frequently and the researchers have to make more eﬀort to</text>
+<text top="194" left="81" width="359" height="14" font="3">segment objects from each other ﬁrst. Even when such ob-</text>
+<text top="210" left="81" width="359" height="14" font="3">jects or structures are identiﬁed, they are still too high level</text>
+<text top="225" left="81" width="359" height="14" font="3">to fulﬁll speciﬁc goals, including our table boundary detec-</text>
+<text top="241" left="81" width="359" height="14" font="3">tion. For most table related applications (e.g., table data</text>
+<text top="257" left="81" width="359" height="14" font="3">extraction and table search), the majority research interests</text>
+<text top="273" left="81" width="359" height="14" font="3">are focused on the text (the table content), instead of the</text>
+<text top="288" left="81" width="359" height="14" font="3">borderlines. We classify the tables into two categories ac-</text>
+<text top="304" left="81" width="359" height="14" font="3">cording to the content type: the text table and the image</text>
+<text top="320" left="81" width="359" height="14" font="3">table. Text tables refer to those tables that all parts are</text>
+<text top="335" left="81" width="359" height="14" font="3">composed of texts. Image tables refer to those tables that</text>
+<text top="351" left="81" width="359" height="14" font="3">are image themselves or contain images in some cells. All</text>
+<text top="367" left="81" width="358" height="14" font="3">three tables in Figure 1 are text tables. By random examin-</text>
+<text top="382" left="81" width="359" height="14" font="3">ing thousands of the PDFs in the computer science, chem-</text>
+<text top="398" left="81" width="358" height="14" font="3">istry, biology, and archeology ﬁelds, we notice that more</text>
+<text top="414" left="81" width="359" height="14" font="3">than 92% table contents consist of pure texts while only</text>
+<text top="429" left="81" width="359" height="14" font="3">few tables contain images. Because most tables are com-</text>
+<text top="445" left="81" width="359" height="14" font="3">posed of texts, the text extracting tools, which only provide</text>
+<text top="461" left="81" width="359" height="14" font="3">the very low level information (characters, words, coordi-</text>
+<text top="476" left="81" width="359" height="14" font="3">nates, etc) without the structure information, is enough for</text>
+<text top="492" left="81" width="359" height="14" font="3">our goal. Many PDF converters are available oﬀ the shelf</text>
+<text top="508" left="81" width="359" height="14" font="3">(Xpdf, PDF2TEXT, PDFBOX, Text Extracting tool, PDF-</text>
+<text top="524" left="81" width="359" height="14" font="3">TEXTSTREAM, etc) to extract texts from documents. The</text>
+<text top="539" left="81" width="359" height="14" font="3">information obtained with the help of these tools can be</text>
+<text top="555" left="81" width="359" height="14" font="3">divided into two categories: the text content and the text</text>
+<text top="571" left="81" width="359" height="14" font="3">style. The text content refers to the text strings; The text</text>
+<text top="586" left="81" width="359" height="14" font="3">style includes the corresponding text attributes: the font,</text>
+<text top="602" left="81" width="359" height="14" font="3">the size, line spacing and color, etc; We tried all the tools</text>
+<text top="618" left="81" width="359" height="14" font="3">and TET has the best performance on text extraction. The</text>
+<text top="633" left="81" width="359" height="14" font="3">text streams extracted from PDF ﬁles can correspond to var-</text>
+<text top="649" left="81" width="359" height="14" font="3">ious objects: a character, a partial word, a complete word,</text>
+<text top="665" left="81" width="359" height="14" font="3">a line, etc. In addition, the order of these text streams does</text>
+<text top="680" left="81" width="359" height="14" font="3">not always correspond to the reading order. A line recon-</text>
+<text top="696" left="81" width="359" height="14" font="3">struction and a reading order resorting steps are necessary</text>
+<text top="712" left="81" width="359" height="14" font="3">in order to correctly extract the text from a PDF ﬁle. The</text>
+<text top="728" left="81" width="359" height="14" font="3">details of our text sequence resorting algorithm is beyond</text>
+<text top="743" left="81" width="359" height="14" font="3">the topic of this paper and can be found in [13]. In this</text>
+<text top="759" left="81" width="359" height="14" font="3">paper, after the line reconstruction and the sparse line de-</text>
+<text top="775" left="81" width="359" height="14" font="3">tection, it is assumed that the text sequence is correct as a</text>
+<text top="790" left="81" width="103" height="14" font="3">matter of course.</text>
+<text top="818" left="81" width="291" height="19" font="1">7.3 Performance of line construction</text>
+<text top="841" left="94" width="345" height="14" font="3">We evaluate the performance of our line construction in</text>
+<text top="857" left="81" width="359" height="14" font="3">Section 5 based on 300 selected PDF pages. Given the num-</text>
+<text top="873" left="81" width="359" height="14" font="3">ber of total lines T , the number of constructed lines that do</text>
+<text top="888" left="81" width="359" height="14" font="3">not have any error C. Usually an error line contains at</text>
+<text top="904" left="81" width="359" height="14" font="3">least one of the following problems: 1) the constructed line</text>
+<text top="920" left="81" width="359" height="14" font="3">includes some texts that should not belong to it; 2) the con-</text>
+<text top="935" left="81" width="358" height="14" font="3">structed line misses a part of the text; If the missed texts are</text>
+<text top="951" left="81" width="359" height="14" font="3">included in the previous/next line, we do not count the error</text>
+<text top="967" left="81" width="359" height="14" font="3">duplicately. Within the 33069 lines in the 300 PDF pages,</text>
+<text top="982" left="81" width="359" height="14" font="3">we accurately constructed 99.057%(32757) lines. The main</text>
+<text top="998" left="81" width="359" height="14" font="3">reason for the errors is the superscripts/subscripts in the</text>
+<text top="1014" left="81" width="185" height="14" font="3">documents with dense layouts.</text>
+<text top="1041" left="81" width="318" height="19" font="1">7.4 Performance of sparse line detection</text>
+<text top="1065" left="94" width="345" height="14" font="3">We perform a ﬁve-user study to evaluate the quality of the</text>
+<text top="84" left="475" width="359" height="14" font="3">sparse line detection. Each user checks the detected sparse</text>
+<text top="100" left="475" width="359" height="14" font="3">lines in 20 randomly selected PDF document pages in each</text>
+<text top="116" left="475" width="359" height="14" font="3">dataset. The evaluation metrics are precision and recall. we</text>
+<text top="131" left="475" width="118" height="14" font="3">deﬁne the recall as</text>
+<text top="130" left="613" width="10" height="9" font="8">ts</text>
+<text top="140" left="602" width="31" height="9" font="8">ts+f n</text>
+<text top="131" left="641" width="126" height="14" font="3">and the precision as</text>
+<text top="130" left="786" width="10" height="9" font="8">ts</text>
+<text top="140" left="775" width="30" height="9" font="8">ts+f p</text>
+<text top="131" left="807" width="27" height="14" font="3">. ts</text>
+<text top="147" left="475" width="359" height="14" font="3">refers to the labeled true positive sparse lines in a page. f n</text>
+<text top="163" left="475" width="359" height="14" font="3">refers to the false negatives (they are sparse lines but we</text>
+<text top="178" left="475" width="359" height="14" font="3">miss them). f p refers to the false positives (they are not</text>
+<text top="194" left="475" width="359" height="14" font="3">sparse lines, but we label them as the sparse lines). Table 4</text>
+<text top="210" left="475" width="297" height="14" font="3">displays the results based on the 300 PDF pages.</text>
+<text top="255" left="475" width="359" height="14" font="3">Table 3: The performance evaluation of the sparse</text>
+<text top="271" left="475" width="94" height="14" font="3">line detection</text>
+<text top="284" left="483" width="43" height="11" font="10">datasets</text>
+<text top="284" left="679" width="10" height="11" font="10">H</text>
+<text top="284" left="724" width="9" height="11" font="10">A</text>
+<text top="284" left="758" width="7" height="11" font="10">S</text>
+<text top="296" left="483" width="141" height="11" font="10">The Number of PDF pages</text>
+<text top="296" left="676" width="18" height="11" font="10">100</text>
+<text top="296" left="719" width="18" height="11" font="10">100</text>
+<text top="296" left="758" width="18" height="11" font="10">100</text>
+<text top="309" left="483" width="156" height="11" font="10">Recall of sparse line detection</text>
+<text top="309" left="671" width="27" height="11" font="10">99.82</text>
+<text top="309" left="714" width="27" height="11" font="10">99.37</text>
+<text top="309" left="758" width="27" height="11" font="10">99.52</text>
+<text top="321" left="483" width="172" height="11" font="10">Precision of sparse line detection</text>
+<text top="321" left="671" width="27" height="11" font="10">98.60</text>
+<text top="321" left="714" width="27" height="11" font="10">99.22</text>
+<text top="321" left="758" width="27" height="11" font="10">98.79</text>
+<text top="354" left="489" width="345" height="14" font="3">There are two goals in our method: 1) removing non-</text>
+<text top="370" left="475" width="359" height="14" font="3">sparse lines as much as possible; 2) keeping true table lines</text>
+<text top="386" left="475" width="359" height="14" font="3">in the sparse line set as much as possible. To achieve a more</text>
+<text top="401" left="475" width="359" height="14" font="3">objective evaluation, we also check the performance of this</text>
+<text top="417" left="475" width="359" height="14" font="3">step from the perspectives of these two goals. Some tables</text>
+<text top="433" left="475" width="359" height="14" font="3">have long cells and very small spaces between the adjacent</text>
+<text top="448" left="475" width="359" height="14" font="3">table columns because of the crowd layout. In order to keep</text>
+<text top="464" left="475" width="359" height="14" font="3">these table lines (goal 2), we regulate thresholds by setting</text>
+<text top="480" left="475" width="359" height="14" font="3">ll with a tolerate value and sp with a smaller value. The</text>
+<text top="496" left="475" width="359" height="14" font="3">trade oﬀ is mislabeling some non-sparse lines as sparse lines.</text>
+<text top="511" left="475" width="359" height="14" font="3">Because we have further steps to remove the noise from the</text>
+<text top="527" left="475" width="359" height="14" font="3">sparse lines, including such non-sparse lines (low precision)</text>
+<text top="543" left="475" width="126" height="14" font="3">is not a big problem.</text>
+<text top="558" left="489" width="345" height="14" font="3">Within the datasets H, A and S, 84.63% lines are la-</text>
+<text top="574" left="475" width="359" height="14" font="3">beled as non-sparse lines and can be easily removed as noise.</text>
+<text top="590" left="475" width="359" height="14" font="3">Within the remaining sparse lines, which account for 15.37%</text>
+<text top="605" left="475" width="359" height="14" font="3">in the whole dataset, almost half (44.23%) of them are real</text>
+<text top="621" left="475" width="359" height="14" font="3">table lines and 95.35% table lines are included in the sparse</text>
+<text top="637" left="475" width="359" height="14" font="3">line set. There are two reasons for the missed table lines:</text>
+<text top="652" left="475" width="359" height="14" font="3">1) we label some table lines as non-sparse lines because</text>
+<text top="668" left="475" width="359" height="14" font="3">they contain long cross-column cells without large space gap.</text>
+<text top="684" left="475" width="359" height="14" font="3">Such missed lines can be retrieved in section 6. 2) the text</text>
+<text top="700" left="475" width="359" height="14" font="3">missing problem inherited from the text extraction tools.</text>
+<text top="715" left="475" width="292" height="14" font="3">This deﬁciency falls outside the topic our paper.</text>
+<text top="741" left="475" width="304" height="19" font="1">7.5 Performance of Noise line removal</text>
+<text top="764" left="489" width="345" height="14" font="3">We use the same test data in section 7.3 to evaluate the</text>
+<text top="780" left="475" width="359" height="14" font="3">performance of the noise line removal. The measurement</text>
+<text top="796" left="475" width="359" height="14" font="3">methods are still precision and recall. Let tl be the real</text>
+<text top="811" left="475" width="359" height="14" font="3">table lines that are kept in the sparse line set, sp be the</text>
+<text top="827" left="475" width="359" height="14" font="3">latest size of the sparse line set after each noise removal,</text>
+<text top="843" left="475" width="359" height="14" font="3">and to be the real table lines that are removed. We deﬁne</text>
+<text top="858" left="475" width="95" height="14" font="3">the precision as</text>
+<text top="857" left="578" width="8" height="9" font="8">tl</text>
+<text top="867" left="577" width="11" height="9" font="8">sp</text>
+<text top="858" left="594" width="98" height="14" font="3">and precision as</text>
+<text top="857" left="707" width="8" height="9" font="8">tl</text>
+<text top="867" left="698" width="26" height="9" font="8">tl+to</text>
+<text top="858" left="726" width="4" height="14" font="3">.</text>
+<text top="876" left="489" width="345" height="14" font="3">In Figure 7 (a), X-axis lists all noise type to be removed</text>
+<text top="892" left="475" width="359" height="14" font="3">from the sparse line set as well as the postprocessing in Sec-</text>
+<text top="908" left="475" width="359" height="14" font="3">tion 6. F P refers the beginning dataset – all lines in a page.</text>
+<text top="923" left="475" width="359" height="14" font="3">RN S refers the non-sparse lines. RH refers the noisy head-</text>
+<text top="939" left="475" width="359" height="14" font="3">ing lines. HF refers the noisy header and footnote lines.</text>
+<text top="955" left="475" width="359" height="14" font="3">CAP is the noisy caption lines, REF is the noisy reference</text>
+<text top="970" left="475" width="359" height="14" font="3">lines, and P P represents the postprocessing step. Along</text>
+<text top="986" left="475" width="359" height="14" font="3">with the noise removing, the size of the sparse line dataset</text>
+<text top="1002" left="475" width="359" height="14" font="3">decreases and the precision of the table line labeling increase</text>
+<text top="1017" left="475" width="359" height="14" font="3">steadily. Non-sparse line removing and the postprocessing</text>
+<text top="1033" left="475" width="359" height="14" font="3">are two crucial steps for the table boundary detection prob-</text>
+<text top="1049" left="475" width="359" height="14" font="3">lem. The results on three datasets are consistent without</text>
+<text top="1065" left="475" width="359" height="14" font="3">any remarkable diﬀerence. The precision value is improved</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="84" left="81" width="359" height="14" font="3">from 8.59% to 59.72% on average after removing all noises.</text>
+<text top="100" left="81" width="359" height="14" font="3">In addition, the further steps are much easier because of the</text>
+<text top="116" left="81" width="359" height="14" font="3">dramatically reduced sparse line set. Although the results</text>
+<text top="131" left="81" width="359" height="14" font="3">are not good enough, the remaining false positive table lines</text>
+<text top="147" left="81" width="359" height="14" font="3">scatter the page and the large distance to the table caption</text>
+<text top="163" left="81" width="247" height="14" font="3">is an important feature to identify them.</text>
+<text top="178" left="94" width="345" height="14" font="3">Figure 7 (b) shows the recall curves with the same ex-</text>
+<text top="194" left="81" width="359" height="14" font="3">perimental conditions. The initial recall values are 100%</text>
+<text top="210" left="81" width="359" height="14" font="3">because no line is removed. Along with each step, the recall</text>
+<text top="225" left="81" width="359" height="14" font="3">is decreasing because few true table lines are mislabeled and</text>
+<text top="241" left="81" width="359" height="14" font="3">removed. Within three datasets, dataset S has the worst re-</text>
+<text top="257" left="81" width="359" height="14" font="3">call value because most computer science documents do not</text>
+<text top="273" left="81" width="359" height="14" font="3">follow the standard template strictly and some true table</text>
+<text top="288" left="81" width="122" height="14" font="3">lines are mislabeled.</text>
+<text top="311" left="81" width="216" height="19" font="1">7.6 Keyword Combination</text>
+<text top="334" left="94" width="345" height="14" font="3">After the noise removal in the previous section, the typi-</text>
+<text top="350" left="81" width="359" height="14" font="3">cal false positive table lines are the lines with short length.</text>
+<text top="366" left="81" width="359" height="14" font="3">Such lines are usually located at the end of paragraphs, the</text>
+<text top="381" left="81" width="358" height="14" font="3">last line of a table caption, or a short table footnote with-</text>
+<text top="397" left="81" width="359" height="14" font="3">out special beginning symbol etc. Considering the distance</text>
+<text top="413" left="81" width="359" height="14" font="3">features, most of the ﬁrst type can be ﬁltered out. For those</text>
+<text top="428" left="81" width="359" height="14" font="3">missed true table lines, analyzing the location information</text>
+<text top="444" left="81" width="359" height="14" font="3">of adjacent sparse line sections together with the table cap-</text>
+<text top="460" left="81" width="359" height="14" font="3">tion help us to retrieve them back. Based on the method in</text>
+<text top="475" left="81" width="359" height="14" font="3">Section 6, the precision values is enhanced to 95.32% and</text>
+<text top="491" left="81" width="234" height="14" font="3">the precision values is close to 98.34%.</text>
+<text top="514" left="81" width="259" height="19" font="1">7.7 Impact effects of feature sets</text>
+<text top="537" left="94" width="345" height="14" font="3">In order to compare the impact eﬀect of diﬀerent feature</text>
+<text top="553" left="81" width="359" height="14" font="3">sets, we implement three set of experiments completed in</text>
+<text top="568" left="81" width="359" height="14" font="3">the time allotted: one CRF model using only the ortho-</text>
+<text top="584" left="81" width="359" height="14" font="3">graphic features described in section 5.4.1, the second sys-</text>
+<text top="600" left="81" width="359" height="14" font="3">tem adds the lexical feature set, and the third system uses</text>
+<text top="616" left="81" width="359" height="14" font="3">all features. Every model is tested with all three datasets</text>
+<text top="631" left="81" width="359" height="14" font="3">separately. The results are listed in Table 4. We use the</text>
+<text top="647" left="81" width="359" height="14" font="3">results based on the rule-based method as the comparison</text>
+<text top="663" left="81" width="359" height="14" font="3">baseline. The evaluation metrics are precision, recall and</text>
+<text top="678" left="81" width="359" height="14" font="3">F -measure. Given the number of the correctly-labeled true</text>
+<text top="694" left="81" width="359" height="14" font="3">table lines by each method A, the number of true posi-</text>
+<text top="710" left="81" width="359" height="14" font="3">tive table lines but overlooked B, and the number of true</text>
+<text top="725" left="81" width="359" height="14" font="3">negative non-table lines that is misidentiﬁed as table lines</text>
+<text top="741" left="81" width="120" height="14" font="3">C, the Precision is</text>
+<text top="739" left="217" width="8" height="9" font="8">A</text>
+<text top="749" left="209" width="25" height="9" font="8">A+C</text>
+<text top="741" left="236" width="89" height="14" font="3">, the Recall is</text>
+<text top="739" left="342" width="8" height="9" font="8">A</text>
+<text top="749" left="333" width="25" height="9" font="8">A+B</text>
+<text top="741" left="360" width="79" height="14" font="3">, and the F-</text>
+<text top="758" left="81" width="306" height="14" font="3">measure=(2*Recall*Precision)/(Recall+Precision).</text>
+<text top="800" left="81" width="358" height="14" font="3">Table 4: Average accuracy of table boundary detec-</text>
+<text top="816" left="81" width="359" height="14" font="3">tion with diﬀerent feature sets after all the noise line</text>
+<text top="832" left="81" width="54" height="14" font="3">removal</text>
+<text top="845" left="89" width="133" height="11" font="10">feature sets, and datasets</text>
+<text top="845" left="321" width="32" height="11" font="10">Recall</text>
+<text top="845" left="375" width="47" height="11" font="10">Precision</text>
+<text top="857" left="89" width="119" height="11" font="10">CRF, Orthographic, H</text>
+<text top="857" left="319" width="37" height="11" font="10">42.18%</text>
+<text top="857" left="375" width="37" height="11" font="10">44.96%</text>
+<text top="870" left="89" width="117" height="11" font="10">CRF, Orthographic, S</text>
+<text top="870" left="319" width="37" height="11" font="10">41.66%</text>
+<text top="870" left="375" width="37" height="11" font="10">45.14%</text>
+<text top="882" left="89" width="118" height="11" font="10">CRF, Orthographic, A</text>
+<text top="882" left="319" width="37" height="11" font="10">40.89%</text>
+<text top="882" left="375" width="37" height="11" font="10">45.16%</text>
+<text top="895" left="89" width="165" height="11" font="10">CRF, Orthographic+Lexical, H</text>
+<text top="895" left="319" width="37" height="11" font="10">61.22%</text>
+<text top="895" left="375" width="37" height="11" font="10">61.66%</text>
+<text top="908" left="89" width="163" height="11" font="10">CRF, Orthographic+Lexical, S</text>
+<text top="908" left="319" width="37" height="11" font="10">59.30%</text>
+<text top="908" left="375" width="37" height="11" font="10">59.81%</text>
+<text top="920" left="89" width="164" height="11" font="10">CRF, Orthographic+Lexical, A</text>
+<text top="920" left="319" width="37" height="11" font="10">59.98%</text>
+<text top="920" left="375" width="37" height="11" font="10">60.58%</text>
+<text top="933" left="89" width="211" height="11" font="10">CRF, Orthographic+Lexical+Layout, H</text>
+<text top="933" left="316" width="42" height="11" font="10">98.92%</text>
+<text top="933" left="375" width="42" height="11" font="10">96.28%</text>
+<text top="945" left="89" width="208" height="11" font="10">CRF, Orthographic+Lexical+Layout, S</text>
+<text top="945" left="319" width="37" height="11" font="10">97.33%</text>
+<text top="945" left="375" width="37" height="11" font="10">96.49%</text>
+<text top="958" left="89" width="210" height="11" font="10">CRF, Orthographic+Lexical+Layout, A</text>
+<text top="958" left="319" width="37" height="11" font="10">98.76%</text>
+<text top="958" left="375" width="37" height="11" font="10">96.20%</text>
+<text top="986" left="94" width="345" height="14" font="3">It is not surprising to notice that within the multiple fea-</text>
+<text top="1002" left="81" width="359" height="14" font="3">ture sets, the layout features play the most important impact</text>
+<text top="1017" left="81" width="359" height="14" font="3">eﬀect on the ﬁnal performance of the table line detection.</text>
+<text top="1033" left="81" width="359" height="14" font="3">For the rule-based method and CRF with less features, the</text>
+<text top="1049" left="81" width="359" height="14" font="3">recall values are always less than that of precisions. As the</text>
+<text top="1065" left="81" width="358" height="14" font="3">joining of more layout features, not only the overall table</text>
+<text top="94" left="475" width="359" height="14" font="3">Table 5: Average accuracy of table boundary detec-</text>
+<text top="109" left="475" width="359" height="14" font="3">tion with diﬀerent methods after all the noise line</text>
+<text top="125" left="475" width="54" height="14" font="3">removal</text>
+<text top="138" left="483" width="110" height="11" font="10">Method and datasets</text>
+<text top="138" left="664" width="54" height="11" font="10">F-measure</text>
+<text top="150" left="483" width="165" height="11" font="10">Rule-based method, H + S + A</text>
+<text top="150" left="664" width="37" height="11" font="10">91.93%</text>
+<text top="163" left="483" width="78" height="11" font="10">CRF, H+S+A</text>
+<text top="163" left="664" width="42" height="11" font="10">96.36%</text>
+<text top="176" left="483" width="113" height="11" font="10">SVM linear, H+S+A</text>
+<text top="176" left="664" width="42" height="11" font="10">94.38%</text>
+<text top="188" left="483" width="83" height="11" font="10">Max Ent in [19]</text>
+<text top="188" left="664" width="31" height="11" font="10">88.7%</text>
+<text top="201" left="483" width="101" height="11" font="10">CRF Binary in [19]</text>
+<text top="201" left="664" width="31" height="11" font="10">91.2%</text>
+<text top="213" left="483" width="125" height="11" font="10">CRF Continuous in [19]</text>
+<text top="213" left="664" width="31" height="11" font="10">91.8%</text>
+<text top="226" left="483" width="61" height="11" font="10">C4.5 in [16]</text>
+<text top="226" left="664" width="34" height="11" font="10">&lt; 95%</text>
+<text top="238" left="483" width="52" height="11" font="10">Bp in [16]</text>
+<text top="238" left="664" width="34" height="11" font="10">&lt; 91%</text>
+<text top="251" left="483" width="56" height="11" font="10">Det in [16]</text>
+<text top="251" left="664" width="34" height="11" font="10">&lt; 70%</text>
+<text top="296" left="475" width="359" height="14" font="3">boundary detection performance is heavily increased, but</text>
+<text top="312" left="475" width="359" height="14" font="3">also the recalls exceed the precisions, and satisfy the na-</text>
+<text top="328" left="475" width="359" height="14" font="3">ture of the further table data search demand. Within the</text>
+<text top="343" left="475" width="359" height="14" font="3">experiments with the same method and the same features,</text>
+<text top="359" left="475" width="359" height="14" font="3">diﬀerent training datasets have similar performances. Usu-</text>
+<text top="375" left="475" width="359" height="14" font="3">ally the dataset H has better performance comparing the</text>
+<text top="390" left="475" width="359" height="14" font="3">datasets S and A because that the document layout and</text>
+<text top="406" left="475" width="359" height="14" font="3">table structure in chemical papers are more standard than</text>
+<text top="422" left="475" width="149" height="14" font="3">those in other two ﬁelds.</text>
+<text top="447" left="475" width="253" height="19" font="1">7.8 Impact effect of parameters</text>
+<text top="471" left="489" width="345" height="14" font="3">Figure 7(c) shows the eﬀect of the feature boosting param-</text>
+<text top="486" left="475" width="359" height="14" font="3">eter θ for CRF. In the previous section, we use the default</text>
+<text top="502" left="475" width="359" height="14" font="3">parameter setting: θ = 1.0. In this section, we test dif-</text>
+<text top="518" left="475" width="359" height="14" font="3">ferent values: 0.5, 1.0, 1.5, 2.0, 2.5, 3.0. If θ &lt; 1.0, the</text>
+<text top="533" left="475" width="359" height="14" font="3">non-sparse lines get more preference. In each θ value, we</text>
+<text top="549" left="475" width="359" height="14" font="3">compare the average precision results among diﬀerent fea-</text>
+<text top="565" left="475" width="359" height="14" font="3">ture settings based on diﬀerent datasets. We notice that</text>
+<text top="580" left="475" width="359" height="14" font="3">no matter how we change the θ and datasets, more features</text>
+<text top="596" left="475" width="359" height="14" font="3">generate better results than fewer features and the contri-</text>
+<text top="612" left="475" width="359" height="14" font="3">bution of the layout feature is much higher than others. As</text>
+<text top="627" left="475" width="359" height="14" font="3">the increasing of θ, the trend of precision is deceasing. The</text>
+<text top="643" left="475" width="359" height="14" font="3">more features we consider, the more robust the results along</text>
+<text top="659" left="475" width="108" height="14" font="3">the changing of θ.</text>
+<text top="684" left="475" width="318" height="19" font="1">7.9 Impact effect of different techniques</text>
+<text top="708" left="489" width="345" height="14" font="3">Moreover, we compare our results based on CRF and SVM</text>
+<text top="723" left="475" width="359" height="14" font="3">methods with several main table boundary detection results</text>
+<text top="739" left="475" width="359" height="14" font="3">published in other related works. The evaluation method</text>
+<text top="755" left="475" width="359" height="14" font="3">is F-measure. For our CRF and SVM methods, we adopt</text>
+<text top="770" left="475" width="359" height="14" font="3">all the features on all three datasets. Comparing with our</text>
+<text top="786" left="475" width="359" height="14" font="3">previous rule-based method, our CRF experiments improve</text>
+<text top="802" left="475" width="359" height="14" font="3">the performance by 54.90% and our SVM experiments im-</text>
+<text top="817" left="475" width="359" height="14" font="3">prove the performance by 30.36%. Within all the published</text>
+<text top="833" left="475" width="359" height="14" font="3">works, Ng et. al, achieved the best results with C4.5 method</text>
+<text top="849" left="475" width="359" height="14" font="3">in [16]. Our work with CRF method enhance the F-measure</text>
+<text top="865" left="475" width="126" height="14" font="3">by more than 27.2%.</text>
+<text top="900" left="475" width="163" height="19" font="1">8. CONCLUSIONS</text>
+<text top="923" left="489" width="345" height="14" font="3">In this paper, we propose a novel method to detect the ta-</text>
+<text top="939" left="475" width="359" height="14" font="3">ble boundary. Because most tables are text-based, we claim</text>
+<text top="955" left="475" width="359" height="14" font="3">that the text object of PDF provides enough information for</text>
+<text top="970" left="475" width="359" height="14" font="3">table detection. Within the text object, we believe that the</text>
+<text top="986" left="475" width="359" height="14" font="3">font size is not so reliable as other work stated. Based on</text>
+<text top="1002" left="475" width="359" height="14" font="3">the sparse-line nature of tables, we propose a fast but eﬀec-</text>
+<text top="1017" left="475" width="359" height="14" font="3">tive method to detect the table boundary by only processing</text>
+<text top="1033" left="475" width="359" height="14" font="3">the sparse lines in a document page. Processing the sparse</text>
+<text top="1049" left="475" width="358" height="14" font="3">lines solely can also improve the performance of the text</text>
+<text top="1065" left="475" width="359" height="14" font="3">sequence resorting problem. Combining diﬀerent keywords,</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="14" size="4" family="Times" color="#000000"/>
+	<fontspec id="15" size="6" family="Times" color="#000000"/>
+	<fontspec id="16" size="3" family="Times" color="#000000"/>
+	<fontspec id="17" size="5" family="Times" color="#000000"/>
+<text top="227" left="124" width="7" height="6" font="14">FP</text>
+<text top="227" left="153" width="13" height="6" font="14">RNS</text>
+<text top="227" left="187" width="9" height="6" font="14">RH</text>
+<text top="227" left="219" width="9" height="6" font="14">HF</text>
+<text top="227" left="249" width="13" height="6" font="14">CAP</text>
+<text top="227" left="281" width="12" height="6" font="14">REF</text>
+<text top="227" left="315" width="7" height="6" font="14">PP</text>
+<text top="234" left="188" width="72" height="7" font="15">Noise Line Categories</text>
+<text top="223" left="123" width="3" height="6" font="14">0</text>
+<text top="196" left="119" width="7" height="6" font="14">20</text>
+<text top="169" left="119" width="7" height="6" font="14">40</text>
+<text top="143" left="119" width="7" height="6" font="14">60</text>
+<text top="116" left="119" width="7" height="6" font="14">80</text>
+<text top="89" left="116" width="10" height="6" font="14">100</text>
+<text top="175" left="113" width="0" height="7" font="15">Precision (%)</text>
+<text top="103" left="278" width="21" height="5" font="16">Dataset H</text>
+<text top="109" left="278" width="20" height="5" font="16">Dataset S</text>
+<text top="114" left="278" width="21" height="5" font="16">Dataset A</text>
+<text top="246" left="204" width="18" height="14" font="3">(a)</text>
+<text top="227" left="368" width="7" height="6" font="14">FP</text>
+<text top="227" left="397" width="13" height="6" font="14">RNS</text>
+<text top="227" left="430" width="9" height="6" font="14">RH</text>
+<text top="227" left="462" width="8" height="6" font="14">HF</text>
+<text top="227" left="492" width="13" height="6" font="14">CAP</text>
+<text top="227" left="524" width="12" height="6" font="14">REF</text>
+<text top="227" left="558" width="7" height="6" font="14">PP</text>
+<text top="234" left="431" width="71" height="7" font="17">Noise Line Categories</text>
+<text top="223" left="363" width="7" height="6" font="14">97</text>
+<text top="201" left="358" width="12" height="6" font="14">97.5</text>
+<text top="179" left="363" width="7" height="6" font="14">98</text>
+<text top="157" left="358" width="12" height="6" font="14">98.5</text>
+<text top="135" left="363" width="7" height="6" font="14">99</text>
+<text top="112" left="358" width="12" height="6" font="14">99.5</text>
+<text top="90" left="360" width="10" height="6" font="14">100</text>
+<text top="171" left="355" width="0" height="7" font="17">Recall (%)</text>
+<text top="104" left="521" width="21" height="5" font="16">Dataset H</text>
+<text top="110" left="521" width="20" height="5" font="16">Dataset S</text>
+<text top="115" left="521" width="21" height="5" font="16">Dataset A</text>
+<text top="246" left="446" width="18" height="14" font="3">(b)</text>
+<text top="227" left="609" width="8" height="6" font="14">0.5</text>
+<text top="227" left="650" width="3" height="6" font="14">1</text>
+<text top="227" left="685" width="8" height="6" font="14">1.5</text>
+<text top="227" left="726" width="3" height="6" font="14">2</text>
+<text top="227" left="762" width="8" height="6" font="14">2.5</text>
+<text top="227" left="803" width="3" height="6" font="14">3</text>
+<text top="234" left="663" width="90" height="7" font="15">Feature Boosting Parameter</text>
+<text top="223" left="604" width="7" height="6" font="14">20</text>
+<text top="189" left="604" width="7" height="6" font="14">40</text>
+<text top="156" left="604" width="7" height="6" font="14">60</text>
+<text top="122" left="604" width="7" height="6" font="14">80</text>
+<text top="89" left="601" width="10" height="6" font="14">100</text>
+<text top="174" left="597" width="0" height="7" font="15">Precision (%)</text>
+<text top="132" left="715" width="47" height="5" font="16">Dataset H All Feature</text>
+<text top="137" left="715" width="46" height="5" font="16">Dataset S All Feature</text>
+<text top="143" left="715" width="47" height="5" font="16">Dataset A All Feature</text>
+<text top="148" left="715" width="41" height="5" font="16">Dataset No-Layout</text>
+<text top="155" left="715" width="59" height="5" font="16">Dataset No-Layout-Lexical</text>
+<text top="246" left="689" width="17" height="14" font="3">(c)</text>
+<text top="264" left="81" width="753" height="14" font="3">Figure 7: The precision (a)/ recall (b) of table line labeling using CRF along the noise removing and</text>
+<text top="280" left="81" width="570" height="14" font="3">postprocessing; (c) The precision of table line labeling using CRF with diﬀerent θ</text>
+<text top="325" left="81" width="359" height="14" font="3">this method is applicable to detect other document compo-</text>
+<text top="341" left="81" width="359" height="14" font="3">nents, e.g., references or headers/footers. Our next tasks</text>
+<text top="357" left="81" width="359" height="14" font="3">include applying the machine learning methods on the ta-</text>
+<text top="372" left="81" width="359" height="14" font="3">ble structure decomposition ﬁeld and the table classiﬁcation</text>
+<text top="388" left="81" width="359" height="14" font="3">ﬁeld. Moreover, extending our test data sets and building a</text>
+<text top="404" left="81" width="359" height="14" font="3">general table benchmark database are also our future works.</text>
+<text top="436" left="81" width="152" height="19" font="1">9. REFERENCES</text>
+<text top="449" left="88" width="296" height="14" font="3">[1] C. J. C. Burges. A tutorial on support vector</text>
+<text top="462" left="109" width="309" height="14" font="3">machines for pattern recognition. Data Mining and</text>
+<text top="476" left="109" width="253" height="14" font="3">Knowledge Discovery, 2(2):121–167, 1998.</text>
+<text top="490" left="88" width="333" height="14" font="3">[2] H. Chao and J. Fan. Layout and content extraction</text>
+<text top="504" left="109" width="245" height="14" font="3">for pdf documents. pages 213–224, 2004.</text>
+<text top="519" left="88" width="337" height="14" font="3">[3] S. T. H. Chen and J. Tsai. Mining tables from large</text>
+<text top="532" left="109" width="270" height="14" font="3">scale html texts. In In Proc. 18th Int’l Conf.</text>
+<text top="546" left="109" width="303" height="14" font="3">Computational Liguistics, Saarbrucken, Germany,</text>
+<text top="559" left="109" width="31" height="14" font="3">2000.</text>
+<text top="574" left="88" width="344" height="14" font="3">[4] J. Ha, R. Haralick, , and I. Philips. Recursive x-y cut</text>
+<text top="588" left="109" width="326" height="14" font="3">using bounding boxes of connected components. In In</text>
+<text top="601" left="109" width="286" height="14" font="3">Proc. Third Int’l Conf. Document Analysis and</text>
+<text top="615" left="109" width="203" height="14" font="3">Recognition, pages 952–955, 1955.</text>
+<text top="629" left="88" width="342" height="14" font="3">[5] M. Hurst. Layout and language: Challenges for table</text>
+<text top="643" left="109" width="197" height="14" font="3">understanding on the web, 2001.</text>
+<text top="658" left="88" width="347" height="14" font="3">[6] N. G. J. Shin. Table recognition and evaluation. In In</text>
+<text top="671" left="109" width="307" height="14" font="3">Proc. of the Class of 2005 Senior Conf., Computer</text>
+<text top="685" left="109" width="326" height="14" font="3">Science Department, Swarthmore College, pages 8–13,</text>
+<text top="698" left="109" width="31" height="14" font="3">2005.</text>
+<text top="713" left="88" width="166" height="14" font="3">[7] T. Joachims. Svm light.</text>
+<text top="727" left="109" width="185" height="14" font="3">http://svmlight.joachims.org/.</text>
+<text top="742" left="88" width="344" height="14" font="3">[8] T. Kieninger and A. Dengel. Applying the t-rec table</text>
+<text top="755" left="109" width="330" height="14" font="3">recognition system to the business letter domain. In In</text>
+<text top="768" left="109" width="330" height="14" font="3">Proc. of the 6th Int’l Conf. on Document Analysis and</text>
+<text top="782" left="109" width="272" height="14" font="3">Recognition, pages 518–522, September 2001.</text>
+<text top="797" left="88" width="348" height="14" font="3">[9] T. G. Kieninger. Table structure recognition based on</text>
+<text top="810" left="109" width="300" height="14" font="3">robust block segmentation. In In Proc. Document</text>
+<text top="824" left="109" width="294" height="14" font="3">Recognition V, SPIE, volume 3305, pages 22–32,</text>
+<text top="837" left="109" width="85" height="14" font="3">January 1998.</text>
+<text top="852" left="81" width="328" height="14" font="3">[10] B. Krupl, M. Herzog, and W. Gatterbauer. Using</text>
+<text top="866" left="109" width="280" height="14" font="3">visual cues for extraction of tabular data from</text>
+<text top="879" left="109" width="330" height="14" font="3">arbitrary html documents. In In Proc. of the 14th Int’l</text>
+<text top="892" left="109" width="311" height="14" font="3">Conf. on World Wide Web, pages 1000–1001, 2005.</text>
+<text top="907" left="81" width="355" height="14" font="3">[11] J. Laﬀerty, A. McCallum, and F. Pereira. Conditional</text>
+<text top="921" left="109" width="307" height="14" font="3">random ﬁelds: Probabilistic models for segmenting</text>
+<text top="934" left="109" width="330" height="14" font="3">and labeling sequence data. In Proc. 18th ICML, pages</text>
+<text top="948" left="109" width="330" height="14" font="3">282–289. Morgan Kaufmann, San Francisco, CA, 2001.</text>
+<text top="963" left="81" width="344" height="14" font="3">[12] Y. Liu, K. Bai, P. Mitra, and C. L. Giles. Tableseer:</text>
+<text top="976" left="109" width="326" height="14" font="3">automatic table metadata extraction and searching in</text>
+<text top="990" left="109" width="281" height="14" font="3">digital libraries. In JCDL, pages 91–100, 2007.</text>
+<text top="1005" left="81" width="356" height="14" font="3">[13] Y. Liu, P. Mitra, and C. L. Giles. Improving the table</text>
+<text top="1018" left="109" width="302" height="14" font="3">boundary detection in pdfs by ﬁxing the sequence</text>
+<text top="1031" left="109" width="304" height="14" font="3">error of the sparse lines. In Technical report, 2008.</text>
+<text top="325" left="475" width="303" height="14" font="3">[14] A. McCallum. Eﬃciently inducing features of</text>
+<text top="339" left="503" width="315" height="14" font="3">conditional random ﬁelds. In Nineteenth Conference</text>
+<text top="352" left="503" width="86" height="14" font="3">on UAI, 2003.</text>
+<text top="367" left="475" width="327" height="14" font="3">[15] A. McCallum and W. Li. Early results for named</text>
+<text top="381" left="503" width="299" height="14" font="3">entity recognition with conditional random ﬁelds,</text>
+<text top="394" left="503" width="31" height="14" font="3">2003.</text>
+<text top="409" left="475" width="329" height="14" font="3">[16] H. Ng, C. Lim, and J. Koo. Learning to recognize</text>
+<text top="422" left="503" width="147" height="14" font="3">tables in free text, 1999.</text>
+<text top="437" left="475" width="307" height="14" font="3">[17] H. Ng, C. Y. Lim, and J. T. Koo. Learning to</text>
+<text top="451" left="503" width="312" height="14" font="3">recognize tables in free text. In In Proc. of the 37th</text>
+<text top="464" left="503" width="319" height="14" font="3">Annual Meeting of the Association of Computational</text>
+<text top="478" left="503" width="290" height="14" font="3">Linguistics on Computational Linguistics, pages</text>
+<text top="491" left="503" width="88" height="14" font="3">443–450, 1999.</text>
+<text top="506" left="475" width="343" height="14" font="3">[18] G. Penn, J. Hu, H. Luo, and R. McDonald. Flexible</text>
+<text top="520" left="503" width="238" height="14" font="3">web document analy- sis for delivery to</text>
+<text top="533" left="503" width="198" height="14" font="3">narrow-bandwidth devices, 2001.</text>
+<text top="548" left="475" width="355" height="14" font="3">[19] D. Pinto, A. McCallum, X. Wei, and W. Bruce. Table</text>
+<text top="561" left="503" width="294" height="14" font="3">extraction using conditional random ﬁelds. In In</text>
+<text top="575" left="503" width="306" height="14" font="3">proceeding of Proceedings of the 26th ACM SIGIR,</text>
+<text top="588" left="503" width="173" height="14" font="3">Toronto, Canada, July 2003.</text>
+<text top="603" left="475" width="340" height="14" font="3">[20] S. Safavian and D. Landgrebe. A survey of decision</text>
+<text top="617" left="503" width="319" height="14" font="3">tree classiﬁer methodology. In SMC(21), No. 3, May</text>
+<text top="630" left="503" width="112" height="14" font="3">1991, pp. 660-674.</text>
+<text top="645" left="475" width="295" height="14" font="3">[21] F. Sha and F. Pereira. Shallow parsing with</text>
+<text top="659" left="503" width="193" height="14" font="3">conditional random ﬁelds, 2003.</text>
+<text top="674" left="475" width="349" height="14" font="3">[22] J. Shamilian, H. Baird, and T. Wood. A retargetable</text>
+<text top="687" left="503" width="298" height="14" font="3">table reader. In In Proc. of the 4th Int’l Conf. on</text>
+<text top="700" left="503" width="315" height="14" font="3">Document Analysis and Recognition, pages 158–163,</text>
+<text top="714" left="503" width="31" height="14" font="3">1997.</text>
+<text top="729" left="475" width="308" height="14" font="3">[23] J. Wang and J. Hu. A machine learning based</text>
+<text top="742" left="503" width="330" height="14" font="3">approach for table detection on the web. In WWW’02,</text>
+<text top="756" left="503" width="155" height="14" font="3">pages 242–250, Nov 2002.</text>
+<text top="771" left="475" width="302" height="14" font="3">[24] Y. Wang and J. Hu. Detecting tables in html</text>
+<text top="784" left="503" width="280" height="14" font="3">documents. In In Proc. of the 5th IAPR DAS,</text>
+<text top="798" left="503" width="125" height="14" font="3">Princeton, NJ, 2002.</text>
+<text top="813" left="475" width="356" height="14" font="3">[25] Y. Wang, I. Philips, and R. Haralick. Automatic table</text>
+<text top="826" left="503" width="184" height="14" font="3">ground truth generation and a</text>
+<text top="839" left="503" width="320" height="14" font="3">background-analysis-based table structure extraction</text>
+<text top="853" left="503" width="305" height="14" font="3">method. In In Proc. of the 6th Int’l Conference on</text>
+<text top="866" left="503" width="282" height="14" font="3">Document Analysis and Recognition, page 528,</text>
+<text top="880" left="503" width="100" height="14" font="3">September 2001.</text>
+<text top="895" left="475" width="328" height="14" font="3">[26] B. Yildiz, K. Kaiser, and S. Miksch. pdf2table: A</text>
+<text top="908" left="503" width="308" height="14" font="3">method to extract table information from pdf ﬁles.</text>
+<text top="922" left="503" width="180" height="14" font="3">IICAI05, (Pune, India), 2005.</text>
+<text top="937" left="475" width="350" height="14" font="3">[27] M. Yoshida, K. Torisawa, and J. Tsujii. A method to</text>
+<text top="950" left="503" width="271" height="14" font="3">integrate tables of the world wide web, 2001.</text>
+<text top="965" left="475" width="334" height="14" font="3">[28] R. Zanibbi, D. Blostein, and J. Cordy. A survey of</text>
+<text top="978" left="503" width="241" height="14" font="3">table recognition: Models, observations,</text>
+<text top="992" left="503" width="322" height="14" font="3">transformations, and inferences. In Int’l J. Document</text>
+<text top="1005" left="503" width="312" height="14" font="3">Analysis and Recognition, Vol. 7, No.1, pages 1–16,</text>
+<text top="1019" left="503" width="31" height="14" font="3">2004.</text>
+<text top="1034" left="475" width="330" height="14" font="3">[29] Z. Zheng. Naive bayesian classiﬁer committees. In</text>
+<text top="1047" left="503" width="302" height="14" font="3">European Conference on Machine Learning, pages</text>
+<text top="1061" left="503" width="88" height="14" font="3">196–207, 1998.</text>
+</page>
+</pdf2xml>
