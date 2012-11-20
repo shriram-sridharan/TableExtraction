@@ -13,7 +13,7 @@ Step 1: Table Detection:
 Problem of Sequence Labeling of all the lines in a document : Sparse/Non Sparse. If sparse, then which kind?
 -->Find features that can help with the labeling
 Implement a CRF model. Parameter Learning with these feature functions
-	(Incrementally choose features, Gaussian prior??)
+	(Incrementally choose features??, Gaussian prior??)
 	[Should try out different models? SVM, Logistic Regression, Decision Tree, HMM]
 Inference: Modified Vitterbi Algorithm.
 Cross Validation, PR Curve, Results etc etc
