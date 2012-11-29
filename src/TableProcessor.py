@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import cgi
+import HTMLParser as HT
 form = cgi.FieldStorage()
 print "Content-type: text/html\r\n\r\n"
 filename = form.getvalue('xmlname')
@@ -32,5 +33,5 @@ for r in doc.keys():
         f.write("=============================== COL ===================================\n")
         for tup in col:
             print tup[1]
-            f.write(str(tup[0])+ " " + tup[1])
+            f.write(str(tup[0])+ " " + tup[1].decode('ascii','ignore'))
 f.close()
