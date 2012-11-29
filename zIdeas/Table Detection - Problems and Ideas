@@ -1,0 +1,38 @@
+Table Detection
+Problems:
+Superscript and Subscript Detection -> use the sequence of text tags' positions. Increase in top and back to normal. Decrease in top and then back to normal.
+//Multiple text tags of same line -> Group them with spaces = nextleft - prevleft.. Consider it as sparse
+Bold, italics and other tags ?
+Incrementally choose features??, Gaussian prior??
+what is the weight parameter theta in the paper for boosting??
+
+Ideas
+Using features of pdftohtml -> Single line in multiple text tags, Bold of Table captions
+Try using other software packages(mallet, Alchemy, Tuffy) and R, Matlab, Octave etc
+
+Points
+Once you have removed non sparse lines, you might add them back if it is within the table boundary.
+Sparse Line Cond2: Length of sparse line < half document width
+Font size feature can also be included in CRF
+
+========================== Algorithm cut 1 begins here =============================
+Flow:
+Preprocessing:
+Remove <i> and <b> tags
+Merge Superscript and Subscript in a single line.
+Merge Multiple text pieces into a single line -> (Mark as Sparse Line)
+
+Training Data Collection:
+Create a HTML page with preprocessed pdf 
+Each line/text tag -> default non sparse. Label all the SPARSE LINES and THEIR TYPES
+[Atleast 10 pdfs to begin with]
+
+Training:
+Define the Features in terms of Feature functions <--- Carefully choose features
+Train a CRF model based on these features and calculate the values of Lambda. (SGD?)[maximize likelihood]
+
+Sequence labeling:
+Modified Vitterbi Algorithm to maximize the probability.
+
+==========================After this try other algorithms=============================
+

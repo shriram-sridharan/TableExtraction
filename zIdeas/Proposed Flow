@@ -1,0 +1,34 @@
+Overall Goal:
+Given a pdf, convert the tables into RDBMS tables so that they can be queried.
+(or) do NER on the extracted table headers to identify the required rows/columns.
+
+=========================== ML Project Begins Here ====================
+Table Detection, Table Header and Data Classification 
+[Both]
+Collect Training Set: List of pdf documents with varying table styles
+Label the training set: The location of the tables-> positionTop, TextTop, positionEnd, TextEnd
+
+[Shriram]
+Step 1: Table Detection: 
+Problem of Sequence Labeling of all the lines in a document : Sparse/Non Sparse. If sparse, then which kind?
+-->Find features that can help with the labeling
+Implement a CRF model. Parameter Learning with these feature functions
+	(Incrementally choose features??, Gaussian prior??)
+	[Should try out different models? SVM, Logistic Regression, Decision Tree, HMM]
+Inference: Modified Vitterbi Algorithm.
+Cross Validation, PR Curve, Results etc etc
+	Concentrate on Recall than precision because the following phase will eliminate non tables
+
+[Vidhya]
+Step 2: Table Header Classification: 
+Read the paper
+Feature Set provided (Single Row Features/ Neighboring Row Features)
+Use SVM/Ensemble methods like Random Forest for classification.
+
+=========================== ML Project Ends Here ====================
+
+Improving Accuracy:
+Try and use the CRF (if it gives good accuracy) already written in Hazy for Table Detection
+Open Question: What representation of table data obtained in Step 2 will result in more accuracy for GeoDeepDive?
+	1. RDBMS/ NER on table Headers?
+	2. What about Complex Table Styles? 

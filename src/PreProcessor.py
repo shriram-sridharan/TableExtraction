@@ -37,7 +37,7 @@ class PreProcessor:
         col = list()
         for tup in combinedTextTagTuple:
             texttag = tup[1]
-            col.append(texttag)
+            col.append(tup)
             prevtop = int(prevtexttag.attrib['top'])
             currtop = int(texttag.attrib['top'])
             if((prevtop - currtop) > THRESHOLD_HEIGHT):

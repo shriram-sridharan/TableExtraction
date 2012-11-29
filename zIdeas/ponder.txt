@@ -1,0 +1,4 @@
+1. Unsupervised Learning for Table Extraction?
+	Problem: PITA for collecting training data for supervised methods. Can we avoid this and still get a better accuracy on Table detection and Extraction.
+
+2. Testing for a large amount of pdf files. Calculate Precision and Recall
