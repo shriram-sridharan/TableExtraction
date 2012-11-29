@@ -1,2 +1,0 @@
-cp ./TrainingData/train.html /var/www/
-cp ./src/TableProcessor.py /var/www/cgi-bin/
