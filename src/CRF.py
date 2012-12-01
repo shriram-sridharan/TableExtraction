@@ -58,11 +58,6 @@ class CRF:
             featurelist.append(1)
         else:
             featurelist.append(0)
-        
-        if(i!=0 and prevtag == SparseType.NONSPARSE and curtag == SparseType.NONSPARSE):
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
                
         if(int(col[i][1].attrib['textpieces']) > 0 and curtag == SparseType.OTHERSPARSE):
             featurelist.append(1)
@@ -81,15 +76,13 @@ class CRF:
         for _ in xrange(len(collist[0][1][0])):
             self.trainedweights.append(random.uniform(-0.02,0.02))
             
-        for _ in xrange(0,1000):
+        for r in xrange(0,Constants.NUM_EPOCHS):
             errorcount = 0.0
             totaltup = 0.0
             for tup in collist:
-                print self.trainedweights
                 errorcount += self.learnparameters(tup[0], tup[1], self.trainedweights)
-                print self.trainedweights
                 totaltup += len(tup[0])
-            print errorcount/totaltup
+            print "Error : Iteration " + str(r) + " " + str(errorcount/totaltup)
             
     def predictsequence(self, tagbyumatrix):
         prevvalue = -sys.maxint - 1
@@ -146,27 +139,26 @@ class CRF:
                 seq += " S"
             else:
                 seq += " NS"
-        print seq
+        print "PREDICTED : " + seq
         seq = ''
         for r in xrange(len(col)):
             if(int(col[r][0]) == 1):
                 seq += " S"
             else:
                 seq += " NS"
-        print seq
-        return self.learnweightsBySG(predictedsequence, col, trainedweights, trainfeatures, )
-    
+        print "ACTUAL    : " + seq
+        return self.learnweightsBySG(predictedsequence, col, trainedweights, trainfeatures)
     
     def learnparameters(self, col, trainfeatures, trainedweights):
-        tagbyumatrix = self.GetMatrixForCalculatingArgMax(col, trainfeatures, trainedweights)
+        tagbyumatrix = self.GetMatrixForCalculatingArgMax(col, trainedweights)
         #marginalprobabilityofinput = self.GetZValue(col, trainfeatures, trainedweights) #Not needed for Collins Perceptron
         return self.learn(col, tagbyumatrix, trainfeatures, trainedweights)
 
-    def GetMatrixForCalculatingArgMax(self, col, trainfeatures, trainedweights):
-        gmatrices = self.buildGMatrices(col, trainfeatures, trainedweights)
+    def GetMatrixForCalculatingArgMax(self, col, trainedweights):
+        gmatrices = self.buildGMatrices(col, trainedweights)
         return self.calculateUMatrixByVitterbi(col, gmatrices)
     
-    def buildGMatrices(self, col, trainfeatures, trainedweights):
+    def buildGMatrices(self, col, trainedweights):
         gmatrices = list() #[G1, G2......], G2 => [[[w1f1 + w2f2], row0col1, row0col2], [row1col0,  ], ....]
         gmatrices.append(self.G1)
         for line in xrange(1, len(col)):
@@ -182,7 +174,6 @@ class CRF:
                 gmatrix.append(collist)
             gmatrices.append(gmatrix)
         return gmatrices
-        
         
     #U(k,v) = max(yk -1) [U(k-1,yk-1) + gk(yk-1,v)]        
     def calculateUMatrixByVitterbi(self, col, gmatrices):
