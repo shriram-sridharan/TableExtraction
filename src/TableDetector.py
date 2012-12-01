@@ -7,6 +7,7 @@ import PreProcessor
 import Trainer
 import sys
 from CRF import CRF
+import xml.etree.ElementTree as ET
 if __name__ == '__main__':
     xmls = ["Test2"]
     preprocessor = PreProcessor.PreProcessor()
@@ -20,6 +21,7 @@ if __name__ == '__main__':
 #    elif(sys.argv[1] == "-train"):
     annotatedxmllist = list()
     for xmlname in xmls:
+        fontdict = preprocessor.getFontDictionary(ET.parse("../TrainingData/xmls/"+ xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>) 
         annotatedxml = trainer.readAnnotatedXml(xmlname +"_annotated")
-        annotatedxmllist.append(annotatedxml)
+        annotatedxmllist.append([annotatedxml, fontdict])
     CRF().domaintrain(annotatedxmllist)

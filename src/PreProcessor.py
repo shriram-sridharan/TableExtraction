@@ -142,8 +142,8 @@ class PreProcessor:
         parseTree = ET.parse(xmlloc)
         f = open('a.xml','w')
         preprocessedxml = list()
+        fontdict = self.getFontDictionary(parseTree)
         for page in parseTree.iter('page'):
-            fontdict = self.getFontDictionary(parseTree)
             combinedTextTagTuple = self.combineTextTags(page, fontdict, f)
             height = int(page.attrib['height'])
             pagecols = self.findColumns(combinedTextTagTuple, height)

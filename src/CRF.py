@@ -7,7 +7,7 @@ import random
 import sys
 from SparseType import SparseType
 from Constants import Constants
-
+from Features import Features
 '''
     Implementing the Collins Perceptron for Learning parameters. Assuming a prob of 1 to predicted value.
     
@@ -23,54 +23,20 @@ class CRF:
         self.START = -1
         self.possibletags = [SparseType.OTHERSPARSE, SparseType.NONSPARSE] #domain specific
         self.G1 = [0.01,0.99] #domain specific
+        self.Features = Features()
     
     def domaintrain(self, annotatedxmllist):
         collist = list()
         for annotatedxml in annotatedxmllist:
-            for page in annotatedxml:
+            for page in annotatedxml[0]:
                 for col in page:
                     if(len(col) < 2):
                         continue
                     trainfeatures = list()
                     for i in xrange(0, len(col)):
-                        trainfeatures.append(self.domainfindfeatureFunction(i, col))
-                    collist.append([col, trainfeatures])
+                        trainfeatures.append(self.Features.domainfindfeatureFunction(i, col, annotatedxml[1]))
+                    collist.append([col, trainfeatures, annotatedxml[1]])
         self.train(collist)
-    
-    def domainfindfeatureFunction(self, i, col, prevtag = None, curtag = None):
-        featurelist = list()
-        if(prevtag is None):
-            prevtag = int(col[i-1][0])
-        if(curtag is None):
-            curtag = int(col[i][0])
-            
-        if(i!=0 and prevtag == SparseType.OTHERSPARSE and curtag == SparseType.OTHERSPARSE):
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
-        
-        if(i!=0 and prevtag == SparseType.OTHERSPARSE and curtag == SparseType.NONSPARSE):
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
-        
-        if(i!=0 and prevtag == SparseType.NONSPARSE and curtag == SparseType.OTHERSPARSE):
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
-               
-        if(int(col[i][1].attrib['textpieces']) > 0 and curtag == SparseType.OTHERSPARSE):
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
-        
-        if((int(col[i][1].attrib['font']) == int(col[i-1][1].attrib['font'])) and curtag == SparseType.OTHERSPARSE 
-                            and prevtag == SparseType.OTHERSPARSE):
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
-            
-        return featurelist
     
     def train(self, collist):
         for _ in xrange(len(collist[0][1][0])):
@@ -80,7 +46,7 @@ class CRF:
             errorcount = 0.0
             totaltup = 0.0
             for tup in collist:
-                errorcount += self.learnparameters(tup[0], tup[1], self.trainedweights)
+                errorcount += self.learnparameters(tup[0], tup[1], self.trainedweights, tup[2])
                 totaltup += len(tup[0])
             print "Error : Iteration " + str(r) + " " + str(errorcount/totaltup)
             
@@ -103,7 +69,7 @@ class CRF:
         
         return list(reversed(sequence))
     
-    def learnweightsBySG(self, predictedsequence, col, trainedweights, trainfeatures):
+    def learnweightsBySG(self, predictedsequence, col, trainedweights, trainfeatures, fontdict):
         negativecol = list()
         errorcount = 0.0
         for tup in xrange(len(col)):
@@ -113,7 +79,7 @@ class CRF:
             
         predictedfeatures = list()
         for i in xrange(0, len(col)):
-            predictedfeatures.append(self.domainfindfeatureFunction(i, negativecol))
+            predictedfeatures.append(self.Features.domainfindfeatureFunction(i, negativecol, fontdict))
         
         FActuallist = list() 
         FPredictedlist = list()
@@ -131,7 +97,7 @@ class CRF:
         
         return errorcount
         
-    def learn(self, col, tagbyumatrix, trainfeatures, trainedweights):
+    def learn(self, col, tagbyumatrix, trainfeatures, trainedweights, fontdict):
         predictedsequence = self.predictsequence(tagbyumatrix)
         seq = ''
         for r in predictedsequence:
@@ -147,18 +113,18 @@ class CRF:
             else:
                 seq += " NS"
         print "ACTUAL    : " + seq
-        return self.learnweightsBySG(predictedsequence, col, trainedweights, trainfeatures)
+        return self.learnweightsBySG(predictedsequence, col, trainedweights, trainfeatures, fontdict)
     
-    def learnparameters(self, col, trainfeatures, trainedweights):
-        tagbyumatrix = self.GetMatrixForCalculatingArgMax(col, trainedweights)
+    def learnparameters(self, col, trainfeatures, trainedweights, fontdict):
+        tagbyumatrix = self.GetMatrixForCalculatingArgMax(col, trainedweights, fontdict)
         #marginalprobabilityofinput = self.GetZValue(col, trainfeatures, trainedweights) #Not needed for Collins Perceptron
-        return self.learn(col, tagbyumatrix, trainfeatures, trainedweights)
+        return self.learn(col, tagbyumatrix, trainfeatures, trainedweights, fontdict)
 
-    def GetMatrixForCalculatingArgMax(self, col, trainedweights):
-        gmatrices = self.buildGMatrices(col, trainedweights)
+    def GetMatrixForCalculatingArgMax(self, col, trainedweights, fontdict):
+        gmatrices = self.buildGMatrices(col, trainedweights, fontdict)
         return self.calculateUMatrixByVitterbi(col, gmatrices)
     
-    def buildGMatrices(self, col, trainedweights):
+    def buildGMatrices(self, col, trainedweights, fontdict):
         gmatrices = list() #[G1, G2......], G2 => [[[w1f1 + w2f2], row0col1, row0col2], [row1col0,  ], ....]
         gmatrices.append(self.G1)
         for line in xrange(1, len(col)):
@@ -167,7 +133,7 @@ class CRF:
                 collist = list()
                 for prevtag in self.possibletags:
                     sigma = 0
-                    featurelist = self.domainfindfeatureFunction(line, col, prevtag, curtag)
+                    featurelist = self.Features.domainfindfeatureFunction(line, col, fontdict, prevtag, curtag)
                     for feat in xrange(len(trainedweights)):
                         sigma = sigma + featurelist[feat] * trainedweights[feat]
                     collist.append(sigma)
