@@ -22,44 +22,67 @@ class CRF:
         self.trainedweights = list()
         self.START = -1
         self.possibletags = [SparseType.OTHERSPARSE, SparseType.NONSPARSE] #domain specific
-        self.G1 = [0,1] #domain specific
+        self.G1 = [0.01,0.99] #domain specific
     
     def domaintrain(self, annotatedxmllist):
         collist = list()
         for annotatedxml in annotatedxmllist:
             for page in annotatedxml:
                 for col in page:
+                    if(len(col) < 2):
+                        continue
                     trainfeatures = list()
                     for i in xrange(0, len(col)):
-                        trainfeatures.append(self.domainfindfeatures(i, col))
+                        trainfeatures.append(self.domainfindfeatureFunction(i, col))
                     collist.append([col, trainfeatures])
         self.train(collist)
     
-    def domainfindfeatures(self, i, col):
-        featurelist = list() #[PreviousSparse, NumtextPieces]
+    def domainfindfeatureFunction(self, i, col):
+        featurelist = list() 
         if(i!=0 and int(col[i-1][0]) == SparseType.OTHERSPARSE and int(col[i][0]) == SparseType.OTHERSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
-            
-        if(int(col[i][1].attrib['textpieces']) > 1 and i!=0 and int(col[i-1][0]) == SparseType.OTHERSPARSE):
+        
+        if(i!=0 and int(col[i-1][0]) == SparseType.OTHERSPARSE and int(col[i][0]) == SparseType.NONSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
         
+        if(i!=0 and int(col[i-1][0]) == SparseType.NONSPARSE and int(col[i][0]) == SparseType.OTHERSPARSE):
+            featurelist.append(1)
+        else:
+            featurelist.append(0)
+        
+        if(i!=0 and int(col[i-1][0]) == SparseType.NONSPARSE and int(col[i][0]) == SparseType.NONSPARSE):
+            featurelist.append(1)
+        else:
+            featurelist.append(0)
+               
+        if(int(col[i][1].attrib['textpieces']) > 0 and int(col[i][0]) == SparseType.OTHERSPARSE):
+            featurelist.append(1)
+        else:
+            featurelist.append(0)
+        
+        if((int(col[i][1].attrib['font']) == int(col[i-1][1].attrib['font'])) and int(col[i][0]) == SparseType.OTHERSPARSE 
+                            and int(col[i-1][0]) == SparseType.OTHERSPARSE):
+            featurelist.append(1)
+        else:
+            featurelist.append(0)
+            
         return featurelist
     
     def train(self, collist):
-        for _ in xrange(len(collist[1])):
+        for _ in xrange(len(collist[0][1][0])):
             self.trainedweights.append(random.uniform(-0.02,0.02))
             
-        for _ in xrange(0,2):
+        for _ in xrange(0,1):
             errorcount = 0.0
             totaltup = 0.0
             for tup in collist:
-                #print self.trainedweights
+                print self.trainedweights
                 errorcount += self.learnparameters(tup[0], tup[1], self.trainedweights)
-                #print self.trainedweights
+                print self.trainedweights
                 totaltup += len(tup[0])
             print errorcount/totaltup
             
@@ -72,7 +95,7 @@ class CRF:
             curvalue = tagbyumatrix[len(tagbyumatrix)-1][index][0]
             if(curvalue > prevvalue):
                 prevvalue = curvalue
-                nextpointer = tagbyumatrix[len(tagbyumatrix[0])-1][index][1]
+                nextpointer = tagbyumatrix[len(tagbyumatrix)-1][index][1]
                 highindex = index
                 
         sequence.append(highindex)
@@ -88,11 +111,11 @@ class CRF:
         for tup in xrange(len(col)):
             if((predictedsequence[tup]+1) != int(col[tup][0])): # +1 because index starts at 0 but sparsetype starts at 1
                 errorcount += 1
-            negativecol.append([predictedsequence[tup], col[tup][1]])
+            negativecol.append([predictedsequence[tup]+1, col[tup][1]])
             
         predictedfeatures = list()
         for i in xrange(0, len(col)):
-            predictedfeatures.append(self.domainfindfeatures(i, negativecol))
+            predictedfeatures.append(self.domainfindfeatureFunction(i, negativecol))
         
         FActuallist = list() 
         FPredictedlist = list()

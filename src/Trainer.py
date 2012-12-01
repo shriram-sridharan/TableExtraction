@@ -43,24 +43,15 @@ class Trainer:
         
     def readAnnotatedXml(self,xmlname):
         f = open('../TrainingData/annotated/' + xmlname)
-        pagebegin = False
-        colbegin = False
         preprocessedxml = list()
+        col = list()
         for line in f:
             if(line == "=============================== PAGE ===================================\n"):
-                if(pagebegin is False):
-                    pagelist = list()
-                    pagebegin = True
-                else:
-                    preprocessedxml.append(pagelist)
-                    pagelist = list()
+                pagelist = list()
+                preprocessedxml.append(pagelist)
             elif(line == "=============================== COL ===================================\n"):
-                if(colbegin is False):
-                    col = list()
-                    colbegin = True
-                else:
-                    pagelist.append(col)
-                    col = list()
+                col = list()
+                pagelist.append(col)
             else:
                 tup0 = line[:line.find(" ")]
                 tup1 = line[line.find(" ")+1:]

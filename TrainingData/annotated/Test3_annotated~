@@ -11,4 +11,8 @@
 1 <text font="9" height="11" left="112" textpieces="1" top="125" width="189">Impact Factors         Accuracy (%)</text>
 1 <text font="9" height="11" left="133" textpieces="1" top="140" width="124">TFIDF               50.19</text>
 1 <text font="9" height="11" left="89" textpieces="1" top="153" width="168">TTFITTF without MW    61.46</text>
+1 <text font="9" height="11" left="97" textpieces="1" top="165" width="160">TTFITTF with MW      63.55</text>
+1 <text font="9" height="11" left="139" textpieces="1" top="178" width="118">TLB                29.60</text>
+1 <text font="9" height="11" left="139" textpieces="1" top="191" width="118">DLB                40.33</text>
+1 <text font="9" height="11" left="124" textpieces="1" top="203" width="133">All factors            69.61</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="223" width="358">Table 7: The Ablation Experiment to Learn the</text>

@@ -8,7 +8,7 @@ import Trainer
 import sys
 from CRF import CRF
 if __name__ == '__main__':
-    xmls = ["Test3"]
+    xmls = ["Test2","Test4","Test5"]
     preprocessor = PreProcessor.PreProcessor()
     trainer = Trainer.Trainer()
     
