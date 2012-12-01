@@ -37,35 +37,40 @@ class CRF:
                     collist.append([col, trainfeatures])
         self.train(collist)
     
-    def domainfindfeatureFunction(self, i, col):
-        featurelist = list() 
-        if(i!=0 and int(col[i-1][0]) == SparseType.OTHERSPARSE and int(col[i][0]) == SparseType.OTHERSPARSE):
+    def domainfindfeatureFunction(self, i, col, prevtag = None, curtag = None):
+        featurelist = list()
+        if(prevtag is None):
+            prevtag = int(col[i-1][0])
+        if(curtag is None):
+            curtag = int(col[i][0])
+            
+        if(i!=0 and prevtag == SparseType.OTHERSPARSE and curtag == SparseType.OTHERSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
         
-        if(i!=0 and int(col[i-1][0]) == SparseType.OTHERSPARSE and int(col[i][0]) == SparseType.NONSPARSE):
+        if(i!=0 and prevtag == SparseType.OTHERSPARSE and curtag == SparseType.NONSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
         
-        if(i!=0 and int(col[i-1][0]) == SparseType.NONSPARSE and int(col[i][0]) == SparseType.OTHERSPARSE):
+        if(i!=0 and prevtag == SparseType.NONSPARSE and curtag == SparseType.OTHERSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
         
-        if(i!=0 and int(col[i-1][0]) == SparseType.NONSPARSE and int(col[i][0]) == SparseType.NONSPARSE):
+        if(i!=0 and prevtag == SparseType.NONSPARSE and curtag == SparseType.NONSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
                
-        if(int(col[i][1].attrib['textpieces']) > 0 and int(col[i][0]) == SparseType.OTHERSPARSE):
+        if(int(col[i][1].attrib['textpieces']) > 0 and curtag == SparseType.OTHERSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
         
-        if((int(col[i][1].attrib['font']) == int(col[i-1][1].attrib['font'])) and int(col[i][0]) == SparseType.OTHERSPARSE 
-                            and int(col[i-1][0]) == SparseType.OTHERSPARSE):
+        if((int(col[i][1].attrib['font']) == int(col[i-1][1].attrib['font'])) and curtag == SparseType.OTHERSPARSE 
+                            and prevtag == SparseType.OTHERSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
@@ -76,7 +81,7 @@ class CRF:
         for _ in xrange(len(collist[0][1][0])):
             self.trainedweights.append(random.uniform(-0.02,0.02))
             
-        for _ in xrange(0,1):
+        for _ in xrange(0,1000):
             errorcount = 0.0
             totaltup = 0.0
             for tup in collist:
@@ -166,12 +171,13 @@ class CRF:
         gmatrices.append(self.G1)
         for line in xrange(1, len(col)):
             gmatrix = list()
-            for __ in self.possibletags:
+            for curtag in self.possibletags:
                 collist = list()
-                for ___ in self.possibletags:
+                for prevtag in self.possibletags:
                     sigma = 0
+                    featurelist = self.domainfindfeatureFunction(line, col, prevtag, curtag)
                     for feat in xrange(len(trainedweights)):
-                        sigma = sigma + trainfeatures[line][feat] * trainedweights[feat]
+                        sigma = sigma + featurelist[feat] * trainedweights[feat]
                     collist.append(sigma)
                 gmatrix.append(collist)
             gmatrices.append(gmatrix)
