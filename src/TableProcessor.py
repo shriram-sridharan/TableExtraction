@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import cgi
-import HTMLParser as HT
 form = cgi.FieldStorage()
 print "Content-type: text/html\r\n\r\n"
 filename = form.getvalue('xmlname')

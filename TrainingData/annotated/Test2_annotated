@@ -1,685 +1,685 @@
 =============================== PAGE ===================================
 =============================== COL ===================================
-2 <text font="0" height="21" left="459" top="94" width="6"> </text>
-2 <text font="0" height="21" left="459" top="130" width="6"> </text>
-2 <text font="0" height="21" left="243" top="166" width="439">Table Header Detection and Classification </text>
-2 <text font="1" height="16" left="249" top="213" width="425">Jing Fang1,2, Prasenjit Mitra2, Zhi Tang1, C. Lee Giles2 </text>
-2 <text font="3" height="8" left="240" top="234" width="441">1Institute of Computer Science &amp; Technology, Peking University, Beijing, China </text>
-2 <text font="4" height="12" left="353" top="256" width="215">Email:{fangjing, tangzhi}@pku.edu.cn </text>
-2 <text font="3" height="8" left="82" top="273" width="761">2 Coll. of Infor. Scien. &amp; Techn., Depar. of Comp. Scien. &amp; Engin., The Pennsylvania State University, University Park, PA, U.S.A. 16803.  </text>
-2 <text font="4" height="12" left="366" top="295" width="191">Email:{pmitra, giles}@ist.psu.edu </text>
-2 <text font="4" height="12" left="459" top="310" width="3"> </text>
-2 <text font="5" height="14" left="459" top="327" width="4"> </text>
-2 <text font="5" height="14" left="459" top="345" width="4"> </text>
-2 <text font="6" height="13" left="233" top="363" width="59">Abstract </text>
-2 <text font="4" height="12" left="96" top="384" width="341">In digital libraries, a table, as a specific document </text>
-2 <text font="4" height="12" left="96" top="398" width="334">component as well as a condensed way to present structured </text>
-2 <text font="4" height="12" left="96" top="414" width="335">and relational data, contains rich information and often the </text>
-2 <text font="4" height="12" left="96" top="429" width="337">only source of .that information.  In order to explore, retrieve, </text>
-2 <text font="4" height="12" left="96" top="444" width="334">and reuse that data, tables should be identified and the data </text>
-2 <text font="4" height="12" left="96" top="458" width="338">extracted. Table recognition is an old field of research. </text>
-2 <text font="4" height="12" left="96" top="474" width="334">However, due to the diversity of table styles, the results are </text>
-2 <text font="4" height="12" left="96" top="489" width="339">still far from satisfactory, and not a single algorithm </text>
-2 <text font="4" height="12" left="96" top="504" width="334">performs well on all different types of tables. In this paper, </text>
-2 <text font="4" height="12" left="96" top="519" width="342">we randomly take samples from the CiteSeerX to </text>
-2 <text font="4" height="12" left="96" top="534" width="337">investigate diverse table styles for automatic table extraction. </text>
-2 <text font="4" height="12" left="96" top="549" width="334">We find that table headers are one of the main characteristics </text>
-2 <text font="4" height="12" left="96" top="564" width="334">of complex table styles. We identify a set of features that can </text>
-2 <text font="4" height="12" left="96" top="579" width="335">be used to segregate headers from tabular data and build a </text>
-2 <text font="4" height="12" left="96" top="594" width="335">classifier to detect table headers. Our empirical evaluation </text>
-2 <text font="4" height="12" left="96" top="609" width="338">on PDF documents shows that using a Random Forest </text>
-2 <text font="4" height="12" left="96" top="624" width="216">classifier achieves an accuracy of 92%. </text>
-2 <text font="1" height="16" left="210" top="669" width="119"> Introduction    </text>
-2 <text font="5" height="14" left="96" top="697" width="353">Digital libraries usually contain a large collection of </text>
-2 <text font="5" height="14" left="81" top="714" width="364">digital documents, many of which contain tables. Tables, as </text>
-2 <text font="5" height="14" left="81" top="730" width="374">significant document components, store and present </text>
-2 <text font="5" height="14" left="81" top="747" width="364">relational data in a condensed way, i.e. experimental results </text>
-2 <text font="5" height="14" left="81" top="763" width="365">in scientific documents, statistical data in financial reports, </text>
-2 <text font="5" height="14" left="81" top="780" width="364">etc. In short, tables contain rich sources of information that </text>
-2 <text font="5" height="14" left="81" top="796" width="368">can be very useful and are only available in the table. </text>
-2 <text font="5" height="14" left="81" top="813" width="370">Automatic table extraction is of great importance to </text>
-2 <text font="5" height="14" left="81" top="830" width="316">exploring, retrieval and making full use of this data. </text>
-2 <text font="5" height="14" left="96" top="846" width="353">Table extraction and indexing have been popular but </text>
-2 <text font="5" height="14" left="81" top="862" width="365">open issues still continue, primarily due to the diversity of </text>
-2 <text font="5" height="14" left="81" top="879" width="364">table styles. It is not easy for a single algorithm to perform </text>
-2 <text font="5" height="14" left="81" top="895" width="364">well on all the different types of tables. A table processing </text>
-2 <text font="5" height="14" left="81" top="912" width="368">survey (Lopresti &amp; Nagy 1999) shows 15 examples for </text>
-2 <text font="5" height="14" left="81" top="928" width="365">tables and demonstrates how much tables may be different </text>
-2 <text font="5" height="14" left="81" top="945" width="371">from each other in actual documents. The document </text>
-2 <text font="5" height="14" left="81" top="961" width="368">medium can be plain text, image, handwritten, or web </text>
-2 <text font="5" height="14" left="81" top="978" width="369">pages; from the functional or context aspect, financial, </text>
-2 <text font="10" height="16" left="81" top="996" width="221">                                                   </text>
-2 <text font="11" height="11" left="81" top="1016" width="369">Copyright  2012, Association for the Advancement of Artificial </text>
-2 <text font="11" height="11" left="81" top="1029" width="237">Intelligence (www.aaai.org). All rights reserved. </text>
-2 <text font="11" height="11" left="81" top="1043" width="3"> </text>
-2 <text font="5" height="14" left="477" top="361" width="365">schedule, vote tables, etc. can be found. While the majority </text>
+2 <text font="0" height="21" left="459" textpieces="0" top="94" width="6"> </text>
+2 <text font="0" height="21" left="459" textpieces="0" top="130" width="6"> </text>
+2 <text font="0" height="21" left="243" textpieces="0" top="166" width="439">Table Header Detection and Classification </text>
+2 <text font="1" height="16" left="249" textpieces="1" top="213" width="425">Jing Fang1,2, Prasenjit Mitra2, Zhi Tang1, C. Lee Giles2 </text>
+2 <text font="3" height="8" left="240" textpieces="0" top="234" width="441">1Institute of Computer Science &amp; Technology, Peking University, Beijing, China </text>
+2 <text font="4" height="12" left="353" textpieces="0" top="256" width="215">Email:{fangjing, tangzhi}@pku.edu.cn </text>
+2 <text font="3" height="8" left="82" textpieces="0" top="273" width="761">2 Coll. of Infor. Scien. &amp; Techn., Depar. of Comp. Scien. &amp; Engin., The Pennsylvania State University, University Park, PA, U.S.A. 16803.  </text>
+2 <text font="4" height="12" left="366" textpieces="0" top="295" width="191">Email:{pmitra, giles}@ist.psu.edu </text>
+2 <text font="4" height="12" left="459" textpieces="0" top="310" width="3"> </text>
+2 <text font="5" height="14" left="459" textpieces="0" top="327" width="4"> </text>
+2 <text font="5" height="14" left="459" textpieces="0" top="345" width="4"> </text>
+2 <text font="6" height="13" left="233" textpieces="0" top="363" width="59">Abstract </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="384" width="341">In digital libraries, a table, as a specific document </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="398" width="334">component as well as a condensed way to present structured </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="414" width="335">and relational data, contains rich information and often the </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="429" width="337">only source of .that information.  In order to explore, retrieve, </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="444" width="334">and reuse that data, tables should be identified and the data </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="458" width="338">extracted. Table recognition is an old field of research. </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="474" width="334">However, due to the diversity of table styles, the results are </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="489" width="339">still far from satisfactory, and not a single algorithm </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="504" width="334">performs well on all different types of tables. In this paper, </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="519" width="342">we randomly take samples from the CiteSeerX to </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="534" width="337">investigate diverse table styles for automatic table extraction. </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="549" width="334">We find that table headers are one of the main characteristics </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="564" width="334">of complex table styles. We identify a set of features that can </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="579" width="335">be used to segregate headers from tabular data and build a </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="594" width="335">classifier to detect table headers. Our empirical evaluation </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="609" width="338">on PDF documents shows that using a Random Forest </text>
+2 <text font="4" height="12" left="96" textpieces="0" top="624" width="216">classifier achieves an accuracy of 92%. </text>
+2 <text font="1" height="16" left="210" textpieces="0" top="669" width="119"> Introduction    </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="697" width="353">Digital libraries usually contain a large collection of </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="714" width="364">digital documents, many of which contain tables. Tables, as </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="730" width="374">significant document components, store and present </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="747" width="364">relational data in a condensed way, i.e. experimental results </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="763" width="365">in scientific documents, statistical data in financial reports, </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="780" width="364">etc. In short, tables contain rich sources of information that </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="796" width="368">can be very useful and are only available in the table. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="813" width="370">Automatic table extraction is of great importance to </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="830" width="316">exploring, retrieval and making full use of this data. </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="846" width="353">Table extraction and indexing have been popular but </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="862" width="365">open issues still continue, primarily due to the diversity of </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="879" width="364">table styles. It is not easy for a single algorithm to perform </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="895" width="364">well on all the different types of tables. A table processing </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="912" width="368">survey (Lopresti &amp; Nagy 1999) shows 15 examples for </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="928" width="365">tables and demonstrates how much tables may be different </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="945" width="371">from each other in actual documents. The document </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="961" width="368">medium can be plain text, image, handwritten, or web </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="978" width="369">pages; from the functional or context aspect, financial, </text>
+2 <text font="10" height="16" left="81" textpieces="0" top="996" width="221">                                                   </text>
+2 <text font="11" height="11" left="81" textpieces="0" top="1016" width="369">Copyright  2012, Association for the Advancement of Artificial </text>
+2 <text font="11" height="11" left="81" textpieces="0" top="1029" width="237">Intelligence (www.aaai.org). All rights reserved. </text>
+2 <text font="11" height="11" left="81" textpieces="0" top="1043" width="3"> </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="361" width="365">schedule, vote tables, etc. can be found. While the majority </text>
 =============================== COL ===================================
-2 <text font="5" height="14" left="477" top="377" width="364">of existing methods explore table layout characteristics for </text>
-2 <text font="5" height="14" left="477" top="394" width="365">table recognition, what impacts the extraction performance </text>
-2 <text font="5" height="14" left="477" top="411" width="369">most is the diversity of table structures. Just like the </text>
-2 <text font="5" height="14" left="477" top="427" width="365">previously mentioned table examples, there are tables with </text>
-2 <text font="5" height="14" left="477" top="444" width="364">and without headers, nested tables (whose certain cells are </text>
-2 <text font="5" height="14" left="477" top="460" width="325">small tables themselves), and even figure-like tables.  </text>
-2 <text font="5" height="14" left="492" top="477" width="354">A reasonable assumption is that if tables could be </text>
-2 <text font="5" height="14" left="477" top="493" width="365">automatically classified into several categories according to </text>
-2 <text font="5" height="14" left="477" top="510" width="366">their structure, then targeted algorithms should work. We </text>
-2 <text font="5" height="14" left="477" top="526" width="366">observed that table headers are one of the key factors that </text>
-2 <text font="5" height="14" left="477" top="543" width="370">determines the structure of tables and determines the </text>
-2 <text font="5" height="14" left="477" top="559" width="366">complexity in tables. We define the lines at the top of a </text>
-2 <text font="5" height="14" left="477" top="576" width="369">table (header rows) or at the left of the table (header </text>
-2 <text font="5" height="14" left="477" top="592" width="368">columns) as the table headers. Table header detection is </text>
-2 <text font="5" height="14" left="477" top="609" width="366">also important for other applications. For example, in the </text>
-2 <text font="5" height="14" left="477" top="625" width="372">domain of environmental chemistry, previous surveys </text>
-2 <text font="5" height="14" left="477" top="641" width="367">published ground water levels at a location inside tables. </text>
-2 <text font="5" height="14" left="477" top="658" width="369">Current surveyors want to extract that data from old </text>
-2 <text font="5" height="14" left="477" top="674" width="366">documents and compare with current findings. Identifying </text>
-2 <text font="5" height="14" left="477" top="691" width="370">the header accurately allows the end-user to query a </text>
-2 <text font="5" height="14" left="477" top="708" width="182">database containing that data. </text>
-2 <text font="5" height="14" left="492" top="724" width="349">We first delineate what kinds of tables that exist in actual </text>
-2 <text font="5" height="14" left="477" top="741" width="364">documents, and what are their structures, header types, etc; </text>
-2 <text font="5" height="14" left="477" top="757" width="366">and, importantly, what kinds of tables can and cannot be </text>
-2 <text font="5" height="14" left="477" top="774" width="369">easily recognized. Table headers may be complex. For </text>
-2 <text font="5" height="14" left="477" top="790" width="367">example, Figure 1 is a table with both row and column </text>
-2 <text font="5" height="14" left="477" top="807" width="367">headers; the header has multiple text lines and multiple </text>
-2 <text font="5" height="14" left="477" top="823" width="372">levels. As such, we randomly collect samples from </text>
-2 <text font="5" height="14" left="477" top="840" width="367">CiteSeerX   a public scientific search engine and digital </text>
-2 <text font="5" height="14" left="477" top="857" width="369">library, to investigate table categories and table header </text>
-2 <text font="5" height="14" left="477" top="873" width="366">types. Note that, we focus on PDF documents, which are </text>
-2 <text font="5" height="14" left="477" top="890" width="238">widely used in todays digital libraries. </text>
-2 <text font="5" height="14" left="833" top="1014" width="4"> </text>
-2 <text font="12" height="12" left="518" top="1029" width="297">Figure 1. An example of table with complex header </text>
-2 <text font="13" height="16" left="275" top="52" width="367">Proceedings of the Twenty-Sixth AAAI Conference on Artificial Intelligence</text>
+2 <text font="5" height="14" left="477" textpieces="0" top="377" width="364">of existing methods explore table layout characteristics for </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="394" width="365">table recognition, what impacts the extraction performance </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="411" width="369">most is the diversity of table structures. Just like the </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="427" width="365">previously mentioned table examples, there are tables with </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="444" width="364">and without headers, nested tables (whose certain cells are </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="460" width="325">small tables themselves), and even figure-like tables.  </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="477" width="354">A reasonable assumption is that if tables could be </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="493" width="365">automatically classified into several categories according to </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="510" width="366">their structure, then targeted algorithms should work. We </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="526" width="366">observed that table headers are one of the key factors that </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="543" width="370">determines the structure of tables and determines the </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="559" width="366">complexity in tables. We define the lines at the top of a </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="576" width="369">table (header rows) or at the left of the table (header </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="592" width="368">columns) as the table headers. Table header detection is </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="609" width="366">also important for other applications. For example, in the </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="625" width="372">domain of environmental chemistry, previous surveys </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="641" width="367">published ground water levels at a location inside tables. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="658" width="369">Current surveyors want to extract that data from old </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="674" width="366">documents and compare with current findings. Identifying </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="691" width="370">the header accurately allows the end-user to query a </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="708" width="182">database containing that data. </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="724" width="349">We first delineate what kinds of tables that exist in actual </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="741" width="364">documents, and what are their structures, header types, etc; </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="757" width="366">and, importantly, what kinds of tables can and cannot be </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="774" width="369">easily recognized. Table headers may be complex. For </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="790" width="367">example, Figure 1 is a table with both row and column </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="807" width="367">headers; the header has multiple text lines and multiple </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="823" width="372">levels. As such, we randomly collect samples from </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="840" width="367">CiteSeerX   a public scientific search engine and digital </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="857" width="369">library, to investigate table categories and table header </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="873" width="366">types. Note that, we focus on PDF documents, which are </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="890" width="238">widely used in todays digital libraries. </text>
+2 <text font="5" height="14" left="833" textpieces="0" top="1014" width="4"> </text>
+2 <text font="12" height="12" left="518" textpieces="0" top="1029" width="297">Figure 1. An example of table with complex header </text>
+2 <text font="13" height="16" left="275" textpieces="0" top="52" width="367">Proceedings of the Twenty-Sixth AAAI Conference on Artificial Intelligence</text>
 =============================== COL ===================================
-2 <text font="14" height="18" left="449" top="1110" width="19">599</text>
+2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">599</text>
 =============================== PAGE ===================================
 =============================== COL ===================================
-2 <text font="5" height="14" left="96" top="83" width="361">We then propose and evaluate algorithms that </text>
-2 <text font="5" height="14" left="81" top="100" width="365">automatically detect table row headers and column headers. </text>
-2 <text font="5" height="14" left="81" top="116" width="365">First, we apply a forwards weighted average score strategy </text>
-2 <text font="5" height="14" left="81" top="133" width="378">to calculate similarity between consecutive table </text>
-2 <text font="5" height="14" left="81" top="149" width="361">rows/columns and then find the first local minimum top-</text>
-2 <text font="5" height="14" left="81" top="166" width="368">down/left-right to be the separation between header and </text>
-2 <text font="5" height="14" left="81" top="182" width="365">data. Second, a similar backwards strategy is applied from </text>
-2 <text font="5" height="14" left="81" top="199" width="371">the last row/column to the first to find separations. </text>
-2 <text font="5" height="14" left="81" top="215" width="369">Additionally, we treat the problem as header and data </text>
-2 <text font="5" height="14" left="81" top="232" width="360">binary classification problem, and apply three classifiers</text>
-2 <text font="5" height="14" left="81" top="248" width="368">support vector machine (SVM), logistic regression, and </text>
-2 <text font="5" height="14" left="81" top="265" width="364">random forests. In the experiments, we elaborate on feature </text>
-2 <text font="5" height="14" left="81" top="281" width="370">selection, analyze parameter impact, and compare the </text>
-2 <text font="5" height="14" left="81" top="298" width="360">performance of these three models, as well as with the rule-</text>
-2 <text font="5" height="14" left="81" top="314" width="91">based method. </text>
-2 <text font="5" height="14" left="96" top="331" width="352">This research is based on an existing table extraction tool, </text>
-2 <text font="5" height="14" left="81" top="347" width="364">which is part of the search engine system TableSeer (Liu et </text>
-2 <text font="5" height="14" left="81" top="364" width="366">al. 2007). It automatically identifies tables in PDF digital </text>
-2 <text font="5" height="14" left="81" top="381" width="366">documents, detects table boundaries (Liu, Mitra, &amp; Giles </text>
-2 <text font="5" height="14" left="81" top="397" width="365">2008) and extracts the contents in the table cells (Liu et al. </text>
-2 <text font="5" height="14" left="81" top="413" width="364">2006). The contents are then stored in a queryable table in a </text>
-2 <text font="5" height="14" left="81" top="430" width="366">database. It also indexes the tables and provides a novel </text>
-2 <text font="5" height="14" left="81" top="446" width="365">ranking function to enable end-user table search. However, </text>
-2 <text font="5" height="14" left="81" top="463" width="370">existing work on extracting table structure stops after </text>
-2 <text font="5" height="14" left="81" top="479" width="367">finding cells, segmenting rows and columns. This work </text>
-2 <text font="5" height="14" left="81" top="496" width="372">extends previous work and in many ways explores </text>
-2 <text font="5" height="14" left="81" top="512" width="279">automated methods for topological discovery. </text>
-2 <text font="1" height="16" left="207" top="560" width="113">Related Work </text>
-2 <text font="5" height="14" left="81" top="588" width="367">Previous surveys (Zanibbi, Blostein, &amp; Cordy 2004) and </text>
-2 <text font="5" height="14" left="81" top="604" width="367">(Silva, Jorge,&amp; Torgo 2006) summarized approaches for </text>
-2 <text font="5" height="14" left="81" top="620" width="366">table recognition, which can be divided into physical and </text>
-2 <text font="5" height="14" left="81" top="637" width="365">logical structure analysis. The former refers to segmenting </text>
-2 <text font="5" height="14" left="81" top="653" width="368">table cells, rows, and columns, while the latter aims at </text>
-2 <text font="5" height="14" left="81" top="670" width="371">finding out about table headers, extraction of header </text>
-2 <text font="5" height="14" left="81" top="686" width="365">hierarchy, and analysis of index relations  (Hirayama 1995) </text>
-2 <text font="5" height="14" left="81" top="703" width="119">- (Seth et al 2010).  </text>
-2 <text font="5" height="14" left="96" top="719" width="357">For logical structure analysis, (Nagy et al 2010) </text>
-2 <text font="5" height="14" left="81" top="736" width="368">presented a grammatical framework for parsing a linear </text>
-2 <text font="5" height="14" left="81" top="752" width="364">string representation of column headers of tables in a range </text>
-2 <text font="5" height="14" left="81" top="769" width="369">of specified formats for web pages. They focused on </text>
-2 <text font="5" height="14" left="81" top="786" width="367">grammar-based header hierarchy extraction using already </text>
-2 <text font="5" height="14" left="81" top="802" width="364">known column headers, but didnt mention how the headers </text>
-2 <text font="5" height="14" left="81" top="819" width="365">were detected.  Wong (Wong, Martinez, &amp; Cavedon 2009) </text>
-2 <text font="5" height="14" left="81" top="835" width="366">classified tabular information for the task of named entity </text>
-2 <text font="5" height="14" left="81" top="852" width="369">detection for genetic mutations. HTML documents and </text>
-2 <text font="5" height="14" left="81" top="868" width="367">tables were broken up into row headers, column headers </text>
-2 <text font="5" height="14" left="81" top="885" width="369">and data cells by making use of the hr tags. Then, a </text>
-2 <text font="5" height="14" left="81" top="901" width="366">machine learning method and simple bag-of-word features </text>
-2 <text font="5" height="14" left="81" top="918" width="365">were used to extract mutation classes.  They focused on the </text>
-2 <text font="5" height="14" left="81" top="934" width="373">extraction task rather than the actual detection of </text>
-2 <text font="5" height="14" left="81" top="950" width="367">row/column headers. Moreover, the processed dataset is </text>
-2 <text font="5" height="14" left="81" top="967" width="366">also an HTML format instead of a PDF format, which is </text>
-2 <text font="5" height="14" left="81" top="983" width="243">harder since there is no tag information. </text>
-2 <text font="5" height="14" left="96" top="1000" width="358">There are numerous methods proposed for table </text>
-2 <text font="5" height="14" left="81" top="1016" width="364">detection and table structure extraction. However, very few </text>
-2 <text font="5" height="14" left="81" top="1033" width="364">have  addressed table classification or related topics. (Wang </text>
-2 <text font="5" height="14" left="477" top="83" width="366">&amp; Hu 2002) classified web tables into genuine tables and </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="83" width="361">We then propose and evaluate algorithms that </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="100" width="365">automatically detect table row headers and column headers. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="116" width="365">First, we apply a forwards weighted average score strategy </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="133" width="378">to calculate similarity between consecutive table </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="149" width="361">rows/columns and then find the first local minimum top-</text>
+2 <text font="5" height="14" left="81" textpieces="0" top="166" width="368">down/left-right to be the separation between header and </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="182" width="365">data. Second, a similar backwards strategy is applied from </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="199" width="371">the last row/column to the first to find separations. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="215" width="369">Additionally, we treat the problem as header and data </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="232" width="360">binary classification problem, and apply three classifiers</text>
+2 <text font="5" height="14" left="81" textpieces="0" top="248" width="368">support vector machine (SVM), logistic regression, and </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="265" width="364">random forests. In the experiments, we elaborate on feature </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="281" width="370">selection, analyze parameter impact, and compare the </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="298" width="360">performance of these three models, as well as with the rule-</text>
+2 <text font="5" height="14" left="81" textpieces="0" top="314" width="91">based method. </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="331" width="352">This research is based on an existing table extraction tool, </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="347" width="364">which is part of the search engine system TableSeer (Liu et </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="364" width="366">al. 2007). It automatically identifies tables in PDF digital </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="381" width="366">documents, detects table boundaries (Liu, Mitra, &amp; Giles </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="397" width="365">2008) and extracts the contents in the table cells (Liu et al. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="413" width="364">2006). The contents are then stored in a queryable table in a </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="430" width="366">database. It also indexes the tables and provides a novel </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="446" width="365">ranking function to enable end-user table search. However, </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="463" width="370">existing work on extracting table structure stops after </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="479" width="367">finding cells, segmenting rows and columns. This work </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="496" width="372">extends previous work and in many ways explores </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="512" width="279">automated methods for topological discovery. </text>
+2 <text font="1" height="16" left="207" textpieces="0" top="560" width="113">Related Work </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="588" width="367">Previous surveys (Zanibbi, Blostein, &amp; Cordy 2004) and </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="604" width="367">(Silva, Jorge,&amp; Torgo 2006) summarized approaches for </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="620" width="366">table recognition, which can be divided into physical and </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="637" width="365">logical structure analysis. The former refers to segmenting </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="653" width="368">table cells, rows, and columns, while the latter aims at </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="670" width="371">finding out about table headers, extraction of header </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="686" width="365">hierarchy, and analysis of index relations  (Hirayama 1995) </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="703" width="119">- (Seth et al 2010).  </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="719" width="357">For logical structure analysis, (Nagy et al 2010) </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="736" width="368">presented a grammatical framework for parsing a linear </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="752" width="364">string representation of column headers of tables in a range </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="769" width="369">of specified formats for web pages. They focused on </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="786" width="367">grammar-based header hierarchy extraction using already </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="802" width="364">known column headers, but didnt mention how the headers </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="819" width="365">were detected.  Wong (Wong, Martinez, &amp; Cavedon 2009) </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="835" width="366">classified tabular information for the task of named entity </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="852" width="369">detection for genetic mutations. HTML documents and </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="868" width="367">tables were broken up into row headers, column headers </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="885" width="369">and data cells by making use of the hr tags. Then, a </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="901" width="366">machine learning method and simple bag-of-word features </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="918" width="365">were used to extract mutation classes.  They focused on the </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="934" width="373">extraction task rather than the actual detection of </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="950" width="367">row/column headers. Moreover, the processed dataset is </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="967" width="366">also an HTML format instead of a PDF format, which is </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="983" width="243">harder since there is no tag information. </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="1000" width="358">There are numerous methods proposed for table </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="1016" width="364">detection and table structure extraction. However, very few </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="1033" width="364">have  addressed table classification or related topics. (Wang </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="83" width="366">&amp; Hu 2002) classified web tables into genuine tables and </text>
 =============================== COL ===================================
-2 <text font="15" height="14" left="477" top="99" width="366">non-genuine tables. The former refers to real tables, while </text>
-2 <text font="5" height="14" left="477" top="116" width="364">the latter means those using table tags only to organize and </text>
-2 <text font="5" height="14" left="477" top="133" width="367">arrange content. This kind of classification is special for </text>
-2 <text font="5" height="14" left="477" top="149" width="373">web tables, where &lt;Table&gt; &lt;/Table&gt; tags do not </text>
-2 <text font="5" height="14" left="477" top="165" width="371">necessarily mean that there is a table. Kim and Liu </text>
-2 <text font="5" height="14" left="477" top="182" width="373">proposed a function-based table categories detection </text>
-2 <text font="5" height="14" left="477" top="198" width="370">method (Kim &amp; Liu 2011). They classified scientific </text>
-2 <text font="5" height="14" left="477" top="215" width="366">document tables into three topical categories: background, </text>
-2 <text font="5" height="14" left="477" top="232" width="372">system/method, and experiments, and two functional </text>
-2 <text font="5" height="14" left="477" top="248" width="361">categories: commentary and comparison. This function-</text>
-2 <text font="5" height="14" left="477" top="265" width="367">based table classification is beneficial to table interpretation. </text>
-2 <text font="5" height="14" left="477" top="281" width="368">But it is not designed for improving table recognition </text>
-2 <text font="5" height="14" left="477" top="298" width="66">accuracy.  </text>
-2 <text font="5" height="14" left="492" top="314" width="353">More importantly, to the best of our knowledge, our </text>
-2 <text font="5" height="14" left="477" top="331" width="365">work is the first to detect how frequent different styles of </text>
-2 <text font="5" height="14" left="477" top="347" width="369">headers are used in computer and information science </text>
-2 <text font="5" height="14" left="477" top="364" width="354">academic documents, which is a topological investigation. </text>
-2 <text font="5" height="14" left="492" top="380" width="349">The main contributions of our work are: i) we investigate </text>
-2 <text font="5" height="14" left="477" top="397" width="370">document samples in a digital library to identify the </text>
-2 <text font="5" height="14" left="477" top="413" width="368">frequency of different styles of headers and categorize them; </text>
-2 <text font="15" height="14" left="477" top="430" width="365">ii) we design table header detection methods and compare </text>
-2 <text font="5" height="14" left="477" top="446" width="374">their performances empirically to demonstrate their </text>
-2 <text font="5" height="14" left="477" top="463" width="56">efficacy. </text>
-2 <text font="1" height="16" left="628" top="510" width="67">Dataset  </text>
-2 <text font="5" height="14" left="492" top="538" width="349">We randomly collect two dataset samples from CiteSeerX </text>
-2 <text font="5" height="14" left="477" top="555" width="370">document repository; both contain 200 PDF scientific </text>
-2 <text font="5" height="14" left="477" top="571" width="366">documents.  TableSeer (Liu et al. 2007) is used to extract </text>
-2 <text font="5" height="14" left="477" top="588" width="366">tables from these files. The distribution of the number of </text>
-2 <text font="5" height="14" left="477" top="604" width="364">tables in each file (shown in Figure 2) is similar across both </text>
-2 <text font="5" height="14" left="477" top="620" width="365">samples. Overall, 76 documents in dataset sample1 and 87 </text>
-2 <text font="5" height="14" left="477" top="637" width="365">documents in sample2 contain tables. The total numbers of </text>
-2 <text font="5" height="14" left="477" top="653" width="370">detected tables are 151 and 130 respectively. Through </text>
-2 <text font="5" height="14" left="477" top="670" width="364">manual judgment, we find that some document components </text>
-2 <text font="5" height="14" left="477" top="686" width="370">such as algorithms, code and, figures are mistakenly </text>
-2 <text font="5" height="14" left="477" top="703" width="370">detected as tables; some tables with image cells are </text>
-2 <text font="5" height="14" left="477" top="719" width="369">detected as empty, and some do not contain any text </text>
-2 <text font="5" height="14" left="477" top="736" width="363">content due to the errors made by the PDFBOX1 parse </text>
-2 <text font="5" height="14" left="477" top="752" width="364">engine used in TableSeer. These cases are treated as invalid </text>
-2 <text font="5" height="14" left="477" top="769" width="373">and are not counted when doing header detection </text>
-2 <text font="5" height="14" left="477" top="786" width="366">evaluation. Finally, we get 135 valid tables from the first </text>
-2 <text font="5" height="14" left="477" top="802" width="206">sample, and 120 from the second. </text>
-2 <text font="4" height="12" left="832" top="986" width="3"> </text>
-2 <text font="12" height="12" left="511" top="999" width="296">Figure 2. Table distribution in two dataset samples </text>
-2 <text font="10" height="16" left="477" top="1017" width="221">                                                   </text>
-2 <text font="3" height="8" left="477" top="1034" width="135">1 http://pdfbox.apache.org/  </text>
-2 <text font="4" height="12" left="536" top="942" width="10">0 </text>
-2 <text font="4" height="12" left="528" top="920" width="17">10 </text>
-2 <text font="4" height="12" left="528" top="898" width="17">20 </text>
-2 <text font="4" height="12" left="528" top="875" width="17">30 </text>
-2 <text font="4" height="12" left="528" top="853" width="17">40 </text>
-2 <text font="4" height="12" left="528" top="831" width="17">50 </text>
-2 <text font="4" height="12" left="562" top="958" width="215">1  2  3  4  5  6  7  8  9  10 </text>
-2 <text font="12" height="12" left="521" top="925" width="0">Number of file </text>
-2 <text font="12" height="12" left="593" top="979" width="149">Number of tables in a file </text>
-1 <text font="16" height="11" left="637" top="843" width="134">Sample1         Sample2 </text>
-2 <text font="14" height="18" left="449" top="1110" width="19">600</text>
+2 <text font="15" height="14" left="477" textpieces="0" top="99" width="366">non-genuine tables. The former refers to real tables, while </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="116" width="364">the latter means those using table tags only to organize and </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="133" width="367">arrange content. This kind of classification is special for </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="149" width="373">web tables, where &lt;Table&gt; &lt;/Table&gt; tags do not </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="165" width="371">necessarily mean that there is a table. Kim and Liu </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="182" width="373">proposed a function-based table categories detection </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="198" width="370">method (Kim &amp; Liu 2011). They classified scientific </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="215" width="366">document tables into three topical categories: background, </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="232" width="372">system/method, and experiments, and two functional </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="248" width="361">categories: commentary and comparison. This function-</text>
+2 <text font="5" height="14" left="477" textpieces="0" top="265" width="367">based table classification is beneficial to table interpretation. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="281" width="368">But it is not designed for improving table recognition </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="298" width="66">accuracy.  </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="314" width="353">More importantly, to the best of our knowledge, our </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="331" width="365">work is the first to detect how frequent different styles of </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="347" width="369">headers are used in computer and information science </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="364" width="354">academic documents, which is a topological investigation. </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="380" width="349">The main contributions of our work are: i) we investigate </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="397" width="370">document samples in a digital library to identify the </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="413" width="368">frequency of different styles of headers and categorize them; </text>
+2 <text font="15" height="14" left="477" textpieces="0" top="430" width="365">ii) we design table header detection methods and compare </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="446" width="374">their performances empirically to demonstrate their </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="463" width="56">efficacy. </text>
+2 <text font="1" height="16" left="628" textpieces="0" top="510" width="67">Dataset  </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="538" width="349">We randomly collect two dataset samples from CiteSeerX </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="555" width="370">document repository; both contain 200 PDF scientific </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="571" width="366">documents.  TableSeer (Liu et al. 2007) is used to extract </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="588" width="366">tables from these files. The distribution of the number of </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="604" width="364">tables in each file (shown in Figure 2) is similar across both </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="620" width="365">samples. Overall, 76 documents in dataset sample1 and 87 </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="637" width="365">documents in sample2 contain tables. The total numbers of </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="653" width="370">detected tables are 151 and 130 respectively. Through </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="670" width="364">manual judgment, we find that some document components </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="686" width="370">such as algorithms, code and, figures are mistakenly </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="703" width="370">detected as tables; some tables with image cells are </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="719" width="369">detected as empty, and some do not contain any text </text>
+2 <text font="5" height="14" left="477" textpieces="1" top="736" width="363">content due to the errors made by the PDFBOX1 parse </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="752" width="364">engine used in TableSeer. These cases are treated as invalid </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="769" width="373">and are not counted when doing header detection </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="786" width="366">evaluation. Finally, we get 135 valid tables from the first </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="802" width="206">sample, and 120 from the second. </text>
+2 <text font="4" height="12" left="832" textpieces="0" top="986" width="3"> </text>
+2 <text font="12" height="12" left="511" textpieces="0" top="999" width="296">Figure 2. Table distribution in two dataset samples </text>
+2 <text font="10" height="16" left="477" textpieces="0" top="1017" width="221">                                                   </text>
+2 <text font="3" height="8" left="477" textpieces="0" top="1034" width="135">1 http://pdfbox.apache.org/  </text>
+2 <text font="4" height="12" left="536" textpieces="0" top="942" width="10">0 </text>
+2 <text font="4" height="12" left="528" textpieces="0" top="920" width="17">10 </text>
+2 <text font="4" height="12" left="528" textpieces="0" top="898" width="17">20 </text>
+2 <text font="4" height="12" left="528" textpieces="0" top="875" width="17">30 </text>
+2 <text font="4" height="12" left="528" textpieces="0" top="853" width="17">40 </text>
+2 <text font="4" height="12" left="528" textpieces="0" top="831" width="17">50 </text>
+2 <text font="4" height="12" left="562" textpieces="0" top="958" width="215">1  2  3  4  5  6  7  8  9  10 </text>
+2 <text font="12" height="12" left="521" textpieces="0" top="925" width="0">Number of file </text>
+2 <text font="12" height="12" left="593" textpieces="0" top="979" width="149">Number of tables in a file </text>
+2 <text font="16" height="11" left="637" textpieces="1" top="843" width="134">Sample1         Sample2 </text>
+2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">600</text>
 =============================== PAGE ===================================
 =============================== COL ===================================
-2 <text font="5" height="14" left="96" top="83" width="353">We look at table header types and layout complexity. </text>
-2 <text font="5" height="14" left="81" top="100" width="365">During this process, only valid tables are counted. If only a </text>
-2 <text font="5" height="14" left="81" top="116" width="365">row header or a column header exists, the table is called a </text>
-2 <text font="5" height="14" left="81" top="133" width="361">one-dimensional table (1-D); if both headers exist, a two-</text>
-2 <text font="5" height="14" left="81" top="149" width="365">dimensional table (2-D). Some tables do not contain either </text>
-2 <text font="5" height="14" left="81" top="166" width="369">kind of header. Multi-dimensional tables (M-D) contain </text>
-2 <text font="5" height="14" left="81" top="182" width="369">multi-dimensional data flattened into a two-dimensional </text>
-2 <text font="5" height="14" left="81" top="199" width="364">form, e.g., in Figure 3 the table contains data related to: i) </text>
-2 <text font="5" height="14" left="81" top="215" width="372">different states, ii) different sexes, iii) different age </text>
-2 <text font="5" height="14" left="81" top="232" width="367">categories, and iv) different years. The columns represent </text>
-2 <text font="5" height="14" left="81" top="248" width="365">different years, but the other three dimensions are flattened </text>
-2 <text font="5" height="14" left="81" top="265" width="109">out into the rows. </text>
-2 <text font="5" height="14" left="437" top="367" width="4"> </text>
-2 <text font="12" height="12" left="122" top="381" width="282">Figure 3. An example of multi-dimensional table </text>
-2 <text font="5" height="14" left="96" top="402" width="351">Figure 4 shows the proportion of different header types </text>
-2 <text font="5" height="14" left="81" top="418" width="99">in our samples.  </text>
-2 <text font="5" height="14" left="410" top="589" width="4"> </text>
-2 <text font="12" height="12" left="129" top="603" width="267">Figure 4. Proportion of different header types </text>
-2 <text font="5" height="14" left="96" top="624" width="350">We also classify tables into complex and simple types </text>
-2 <text font="5" height="14" left="81" top="640" width="366">based on our observations of table layout characteristics. </text>
-2 <text font="5" height="14" left="81" top="657" width="365">The complexity is caused by the following: multi-line cells, </text>
-2 <text font="5" height="14" left="81" top="673" width="364">multi-level headers, multi-dimension, long and folded table, </text>
-2 <text font="5" height="14" left="81" top="690" width="368">and other irregular cases.  Some examples are shown in </text>
-2 <text font="5" height="14" left="81" top="706" width="365">Figure 5. Tables without such complexity will be referred </text>
-2 <text font="5" height="14" left="81" top="723" width="366">to as simple tables. The sub classes of complex tables are </text>
-2 <text font="5" height="14" left="81" top="739" width="365">not mutually exclusive. For instance, Figure 5 (b) shows a </text>
-2 <text font="5" height="14" left="81" top="756" width="267">long, folded table with a multi-level header. </text>
-2 <text font="5" height="14" left="427" top="871" width="4"> </text>
-2 <text font="4" height="12" left="163" top="884" width="173">(a)  Table with multi line cells </text>
-2 <text font="5" height="14" left="414" top="1022" width="4"> </text>
-2 <text font="4" height="12" left="105" top="1035" width="289">(b)  Long and folded table with a multi level header </text>
-2 <text font="5" height="14" left="806" top="176" width="4"> </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="83" width="353">We look at table header types and layout complexity. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="100" width="365">During this process, only valid tables are counted. If only a </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="116" width="365">row header or a column header exists, the table is called a </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="133" width="361">one-dimensional table (1-D); if both headers exist, a two-</text>
+2 <text font="5" height="14" left="81" textpieces="0" top="149" width="365">dimensional table (2-D). Some tables do not contain either </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="166" width="369">kind of header. Multi-dimensional tables (M-D) contain </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="182" width="369">multi-dimensional data flattened into a two-dimensional </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="199" width="364">form, e.g., in Figure 3 the table contains data related to: i) </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="215" width="372">different states, ii) different sexes, iii) different age </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="232" width="367">categories, and iv) different years. The columns represent </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="248" width="365">different years, but the other three dimensions are flattened </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="265" width="109">out into the rows. </text>
+2 <text font="5" height="14" left="437" textpieces="0" top="367" width="4"> </text>
+2 <text font="12" height="12" left="122" textpieces="0" top="381" width="282">Figure 3. An example of multi-dimensional table </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="402" width="351">Figure 4 shows the proportion of different header types </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="418" width="99">in our samples.  </text>
+2 <text font="5" height="14" left="410" textpieces="0" top="589" width="4"> </text>
+2 <text font="12" height="12" left="129" textpieces="0" top="603" width="267">Figure 4. Proportion of different header types </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="624" width="350">We also classify tables into complex and simple types </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="640" width="366">based on our observations of table layout characteristics. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="657" width="365">The complexity is caused by the following: multi-line cells, </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="673" width="364">multi-level headers, multi-dimension, long and folded table, </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="690" width="368">and other irregular cases.  Some examples are shown in </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="706" width="365">Figure 5. Tables without such complexity will be referred </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="723" width="366">to as simple tables. The sub classes of complex tables are </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="739" width="365">not mutually exclusive. For instance, Figure 5 (b) shows a </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="756" width="267">long, folded table with a multi-level header. </text>
+2 <text font="5" height="14" left="427" textpieces="0" top="871" width="4"> </text>
+2 <text font="4" height="12" left="163" textpieces="0" top="884" width="173">(a)  Table with multi line cells </text>
+2 <text font="5" height="14" left="414" textpieces="0" top="1022" width="4"> </text>
+2 <text font="4" height="12" left="105" textpieces="0" top="1035" width="289">(b)  Long and folded table with a multi level header </text>
+2 <text font="5" height="14" left="806" textpieces="0" top="176" width="4"> </text>
 =============================== COL ===================================
-2 <text font="4" height="12" left="571" top="189" width="148">(c)  Irregular layout  table </text>
-2 <text font="12" height="12" left="550" top="206" width="218">Figure 5. Examples of complex tables </text>
-2 <text font="5" height="14" left="492" top="226" width="349">Table 1 presents the distributions of complex and simple </text>
-2 <text font="5" height="14" left="477" top="243" width="46">tables.  </text>
-2 <text font="12" height="12" left="563" top="267" width="192">Table 1. Table layout complexity </text>
-1 <text font="12" height="12" left="504" top="290" width="290">Layout complexity         Sample1     Sample2 </text>
-1 <text font="12" height="12" left="504" top="308" width="302">Complex                   81 (60%)     76 (63.3%) </text>
-1 <text font="4" height="12" left="524" top="324" width="234">Multi line cell           42            41 </text>
-1 <text font="4" height="12" left="524" top="342" width="234">Multi level header       36            33 </text>
-1 <text font="4" height="12" left="524" top="359" width="227">Multi dimensional       3             9 </text>
-1 <text font="4" height="12" left="524" top="376" width="227">Long and folded         2             4 </text>
-1 <text font="4" height="12" left="524" top="393" width="227">Other irregular layout    11            6 </text>
-1 <text font="12" height="12" left="504" top="411" width="302">Simple                     54 (40%)     44 (36.7%) </text>
-2 <text font="5" height="14" left="492" top="431" width="354">The data presented in this section demonstrates that, </text>
-2 <text font="5" height="14" left="477" top="448" width="364">sample1 and sample2 are similar in document attributes and </text>
-2 <text font="5" height="14" left="477" top="464" width="367">different kinds of fractions. This suggests that these two </text>
-2 <text font="5" height="14" left="477" top="481" width="365">samples are stable and representative of the digital library. </text>
-2 <text font="5" height="14" left="477" top="497" width="365">Otherwise, more samples should be collected to make sure </text>
-2 <text font="5" height="14" left="477" top="514" width="157">the samples have no bias. </text>
-2 <text font="1" height="16" left="586" top="561" width="151">Heuristic Methods  </text>
-2 <text font="5" height="14" left="477" top="589" width="364">In this section, we propose two heuristic strategies to detect </text>
-2 <text font="5" height="14" left="477" top="605" width="365">the separation between the header and data part of a table. </text>
-2 <text font="5" height="14" left="477" top="622" width="365">We use the first row and first column as default headers to </text>
-2 <text font="5" height="14" left="477" top="638" width="341">be the baseline method, and compare their performance. </text>
-2 <text font="17" height="15" left="477" top="672" width="184">Local Minimum Methods </text>
-2 <text font="5" height="14" left="477" top="694" width="365">Table headers are often set in bold or italic fonts or have a </text>
-2 <text font="5" height="14" left="477" top="710" width="364">larger font size. Ruling lines and special background color </text>
-2 <text font="5" height="14" left="477" top="727" width="363">may also be applied to separate table headers from the data. </text>
-2 <text font="5" height="14" left="477" top="743" width="364">In this paper, only text and their coordinate information are </text>
-2 <text font="5" height="14" left="477" top="760" width="365">utilized; graphic lines and colors require image processing </text>
-2 <text font="5" height="14" left="477" top="776" width="254">techniques and are hence not considered.  </text>
-2 <text font="5" height="14" left="492" top="793" width="357">Data rows normally share similar data type, cell </text>
-2 <text font="5" height="14" left="477" top="810" width="367">alignment, character overlap, number of cells, etc. For a </text>
-2 <text font="5" height="14" left="477" top="826" width="365">multi-line header, header rows also share similar font style </text>
-2 <text font="5" height="14" left="477" top="843" width="365">and data type.  A header row and a data row usually differ </text>
-2 <text font="5" height="14" left="477" top="859" width="364">with respect to these features. We apply a weighted average </text>
-2 <text font="5" height="14" left="477" top="875" width="369">score to calculate the similarities between each pair of </text>
-2 <text font="5" height="14" left="477" top="892" width="364">consecutive rows. Considering that headers usually exist in </text>
-2 <text font="5" height="14" left="477" top="908" width="368">the beginning one or a few rows by default and some </text>
-2 <text font="5" height="14" left="477" top="925" width="366">irregular data rows layout may also cause low similarity, </text>
-2 <text font="5" height="14" left="477" top="941" width="364">we choose the first local minimum, i.e. the first valley to be </text>
-2 <text font="5" height="14" left="477" top="958" width="367">the separation.  Alternatively, we use a backward local </text>
-2 <text font="5" height="14" left="477" top="974" width="368">minimum strategy that chooses the first local minimum </text>
-2 <text font="5" height="14" left="477" top="991" width="341">while making an upward pass from the end of the table.  </text>
-2 <text font="5" height="14" left="492" top="1007" width="354">First, we define two cells from consecutive rows as </text>
-2 <text font="15" height="14" left="477" top="1024" width="372">corresponding cells if their bounding boxes overlap </text>
-2 <text font="16" height="12" left="161" top="556" width="10">0 </text>
+2 <text font="4" height="12" left="571" textpieces="0" top="189" width="148">(c)  Irregular layout  table </text>
+2 <text font="12" height="12" left="550" textpieces="0" top="206" width="218">Figure 5. Examples of complex tables </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="226" width="349">Table 1 presents the distributions of complex and simple </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="243" width="46">tables.  </text>
+2 <text font="12" height="12" left="563" textpieces="0" top="267" width="192">Table 1. Table layout complexity </text>
+1 <text font="12" height="12" left="504" textpieces="2" top="290" width="290">Layout complexity         Sample1     Sample2 </text>
+1 <text font="12" height="12" left="504" textpieces="2" top="308" width="302">Complex                   81 (60%)     76 (63.3%) </text>
+1 <text font="4" height="12" left="524" textpieces="2" top="324" width="234">Multi line cell           42            41 </text>
+1 <text font="4" height="12" left="524" textpieces="2" top="342" width="234">Multi level header       36            33 </text>
+1 <text font="4" height="12" left="524" textpieces="2" top="359" width="227">Multi dimensional       3             9 </text>
+1 <text font="4" height="12" left="524" textpieces="2" top="376" width="227">Long and folded         2             4 </text>
+1 <text font="4" height="12" left="524" textpieces="2" top="393" width="227">Other irregular layout    11            6 </text>
+1 <text font="12" height="12" left="504" textpieces="2" top="411" width="302">Simple                     54 (40%)     44 (36.7%) </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="431" width="354">The data presented in this section demonstrates that, </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="448" width="364">sample1 and sample2 are similar in document attributes and </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="464" width="367">different kinds of fractions. This suggests that these two </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="481" width="365">samples are stable and representative of the digital library. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="497" width="365">Otherwise, more samples should be collected to make sure </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="514" width="157">the samples have no bias. </text>
+2 <text font="1" height="16" left="586" textpieces="0" top="561" width="151">Heuristic Methods  </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="589" width="364">In this section, we propose two heuristic strategies to detect </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="605" width="365">the separation between the header and data part of a table. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="622" width="365">We use the first row and first column as default headers to </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="638" width="341">be the baseline method, and compare their performance. </text>
+2 <text font="17" height="15" left="477" textpieces="0" top="672" width="184">Local Minimum Methods </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="694" width="365">Table headers are often set in bold or italic fonts or have a </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="710" width="364">larger font size. Ruling lines and special background color </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="727" width="363">may also be applied to separate table headers from the data. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="743" width="364">In this paper, only text and their coordinate information are </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="760" width="365">utilized; graphic lines and colors require image processing </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="776" width="254">techniques and are hence not considered.  </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="793" width="357">Data rows normally share similar data type, cell </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="810" width="367">alignment, character overlap, number of cells, etc. For a </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="826" width="365">multi-line header, header rows also share similar font style </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="843" width="365">and data type.  A header row and a data row usually differ </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="859" width="364">with respect to these features. We apply a weighted average </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="875" width="369">score to calculate the similarities between each pair of </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="892" width="364">consecutive rows. Considering that headers usually exist in </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="908" width="368">the beginning one or a few rows by default and some </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="925" width="366">irregular data rows layout may also cause low similarity, </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="941" width="364">we choose the first local minimum, i.e. the first valley to be </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="958" width="367">the separation.  Alternatively, we use a backward local </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="974" width="368">minimum strategy that chooses the first local minimum </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="991" width="341">while making an upward pass from the end of the table.  </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="1007" width="354">First, we define two cells from consecutive rows as </text>
+2 <text font="15" height="14" left="477" textpieces="0" top="1024" width="372">corresponding cells if their bounding boxes overlap </text>
+2 <text font="16" height="12" left="161" textpieces="0" top="556" width="10">0 </text>
 =============================== COL ===================================
-2 <text font="16" height="12" left="154" top="528" width="16">20 </text>
-2 <text font="16" height="12" left="154" top="499" width="16">40 </text>
-2 <text font="16" height="12" left="154" top="471" width="16">60 </text>
-2 <text font="16" height="12" left="154" top="442" width="16">80 </text>
-1 <text font="16" height="12" left="192" top="572" width="166">1 D     2 D     M D    None </text>
-2 <text font="12" height="12" left="147" top="542" width="0">Number of table </text>
-2 <text font="12" height="12" left="236" top="585" width="73">Header type </text>
-2 <text font="11" height="11" left="312" top="458" width="45">Sample1 </text>
-2 <text font="11" height="11" left="312" top="472" width="45">Sample2 </text>
-2 <text font="14" height="18" left="449" top="1110" width="19">601</text>
+2 <text font="16" height="12" left="154" textpieces="0" top="528" width="16">20 </text>
+2 <text font="16" height="12" left="154" textpieces="0" top="499" width="16">40 </text>
+2 <text font="16" height="12" left="154" textpieces="0" top="471" width="16">60 </text>
+2 <text font="16" height="12" left="154" textpieces="0" top="442" width="16">80 </text>
+2 <text font="16" height="12" left="192" textpieces="3" top="572" width="166">1 D     2 D     M D    None </text>
+2 <text font="12" height="12" left="147" textpieces="0" top="542" width="0">Number of table </text>
+2 <text font="12" height="12" left="236" textpieces="0" top="585" width="73">Header type </text>
+2 <text font="11" height="11" left="312" textpieces="0" top="458" width="45">Sample1 </text>
+2 <text font="11" height="11" left="312" textpieces="0" top="472" width="45">Sample2 </text>
+2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">601</text>
 =============================== PAGE ===================================
 =============================== COL ===================================
-2 <text font="5" height="14" left="81" top="83" width="365">horizontally. The top row cell is denoted as CT, and the cell </text>
-2 <text font="5" height="14" left="81" top="100" width="364">down in the next row is CD. The following attribute scores </text>
-2 <text font="5" height="14" left="81" top="116" width="292">are calculated between two corresponding cells: </text>
-2 <text font="5" height="14" left="81" top="136" width="349">  Font size score: S1 = minimum font size of CT and C</text>
-2 <text font="3" height="9" left="432" top="142" width="14">D, </text>
-2 <text font="5" height="14" left="96" top="152" width="308">divided by the maximum font size of this cell pair. </text>
-2 <text font="5" height="14" left="81" top="172" width="363"> Character number score: S2 = min( Num chars of CT, CD) </text>
-2 <text font="5" height="14" left="96" top="188" width="301">/ maximum number of characters of this cell pair. </text>
-2 <text font="5" height="14" left="81" top="208" width="366">  Overlap score: S3 = the width of bounding box overlap </text>
-2 <text font="5" height="14" left="96" top="224" width="354">(as the arrow range shown below) divided by their </text>
-2 <text font="5" height="14" left="96" top="241" width="220">minimum cell bounding box width.  </text>
-2 <text font="10" height="16" left="420" top="305" width="4"> </text>
-2 <text font="5" height="14" left="81" top="323" width="366">  Data type score: if CT and CD have the same data type </text>
-2 <text font="5" height="14" left="96" top="340" width="315">(numeric or alphabetic), set S4 to 1, otherwise to 0.  </text>
-2 <text font="5" height="14" left="81" top="359" width="364">  Alignment score: if the two cells are found to be aligned </text>
-2 <text font="5" height="14" left="96" top="376" width="313">(left, right, or center), S5 is set to be 1, otherwise 0. </text>
-2 <text font="5" height="14" left="96" top="395" width="351">Each pair of corresponding cells gets a weighted score </text>
-2 <text font="5" height="14" left="81" top="412" width="366">and  the rows CellScore is the average of the scores of all </text>
-2 <text font="5" height="14" left="81" top="430" width="119">its cells as follows: </text>
-2 <text font="15" height="14" left="127" top="459" width="82">CellScore = 1</text>
-2 <text font="11" height="11" left="202" top="470" width="6">n</text>
-1 <text font="11" height="11" left="241" top="452" width="169">u*S1i+v*S2i+w*S3i+x*S4i+y*S5i</text>
-2 <text font="11" height="11" left="296" top="470" width="59">u+v+w+x+y</text>
-2 <text font="11" height="11" left="223" top="455" width="6">n</text>
-2 <text font="11" height="11" left="223" top="466" width="203">i 1                                          </text>
-2 <text font="5" height="14" left="96" top="491" width="352">where S1-S5 respectively represent the scores obtained </text>
-2 <text font="5" height="14" left="81" top="508" width="367">from the above attributes, and u, v, w, x and y are their </text>
-2 <text font="5" height="14" left="81" top="525" width="144">corresponding weights. </text>
-2 <text font="5" height="14" left="96" top="548" width="312">We calculate similarity on the row level as follows: </text>
-2 <text font="5" height="14" left="81" top="568" width="365">  RowScore: the minimum number of cells divided by the </text>
-2 <text font="5" height="14" left="96" top="584" width="295">maximum number of cells among the two rows.  </text>
-2 <text font="5" height="14" left="96" top="604" width="240">The final score is computed as follows: </text>
-2 <text font="15" height="14" left="141" top="633" width="211">FinalScore = *CellScore+*RowScore</text>
-2 <text font="11" height="11" left="278" top="644" width="19">+</text>
-2 <text font="5" height="14" left="352" top="633" width="41">           </text>
-2 <text font="5" height="14" left="96" top="658" width="356">Similarly, the same mechanism is applied to table </text>
-2 <text font="5" height="14" left="81" top="675" width="370">columns to find the local minimum as the separation </text>
-2 <text font="5" height="14" left="81" top="691" width="365">between header columns and data columns. Since columns </text>
-2 <text font="5" height="14" left="81" top="707" width="367">do not possess the repetition characteristic as rows, only </text>
-2 <text font="5" height="14" left="81" top="724" width="367">data type, font style, font size, and number of cells are </text>
-2 <text font="5" height="14" left="81" top="740" width="64">explored.  </text>
-2 <text font="17" height="15" left="81" top="775" width="150">Results and Analysis </text>
-2 <text font="5" height="14" left="81" top="796" width="364">The heuristic methods are executed on dataset sample1 and </text>
-2 <text font="5" height="14" left="81" top="812" width="367">sample2 respectively. The results are shown in Figure 6. </text>
-2 <text font="5" height="14" left="81" top="829" width="365">Errors can be classified into three types: false positive (the </text>
-2 <text font="5" height="14" left="81" top="846" width="369">detected header is not a header), partial (for multi-line </text>
-2 <text font="5" height="14" left="81" top="862" width="371">headers, only part of them have been detected), and </text>
-2 <text font="5" height="14" left="81" top="879" width="367">expanded (some data are mistakenly detected as header). </text>
-2 <text font="5" height="14" left="81" top="895" width="366">We evaluated table boundary detection manually to avoid </text>
-2 <text font="5" height="14" left="81" top="912" width="370">table boundary detection errors. The data presented in </text>
-2 <text font="5" height="14" left="81" top="928" width="369">Figure 6 are all based on correctly detected tables or </text>
-2 <text font="5" height="14" left="81" top="945" width="316">partially detected tables but with complete headers.  </text>
-2 <text font="5" height="14" left="96" top="961" width="350">In order to improve the accuracy of the header and data </text>
-2 <text font="5" height="14" left="81" top="978" width="364">separation task, we cannot rely on a simple single heuristic </text>
-2 <text font="5" height="14" left="81" top="994" width="364">as stated above. We propose supervised learning algorithms </text>
-2 <text font="5" height="14" left="81" top="1011" width="365">in the next section for classifying table content into header </text>
-2 <text font="5" height="14" left="81" top="1027" width="103">and data classes. </text>
-2 <text font="10" height="16" left="834" top="198" width="4"> </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="83" width="365">horizontally. The top row cell is denoted as CT, and the cell </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="100" width="364">down in the next row is CD. The following attribute scores </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="116" width="292">are calculated between two corresponding cells: </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="136" width="349">  Font size score: S1 = minimum font size of CT and C</text>
+2 <text font="3" height="9" left="432" textpieces="0" top="142" width="14">D, </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="152" width="308">divided by the maximum font size of this cell pair. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="172" width="363"> Character number score: S2 = min( Num chars of CT, CD) </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="188" width="301">/ maximum number of characters of this cell pair. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="208" width="366">  Overlap score: S3 = the width of bounding box overlap </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="224" width="354">(as the arrow range shown below) divided by their </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="241" width="220">minimum cell bounding box width.  </text>
+2 <text font="10" height="16" left="420" textpieces="0" top="305" width="4"> </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="323" width="366">  Data type score: if CT and CD have the same data type </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="340" width="315">(numeric or alphabetic), set S4 to 1, otherwise to 0.  </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="359" width="364">  Alignment score: if the two cells are found to be aligned </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="376" width="313">(left, right, or center), S5 is set to be 1, otherwise 0. </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="395" width="351">Each pair of corresponding cells gets a weighted score </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="412" width="366">and  the rows CellScore is the average of the scores of all </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="430" width="119">its cells as follows: </text>
+2 <text font="15" height="14" left="127" textpieces="0" top="459" width="82">CellScore = 1</text>
+2 <text font="11" height="11" left="202" textpieces="0" top="470" width="6">n</text>
+2 <text font="11" height="11" left="241" textpieces="1" top="452" width="169">u*S1i+v*S2i+w*S3i+x*S4i+y*S5i</text>
+2 <text font="11" height="11" left="296" textpieces="0" top="470" width="59">u+v+w+x+y</text>
+2 <text font="11" height="11" left="223" textpieces="0" top="455" width="6">n</text>
+2 <text font="11" height="11" left="223" textpieces="1" top="466" width="203">i 1                                          </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="491" width="352">where S1-S5 respectively represent the scores obtained </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="508" width="367">from the above attributes, and u, v, w, x and y are their </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="525" width="144">corresponding weights. </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="548" width="312">We calculate similarity on the row level as follows: </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="568" width="365">  RowScore: the minimum number of cells divided by the </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="584" width="295">maximum number of cells among the two rows.  </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="604" width="240">The final score is computed as follows: </text>
+2 <text font="15" height="14" left="141" textpieces="0" top="633" width="211">FinalScore = *CellScore+*RowScore</text>
+2 <text font="11" height="11" left="278" textpieces="0" top="644" width="19">+</text>
+2 <text font="5" height="14" left="352" textpieces="0" top="633" width="41">           </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="658" width="356">Similarly, the same mechanism is applied to table </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="675" width="370">columns to find the local minimum as the separation </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="691" width="365">between header columns and data columns. Since columns </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="707" width="367">do not possess the repetition characteristic as rows, only </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="724" width="367">data type, font style, font size, and number of cells are </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="740" width="64">explored.  </text>
+2 <text font="17" height="15" left="81" textpieces="0" top="775" width="150">Results and Analysis </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="796" width="364">The heuristic methods are executed on dataset sample1 and </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="812" width="367">sample2 respectively. The results are shown in Figure 6. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="829" width="365">Errors can be classified into three types: false positive (the </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="846" width="369">detected header is not a header), partial (for multi-line </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="862" width="371">headers, only part of them have been detected), and </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="879" width="367">expanded (some data are mistakenly detected as header). </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="895" width="366">We evaluated table boundary detection manually to avoid </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="912" width="370">table boundary detection errors. The data presented in </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="928" width="369">Figure 6 are all based on correctly detected tables or </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="945" width="316">partially detected tables but with complete headers.  </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="961" width="350">In order to improve the accuracy of the header and data </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="978" width="364">separation task, we cannot rely on a simple single heuristic </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="994" width="364">as stated above. We propose supervised learning algorithms </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="1011" width="365">in the next section for classifying table content into header </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="1027" width="103">and data classes. </text>
+2 <text font="10" height="16" left="834" textpieces="0" top="198" width="4"> </text>
 =============================== COL ===================================
-2 <text font="4" height="12" left="520" top="213" width="277">(a)  Row header detection results on both samples </text>
-2 <text font="4" height="12" left="836" top="343" width="3"> </text>
-2 <text font="4" height="12" left="511" top="355" width="299">(a)  Column header detection results on both samples  </text>
-2 <text font="12" height="12" left="495" top="378" width="327">Figure 6. Heuristic header detection methods evaluation </text>
-2 <text font="1" height="16" left="540" top="423" width="244">Machine Learning Techniques  </text>
-2 <text font="5" height="14" left="477" top="451" width="364">In this section, we first define the feature set for classifying </text>
-2 <text font="5" height="14" left="477" top="467" width="367">header and data row/column, and then use a SVM based </text>
-2 <text font="5" height="14" left="477" top="484" width="341">classifier and an ensemble classifier, a Random Forest.   </text>
-2 <text font="17" height="15" left="477" top="518" width="92">Feature Sets </text>
-2 <text font="5" height="14" left="477" top="539" width="366">First, we list the features used for table row classification. </text>
-2 <text font="5" height="14" left="477" top="556" width="367">We classify our features into two categories: single row </text>
-2 <text font="5" height="14" left="477" top="572" width="242">features and neighboring row features.   </text>
-2 <text font="6" height="13" left="477" top="607" width="127">Single row features </text>
-2 <text font="5" height="14" left="477" top="628" width="367">  Number of cells. Typically, data rows have the same </text>
-2 <text font="5" height="14" left="492" top="644" width="351">number of cells, while header rows often have missing </text>
-2 <text font="5" height="14" left="492" top="661" width="352">cells, especially for multi-level or hierarchical headers, </text>
-2 <text font="5" height="14" left="492" top="677" width="349">where one cell in the first row expands into multiple cells </text>
-2 <text font="5" height="14" left="492" top="694" width="71">in the next. </text>
-2 <text font="5" height="14" left="477" top="713" width="370"> Average cell length. For numeric tables, data rows </text>
-2 <text font="5" height="14" left="492" top="730" width="353">usually have shorter average cell length than header rows. </text>
-2 <text font="5" height="14" left="492" top="746" width="349">Therefore the cell length could be applied to differentiate </text>
-2 <text font="5" height="14" left="492" top="763" width="124">the header and data. </text>
-2 <text font="5" height="14" left="477" top="783" width="156">  Number of characters.  </text>
-2 <text font="5" height="14" left="477" top="802" width="222">  Percentage of numeric characters. </text>
-2 <text font="5" height="14" left="477" top="821" width="246">  Percentage of alphabetical characters. </text>
-2 <text font="5" height="14" left="477" top="841" width="365">  Percentage of symbolic characters (characters other than </text>
-2 <text font="5" height="14" left="492" top="858" width="230">"A" to "Z', "a" to "z', and "0" to "9").  </text>
-2 <text font="5" height="14" left="477" top="877" width="365">  Percentage of numeric cells. We define a cell containing </text>
-2 <text font="5" height="14" left="492" top="893" width="266">only "0" to "9", "." and "%" a numeric cell.  </text>
-2 <text font="5" height="14" left="477" top="913" width="370"> Average font size. Typically, the header row has a </text>
-2 <text font="5" height="14" left="492" top="930" width="146">slightly larger font size. </text>
-2 <text font="5" height="14" left="477" top="949" width="166">  Percentage of bold cells. </text>
-2 <text font="5" height="14" left="477" top="968" width="365">  Percentage of italic cells. Bold and italic font styles are </text>
-2 <text font="5" height="14" left="492" top="985" width="225">often used to highlight table headers. </text>
-2 <text font="5" height="14" left="477" top="1005" width="279">  Row number.  Headers appear before data.  </text>
-2 <text font="14" height="18" left="449" top="1110" width="19">602</text>
+2 <text font="4" height="12" left="520" textpieces="0" top="213" width="277">(a)  Row header detection results on both samples </text>
+2 <text font="4" height="12" left="836" textpieces="0" top="343" width="3"> </text>
+2 <text font="4" height="12" left="511" textpieces="0" top="355" width="299">(a)  Column header detection results on both samples  </text>
+2 <text font="12" height="12" left="495" textpieces="0" top="378" width="327">Figure 6. Heuristic header detection methods evaluation </text>
+2 <text font="1" height="16" left="540" textpieces="0" top="423" width="244">Machine Learning Techniques  </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="451" width="364">In this section, we first define the feature set for classifying </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="467" width="367">header and data row/column, and then use a SVM based </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="484" width="341">classifier and an ensemble classifier, a Random Forest.   </text>
+2 <text font="17" height="15" left="477" textpieces="0" top="518" width="92">Feature Sets </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="539" width="366">First, we list the features used for table row classification. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="556" width="367">We classify our features into two categories: single row </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="572" width="242">features and neighboring row features.   </text>
+2 <text font="6" height="13" left="477" textpieces="0" top="607" width="127">Single row features </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="628" width="367">  Number of cells. Typically, data rows have the same </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="644" width="351">number of cells, while header rows often have missing </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="661" width="352">cells, especially for multi-level or hierarchical headers, </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="677" width="349">where one cell in the first row expands into multiple cells </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="694" width="71">in the next. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="713" width="370"> Average cell length. For numeric tables, data rows </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="730" width="353">usually have shorter average cell length than header rows. </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="746" width="349">Therefore the cell length could be applied to differentiate </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="763" width="124">the header and data. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="783" width="156">  Number of characters.  </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="802" width="222">  Percentage of numeric characters. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="821" width="246">  Percentage of alphabetical characters. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="841" width="365">  Percentage of symbolic characters (characters other than </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="858" width="230">"A" to "Z', "a" to "z', and "0" to "9").  </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="877" width="365">  Percentage of numeric cells. We define a cell containing </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="893" width="266">only "0" to "9", "." and "%" a numeric cell.  </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="913" width="370"> Average font size. Typically, the header row has a </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="930" width="146">slightly larger font size. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="949" width="166">  Percentage of bold cells. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="968" width="365">  Percentage of italic cells. Bold and italic font styles are </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="985" width="225">often used to highlight table headers. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="1005" width="279">  Row number.  Headers appear before data.  </text>
+2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">602</text>
 =============================== PAGE ===================================
 =============================== COL ===================================
-2 <text font="6" height="13" left="81" top="84" width="168">Neighboring row features </text>
-2 <text font="5" height="14" left="81" top="104" width="366">  Percentage of spanning cells. We define a cell spanning </text>
-2 <text font="5" height="14" left="96" top="121" width="316">over multiple cells in the lower row a spanning cell. </text>
-2 <text font="5" height="14" left="81" top="140" width="364">  Number of cells difference = fabs (number of cells upper </text>
-2 <text font="5" height="14" left="96" top="157" width="352"> number of cells lower) / (number of cells upper + </text>
-2 <text font="5" height="14" left="96" top="173" width="350">number of cells lower). Header rows often have missing </text>
-2 <text font="5" height="14" left="96" top="190" width="326">cells, similar to the number of cells for single rows. </text>
-2 <text font="5" height="14" left="81" top="209" width="366">  Average alignment. (left 1, right 2, center 3, other 4). </text>
-2 <text font="5" height="14" left="96" top="226" width="303">This is a category feature instead of value feature. </text>
-2 <text font="5" height="14" left="81" top="246" width="372"> Average overlap proportion. The average overlaps </text>
-2 <text font="5" height="14" left="96" top="262" width="352">proportion of corresponding cells (calculated the same </text>
-2 <text font="5" height="14" left="96" top="279" width="350">way as the overlap score described in section4) between </text>
-2 <text font="5" height="14" left="96" top="295" width="351">two rows. Data-data rows often have larger value than </text>
-2 <text font="5" height="14" left="96" top="311" width="110">header-data rows. </text>
-2 <text font="5" height="14" left="81" top="331" width="366">  Percentage of same cell data type. Here data type refers </text>
-2 <text font="5" height="14" left="96" top="347" width="208">to alphabetical, digit and symbol.  </text>
-2 <text font="5" height="14" left="81" top="367" width="365">  Percentage of same cell font style. Here font style refers </text>
-2 <text font="5" height="14" left="96" top="383" width="349">to bold and italic. It calculates the proportion of the same </text>
-2 <text font="5" height="14" left="96" top="400" width="260">font style between the corresponding cells. </text>
-2 <text font="5" height="14" left="81" top="419" width="317">  Overall content repetition of corresponding cells.  </text>
-2 <text font="5" height="14" left="81" top="439" width="365">  Average content repetition of corresponding cells.  As a </text>
-2 <text font="5" height="14" left="96" top="455" width="352">pre-processing, we replace all number characters with </text>
-2 <text font="5" height="14" left="96" top="472" width="352">#, so that numeric strings with the same length are </text>
-2 <text font="5" height="14" left="96" top="489" width="354">treated as with equal content. Then the Levenshtein </text>
-2 <text font="5" height="14" left="96" top="505" width="347">distance is used to calculate similarity of two cell strings. </text>
-2 <text font="5" height="14" left="96" top="524" width="350">The above features are selected for header and data row </text>
-2 <text font="5" height="14" left="81" top="541" width="366">classification. In terms of header and data column, some </text>
-2 <text font="5" height="14" left="81" top="557" width="371">characteristics change. For instance, the repetition or </text>
-2 <text font="5" height="14" left="81" top="574" width="372">consistency property does not apply for neighboring </text>
-2 <text font="5" height="14" left="81" top="590" width="364">columns. Hence, features are adjusted as follows: Number </text>
-2 <text font="15" height="14" left="81" top="607" width="370">of cells, Number of characters, Percentage of digital </text>
-2 <text font="15" height="14" left="81" top="624" width="377">characters, Percentage of alphabetical characters, </text>
-2 <text font="15" height="14" left="81" top="640" width="367">Percentage of symbol characters,  Percentage of numeric </text>
-2 <text font="15" height="14" left="81" top="657" width="373">cells, Average font size, Percentage of bold cells, </text>
-2 <text font="15" height="14" left="81" top="673" width="262">Percentage of italic cells, Column number. </text>
-2 <text font="17" height="15" left="81" top="707" width="155">Classification Models </text>
-2 <text font="5" height="14" left="81" top="729" width="368">In our paper, we use i) an SVM (Burges 1998) based </text>
-2 <text font="5" height="14" left="81" top="745" width="367">classifier with the popular RBF kernel, and the popular </text>
-2 <text font="5" height="14" left="81" top="762" width="365">grid-search and cross validation to find the optimal soft </text>
-2 <text font="5" height="14" left="81" top="778" width="366">margin parameter C, ii) a logistic regression (Balakrishnan </text>
-2 <text font="5" height="14" left="81" top="794" width="369">1991) based classifier, and iii) a random forest based </text>
-2 <text font="5" height="14" left="81" top="811" width="366">classifier (Breiman 2011) to separate the header from the </text>
-2 <text font="5" height="14" left="81" top="827" width="32">data. </text>
-2 <text font="1" height="16" left="127" top="875" width="273">Experimental Results and Analysis </text>
-2 <text font="17" height="15" left="81" top="911" width="65">Data Set </text>
-2 <text font="5" height="14" left="81" top="933" width="370">The two dataset samples described in section 3 were </text>
-2 <text font="5" height="14" left="81" top="949" width="364">utilized. We show the number of tables (with correct labels </text>
-2 <text font="5" height="14" left="81" top="966" width="367">for header and data), number of rows and columns, and </text>
-2 <text font="5" height="14" left="81" top="982" width="365">number of header rows and header columns for the dataset </text>
-2 <text font="5" height="14" left="81" top="999" width="269">sample1 (D1) and sample2 (D2) in Table 2.  </text>
-2 <text font="5" height="14" left="81" top="1015" width="4"> </text>
-2 <text font="5" height="14" left="81" top="1032" width="4"> </text>
-2 <text font="12" height="12" left="545" top="84" width="227">Table  2. Machine learning training set </text>
+2 <text font="6" height="13" left="81" textpieces="0" top="84" width="168">Neighboring row features </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="104" width="366">  Percentage of spanning cells. We define a cell spanning </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="121" width="316">over multiple cells in the lower row a spanning cell. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="140" width="364">  Number of cells difference = fabs (number of cells upper </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="157" width="352"> number of cells lower) / (number of cells upper + </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="173" width="350">number of cells lower). Header rows often have missing </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="190" width="326">cells, similar to the number of cells for single rows. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="209" width="366">  Average alignment. (left 1, right 2, center 3, other 4). </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="226" width="303">This is a category feature instead of value feature. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="246" width="372"> Average overlap proportion. The average overlaps </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="262" width="352">proportion of corresponding cells (calculated the same </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="279" width="350">way as the overlap score described in section4) between </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="295" width="351">two rows. Data-data rows often have larger value than </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="311" width="110">header-data rows. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="331" width="366">  Percentage of same cell data type. Here data type refers </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="347" width="208">to alphabetical, digit and symbol.  </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="367" width="365">  Percentage of same cell font style. Here font style refers </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="383" width="349">to bold and italic. It calculates the proportion of the same </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="400" width="260">font style between the corresponding cells. </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="419" width="317">  Overall content repetition of corresponding cells.  </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="439" width="365">  Average content repetition of corresponding cells.  As a </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="455" width="352">pre-processing, we replace all number characters with </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="472" width="352">#, so that numeric strings with the same length are </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="489" width="354">treated as with equal content. Then the Levenshtein </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="505" width="347">distance is used to calculate similarity of two cell strings. </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="524" width="350">The above features are selected for header and data row </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="541" width="366">classification. In terms of header and data column, some </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="557" width="371">characteristics change. For instance, the repetition or </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="574" width="372">consistency property does not apply for neighboring </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="590" width="364">columns. Hence, features are adjusted as follows: Number </text>
+2 <text font="15" height="14" left="81" textpieces="0" top="607" width="370">of cells, Number of characters, Percentage of digital </text>
+2 <text font="15" height="14" left="81" textpieces="0" top="624" width="377">characters, Percentage of alphabetical characters, </text>
+2 <text font="15" height="14" left="81" textpieces="0" top="640" width="367">Percentage of symbol characters,  Percentage of numeric </text>
+2 <text font="15" height="14" left="81" textpieces="0" top="657" width="373">cells, Average font size, Percentage of bold cells, </text>
+2 <text font="15" height="14" left="81" textpieces="0" top="673" width="262">Percentage of italic cells, Column number. </text>
+2 <text font="17" height="15" left="81" textpieces="0" top="707" width="155">Classification Models </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="729" width="368">In our paper, we use i) an SVM (Burges 1998) based </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="745" width="367">classifier with the popular RBF kernel, and the popular </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="762" width="365">grid-search and cross validation to find the optimal soft </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="778" width="366">margin parameter C, ii) a logistic regression (Balakrishnan </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="794" width="369">1991) based classifier, and iii) a random forest based </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="811" width="366">classifier (Breiman 2011) to separate the header from the </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="827" width="32">data. </text>
+2 <text font="1" height="16" left="127" textpieces="0" top="875" width="273">Experimental Results and Analysis </text>
+2 <text font="17" height="15" left="81" textpieces="0" top="911" width="65">Data Set </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="933" width="370">The two dataset samples described in section 3 were </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="949" width="364">utilized. We show the number of tables (with correct labels </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="966" width="367">for header and data), number of rows and columns, and </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="982" width="365">number of header rows and header columns for the dataset </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="999" width="269">sample1 (D1) and sample2 (D2) in Table 2.  </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="1015" width="4"> </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="1032" width="4"> </text>
+2 <text font="12" height="12" left="545" textpieces="0" top="84" width="227">Table  2. Machine learning training set </text>
 =============================== COL ===================================
-1 <text font="12" height="12" left="524" top="108" width="249">           Numbers          D1       D2 </text>
-1 <text font="12" height="12" left="524" top="126" width="246">Row       Table               94       81 </text>
-1 <text font="4" height="12" left="524" top="142" width="259">           Row               1382     1108 </text>
-1 <text font="4" height="12" left="524" top="159" width="252">           Header row         240      195 </text>
-1 <text font="12" height="12" left="524" top="177" width="246">Column   Table               99       90 </text>
-1 <text font="4" height="12" left="524" top="194" width="252">           Column            758      704 </text>
-1 <text font="4" height="12" left="524" top="213" width="252">           Header column     139      126 </text>
-2 <text font="17" height="15" left="477" top="249" width="197">Impact of Learning Models </text>
-2 <text font="5" height="14" left="492" top="270" width="350">We use Libsvm2 for SVM, a popular library for support </text>
-2 <text font="5" height="14" left="477" top="287" width="371">vector machines. For logistic regression, we use the </text>
-1 <text font="5" height="14" left="477" top="303" width="367">statistical computing tool R3, with its generalized linear </text>
-2 <text font="5" height="14" left="477" top="320" width="366">regression function. For random forest, we use the Weka </text>
-2 <text font="5" height="14" left="477" top="336" width="367">(Witten and Frank, 2005) toolkit, which contains a wide </text>
-2 <text font="5" height="14" left="477" top="353" width="367">selection of in-built algorithms. For this experiment, it is </text>
-2 <text font="5" height="14" left="477" top="369" width="368">built with 100 trees, and m = int (log2 (20 + 1)) = 4 as </text>
-2 <text font="5" height="14" left="477" top="386" width="141">suggested by Breiman. </text>
-2 <text font="5" height="14" left="492" top="402" width="349">We use a 10-fold cross-validation method to evaluate our </text>
-2 <text font="5" height="14" left="477" top="420" width="368">algorithms. Since both D1 and D2 are random samples </text>
-2 <text font="5" height="14" left="477" top="437" width="367">selected from the same set, and share similar number of </text>
-2 <text font="5" height="14" left="477" top="454" width="364">tables, rows/columns and headers, we simply combine them </text>
-2 <text font="5" height="14" left="477" top="471" width="367">together to do classification. The experimental results of </text>
-2 <text font="5" height="14" left="477" top="489" width="364">table row and column type classification are listed in Table </text>
-2 <text font="5" height="14" left="477" top="506" width="360">3. The evaluation metrics are precision, recall, and F-</text>
-2 <text font="5" height="14" left="477" top="523" width="367">measure. Given the number of the correctly-labeled true </text>
-2 <text font="5" height="14" left="477" top="541" width="366">table rows A, the number of true positive header rows B, </text>
-2 <text font="5" height="14" left="477" top="558" width="365">and the number of true negative data rows C, the precision </text>
-2 <text font="5" height="14" left="477" top="579" width="14">is </text>
-2 <text font="19" height="9" left="497" top="574" width="7">A</text>
-2 <text font="19" height="9" left="491" top="590" width="105">A+C, the recall is </text>
-2 <text font="19" height="9" left="602" top="574" width="7">A</text>
-1 <text font="19" height="9" left="595" top="590" width="233">A+B, and the F-measure is 2*precision*recall                  precision+recall</text>
-2 <text font="5" height="14" left="834" top="579" width="7">. </text>
-2 <text font="5" height="14" left="477" top="603" width="365">The metrics also apply to table column type classification </text>
-2 <text font="5" height="14" left="477" top="620" width="70">evaluation. </text>
-2 <text font="12" height="12" left="514" top="645" width="289">Table 3.  Results of header and data row / column </text>
-2 <text font="12" height="12" left="520" top="662" width="278">classification on all features and all training set. </text>
-1 <text font="12" height="12" left="485" top="685" width="325">Type      Learning model     Precision   Recall    F </text>
-1 <text font="12" height="12" left="485" top="719" width="30">Row </text>
-1 <text font="4" height="12" left="548" top="702" width="285">SVM                0.921       0.918     0.919 </text>
-1 <text font="4" height="12" left="548" top="719" width="285">Logistic regression   0.843       0.90       0.871 </text>
-1 <text font="4" height="12" left="548" top="736" width="285">Random forest       0.974       0.978     0.976 </text>
-1 <text font="12" height="12" left="485" top="771" width="50">Column </text>
-1 <text font="4" height="12" left="548" top="753" width="278">SVM                0.861       0.86       0.84 </text>
-1 <text font="4" height="12" left="548" top="771" width="285">Logistic regression   0.968       0.967     0.967 </text>
-1 <text font="4" height="12" left="548" top="788" width="285">Random forest       0.982       0.982     0.982 </text>
-2 <text font="5" height="14" left="492" top="808" width="350">Within the experiments with the same method, the same </text>
-2 <text font="5" height="14" left="477" top="825" width="370">training dataset, and the same features, random forest </text>
-2 <text font="5" height="14" left="477" top="841" width="369">outperforms the other two classifiers. This is probably </text>
-2 <text font="5" height="14" left="477" top="858" width="367">because given an unrefined feature set, random forest is </text>
-2 <text font="5" height="14" left="477" top="874" width="369">able to automatically choose the most useful features. </text>
-2 <text font="5" height="14" left="477" top="891" width="367">Besides, random forest has bagging mechanism to select </text>
-2 <text font="5" height="14" left="477" top="907" width="367">training samples, which could reduce variance and avoid </text>
-2 <text font="5" height="14" left="477" top="924" width="368">overfitting. The SVM may probably be affected by the </text>
-2 <text font="5" height="14" left="477" top="941" width="368">unbalanced number of header and data cases. The low </text>
-2 <text font="5" height="14" left="477" top="957" width="370">performance of logistic regression may be caused by </text>
-2 <text font="5" height="14" left="477" top="974" width="367">relative limited size of datasets and also the non-selected </text>
-2 <text font="5" height="14" left="477" top="990" width="366">feature set. Note that, we have also tried other classifiers </text>
-2 <text font="10" height="16" left="477" top="1010" width="221">                                                   </text>
-2 <text font="20" height="7" left="477" top="1027" width="214">2 http://www.csie.ntu.edu.tw/~cjlin/libsvm/. </text>
-2 <text font="20" height="7" left="477" top="1040" width="132">3 http://www.r-project.org/ </text>
-2 <text font="14" height="18" left="449" top="1110" width="19">603</text>
+1 <text font="12" height="12" left="524" textpieces="3" top="108" width="249">           Numbers          D1       D2 </text>
+1 <text font="12" height="12" left="524" textpieces="3" top="126" width="246">Row       Table               94       81 </text>
+1 <text font="4" height="12" left="524" textpieces="3" top="142" width="259">           Row               1382     1108 </text>
+1 <text font="4" height="12" left="524" textpieces="3" top="159" width="252">           Header row         240      195 </text>
+1 <text font="12" height="12" left="524" textpieces="3" top="177" width="246">Column   Table               99       90 </text>
+1 <text font="4" height="12" left="524" textpieces="3" top="194" width="252">           Column            758      704 </text>
+1 <text font="4" height="12" left="524" textpieces="3" top="213" width="252">           Header column     139      126 </text>
+2 <text font="17" height="15" left="477" textpieces="0" top="249" width="197">Impact of Learning Models </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="270" width="350">We use Libsvm2 for SVM, a popular library for support </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="287" width="371">vector machines. For logistic regression, we use the </text>
+2 <text font="5" height="14" left="477" textpieces="1" top="303" width="367">statistical computing tool R3, with its generalized linear </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="320" width="366">regression function. For random forest, we use the Weka </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="336" width="367">(Witten and Frank, 2005) toolkit, which contains a wide </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="353" width="367">selection of in-built algorithms. For this experiment, it is </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="369" width="368">built with 100 trees, and m = int (log2 (20 + 1)) = 4 as </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="386" width="141">suggested by Breiman. </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="402" width="349">We use a 10-fold cross-validation method to evaluate our </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="420" width="368">algorithms. Since both D1 and D2 are random samples </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="437" width="367">selected from the same set, and share similar number of </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="454" width="364">tables, rows/columns and headers, we simply combine them </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="471" width="367">together to do classification. The experimental results of </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="489" width="364">table row and column type classification are listed in Table </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="506" width="360">3. The evaluation metrics are precision, recall, and F-</text>
+2 <text font="5" height="14" left="477" textpieces="0" top="523" width="367">measure. Given the number of the correctly-labeled true </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="541" width="366">table rows A, the number of true positive header rows B, </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="558" width="365">and the number of true negative data rows C, the precision </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="579" width="14">is </text>
+2 <text font="19" height="9" left="497" textpieces="0" top="574" width="7">A</text>
+2 <text font="19" height="9" left="491" textpieces="0" top="590" width="105">A+C, the recall is </text>
+2 <text font="19" height="9" left="602" textpieces="0" top="574" width="7">A</text>
+2 <text font="19" height="9" left="595" textpieces="1" top="590" width="233">A+B, and the F-measure is 2*precision*recall                  precision+recall</text>
+2 <text font="5" height="14" left="834" textpieces="0" top="579" width="7">. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="603" width="365">The metrics also apply to table column type classification </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="620" width="70">evaluation. </text>
+2 <text font="12" height="12" left="514" textpieces="0" top="645" width="289">Table 3.  Results of header and data row / column </text>
+2 <text font="12" height="12" left="520" textpieces="0" top="662" width="278">classification on all features and all training set. </text>
+1 <text font="12" height="12" left="485" textpieces="4" top="685" width="325">Type      Learning model     Precision   Recall    F </text>
+1 <text font="12" height="12" left="485" textpieces="0" top="719" width="30">Row </text>
+1 <text font="4" height="12" left="548" textpieces="3" top="702" width="285">SVM                0.921       0.918     0.919 </text>
+1 <text font="4" height="12" left="548" textpieces="3" top="719" width="285">Logistic regression   0.843       0.90       0.871 </text>
+1 <text font="4" height="12" left="548" textpieces="3" top="736" width="285">Random forest       0.974       0.978     0.976 </text>
+1 <text font="12" height="12" left="485" textpieces="0" top="771" width="50">Column </text>
+1 <text font="4" height="12" left="548" textpieces="3" top="753" width="278">SVM                0.861       0.86       0.84 </text>
+1 <text font="4" height="12" left="548" textpieces="3" top="771" width="285">Logistic regression   0.968       0.967     0.967 </text>
+1 <text font="4" height="12" left="548" textpieces="3" top="788" width="285">Random forest       0.982       0.982     0.982 </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="808" width="350">Within the experiments with the same method, the same </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="825" width="370">training dataset, and the same features, random forest </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="841" width="369">outperforms the other two classifiers. This is probably </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="858" width="367">because given an unrefined feature set, random forest is </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="874" width="369">able to automatically choose the most useful features. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="891" width="367">Besides, random forest has bagging mechanism to select </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="907" width="367">training samples, which could reduce variance and avoid </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="924" width="368">overfitting. The SVM may probably be affected by the </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="941" width="368">unbalanced number of header and data cases. The low </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="957" width="370">performance of logistic regression may be caused by </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="974" width="367">relative limited size of datasets and also the non-selected </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="990" width="366">feature set. Note that, we have also tried other classifiers </text>
+2 <text font="10" height="16" left="477" textpieces="0" top="1010" width="221">                                                   </text>
+2 <text font="20" height="7" left="477" textpieces="0" top="1027" width="214">2 http://www.csie.ntu.edu.tw/~cjlin/libsvm/. </text>
+2 <text font="20" height="7" left="477" textpieces="0" top="1040" width="132">3 http://www.r-project.org/ </text>
+2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">603</text>
 =============================== PAGE ===================================
 =============================== COL ===================================
-2 <text font="5" height="14" left="81" top="83" width="368">integrated in Weka, such as NiaveBayes, BayesNet, J48 </text>
-2 <text font="5" height="14" left="81" top="100" width="369">(C4.5 decision tree algorithm), AdaBoost, etc. Overall, </text>
-2 <text font="5" height="14" left="81" top="116" width="234">Random Forest still performs the best. </text>
-2 <text font="17" height="15" left="81" top="150" width="158">Impact of Feature Set </text>
-2 <text font="5" height="14" left="81" top="172" width="368">We use the best performing random forest classifier to </text>
-2 <text font="5" height="14" left="81" top="188" width="369">evaluate the impact of different feature sets. For table </text>
-2 <text font="5" height="14" left="81" top="205" width="365">header and data row classification, we design three sets of </text>
-2 <text font="5" height="14" left="81" top="221" width="365">experiments: i) random forest model using only single row </text>
-2 <text font="5" height="14" left="81" top="238" width="364">feature;  ii)  experiment using only neighboring feature; iii) </text>
-2 <text font="5" height="14" left="81" top="254" width="363">add all features together.  The results are shown in Table 4.  </text>
-2 <text font="12" height="12" left="99" top="278" width="328">Table 4. Results of header and data row classification on </text>
-2 <text font="12" height="12" left="147" top="294" width="230">different feature set, but all training set </text>
-1 <text font="12" height="12" left="102" top="316" width="293">Features                  Precision    Recall     F </text>
-1 <text font="4" height="12" left="102" top="331" width="316">Single row feature        0.961        0.962      0.961 </text>
-1 <text font="4" height="12" left="102" top="347" width="316">Neighbor row feature     0.961        0.962      0.961 </text>
-1 <text font="4" height="12" left="102" top="363" width="316">Together                 0.974        0.978      0.976 </text>
-2 <text font="5" height="14" left="96" top="380" width="352">Then, we use the InfoGain attribute evaluator of the </text>
-2 <text font="5" height="14" left="81" top="396" width="366">Weka toolkit to choose the most important features. The </text>
-2 <text font="5" height="14" left="81" top="413" width="366">results showed that Number of characters, Percentage of </text>
-2 <text font="15" height="14" left="81" top="429" width="374">alphabetical characters, Average font size, Average </text>
-2 <text font="15" height="14" left="81" top="446" width="371">alignment, Number of cells difference, Percentage of </text>
-2 <text font="15" height="14" left="81" top="462" width="365">consistent cell data type, and Percentage of consistent cell </text>
-2 <text font="15" height="14" left="81" top="479" width="250">font style are the most effective features.  </text>
-2 <text font="17" height="15" left="81" top="513" width="158">Impact of Parameters </text>
-2 <text font="5" height="14" left="81" top="535" width="365">The random forest classifier has two effective parameters: </text>
-2 <text font="5" height="14" left="81" top="551" width="365">the number of trees to grow, and the number of features to </text>
-2 <text font="5" height="14" left="81" top="568" width="365">consider when splitting each node. We have set the second </text>
-2 <text font="5" height="14" left="81" top="584" width="368">value to be log2(M +1). Figure 7 shows the increase in </text>
-1 <text font="5" height="14" left="81" top="601" width="376">accuracy with an increase in the number of trees.   </text>
-2 <text font="5" height="14" left="81" top="617" width="366">Increasing the number of trees beyond 100 improves the </text>
-2 <text font="5" height="14" left="81" top="633" width="369">result very slightly at the cost of a huge increase in run-time. </text>
-2 <text font="10" height="16" left="420" top="813" width="4"> </text>
-2 <text font="12" height="12" left="119" top="838" width="315">Figure 7. Impact of number of trees for random forest </text>
-2 <text font="12" height="12" left="251" top="853" width="51">learning </text>
-2 <text font="17" height="15" left="81" top="888" width="191">Evaluation on Table Level </text>
-2 <text font="5" height="14" left="81" top="910" width="379">Our machine-learning-based methods can classify </text>
-2 <text font="5" height="14" left="81" top="926" width="368">individual table rows as headers and table columns as </text>
-2 <text font="5" height="14" left="81" top="942" width="368">headers with respectively 97% and 98% accuracy. Table </text>
-2 <text font="5" height="14" left="81" top="959" width="367">header detection is not only a classification problem, but </text>
-2 <text font="5" height="14" left="81" top="975" width="370">also an information extraction problem of determining </text>
-2 <text font="5" height="14" left="81" top="992" width="364">where the header ends and the data begins.  In section 4, we </text>
-2 <text font="5" height="14" left="81" top="1008" width="366">addressed heuristic methods and provided their results at </text>
-2 <text font="5" height="14" left="81" top="1025" width="368">the table level. Here, we evaluated the accuracy of our </text>
-2 <text font="5" height="14" left="477" top="83" width="374">machine learning algorithms at the table level by </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="83" width="368">integrated in Weka, such as NiaveBayes, BayesNet, J48 </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="100" width="369">(C4.5 decision tree algorithm), AdaBoost, etc. Overall, </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="116" width="234">Random Forest still performs the best. </text>
+2 <text font="17" height="15" left="81" textpieces="0" top="150" width="158">Impact of Feature Set </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="172" width="368">We use the best performing random forest classifier to </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="188" width="369">evaluate the impact of different feature sets. For table </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="205" width="365">header and data row classification, we design three sets of </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="221" width="365">experiments: i) random forest model using only single row </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="238" width="364">feature;  ii)  experiment using only neighboring feature; iii) </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="254" width="363">add all features together.  The results are shown in Table 4.  </text>
+2 <text font="12" height="12" left="99" textpieces="0" top="278" width="328">Table 4. Results of header and data row classification on </text>
+2 <text font="12" height="12" left="147" textpieces="0" top="294" width="230">different feature set, but all training set </text>
+1 <text font="12" height="12" left="102" textpieces="3" top="316" width="293">Features                  Precision    Recall     F </text>
+1 <text font="4" height="12" left="102" textpieces="3" top="331" width="316">Single row feature        0.961        0.962      0.961 </text>
+1 <text font="4" height="12" left="102" textpieces="3" top="347" width="316">Neighbor row feature     0.961        0.962      0.961 </text>
+1 <text font="4" height="12" left="102" textpieces="3" top="363" width="316">Together                 0.974        0.978      0.976 </text>
+2 <text font="5" height="14" left="96" textpieces="0" top="380" width="352">Then, we use the InfoGain attribute evaluator of the </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="396" width="366">Weka toolkit to choose the most important features. The </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="413" width="366">results showed that Number of characters, Percentage of </text>
+2 <text font="15" height="14" left="81" textpieces="0" top="429" width="374">alphabetical characters, Average font size, Average </text>
+2 <text font="15" height="14" left="81" textpieces="0" top="446" width="371">alignment, Number of cells difference, Percentage of </text>
+2 <text font="15" height="14" left="81" textpieces="0" top="462" width="365">consistent cell data type, and Percentage of consistent cell </text>
+2 <text font="15" height="14" left="81" textpieces="0" top="479" width="250">font style are the most effective features.  </text>
+2 <text font="17" height="15" left="81" textpieces="0" top="513" width="158">Impact of Parameters </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="535" width="365">The random forest classifier has two effective parameters: </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="551" width="365">the number of trees to grow, and the number of features to </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="568" width="365">consider when splitting each node. We have set the second </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="584" width="368">value to be log2(M +1). Figure 7 shows the increase in </text>
+2 <text font="5" height="14" left="81" textpieces="1" top="601" width="376">accuracy with an increase in the number of trees.   </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="617" width="366">Increasing the number of trees beyond 100 improves the </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="633" width="369">result very slightly at the cost of a huge increase in run-time. </text>
+2 <text font="10" height="16" left="420" textpieces="0" top="813" width="4"> </text>
+2 <text font="12" height="12" left="119" textpieces="0" top="838" width="315">Figure 7. Impact of number of trees for random forest </text>
+2 <text font="12" height="12" left="251" textpieces="0" top="853" width="51">learning </text>
+2 <text font="17" height="15" left="81" textpieces="0" top="888" width="191">Evaluation on Table Level </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="910" width="379">Our machine-learning-based methods can classify </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="926" width="368">individual table rows as headers and table columns as </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="942" width="368">headers with respectively 97% and 98% accuracy. Table </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="959" width="367">header detection is not only a classification problem, but </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="975" width="370">also an information extraction problem of determining </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="992" width="364">where the header ends and the data begins.  In section 4, we </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="1008" width="366">addressed heuristic methods and provided their results at </text>
+2 <text font="5" height="14" left="81" textpieces="0" top="1025" width="368">the table level. Here, we evaluated the accuracy of our </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="83" width="374">machine learning algorithms at the table level by </text>
 =============================== COL ===================================
-2 <text font="5" height="14" left="477" top="100" width="366">comparing the predicted and labeled classes per table, and </text>
-2 <text font="5" height="14" left="477" top="116" width="368">make a comparison with the proposed heuristic method </text>
-2 <text font="5" height="14" left="477" top="133" width="368">which has better results as well as with the baseline method. </text>
-2 <text font="5" height="14" left="492" top="149" width="352">Since the random forest (RF) has the best results for </text>
-2 <text font="5" height="14" left="477" top="166" width="367">rows and columns, we use its predicted results for table </text>
-2 <text font="5" height="14" left="477" top="182" width="368">level accuracy, including the proportions of tables with </text>
-2 <text font="5" height="14" left="477" top="199" width="373">completely correct header, partially detected header, </text>
-2 <text font="5" height="14" left="477" top="215" width="365">expanded and false positive header. The results are shown </text>
-2 <text font="5" height="14" left="477" top="232" width="364">in Table 5. It is interesting to note that, although the column </text>
-2 <text font="5" height="14" left="477" top="248" width="368">classification accuracy has fewer errors, these erroneous </text>
-2 <text font="5" height="14" left="477" top="265" width="364">columns are distributed over many tables but the erroneous </text>
-2 <text font="5" height="14" left="477" top="281" width="364">rows are distributed over fewer tables. Thus, the table-level </text>
-2 <text font="5" height="14" left="477" top="298" width="220">accuracy is better for the rows-case. </text>
-2 <text font="12" height="12" left="483" top="322" width="352">Table 5. Comparison of learning method, rule-based method </text>
-2 <text font="12" height="12" left="499" top="338" width="320">and baseline on table header row and column detection </text>
-1 <text font="4" height="12" left="525" top="361" width="232">             Baseline    Heuristic   RF </text>
-1 <text font="12" height="12" left="525" top="379" width="159">Table header row detection </text>
-1 <text font="4" height="12" left="525" top="396" width="245">Correct      0.402       0.609       0.920 </text>
-1 <text font="4" height="12" left="525" top="414" width="245">Partial       0.587       0.25        0.043 </text>
-1 <text font="4" height="12" left="525" top="431" width="238">Expanded    0           0.13        0.03 </text>
-1 <text font="4" height="12" left="525" top="448" width="245">Fake         0.011       0.011       0.007 </text>
-1 <text font="12" height="12" left="525" top="466" width="180">Table header column detection </text>
-1 <text font="4" height="12" left="525" top="483" width="245">Correct      0.735       0.598       0.904 </text>
-1 <text font="4" height="12" left="525" top="500" width="245">Partial       0.24        0.186       0.053 </text>
-1 <text font="4" height="12" left="525" top="517" width="245">Expanded    0           0.181       0.025 </text>
-1 <text font="4" height="12" left="525" top="535" width="245">Fake         0.025       0.025       0.018 </text>
-2 <text font="1" height="16" left="614" top="581" width="90">Conclusion </text>
-2 <text font="5" height="14" left="477" top="609" width="365">We investigate the classification of diverse table styles for </text>
-2 <text font="5" height="14" left="477" top="626" width="365">effective table header information extraction using random </text>
-2 <text font="5" height="14" left="477" top="642" width="372">samples from CiteSeerX. From the analysis of table </text>
-2 <text font="5" height="14" left="477" top="659" width="364">categories and their relationship with table header types, we </text>
-2 <text font="5" height="14" left="477" top="675" width="365">propose heuristic methods and machine learning techniques </text>
-2 <text font="5" height="14" left="477" top="692" width="367">to address the table header detection problem in order to </text>
-2 <text font="5" height="14" left="477" top="709" width="369">better classify table categories. Empirically, a Random </text>
-2 <text font="5" height="14" left="477" top="725" width="310">Forest classifier outperforms all the other methods. </text>
-2 <text font="5" height="14" left="492" top="742" width="351">Future work could focus on header hierarchy extraction </text>
-2 <text font="5" height="14" left="477" top="758" width="367">in order to distinguish single-line single-level, multi-line </text>
-2 <text font="5" height="14" left="477" top="774" width="373">single-level and multi-line multi-level table headers. </text>
-2 <text font="5" height="14" left="477" top="791" width="368">Furthermore, enhanced table header detection could not </text>
-2 <text font="5" height="14" left="477" top="807" width="368">only improve table classification and understanding, but </text>
-2 <text font="5" height="14" left="477" top="824" width="366">can also improve table search. For instance, given a table, </text>
-2 <text font="5" height="14" left="477" top="840" width="368">we could extract the headers and use them as a query </text>
-2 <text font="5" height="14" left="477" top="857" width="367">instead of the entire PDF table to search tables with the </text>
-2 <text font="5" height="14" left="477" top="873" width="232">same or semantically related headers.  </text>
-2 <text font="1" height="16" left="586" top="921" width="152">Acknowledgement  </text>
-2 <text font="5" height="14" left="477" top="948" width="361">We gratefully acknowledge the support of the co-</text>
-2 <text font="5" height="14" left="477" top="965" width="364">supervised Ph.D. student scholarship program of the China </text>
-2 <text font="5" height="14" left="477" top="981" width="367">Scholarship Council (CSC), the National Basic Research </text>
-1 <text font="5" height="14" left="477" top="998" width="366">Program of China (No. 2012CB724108) and the National </text>
-2 <text font="5" height="14" left="477" top="1014" width="290">Science Foundation under Grant Nos. 0845487. </text>
-2 <text font="5" height="14" left="134" top="777" width="19">91 </text>
-2 <text font="5" height="14" left="134" top="759" width="19">92 </text>
-2 <text font="5" height="14" left="134" top="740" width="19">93 </text>
-2 <text font="5" height="14" left="134" top="722" width="19">94 </text>
-2 <text font="5" height="14" left="134" top="704" width="19">95 </text>
-2 <text font="5" height="14" left="134" top="686" width="19">96 </text>
-2 <text font="5" height="14" left="134" top="667" width="19">97 </text>
-1 <text font="5" height="14" left="170" top="795" width="224">1   5  10  50  100 200 300 400 500 </text>
-2 <text font="12" height="12" left="126" top="760" width="0">Row accuracy </text>
-2 <text font="12" height="12" left="233" top="811" width="90">Number of tree </text>
-2 <text font="14" height="18" left="449" top="1110" width="19">604</text>
+2 <text font="5" height="14" left="477" textpieces="0" top="100" width="366">comparing the predicted and labeled classes per table, and </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="116" width="368">make a comparison with the proposed heuristic method </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="133" width="368">which has better results as well as with the baseline method. </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="149" width="352">Since the random forest (RF) has the best results for </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="166" width="367">rows and columns, we use its predicted results for table </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="182" width="368">level accuracy, including the proportions of tables with </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="199" width="373">completely correct header, partially detected header, </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="215" width="365">expanded and false positive header. The results are shown </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="232" width="364">in Table 5. It is interesting to note that, although the column </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="248" width="368">classification accuracy has fewer errors, these erroneous </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="265" width="364">columns are distributed over many tables but the erroneous </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="281" width="364">rows are distributed over fewer tables. Thus, the table-level </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="298" width="220">accuracy is better for the rows-case. </text>
+2 <text font="12" height="12" left="483" textpieces="0" top="322" width="352">Table 5. Comparison of learning method, rule-based method </text>
+2 <text font="12" height="12" left="499" textpieces="0" top="338" width="320">and baseline on table header row and column detection </text>
+1 <text font="4" height="12" left="525" textpieces="3" top="361" width="232">             Baseline    Heuristic   RF </text>
+1 <text font="12" height="12" left="525" textpieces="0" top="379" width="159">Table header row detection </text>
+1 <text font="4" height="12" left="525" textpieces="3" top="396" width="245">Correct      0.402       0.609       0.920 </text>
+1 <text font="4" height="12" left="525" textpieces="3" top="414" width="245">Partial       0.587       0.25        0.043 </text>
+1 <text font="4" height="12" left="525" textpieces="3" top="431" width="238">Expanded    0           0.13        0.03 </text>
+1 <text font="4" height="12" left="525" textpieces="3" top="448" width="245">Fake         0.011       0.011       0.007 </text>
+1 <text font="12" height="12" left="525" textpieces="0" top="466" width="180">Table header column detection </text>
+1 <text font="4" height="12" left="525" textpieces="3" top="483" width="245">Correct      0.735       0.598       0.904 </text>
+1 <text font="4" height="12" left="525" textpieces="3" top="500" width="245">Partial       0.24        0.186       0.053 </text>
+1 <text font="4" height="12" left="525" textpieces="3" top="517" width="245">Expanded    0           0.181       0.025 </text>
+1 <text font="4" height="12" left="525" textpieces="3" top="535" width="245">Fake         0.025       0.025       0.018 </text>
+2 <text font="1" height="16" left="614" textpieces="0" top="581" width="90">Conclusion </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="609" width="365">We investigate the classification of diverse table styles for </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="626" width="365">effective table header information extraction using random </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="642" width="372">samples from CiteSeerX. From the analysis of table </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="659" width="364">categories and their relationship with table header types, we </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="675" width="365">propose heuristic methods and machine learning techniques </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="692" width="367">to address the table header detection problem in order to </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="709" width="369">better classify table categories. Empirically, a Random </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="725" width="310">Forest classifier outperforms all the other methods. </text>
+2 <text font="5" height="14" left="492" textpieces="0" top="742" width="351">Future work could focus on header hierarchy extraction </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="758" width="367">in order to distinguish single-line single-level, multi-line </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="774" width="373">single-level and multi-line multi-level table headers. </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="791" width="368">Furthermore, enhanced table header detection could not </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="807" width="368">only improve table classification and understanding, but </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="824" width="366">can also improve table search. For instance, given a table, </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="840" width="368">we could extract the headers and use them as a query </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="857" width="367">instead of the entire PDF table to search tables with the </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="873" width="232">same or semantically related headers.  </text>
+2 <text font="1" height="16" left="586" textpieces="0" top="921" width="152">Acknowledgement  </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="948" width="361">We gratefully acknowledge the support of the co-</text>
+2 <text font="5" height="14" left="477" textpieces="0" top="965" width="364">supervised Ph.D. student scholarship program of the China </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="981" width="367">Scholarship Council (CSC), the National Basic Research </text>
+2 <text font="5" height="14" left="477" textpieces="1" top="998" width="366">Program of China (No. 2012CB724108) and the National </text>
+2 <text font="5" height="14" left="477" textpieces="0" top="1014" width="290">Science Foundation under Grant Nos. 0845487. </text>
+2 <text font="5" height="14" left="134" textpieces="0" top="777" width="19">91 </text>
+2 <text font="5" height="14" left="134" textpieces="0" top="759" width="19">92 </text>
+2 <text font="5" height="14" left="134" textpieces="0" top="740" width="19">93 </text>
+2 <text font="5" height="14" left="134" textpieces="0" top="722" width="19">94 </text>
+2 <text font="5" height="14" left="134" textpieces="0" top="704" width="19">95 </text>
+2 <text font="5" height="14" left="134" textpieces="0" top="686" width="19">96 </text>
+2 <text font="5" height="14" left="134" textpieces="0" top="667" width="19">97 </text>
+2 <text font="5" height="14" left="170" textpieces="1" top="795" width="224">1   5  10  50  100 200 300 400 500 </text>
+2 <text font="12" height="12" left="126" textpieces="0" top="760" width="0">Row accuracy </text>
+2 <text font="12" height="12" left="233" textpieces="0" top="811" width="90">Number of tree </text>
+2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">604</text>
 =============================== PAGE ===================================
 =============================== COL ===================================
-2 <text font="1" height="16" left="219" top="87" width="93">References  </text>
-2 <text font="4" height="12" left="81" top="115" width="364">Lopresti, D.; and Nagy, G. 1999. A Tabular Survey of Automated </text>
-2 <text font="4" height="12" left="81" top="131" width="201">Table Processing. In GREC, 93 120. </text>
-2 <text font="4" height="12" left="81" top="149" width="367">Liu, Y.; Bai, K.; Mitra, P.; and Giles, C.L. 2007. TableSeer : </text>
-2 <text font="4" height="12" left="81" top="165" width="367">Automatic Table Metadata Extraction and Searching inDigital </text>
-2 <text font="4" height="12" left="81" top="180" width="351">Libraries Categories and Subject Descriptors. In  JCDL, 91 100. </text>
-2 <text font="4" height="12" left="81" top="199" width="369">Liu, Y.; Mitra, P.; and Giles, C.L. 2008. Identifying Table </text>
-2 <text font="4" height="12" left="81" top="214" width="365">Boundaries in Digital Documents via Sparse Line Detection. In </text>
-2 <text font="21" height="12" left="81" top="229" width="106">CIKM, 1311 1320. </text>
-2 <text font="4" height="12" left="81" top="248" width="367">Liu, Y.; Mitra, P.; Giles, C.L.; and Bai, K. 2006. Automatic </text>
-2 <text font="4" height="12" left="81" top="263" width="356">Extraction of Table Metadata from PDF Documents. In JCDL, 11</text>
-2 <text font="4" height="12" left="81" top="279" width="20">15. </text>
-2 <text font="4" height="12" left="81" top="298" width="364">Zanibbi,R.; Blostein, D.; and Cordy, J.R.. 2004. A survey of table </text>
-2 <text font="4" height="12" left="81" top="313" width="377">recognition: Models, observations, transformations, and </text>
-2 <text font="4" height="12" left="81" top="328" width="152">inferences. In IJDAR, 1 16. </text>
-2 <text font="4" height="12" left="81" top="347" width="356">Silva, A.C.e.; Jorge, A.M.; and Torgo, L., 2006. Design of an end</text>
-2 <text font="4" height="12" left="81" top="362" width="356">to end method to extract information from tables. In IJDAR, 144</text>
-2 <text font="4" height="12" left="81" top="378" width="27">171. </text>
-2 <text font="4" height="12" left="81" top="397" width="365">Hirayama, Y. 1995. A method for table structure analysis using </text>
-2 <text font="4" height="12" left="81" top="413" width="189">DP matching. In DAR, 583   586.  </text>
-2 <text font="4" height="12" left="81" top="431" width="365">Kieninger, T.; and Dengel, A. 2001. Applying The T Recs Table </text>
-2 <text font="4" height="12" left="81" top="447" width="364">Recognition System To The Business Letter Domain. In ICDAR, </text>
-2 <text font="4" height="12" left="81" top="462" width="52">113 120. </text>
-2 <text font="4" height="12" left="81" top="481" width="365">Yildiz,B.; Kaiser,K.; and Miksch, S.. 2005. pdf2table: A Method </text>
-2 <text font="4" height="12" left="81" top="496" width="368">to Extract Table Information from PDF Files. In IICAI, 1773 1785. </text>
-2 <text font="4" height="12" left="81" top="516" width="367">Oro, E.; and Ruffolo, M. 2009. PDF TREX an Approach for </text>
-2 <text font="4" height="12" left="81" top="530" width="368">Recognizing and Extracting Tables from PDF Documents. In </text>
-2 <text font="21" height="12" left="81" top="546" width="98">ICDAR, 906 910. </text>
-2 <text font="4" height="12" left="477" top="84" width="366">Hassan, T.; and Baumgartner, R. 2007. Table Recognition and </text>
+2 <text font="1" height="16" left="219" textpieces="0" top="87" width="93">References  </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="115" width="364">Lopresti, D.; and Nagy, G. 1999. A Tabular Survey of Automated </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="131" width="201">Table Processing. In GREC, 93 120. </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="149" width="367">Liu, Y.; Bai, K.; Mitra, P.; and Giles, C.L. 2007. TableSeer : </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="165" width="367">Automatic Table Metadata Extraction and Searching inDigital </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="180" width="351">Libraries Categories and Subject Descriptors. In  JCDL, 91 100. </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="199" width="369">Liu, Y.; Mitra, P.; and Giles, C.L. 2008. Identifying Table </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="214" width="365">Boundaries in Digital Documents via Sparse Line Detection. In </text>
+2 <text font="21" height="12" left="81" textpieces="0" top="229" width="106">CIKM, 1311 1320. </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="248" width="367">Liu, Y.; Mitra, P.; Giles, C.L.; and Bai, K. 2006. Automatic </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="263" width="356">Extraction of Table Metadata from PDF Documents. In JCDL, 11</text>
+2 <text font="4" height="12" left="81" textpieces="0" top="279" width="20">15. </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="298" width="364">Zanibbi,R.; Blostein, D.; and Cordy, J.R.. 2004. A survey of table </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="313" width="377">recognition: Models, observations, transformations, and </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="328" width="152">inferences. In IJDAR, 1 16. </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="347" width="356">Silva, A.C.e.; Jorge, A.M.; and Torgo, L., 2006. Design of an end</text>
+2 <text font="4" height="12" left="81" textpieces="0" top="362" width="356">to end method to extract information from tables. In IJDAR, 144</text>
+2 <text font="4" height="12" left="81" textpieces="0" top="378" width="27">171. </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="397" width="365">Hirayama, Y. 1995. A method for table structure analysis using </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="413" width="189">DP matching. In DAR, 583   586.  </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="431" width="365">Kieninger, T.; and Dengel, A. 2001. Applying The T Recs Table </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="447" width="364">Recognition System To The Business Letter Domain. In ICDAR, </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="462" width="52">113 120. </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="481" width="365">Yildiz,B.; Kaiser,K.; and Miksch, S.. 2005. pdf2table: A Method </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="496" width="368">to Extract Table Information from PDF Files. In IICAI, 1773 1785. </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="516" width="367">Oro, E.; and Ruffolo, M. 2009. PDF TREX an Approach for </text>
+2 <text font="4" height="12" left="81" textpieces="0" top="530" width="368">Recognizing and Extracting Tables from PDF Documents. In </text>
+2 <text font="21" height="12" left="81" textpieces="0" top="546" width="98">ICDAR, 906 910. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="84" width="366">Hassan, T.; and Baumgartner, R. 2007. Table Recognition and </text>
 =============================== COL ===================================
-2 <text font="4" height="12" left="477" top="99" width="300">Understanding from PDF Files. In ICDAR, 1143 1147. </text>
-2 <text font="4" height="12" left="477" top="118" width="365">Hurst, M.; Douglas, S. 1997. Layout and Language: Preliminary </text>
-2 <text font="4" height="12" left="477" top="133" width="364">Investigations in Recognizing the Structure of Tables. In ICDAR, </text>
-2 <text font="4" height="12" left="477" top="148" width="66">1043 1047. </text>
-2 <text font="4" height="12" left="477" top="167" width="365">Seth, S.; Jandhyala, R.; Krishnamoorthy, M.; and Nagy, G. 2010. </text>
-2 <text font="4" height="12" left="477" top="182" width="367">Analysis and taxonomy of column header categories for web </text>
-2 <text font="4" height="12" left="477" top="198" width="130">tables.  In DAS, 81 88.  </text>
-2 <text font="4" height="12" left="477" top="217" width="367">Nagy, G.; Padmanabhan, R.; Krishnamoorthy, M.; Jandhyala, </text>
-2 <text font="4" height="12" left="477" top="232" width="369">R.C.;  and Silversmith, W. 2010. Table Metadata Headers, </text>
-2 <text font="4" height="12" left="477" top="247" width="275">Augmentations and Aggregates. In DAS, 507 510. </text>
-2 <text font="4" height="12" left="477" top="266" width="365">Nagy, G.; Seth, S.; and Jin, D. 2011. Data Extraction from Web </text>
-2 <text font="4" height="12" left="477" top="282" width="301">Tables: the Devil is in the Details. In ICDAR, 242 246. </text>
-2 <text font="4" height="12" left="477" top="301" width="366">Wong, W.; Martinez, D.; and Cavedon, L. 2009. Extraction of </text>
-2 <text font="4" height="12" left="477" top="316" width="367">named entities from tables in gene mutation literature.  In BioNLP, </text>
-2 <text font="4" height="12" left="477" top="331" width="38">46 54. </text>
-2 <text font="4" height="12" left="477" top="350" width="364">Wang, Y.; and Hu, J. 2002. A machine learning based approach </text>
-2 <text font="4" height="12" left="477" top="366" width="275">for table detection on the web. In WWW, 242 250. </text>
-2 <text font="4" height="12" left="477" top="385" width="367">Kim, S.; and Liu, Y. 2011. Functional Based Table Category </text>
-2 <text font="4" height="12" left="477" top="401" width="313">Identification in Digital Library. In ICDAR, 1364   1368. </text>
-2 <text font="4" height="12" left="477" top="420" width="366">Burges, CJC. 1998. A tutorial on support vector machines for </text>
-2 <text font="4" height="12" left="477" top="435" width="224">pattern recognition. In DMKD, 121 167. </text>
-2 <text font="4" height="12" left="477" top="454" width="366">Balakrishnan, N. 1991. Handbook of the Logistic Distribution. </text>
-2 <text font="4" height="12" left="477" top="469" width="241">Marcel Dekker, Inc. ISBN 978 0824785871 </text>
-2 <text font="4" height="12" left="477" top="489" width="309">Breiman, L.. 2011. Random Forests. Machine Learning.  </text>
-2 <text font="4" height="12" left="477" top="508" width="363">Witten, I.H.; and Frank, E. 2005. Data Mining: Practical machine </text>
-2 <text font="4" height="12" left="477" top="523" width="364">learning tools and techniques. Morgan Kaufmann, San Francisco, </text>
-2 <text font="4" height="12" left="477" top="538" width="67">2nd edition. </text>
-2 <text font="2" height="10" left="81" top="569" width="3"> </text>
-2 <text font="14" height="18" left="449" top="1110" width="19">605</text>
+2 <text font="4" height="12" left="477" textpieces="0" top="99" width="300">Understanding from PDF Files. In ICDAR, 1143 1147. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="118" width="365">Hurst, M.; Douglas, S. 1997. Layout and Language: Preliminary </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="133" width="364">Investigations in Recognizing the Structure of Tables. In ICDAR, </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="148" width="66">1043 1047. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="167" width="365">Seth, S.; Jandhyala, R.; Krishnamoorthy, M.; and Nagy, G. 2010. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="182" width="367">Analysis and taxonomy of column header categories for web </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="198" width="130">tables.  In DAS, 81 88.  </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="217" width="367">Nagy, G.; Padmanabhan, R.; Krishnamoorthy, M.; Jandhyala, </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="232" width="369">R.C.;  and Silversmith, W. 2010. Table Metadata Headers, </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="247" width="275">Augmentations and Aggregates. In DAS, 507 510. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="266" width="365">Nagy, G.; Seth, S.; and Jin, D. 2011. Data Extraction from Web </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="282" width="301">Tables: the Devil is in the Details. In ICDAR, 242 246. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="301" width="366">Wong, W.; Martinez, D.; and Cavedon, L. 2009. Extraction of </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="316" width="367">named entities from tables in gene mutation literature.  In BioNLP, </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="331" width="38">46 54. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="350" width="364">Wang, Y.; and Hu, J. 2002. A machine learning based approach </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="366" width="275">for table detection on the web. In WWW, 242 250. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="385" width="367">Kim, S.; and Liu, Y. 2011. Functional Based Table Category </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="401" width="313">Identification in Digital Library. In ICDAR, 1364   1368. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="420" width="366">Burges, CJC. 1998. A tutorial on support vector machines for </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="435" width="224">pattern recognition. In DMKD, 121 167. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="454" width="366">Balakrishnan, N. 1991. Handbook of the Logistic Distribution. </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="469" width="241">Marcel Dekker, Inc. ISBN 978 0824785871 </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="489" width="309">Breiman, L.. 2011. Random Forests. Machine Learning.  </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="508" width="363">Witten, I.H.; and Frank, E. 2005. Data Mining: Practical machine </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="523" width="364">learning tools and techniques. Morgan Kaufmann, San Francisco, </text>
+2 <text font="4" height="12" left="477" textpieces="0" top="538" width="67">2nd edition. </text>
+2 <text font="2" height="10" left="81" textpieces="0" top="569" width="3"> </text>
+2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">605</text>

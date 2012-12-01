@@ -5,7 +5,6 @@ Created on Nov 20, 2012
 '''
 import xml.etree.ElementTree as ET
 from xml.sax.saxutils import escape
-from SparseType import SparseType
 
 '''
     Annotating only Sparse and Non Sparse Lines
@@ -31,12 +30,8 @@ class Trainer:
                 f.write('<div class="col"><input type="hidden" name="colbegin'+str(colno)+'" value="'+str(i)+'"/>')
                 for tup in col:
                     f.write('<div><select id="docparams" name="docparams'+ str(i) +'">')
-                    if(tup[0] == SparseType.SPARSEUNKNOWN):
-                        f.write('<option value="sparse" selected="selected">Sparse</option>')
-                        f.write('<option value="nonsparse">Not Sparse</option>')
-                    else:
-                        f.write('<option value="sparse">Sparse</option>')
-                        f.write('<option value="nonsparse" selected="selected">Not Sparse</option>')
+                    f.write('<option value="sparse">Sparse</option>')
+                    f.write('<option value="nonsparse" selected="selected">Not Sparse</option>')
                     f.write("</select><input type='hidden' name='texttag"+str(i)+"' value='"+  self.html_escape(ET.tostring(tup[1],'utf-8',"xml")) + "'/>"+ ET.tostring(tup[1]) +"</div>")
                     i += 1
                 f.write('<input type="hidden" name="colend'+str(colno)+'" value="'+str(i)+'"/><div>')
@@ -62,17 +57,16 @@ class Trainer:
             elif(line == "=============================== COL ===================================\n"):
                 if(colbegin is False):
                     col = list()
-                    tup = list()
                     colbegin = True
                 else:
-                    col.append(tup)
                     pagelist.append(col)
                     col = list()
-                    tup = list()
             else:
                 tup0 = line[:line.find(" ")]
                 tup1 = line[line.find(" ")+1:]
-                tup.append([tup0,ET.fromstring(tup1)])
+                col.append([tup0,ET.fromstring(tup1)])
+        
+        return preprocessedxml
                     
                 
         

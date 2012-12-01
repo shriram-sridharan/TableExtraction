@@ -5,5 +5,5 @@ Created on Nov 20, 2012
 '''
 
 class SparseType:
-    SPARSEUNKNOWN = 1
+    OTHERSPARSE = 1
     NONSPARSE = 2
