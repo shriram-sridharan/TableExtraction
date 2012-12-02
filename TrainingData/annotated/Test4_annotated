@@ -42,8 +42,8 @@
 2 <text font="4" height="14" left="84" textpieces="0" top="1030" width="360">and crucial step for consequent applications (e.g., the table</text>
 2 <text font="4" height="14" left="84" textpieces="0" top="1048" width="360">search). Because most of the tables in scientic documents</text>
 2 <text font="4" height="14" left="84" textpieces="0" top="1066" width="360">are text-based tables, solely analyzing the text objects in</text>
-2 <text font="4" height="14" left="478" textpieces="0" top="373" width="360">a PDF le can achieve good performance in terms of sav-</text>
 =============================== COL ===================================
+2 <text font="4" height="14" left="478" textpieces="0" top="373" width="360">a PDF le can achieve good performance in terms of sav-</text>
 2 <text font="4" height="14" left="478" textpieces="0" top="392" width="360">ing efforts on other objects. However, existing text extrac-</text>
 2 <text font="4" height="14" left="478" textpieces="0" top="410" width="360">tion tools face a common problem: the extracted text pieces</text>
 2 <text font="4" height="14" left="478" textpieces="0" top="428" width="360">follow a different sequence from its original appearance in</text>
@@ -80,8 +80,8 @@
 2 <text font="4" height="14" left="478" textpieces="0" top="1019" width="360">BLE). With this restriction, the tables can be understood</text>
 2 <text font="4" height="14" left="478" textpieces="0" top="1037" width="360">as genuine tables [6]. The table boundary includes all the</text>
 2 <text font="6" height="8" left="495" textpieces="0" top="1066" width="196">1http://www.thefreedictionary.com/table</text>
-2 <text font="4" height="14" left="230" textpieces="0" top="68" width="457">2009 10th International Conference on Document Analysis and Recognition</text>
 =============================== COL ===================================
+2 <text font="4" height="14" left="230" textpieces="0" top="68" width="457">2009 10th International Conference on Document Analysis and Recognition</text>
 2 <text font="7" height="11" left="75" textpieces="0" top="1112" width="213">978-0-7695-3725-2/09 $25.00  2009 IEEE</text>
 2 <text font="7" height="11" left="75" textpieces="0" top="1127" width="152">DOI 10.1109/ICDAR.2009.138</text>
 2 <text font="7" height="11" left="447" textpieces="0" top="1112" width="24">1006</text>
@@ -140,8 +140,8 @@
 2 <text font="9" height="13" left="103" textpieces="0" top="1032" width="340">of the exported texts may not reect the human reading</text>
 2 <text font="9" height="13" left="103" textpieces="0" top="1050" width="340">ordering. The text sequence error is a common problem</text>
 2 <text font="9" height="13" left="103" textpieces="0" top="1067" width="340">shared by existing text extraction tools (e.g., PDF2TEXT,</text>
-2 <text font="12" height="13" left="492" textpieces="0" top="347" width="305">Figure 1. A document page with a cross-</text>
 =============================== COL ===================================
+2 <text font="12" height="13" left="492" textpieces="0" top="347" width="305">Figure 1. A document page with a cross-</text>
 2 <text font="12" height="13" left="492" textpieces="0" top="365" width="305">column table (left) and its sparse lines (right)</text>
 2 <text font="12" height="13" left="492" textpieces="0" top="567" width="305">Figure 2. A document page with two parallel</text>
 2 <text font="12" height="13" left="492" textpieces="0" top="584" width="258">tables (left) and its sparse lines (right)</text>
@@ -205,8 +205,8 @@
 2 <text font="9" height="14" left="87" textpieces="0" top="1030" width="355">satisfying. Moreover, these proposed works need to process</text>
 2 <text font="9" height="14" left="87" textpieces="0" top="1048" width="355">both sparse lines and non-sparse lines. The more non-sparse</text>
 2 <text font="9" height="14" left="87" textpieces="0" top="1066" width="286">lines involve, the higher possibility errors incur.</text>
-2 <text font="11" height="16" left="476" textpieces="1" top="119" width="306">4  Text sequence recovering algorithms</text>
 =============================== COL ===================================
+2 <text font="11" height="16" left="476" textpieces="1" top="119" width="306">4  Text sequence recovering algorithms</text>
 2 <text font="9" height="14" left="493" textpieces="0" top="141" width="337">To x the text sequence error problem, we propose two</text>
 2 <text font="9" height="14" left="476" textpieces="0" top="159" width="355">methods to resort the detected sparse lines within a given</text>
 2 <text font="9" height="14" left="476" textpieces="0" top="177" width="355">area. For the inside-table text sequence errors, the area is</text>
@@ -322,8 +322,8 @@
 2 <text font="4" height="14" left="100" textpieces="0" top="1030" width="342">With the sorted sparse lines, we detect the table boundary</text>
 2 <text font="4" height="14" left="82" textpieces="0" top="1048" width="360">by combining the table caption information. We dene a</text>
 2 <text font="4" height="14" left="82" textpieces="0" top="1066" width="360">keyword list, which lists all the possible starting keywords</text>
-2 <text font="16" height="14" left="485" textpieces="0" top="112" width="332">Algorithm 2: Sorting sparse lines within a document</text>
 =============================== COL ===================================
+2 <text font="16" height="14" left="485" textpieces="0" top="112" width="332">Algorithm 2: Sorting sparse lines within a document</text>
 2 <text font="4" height="14" left="485" textpieces="0" top="130" width="46">column</text>
 2 <text font="16" height="14" left="494" textpieces="1" top="148" width="154">Input: V,Vcc, Vy, Vsorted</text>
 2 <text font="16" height="14" left="494" textpieces="4" top="166" width="-8">foreachvk COkdo                      1</text>
@@ -440,8 +440,8 @@
 2 <text font="4" height="14" left="83" textpieces="0" top="1026" width="358">recall values. For cross-column tables, algorithm 1 will cut</text>
 2 <text font="4" height="14" left="83" textpieces="0" top="1044" width="358">each table into at least two parts. A merge postprocessing is</text>
 2 <text font="4" height="14" left="83" textpieces="0" top="1062" width="358">required. Algorithm 2 achieves better performance on such</text>
-2 <text font="4" height="14" left="476" textpieces="0" top="108" width="358">tables. In summary, in the real application when we can</text>
 =============================== COL ===================================
+2 <text font="4" height="14" left="476" textpieces="0" top="108" width="358">tables. In summary, in the real application when we can</text>
 2 <text font="4" height="14" left="476" textpieces="0" top="126" width="358">not know the table type in advance, algorithm 2 works bet-</text>
 2 <text font="4" height="14" left="476" textpieces="0" top="144" width="358">ter than algorithm 1. For tables with within-table sequence</text>
 2 <text font="4" height="14" left="476" textpieces="0" top="162" width="358">errors, our recovering algorithms do not fulll much per-</text>

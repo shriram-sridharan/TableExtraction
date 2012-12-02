@@ -52,8 +52,8 @@
 2 <text font="11" height="11" left="81" textpieces="0" top="1016" width="369">Copyright  2012, Association for the Advancement of Artificial </text>
 2 <text font="11" height="11" left="81" textpieces="0" top="1029" width="237">Intelligence (www.aaai.org). All rights reserved. </text>
 2 <text font="11" height="11" left="81" textpieces="0" top="1043" width="3"> </text>
-2 <text font="5" height="14" left="477" textpieces="0" top="361" width="365">schedule, vote tables, etc. can be found. While the majority </text>
 =============================== COL ===================================
+2 <text font="5" height="14" left="477" textpieces="0" top="361" width="365">schedule, vote tables, etc. can be found. While the majority </text>
 2 <text font="5" height="14" left="477" textpieces="0" top="377" width="364">of existing methods explore table layout characteristics for </text>
 2 <text font="5" height="14" left="477" textpieces="0" top="394" width="365">table recognition, what impacts the extraction performance </text>
 2 <text font="5" height="14" left="477" textpieces="0" top="411" width="369">most is the diversity of table structures. Just like the </text>
@@ -88,8 +88,8 @@
 2 <text font="5" height="14" left="477" textpieces="0" top="890" width="238">widely used in todays digital libraries. </text>
 2 <text font="5" height="14" left="833" textpieces="0" top="1014" width="4"> </text>
 2 <text font="12" height="12" left="518" textpieces="0" top="1029" width="297">Figure 1. An example of table with complex header </text>
-2 <text font="13" height="16" left="275" textpieces="0" top="52" width="367">Proceedings of the Twenty-Sixth AAAI Conference on Artificial Intelligence</text>
 =============================== COL ===================================
+2 <text font="13" height="16" left="275" textpieces="0" top="52" width="367">Proceedings of the Twenty-Sixth AAAI Conference on Artificial Intelligence</text>
 2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">599</text>
 =============================== PAGE ===================================
 =============================== COL ===================================
@@ -149,8 +149,8 @@
 2 <text font="5" height="14" left="96" textpieces="0" top="1000" width="358">There are numerous methods proposed for table </text>
 2 <text font="5" height="14" left="81" textpieces="0" top="1016" width="364">detection and table structure extraction. However, very few </text>
 2 <text font="5" height="14" left="81" textpieces="0" top="1033" width="364">have  addressed table classification or related topics. (Wang </text>
-2 <text font="5" height="14" left="477" textpieces="0" top="83" width="366">&amp; Hu 2002) classified web tables into genuine tables and </text>
 =============================== COL ===================================
+2 <text font="5" height="14" left="477" textpieces="0" top="83" width="366">&amp; Hu 2002) classified web tables into genuine tables and </text>
 2 <text font="15" height="14" left="477" textpieces="0" top="99" width="366">non-genuine tables. The former refers to real tables, while </text>
 2 <text font="5" height="14" left="477" textpieces="0" top="116" width="364">the latter means those using table tags only to organize and </text>
 2 <text font="5" height="14" left="477" textpieces="0" top="133" width="367">arrange content. This kind of classification is special for </text>
@@ -240,8 +240,8 @@
 2 <text font="4" height="12" left="163" textpieces="0" top="884" width="173">(a)  Table with multi line cells </text>
 2 <text font="5" height="14" left="414" textpieces="0" top="1022" width="4"> </text>
 2 <text font="4" height="12" left="105" textpieces="0" top="1035" width="289">(b)  Long and folded table with a multi level header </text>
-2 <text font="5" height="14" left="806" textpieces="0" top="176" width="4"> </text>
 =============================== COL ===================================
+2 <text font="5" height="14" left="806" textpieces="0" top="176" width="4"> </text>
 2 <text font="4" height="12" left="571" textpieces="0" top="189" width="148">(c)  Irregular layout  table </text>
 2 <text font="12" height="12" left="550" textpieces="0" top="206" width="218">Figure 5. Examples of complex tables </text>
 2 <text font="5" height="14" left="492" textpieces="0" top="226" width="349">Table 1 presents the distributions of complex and simple </text>
@@ -288,8 +288,8 @@
 2 <text font="5" height="14" left="477" textpieces="0" top="991" width="341">while making an upward pass from the end of the table.  </text>
 2 <text font="5" height="14" left="492" textpieces="0" top="1007" width="354">First, we define two cells from consecutive rows as </text>
 2 <text font="15" height="14" left="477" textpieces="0" top="1024" width="372">corresponding cells if their bounding boxes overlap </text>
-2 <text font="16" height="12" left="161" textpieces="0" top="556" width="10">0 </text>
 =============================== COL ===================================
+2 <text font="16" height="12" left="161" textpieces="0" top="556" width="10">0 </text>
 2 <text font="16" height="12" left="154" textpieces="0" top="528" width="16">20 </text>
 2 <text font="16" height="12" left="154" textpieces="0" top="499" width="16">40 </text>
 2 <text font="16" height="12" left="154" textpieces="0" top="471" width="16">60 </text>
@@ -359,8 +359,8 @@
 2 <text font="5" height="14" left="81" textpieces="0" top="994" width="364">as stated above. We propose supervised learning algorithms </text>
 2 <text font="5" height="14" left="81" textpieces="0" top="1011" width="365">in the next section for classifying table content into header </text>
 2 <text font="5" height="14" left="81" textpieces="0" top="1027" width="103">and data classes. </text>
-2 <text font="10" height="16" left="834" textpieces="0" top="198" width="4"> </text>
 =============================== COL ===================================
+2 <text font="10" height="16" left="834" textpieces="0" top="198" width="4"> </text>
 2 <text font="4" height="12" left="520" textpieces="0" top="213" width="277">(a)  Row header detection results on both samples </text>
 2 <text font="4" height="12" left="836" textpieces="0" top="343" width="3"> </text>
 2 <text font="4" height="12" left="511" textpieces="0" top="355" width="299">(a)  Column header detection results on both samples  </text>
@@ -451,8 +451,8 @@
 2 <text font="5" height="14" left="81" textpieces="0" top="999" width="269">sample1 (D1) and sample2 (D2) in Table 2.  </text>
 2 <text font="5" height="14" left="81" textpieces="0" top="1015" width="4"> </text>
 2 <text font="5" height="14" left="81" textpieces="0" top="1032" width="4"> </text>
-2 <text font="12" height="12" left="545" textpieces="0" top="84" width="227">Table  2. Machine learning training set </text>
 =============================== COL ===================================
+2 <text font="12" height="12" left="545" textpieces="0" top="84" width="227">Table  2. Machine learning training set </text>
 1 <text font="12" height="12" left="524" textpieces="3" top="108" width="249">           Numbers          D1       D2 </text>
 1 <text font="12" height="12" left="524" textpieces="3" top="126" width="246">Row       Table               94       81 </text>
 1 <text font="4" height="12" left="524" textpieces="3" top="142" width="259">           Row               1382     1108 </text>
@@ -559,8 +559,8 @@
 2 <text font="5" height="14" left="81" textpieces="0" top="992" width="364">where the header ends and the data begins.  In section 4, we </text>
 2 <text font="5" height="14" left="81" textpieces="0" top="1008" width="366">addressed heuristic methods and provided their results at </text>
 2 <text font="5" height="14" left="81" textpieces="0" top="1025" width="368">the table level. Here, we evaluated the accuracy of our </text>
-2 <text font="5" height="14" left="477" textpieces="0" top="83" width="374">machine learning algorithms at the table level by </text>
 =============================== COL ===================================
+2 <text font="5" height="14" left="477" textpieces="0" top="83" width="374">machine learning algorithms at the table level by </text>
 2 <text font="5" height="14" left="477" textpieces="0" top="100" width="366">comparing the predicted and labeled classes per table, and </text>
 2 <text font="5" height="14" left="477" textpieces="0" top="116" width="368">make a comparison with the proposed heuristic method </text>
 2 <text font="5" height="14" left="477" textpieces="0" top="133" width="368">which has better results as well as with the baseline method. </text>
@@ -652,8 +652,8 @@
 2 <text font="4" height="12" left="81" textpieces="0" top="516" width="367">Oro, E.; and Ruffolo, M. 2009. PDF TREX an Approach for </text>
 2 <text font="4" height="12" left="81" textpieces="0" top="530" width="368">Recognizing and Extracting Tables from PDF Documents. In </text>
 2 <text font="21" height="12" left="81" textpieces="0" top="546" width="98">ICDAR, 906 910. </text>
-2 <text font="4" height="12" left="477" textpieces="0" top="84" width="366">Hassan, T.; and Baumgartner, R. 2007. Table Recognition and </text>
 =============================== COL ===================================
+2 <text font="4" height="12" left="477" textpieces="0" top="84" width="366">Hassan, T.; and Baumgartner, R. 2007. Table Recognition and </text>
 2 <text font="4" height="12" left="477" textpieces="0" top="99" width="300">Understanding from PDF Files. In ICDAR, 1143 1147. </text>
 2 <text font="4" height="12" left="477" textpieces="0" top="118" width="365">Hurst, M.; Douglas, S. 1997. Layout and Language: Preliminary </text>
 2 <text font="4" height="12" left="477" textpieces="0" top="133" width="364">Investigations in Recognizing the Structure of Tables. In ICDAR, </text>

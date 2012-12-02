@@ -50,8 +50,8 @@
 2 <text font="4" height="13" left="81" textpieces="0" top="1042" width="115">permission and/or a fee.</text>
 2 <text font="4" height="13" left="81" textpieces="0" top="1056" width="304">CIKM08, October 2630, 2008, Napa Valley, California, USA.</text>
 2 <text font="4" height="13" left="81" textpieces="0" top="1069" width="275">Copyright 2008 ACM 978-1-59593-991-3/08/10 ...$5.00.</text>
-2 <text font="1" height="19" left="475" textpieces="0" top="316" width="174">1. INTRODUCTION</text>
 =============================== COL ===================================
+2 <text font="1" height="19" left="475" textpieces="0" top="316" width="174">1. INTRODUCTION</text>
 2 <text font="3" height="14" left="489" textpieces="0" top="339" width="345">Table, as a specic document component, is widely used in</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="354" width="359">web pages, scientic documents, nancial reports, etc. Re-</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="370" width="359">searchers always use tables to concisely display the latest ex-</text>
@@ -162,8 +162,8 @@
 2 <text font="3" height="14" left="81" textpieces="0" top="1033" width="359">proposed a set of rules for identifying genuinely tabular in-</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1049" width="359">formation and news links in HTML documents. They tested</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1065" width="359">their algorithm on 75 web site front-pages and achieved an</text>
-2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">F-measure of 88.05%. Yoshida et al. proposed a method to</text>
 =============================== COL ===================================
+2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">F-measure of 88.05%. Yoshida et al. proposed a method to</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="100" width="359">integrate WWW tables according to the category of objects</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="116" width="359">presented in each table [27]. Their data set contains 35,232</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="131" width="359">table tags gathered from the web. They estimated their</text>
@@ -292,8 +292,8 @@
 2 <text font="3" height="14" left="81" textpieces="0" top="1033" width="359">their latest experimental results or statistical data. Other</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1049" width="359">researchers can quickly obtain valuable insights by examin-</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1065" width="359">ing and citing tables. Tables have become an important in-</text>
-2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">formation source for information retrieval. The demand for</text>
 =============================== COL ===================================
+2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">formation source for information retrieval. The demand for</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="100" width="359">locating such information (table search) is increasing. To</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="116" width="359">successfully get the table data from a PDF document, de-</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="131" width="359">tecting the boundary of the table is a crucial phase. Based</text>
@@ -423,8 +423,8 @@
 2 <text font="3" height="14" left="279" textpieces="2" top="1010" width="161">jfj(si1, si, o, i))      (1)</text>
 2 <text font="3" height="14" left="94" textpieces="1" top="1049" width="346">where Zo is a normalization factor of all state sequences,</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1065" width="367">the sum of the scores of all possible state sequences. fj(si1,</text>
-2 <text font="3" height="14" left="475" textpieces="0" top="84" width="357">si, o, i) is one arbitrary feature function of m functions that</text>
 =============================== COL ===================================
+2 <text font="3" height="14" left="475" textpieces="0" top="84" width="357">si, o, i) is one arbitrary feature function of m functions that</text>
 2 <text font="3" height="14" left="475" textpieces="1" top="100" width="359">describes a feature over its arguments, and j is a learned</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="116" width="227">weight for each such feature function.</text>
 2 <text font="3" height="14" left="536" textpieces="1" top="163" width="30">Zo=</text>
@@ -565,8 +565,8 @@
 2 <text font="3" height="14" left="81" textpieces="0" top="1033" width="372">The layout features include: LineNumFromDocTop, LineNum-</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1049" width="367">ToDocBottom, NumOfTextPieces, LineWidth, CharacterDen-</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1065" width="359">sity, LargestSpaceInLine, LeftX, rightX, MiddleX, DisTo-</text>
-2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">PrevLine, DisToNextLine. Table 1 lists the detailed descrip-</text>
 =============================== COL ===================================
+2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">PrevLine, DisToNextLine. Table 1 lists the detailed descrip-</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="100" width="174">tion for every layout feature.</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="134" width="359">Table 1: The main document layout features in our</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="150" width="78">experiment</text>
@@ -646,7 +646,7 @@
 1 <text font="10" height="11" left="89" textpieces="1" top="303" width="270">                the vertical distance of two characters</text>
 1 <text font="10" height="11" left="89" textpieces="1" top="316" width="286">            the maximal width of the space with a word</text>
 1 <text font="10" height="11" left="89" textpieces="1" top="328" width="274">               the maximum vertical distance between</text>
-2 <text font="10" height="11" left="183" textpieces="0" top="340" width="152">two characters in a same line</text>
+1 <text font="10" height="11" left="183" textpieces="0" top="340" width="152">two characters in a same line</text>
 2 <text font="3" height="14" left="94" textpieces="0" top="351" width="345">Formally, we dene a document as a set of pages D =</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="367" width="16">n</text>
 2 <text font="8" height="9" left="90" textpieces="0" top="374" width="40">k=1(Pk</text>
@@ -696,8 +696,8 @@
 2 <text font="3" height="14" left="94" textpieces="0" top="1030" width="345">Figure 4 (a) presents a common character pair in the same</text>
 2 <text font="3" height="14" left="81" textpieces="3" top="1049" width="358">line. Yi+1 = Yi( = 0) and Yi+1 = Yi( = 0). If  is</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1065" width="358">smaller than a given threshold , the second character ci+1</text>
-2 <text font="8" height="9" left="504" textpieces="0" top="101" width="16">char</text>
 =============================== COL ===================================
+2 <text font="8" height="9" left="504" textpieces="0" top="101" width="16">char</text>
 2 <text font="8" height="9" left="511" textpieces="0" top="121" width="2">i</text>
 2 <text font="8" height="9" left="537" textpieces="0" top="101" width="16">char</text>
 2 <text font="8" height="9" left="540" textpieces="0" top="121" width="11">i+1</text>
@@ -838,8 +838,8 @@
 2 <text font="3" height="14" left="81" textpieces="0" top="1033" width="359">ing noise lines. Because the texts within the detected table</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1049" width="359">boundary will be analyzed carefully in the later table struc-</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1065" width="359">ture decomposition phase, we treat recall more important</text>
-2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">than precision here. Once we locate the table boundary, we</text>
 =============================== COL ===================================
+2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">than precision here. Once we locate the table boundary, we</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="100" width="359">check this area and try to retrieve the long table lines that</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="116" width="316">are labeled as non-sparse lines to improve the recall.</text>
 2 <text font="1" height="19" left="475" textpieces="0" top="150" width="291">7. EXPERIMENTS AND RESULTS</text>
@@ -961,8 +961,8 @@
 2 <text font="3" height="14" left="81" textpieces="0" top="1014" width="185">documents with dense layouts.</text>
 2 <text font="1" height="19" left="81" textpieces="0" top="1041" width="318">7.4 Performance of sparse line detection</text>
 2 <text font="3" height="14" left="94" textpieces="0" top="1065" width="345">We perform a ve-user study to evaluate the quality of the</text>
-2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">sparse line detection. Each user checks the detected sparse</text>
 =============================== COL ===================================
+2 <text font="3" height="14" left="475" textpieces="0" top="84" width="359">sparse line detection. Each user checks the detected sparse</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="100" width="359">lines in 20 randomly selected PDF document pages in each</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="116" width="359">dataset. The evaluation metrics are precision and recall. we</text>
 2 <text font="3" height="14" left="475" textpieces="1" top="131" width="148">dene the recall as   ts</text>
@@ -1097,8 +1097,8 @@
 2 <text font="3" height="14" left="81" textpieces="0" top="1033" width="359">For the rule-based method and CRF with less features, the</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1049" width="359">recall values are always less than that of precisions. As the</text>
 2 <text font="3" height="14" left="81" textpieces="0" top="1065" width="358">joining of more layout features, not only the overall table</text>
-2 <text font="3" height="14" left="475" textpieces="0" top="94" width="359">Table 5: Average accuracy of table boundary detec-</text>
 =============================== COL ===================================
+2 <text font="3" height="14" left="475" textpieces="0" top="94" width="359">Table 5: Average accuracy of table boundary detec-</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="109" width="359">tion with dierent methods after all the noise line</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="125" width="54">removal</text>
 1 <text font="10" height="11" left="483" textpieces="1" top="138" width="235">Method and datasets                 F-measure</text>
@@ -1252,8 +1252,8 @@
 2 <text font="3" height="14" left="81" textpieces="0" top="1005" width="356">[13] Y. Liu, P. Mitra, and C. L. Giles. Improving the table</text>
 2 <text font="3" height="14" left="109" textpieces="0" top="1018" width="302">boundary detection in pdfs by xing the sequence</text>
 2 <text font="3" height="14" left="109" textpieces="0" top="1031" width="304">error of the sparse lines. In Technical report, 2008.</text>
-2 <text font="3" height="14" left="475" textpieces="0" top="325" width="303">[14] A. McCallum. Eciently inducing features of</text>
 =============================== COL ===================================
+2 <text font="3" height="14" left="475" textpieces="0" top="325" width="303">[14] A. McCallum. Eciently inducing features of</text>
 2 <text font="3" height="14" left="503" textpieces="0" top="339" width="315">conditional random elds. In Nineteenth Conference</text>
 2 <text font="3" height="14" left="503" textpieces="0" top="352" width="86">on UAI, 2003.</text>
 2 <text font="3" height="14" left="475" textpieces="0" top="367" width="327">[15] A. McCallum and W. Li. Early results for named</text>

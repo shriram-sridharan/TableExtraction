@@ -40,7 +40,7 @@ class CRF:
     
     def train(self, collist):
         for _ in xrange(len(collist[0][1][0])):
-            self.trainedweights.append(random.uniform(-0.02,0.02))
+            self.trainedweights.append(random.uniform(-0.001, 0.001))
             
         for r in xrange(0,Constants.NUM_EPOCHS):
             errorcount = 0.0
@@ -48,7 +48,7 @@ class CRF:
             for tup in collist:
                 errorcount += self.learnparameters(tup[0], tup[1], self.trainedweights, tup[2])
                 totaltup += len(tup[0])
-            print "Error : Iteration " + str(r) + " " + str(errorcount/totaltup)
+            print "Error : Iteration " + str(r) + " " + str(errorcount) + " " + str(errorcount/totaltup)
             
     def predictsequence(self, tagbyumatrix):
         prevvalue = -sys.maxint - 1
@@ -99,20 +99,20 @@ class CRF:
         
     def learn(self, col, tagbyumatrix, trainfeatures, trainedweights, fontdict):
         predictedsequence = self.predictsequence(tagbyumatrix)
-        seq = ''
-        for r in predictedsequence:
-            if(r == 0):
-                seq += " S"
-            else:
-                seq += " NS"
-        print "PREDICTED : " + seq
-        seq = ''
-        for r in xrange(len(col)):
-            if(int(col[r][0]) == 1):
-                seq += " S"
-            else:
-                seq += " NS"
-        print "ACTUAL    : " + seq
+#        seq = ''
+#        for r in predictedsequence:
+#            if(r == 0):
+#                seq += " S"
+#            else:
+#                seq += " NS"
+#        print "PREDICTED : " + seq
+#        seq = ''
+#        for r in xrange(len(col)):
+#            if(int(col[r][0]) == 1):
+#                seq += " S"
+#            else:
+#                seq += " NS"
+#        print "ACTUAL    : " + seq
         return self.learnweightsBySG(predictedsequence, col, trainedweights, trainfeatures, fontdict)
     
     def learnparameters(self, col, trainfeatures, trainedweights, fontdict):

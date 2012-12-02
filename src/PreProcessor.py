@@ -37,12 +37,12 @@ class PreProcessor:
         col = list()
         for tup in combinedTextTagTuple:
             texttag = tup[1]
-            col.append(tup)
             prevtop = int(prevtexttag.attrib['top'])
             currtop = int(texttag.attrib['top'])
             if((prevtop - currtop) > THRESHOLD_HEIGHT):
                 pagecolumns.append(col)
                 col = list()
+            col.append(tup)
             prevtexttag = texttag
         pagecolumns.append(col)        
         return pagecolumns

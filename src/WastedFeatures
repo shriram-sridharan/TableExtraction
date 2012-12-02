@@ -1,0 +1,6 @@
+spaceinpreviousline = self.spaceinline(col[i-1][1].text)
+if(spaceincurrentline[0] == spaceinpreviousline[0] and spaceincurrentline[0] >= Constants.LARGEST_SPACE
+    and curtag == SparseType.OTHERSPARSE):
+    featurelist.append(1)
+else:
+    featurelist.append(0)

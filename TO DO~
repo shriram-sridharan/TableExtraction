@@ -3,6 +3,8 @@ Use Numpy for matrix multiplications etc
 Need a lot of training data (Atleast 100 pdf files)
 Implement CRF generically so that new features can be added later on
 Trying out Gibbs Sampling for training
+For fonts in feature set take care
+
 
 Handling Discrete and Continous Feature Parameter and Weights?????????????????????????????????????
 Should label other kind of sparse lines too?
