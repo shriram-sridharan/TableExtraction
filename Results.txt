@@ -1,0 +1,12 @@
+Steps:
+Pre Processing of pdf to xml output
+Creating a web server for annotating text
+Implemented CRF --> Collins perceptron
+Identifying Features
+
+
+
+To Show output:
+Graphs showing accuracy estimates
+Accuracy Estimates using N% Confidence intervals
+
