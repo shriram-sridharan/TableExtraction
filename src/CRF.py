@@ -50,11 +50,14 @@ class CRF:
                 totaltup += len(tup[0])
             print "Error : Iteration " + str(r) + " " + str(errorcount) + " " + str(errorcount/totaltup)
             
-    def predict(self, collist):
-        for tup in collist:
-            tagbyumatrix = self.GetMatrixForCalculatingArgMax(tup[0], tup[1], tup[2])
-            predicted = self.predictsequence(tagbyumatrix)
-            
+    def predict(self, col, fontdict):
+        tagbyumatrix = self.GetMatrixForCalculatingArgMax(col, self.trainedweights, fontdict)
+        predicted = self.predictsequence(tagbyumatrix)
+        for i in xrange(len(col)):
+            col[i][0] = predicted[i] + 1
+        
+        return col
+
     def predictsequence(self, tagbyumatrix):
         prevvalue = -sys.maxint - 1
         nextpointer = 0
