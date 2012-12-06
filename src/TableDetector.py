@@ -3,11 +3,11 @@ Created on Nov 20, 2012
 
 @author: shriram
 '''
+from CRF import CRF
+from SparseType import SparseType
 import PreProcessor
 import Trainer
-from CRF import CRF
 import xml.etree.ElementTree as ET
-from SparseType import SparseType
 
 if __name__ == '__main__':
     xmls = ["Test1","Test2","Test3","Test4", "Test5"] #
@@ -52,6 +52,7 @@ if __name__ == '__main__':
     xmlname = '2'          
     fontdict = preprocessor.getFontDictionary(ET.parse("../TestData/"+ xmlname + ".xml"))                  
     preprocessedxml = preprocessor.preprocessxml("../TestData/"+ xmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
+    tablekeywordtop = True #Assuming Table Keywords are located on top
     for page in preprocessedxml:
         for col in page:
             if(len(col) < 2):
@@ -59,9 +60,9 @@ if __name__ == '__main__':
             predicted = CRF.predict(col, fontdict)
             for i in xrange(len(predicted)):
                 if(predicted[i][1].text is not None and predicted[i][1].text.lower().startswith("table")):
-                    print predicted[i][1].text
+                    print predicted[i][1].text.encode('utf-8')
                 elif(predicted[i][0] == SparseType.OTHERSPARSE):
-                    print predicted[i][1].text
+                    print predicted[i][1].text.encode('utf-8')
             
             
             
