@@ -42,7 +42,7 @@ class Trainer:
         f.close()
         
     def readAnnotatedXml(self,xmlname):
-        f = open('../TrainingData/annotated/' + xmlname)
+        f = open(xmlname)
         preprocessedxml = list()
         col = list()
         for line in f:

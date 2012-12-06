@@ -19,7 +19,7 @@ class Constants:
     
     ###################### TRAINING ALGORITHM #########################
     NUM_EPOCHS = 10
-    LEARNING_RATE = 0.02
+    LEARNING_RATE = 0.5
     
     ###################### PREPROCESSING #########################
     DIFF_IN_HEIGHT_FOR_NEW_COLUMN = 3

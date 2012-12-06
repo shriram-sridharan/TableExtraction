@@ -45,10 +45,13 @@ class CRF:
         for r in xrange(0,Constants.NUM_EPOCHS):
             errorcount = 0.0
             totaltup = 0.0
+            sparseerrorcount = 0.0
             for tup in collist:
-                errorcount += self.learnparameters(tup[0], tup[1], self.trainedweights, tup[2])
+                errors = self.learnparameters(tup[0], tup[1], self.trainedweights, tup[2])
+                errorcount += errors[0]
+                sparseerrorcount += errors[1]
                 totaltup += len(tup[0])
-            print "Error : Iteration " + str(r) + " " + str(errorcount) + " " + str(errorcount/totaltup)
+            print "Error : Iteration " + str(r) + " Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
             
     def predict(self, col, fontdict):
         tagbyumatrix = self.GetMatrixForCalculatingArgMax(col, self.trainedweights, fontdict)
@@ -80,9 +83,12 @@ class CRF:
     def learnweightsBySG(self, predictedsequence, col, trainedweights, trainfeatures, fontdict):
         negativecol = list()
         errorcount = 0.0
+        sparseerrorcount = 0.0
         for tup in xrange(len(col)):
             if((predictedsequence[tup]+1) != int(col[tup][0])): # +1 because index starts at 0 but sparsetype starts at 1
                 errorcount += 1
+                if((predictedsequence[tup]+1) == SparseType.NONSPARSE): #for sparse error count # domain specific 
+                    sparseerrorcount += 1
             negativecol.append([predictedsequence[tup]+1, col[tup][1]])
             
         predictedfeatures = list()
@@ -103,7 +109,7 @@ class CRF:
         for floc in xrange(len(predictedfeatures[0])):  #wi = wi + alpha(Fjactual - Fjpredicted)
             trainedweights[floc] = trainedweights[floc] + Constants.LEARNING_RATE * (FActuallist[floc] - FPredictedlist[floc]) 
         
-        return errorcount
+        return [errorcount, sparseerrorcount]
         
     def learn(self, col, tagbyumatrix, trainfeatures, trainedweights, fontdict):
         predictedsequence = self.predictsequence(tagbyumatrix)

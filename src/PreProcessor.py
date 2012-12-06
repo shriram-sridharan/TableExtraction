@@ -17,6 +17,8 @@ class PreProcessor:
         f = open(xmlloc, 'r')
         f1 = open(xmlloc + '_tag', 'w')
         for line in f:
+            if(line.strip() == ''):
+                continue
             f1.write(line.replace('<b>', '').replace('</b>', '').replace('<i>', '').replace('</i>', '').replace('</a>','').replace('<a','')) 
             
         f.close()
