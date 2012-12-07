@@ -24,6 +24,8 @@ class CRF:
         self.possibletags = [SparseType.OTHERSPARSE, SparseType.NONSPARSE] #domain specific
         self.G1 = [0.01,0.99] #domain specific
         self.Features = Features()
+        self.differenceweights = list()
+        
     
     def domaintrain(self, annotatedxmllist):
         collist = list()
@@ -41,16 +43,24 @@ class CRF:
     def train(self, collist):
         for _ in xrange(len(collist[0][1][0])):
             self.trainedweights.append(random.uniform(-0.001, 0.001))
+            self.differenceweights.append(0.0)
             
         for r in xrange(0,Constants.NUM_EPOCHS):
             errorcount = 0.0
             totaltup = 0.0
             sparseerrorcount = 0.0
+            
             for tup in collist:
                 errors = self.learnparameters(tup[0], tup[1], self.trainedweights, tup[2])
                 errorcount += errors[0]
                 sparseerrorcount += errors[1]
                 totaltup += len(tup[0])
+                
+            for weight in xrange(len(self.trainedweights)):
+                self.differenceweights[weight] /= len(collist)
+                self.trainedweights[weight] = self.trainedweights[weight] + self.differenceweights[weight]
+                self.differenceweights[weight] = 0.0
+                
             print "Error : Iteration " + str(r) + " Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
             
     def predict(self, col, fontdict):
@@ -107,7 +117,7 @@ class CRF:
             FPredictedlist.append(PF)
         
         for floc in xrange(len(predictedfeatures[0])):  #wi = wi + alpha(Fjactual - Fjpredicted)
-            trainedweights[floc] = trainedweights[floc] + Constants.LEARNING_RATE * (FActuallist[floc] - FPredictedlist[floc]) 
+            self.differenceweights[floc] += Constants.LEARNING_RATE * (FActuallist[floc] - FPredictedlist[floc]) 
         
         return [errorcount, sparseerrorcount]
         

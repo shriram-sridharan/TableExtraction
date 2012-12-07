@@ -31,7 +31,7 @@ if __name__ == '__main__':
         annotatedxml = trainer.readAnnotatedXml('../TrainingData/annotated/' + xmlname +"_annotated")
         annotatedxmllist.append([annotatedxml, fontdict])
     CRF.domaintrain(annotatedxmllist)
-    
+    print CRF.trainedweights
 ################### TEST USING TRAINED MODEL ####################
 #    predictxmlname = "Test1"
 #    predictxmllist = list()
@@ -52,7 +52,7 @@ if __name__ == '__main__':
 #                        print predicted[i][1].text
                         
 ################### TEST FOR UNSEEN PDF ####################
-    xmlname = '2'          
+    xmlname = '4'          
     fontdict = preprocessor.getFontDictionary(ET.parse("../TestData/xmls/"+ xmlname + ".xml"))                  
     preprocessedxml = preprocessor.preprocessxml("../TestData/xmls/"+ xmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
     alltables = list()

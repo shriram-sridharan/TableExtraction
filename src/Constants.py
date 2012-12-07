@@ -18,8 +18,8 @@ class Constants:
     NUM_TEXT_PIECES = 0
     
     ###################### TRAINING ALGORITHM #########################
-    NUM_EPOCHS = 50
-    LEARNING_RATE = 0.5
+    NUM_EPOCHS = 200
+    LEARNING_RATE = 0.2
     
     ###################### PREPROCESSING #########################
     DIFF_IN_HEIGHT_FOR_NEW_COLUMN = 3
