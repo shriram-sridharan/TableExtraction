@@ -4,14 +4,15 @@ Created on Nov 20, 2012
 @author: shriram
 '''
 from CRF import CRF
-from SparseType import SparseType
 import PreProcessor
+import PostProcessor
 import Trainer
 import xml.etree.ElementTree as ET
 
 if __name__ == '__main__':
     xmls = ["Test1","Test2","Test3","Test4", "Test5"] #
     preprocessor = PreProcessor.PreProcessor()
+    postprocessor = PostProcessor.PostProcessor()
     trainer = Trainer.Trainer()
     CRF = CRF()
 
@@ -52,21 +53,23 @@ if __name__ == '__main__':
     xmlname = '2'          
     fontdict = preprocessor.getFontDictionary(ET.parse("../TestData/"+ xmlname + ".xml"))                  
     preprocessedxml = preprocessor.preprocessxml("../TestData/"+ xmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
-    tablekeywordtop = True #Assuming Table Keywords are located on top
+    alltables = list()
     for page in preprocessedxml:
         for col in page:
             if(len(col) < 2):
                     continue
             predicted = CRF.predict(col, fontdict)
-            for i in xrange(len(predicted)):
-                if(predicted[i][1].text is not None and predicted[i][1].text.lower().startswith("table")):
-                    print predicted[i][1].text.encode('utf-8')
-                elif(predicted[i][0] == SparseType.OTHERSPARSE):
-                    print predicted[i][1].text.encode('utf-8')
-            
-            
-            
+            tables = postprocessor.findTables(predicted)
+            if(len(tables) == 0):
+                continue
+            for t in tables:
+                alltables.append(t)
     
+    for table in alltables:
+        print "============================================="
+        for row in table:
+            print row
+            
     
     
     

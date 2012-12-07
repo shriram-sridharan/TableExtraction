@@ -21,11 +21,11 @@ class Features:
         else:
             featurelist.append(0)
         
-        tabletextbefore = (i>1 and col[i-1][1].text is not None and col[i-2][1].text is not None
-           and (col[i-1][1].text.lower().startswith("table ") or col[i-2][1].text.lower().startswith("table ")))
-        tabletextafter = (i < len(col) - 2 and col[i+1][1].text is not None and col[i+2][1].text is not None
-           and (col[i+1][1].text.lower().startswith("table ") or col[i+2][1].text.lower().startswith("table ")))
-        if((tabletextbefore or tabletextafter) and curtag == SparseType.OTHERSPARSE and prevtag == SparseType.NONSPARSE):
+        tabletextbefore = ((i>0 and col[i-1][1].text is not None and col[i-1][1].text.lower().startswith("table ")) or 
+                           (i>1 and col[i-2][1].text is not None and col[i-2][1].text.lower().startswith("table ")))
+        #tabletextafter = (i < len(col) - 2 and col[i+1][1].text is not None and col[i+2][1].text is not None
+        #   and (col[i+1][1].text.lower().startswith("table ") or col[i+2][1].text.lower().startswith("table ")))
+        if((tabletextbefore) and curtag == SparseType.OTHERSPARSE and prevtag == SparseType.NONSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)

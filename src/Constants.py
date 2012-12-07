@@ -18,7 +18,7 @@ class Constants:
     NUM_TEXT_PIECES = 0
     
     ###################### TRAINING ALGORITHM #########################
-    NUM_EPOCHS = 10
+    NUM_EPOCHS = 3
     LEARNING_RATE = 0.5
     
     ###################### PREPROCESSING #########################
