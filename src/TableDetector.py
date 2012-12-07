@@ -8,6 +8,8 @@ import PreProcessor
 import PostProcessor
 import Trainer
 import xml.etree.ElementTree as ET
+from SparseType import SparseType
+from PostProcessor import TableKeywordLoc
 
 if __name__ == '__main__':
     xmls = ["Test1","Test2","Test3","Test4", "Test5"] #
@@ -51,15 +53,23 @@ if __name__ == '__main__':
                         
 ################### TEST FOR UNSEEN PDF ####################
     xmlname = '2'          
-    fontdict = preprocessor.getFontDictionary(ET.parse("../TestData/"+ xmlname + ".xml"))                  
-    preprocessedxml = preprocessor.preprocessxml("../TestData/"+ xmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
+    fontdict = preprocessor.getFontDictionary(ET.parse("../TestData/xmls/"+ xmlname + ".xml"))                  
+    preprocessedxml = preprocessor.preprocessxml("../TestData/xmls/"+ xmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
     alltables = list()
+    tablekeywordloc = TableKeywordLoc.UNKNOWN
     for page in preprocessedxml:
         for col in page:
             if(len(col) < 2):
                     continue
+            for lineno in xrange(len(col)):
+                col[lineno].append(lineno)
             predicted = CRF.predict(col, fontdict)
-            tables = postprocessor.findTables(predicted)
+            for r in predicted:
+                if(r[0] == SparseType.OTHERSPARSE):
+                    print r[1].text + " *** Line no *** " + str(r[2])
+            data = postprocessor.findTables(predicted, tablekeywordloc)
+            tablekeywordloc = data[1]
+            tables = data[0]
             if(len(tables) == 0):
                 continue
             for t in tables:
@@ -68,7 +78,7 @@ if __name__ == '__main__':
     for table in alltables:
         print "============================================="
         for row in table:
-            print row
+            print row[1].text
             
     
     

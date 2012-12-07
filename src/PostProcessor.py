@@ -4,7 +4,13 @@ Created on Dec 6, 2012
 @author: sridharan5
 '''
 from SparseType import SparseType
+import re
 
+class TableKeywordLoc:
+    UNKNOWN = 0
+    TOP = 1
+    BOTTOM = 2
+    
 class PostProcessor:
     def getnextsparse(self, currpredictedindex, predicted):
         for r in xrange(currpredictedindex+1, len(predicted)):
@@ -12,65 +18,88 @@ class PostProcessor:
                 return r
         return -1
     
-    def findTables(self, predicted):
+    def getprevioussparse(self, currpredictedindex, predicted):
+        for r in reversed(xrange(0, currpredictedindex)):
+            if(predicted[r][0] == SparseType.OTHERSPARSE):
+                return r
+        return -1
+    
+    def checkkeywordpresense(self, predicted, currpredictedindex):
+        compiledre = re.compile('table \d')
+        if(predicted[currpredictedindex][1].text is None):
+            return None
+        return (compiledre.match(predicted[currpredictedindex][1].text.lower()) is not None)
+        
+
+    def findPossibleTableStructureAfterThis(self, predicted, currpredictedindex):
+        tablekeywordlineno = predicted[currpredictedindex][2]
+        #Assuming that the table caption can extend for a maximum for 2 lines
+        nextsparse = self.getnextsparse(currpredictedindex, predicted)
+        nextsparselineno = predicted[nextsparse][2]
+        table = list()
+        diff = nextsparselineno - tablekeywordlineno
+        if(diff > 3): #No table
+            return [currpredictedindex, table]
+        
+        for _ in xrange(diff):
+            table.append(predicted[currpredictedindex])
+            currpredictedindex += 1
+        
+        currentlineno = tablekeywordlineno
+        nextlineno = tablekeywordlineno
+        while(nextlineno!= -1 and nextlineno - currentlineno <= 2 and currpredictedindex < len(predicted)):
+            table.append(predicted[currpredictedindex])
+            currentlineno = predicted[currpredictedindex][2]
+            nextlineno = self.getnextsparse(currpredictedindex, predicted)
+            currpredictedindex += 1
+                
+        return [currpredictedindex - 1, table]
+                
+    
+    def findPossibleTableStructureBeforeThis(self, predicted, currpredictedindex):
+        tablekeywordlineno = predicted[currpredictedindex][2]
+        #Assuming that the table caption can extend for a maximum for 2 lines
+        prevsparse = self.getprevioussparse(currpredictedindex, predicted)
+        prevsparselineno = predicted[prevsparse][2]
+        table = list()
+        diff =  tablekeywordlineno - prevsparselineno
+        inputcurrpredictedindex = currpredictedindex
+        if(diff > 3): #No table
+            return [currpredictedindex, table]
+        
+        for _ in xrange(diff):
+            table.append(predicted[currpredictedindex])
+            currpredictedindex -= 1
+        
+        currentlineno = tablekeywordlineno
+        prevlineno = tablekeywordlineno
+        while(prevlineno != -1 and currentlineno - prevlineno <= 2 and currpredictedindex >= 0):
+            table.append(predicted[currpredictedindex])
+            currentlineno = predicted[currpredictedindex][2]
+            prevlineno = self.getprevioussparse(currpredictedindex, predicted)
+            currpredictedindex -= 1
+                
+        return [inputcurrpredictedindex, table]
+    
+    
+    def findTables(self, predicted, tablekeywordloc):
         tables = list()
-        curtablelist = list()
-        tablefound = False
         currpredictedindex = -1
         while currpredictedindex < len(predicted) - 1:
             currpredictedindex += 1
-            if(predicted[currpredictedindex][0] == SparseType.OTHERSPARSE):
-                curtablelist.append(predicted[currpredictedindex][1].text.encode('utf-8'))
-
-            elif(predicted[currpredictedindex][1].text is not None and predicted[currpredictedindex][1].text.lower().startswith("table")):
-                if(len(curtablelist) > 2):
-                    curtablelist.append(predicted[currpredictedindex][1].text.encode('utf-8'))
-                    tables.append(curtablelist)
-                    curtablelist = list()
-                else:
-                    #Find whether the sparse lines detected are before or after the keyword
-                    nextsparse = self.getnextsparse(currpredictedindex, predicted)
-                    if((nextsparse == -1) or (int(predicted[nextsparse][1].attrib['top']) - int(predicted[currpredictedindex][1].attrib['top']) 
-                                              > 3 * int(predicted[currpredictedindex][1].attrib['height']))):
-                        curtablelist = list()
-                        continue
-                    
-                    curtablelist = list()
-                    for c in xrange(currpredictedindex,nextsparse+1):
-                        curtablelist.append(predicted[c][1].text.encode('utf-8'))
-                    currpredictedindex = nextsparse
-                    tablefound = True
-                    
-            if(predicted[currpredictedindex][0] == SparseType.NONSPARSE):
-                if(len(curtablelist) == 0):
-                    continue
-                
-                nextsparse = self.getnextsparse(currpredictedindex, predicted)
-                if((nextsparse == -1) or (int(predicted[nextsparse][1].attrib['top']) - int(predicted[currpredictedindex][1].attrib['top']) 
-                                          > 2.5 * int(predicted[currpredictedindex][1].attrib['height']))):
-                    if(len(curtablelist) > 1):
-                        if(tablefound):
-                            tables.append(curtablelist)
-                        else:
-                            i = currpredictedindex
-                            onelineafter = (i < len(predicted) - 1 and predicted[i+1][1].text is not None and predicted[i+1][1].text.lower().startswith("table "))
-                            twolinesafter = (i < len(predicted) - 2  and predicted[i+2][1].text is not None and predicted[i+2][1].text.lower().startswith("table "))
-                            tabletextafter = (onelineafter or twolinesafter)
-                            if(tabletextafter):
-                                if(onelineafter):
-                                    currpredictedindex = i+1 
-                                    curtablelist.append(predicted[i+1][1].text.encode('utf-8'))
-                                    tables.append(curtablelist)
-                                else:
-                                    currpredictedindex = i+2
-                                    curtablelist.append(predicted[i+1][1].text.encode('utf-8'))
-                                    curtablelist.append(predicted[i+2][1].text.encode('utf-8'))
-                                    tables.append(curtablelist)
-                    curtablelist = list()
-                    continue
-
-                for c in xrange(currpredictedindex,nextsparse+1):
-                    curtablelist.append(predicted[c][1].text.encode('utf-8'))
-                currpredictedindex = nextsparse         
-                
-        return tables
+            if(self.checkkeywordpresense(predicted, currpredictedindex)):
+                if(tablekeywordloc == TableKeywordLoc.UNKNOWN or tablekeywordloc == TableKeywordLoc.TOP):
+                    data = self.findPossibleTableStructureAfterThis(predicted, currpredictedindex)
+                    currpredictedindex = data[0]
+                    if(len(data[1])!=0):
+                        tables.append(data[1])
+                        tablekeywordloc = TableKeywordLoc.TOP
+                        
+                if(tablekeywordloc == TableKeywordLoc.UNKNOWN or tablekeywordloc == TableKeywordLoc.BOTTOM):
+                    data = self.findPossibleTableStructureBeforeThis(predicted, currpredictedindex)
+                    currpredictedindex = data[0]
+                    if(len(data[1])!=0):
+                        tables.append(reversed(data[1]))
+                        tablekeywordloc = TableKeywordLoc.BOTTOM
+                            
+        return [tables, tablekeywordloc]
