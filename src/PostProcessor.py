@@ -4,7 +4,7 @@ Created on Dec 6, 2012
 @author: sridharan5
 '''
 from SparseType import SparseType
-import re
+from Utilities import Utilities
 
 class TableKeywordLoc:
     UNKNOWN = 0
@@ -23,13 +23,6 @@ class PostProcessor:
             if(predicted[r][0] == SparseType.OTHERSPARSE):
                 return r
         return -1
-    
-    def checkkeywordpresense(self, predicted, currpredictedindex):
-        compiledre = re.compile('table \d')
-        if(predicted[currpredictedindex][1].text is None):
-            return None
-        return (compiledre.match(predicted[currpredictedindex][1].text.lower()) is not None)
-        
 
     def findPossibleTableStructureAfterThis(self, predicted, currpredictedindex):
         tablekeywordlineno = predicted[currpredictedindex][2]
@@ -50,7 +43,7 @@ class PostProcessor:
         while(nextlineno!= -1 and nextlineno - currentlineno <= 2 and currpredictedindex < len(predicted)):
             table.append(predicted[currpredictedindex])
             currentlineno = predicted[currpredictedindex][2]
-            nextlineno = self.getnextsparse(currpredictedindex, predicted)
+            nextlineno = predicted[self.getnextsparse(currpredictedindex, predicted)][2]
             currpredictedindex += 1
                 
         return [currpredictedindex - 1, table]
@@ -76,7 +69,7 @@ class PostProcessor:
         while(prevlineno != -1 and currentlineno - prevlineno <= 2 and currpredictedindex >= 0):
             table.append(predicted[currpredictedindex])
             currentlineno = predicted[currpredictedindex][2]
-            prevlineno = self.getprevioussparse(currpredictedindex, predicted)
+            prevlineno = predicted[self.getprevioussparse(currpredictedindex, predicted)][2]
             currpredictedindex -= 1
                 
         return [inputcurrpredictedindex, table]
@@ -87,7 +80,7 @@ class PostProcessor:
         currpredictedindex = -1
         while currpredictedindex < len(predicted) - 1:
             currpredictedindex += 1
-            if(self.checkkeywordpresense(predicted, currpredictedindex)):
+            if(Utilities().checkkeywordpresense(predicted, currpredictedindex)):
                 if(tablekeywordloc == TableKeywordLoc.UNKNOWN or tablekeywordloc == TableKeywordLoc.TOP):
                     data = self.findPossibleTableStructureAfterThis(predicted, currpredictedindex)
                     currpredictedindex = data[0]

@@ -1,0 +1,1315 @@
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="0" height="24" left="120" textpieces="0" top="230" width="668">Chemical composition of the graphitic black carbon fraction</text>
+2 <text font="0" height="24" left="159" textpieces="0" top="260" width="590">in riverine and marine sediments at sub-micron scales</text>
+2 <text font="0" height="24" left="242" textpieces="0" top="289" width="424">using carbon X-ray spectromicroscopy</text>
+2 <text font="1" height="18" left="116" textpieces="4" top="337" width="669">Paul R. Haberstroha,*, Jay A. Brandesb, Yves Gelinasc, Angela F. Dickensd,</text>
+2 <text font="1" height="18" left="333" textpieces="2" top="360" width="242">Sue Wiricke, George Codyf</text>
+2 <text font="3" height="7" left="151" textpieces="1" top="392" width="605">a Marine Science Institute, The University of Texas at Austin, 750 Channel View Drive, Port Aransas, TX 78373, USA</text>
+2 <text font="3" height="7" left="220" textpieces="1" top="407" width="468">b Skidaway Institute of Oceanography, 10 Ocean Science Circle, Savannah, GA 31411, USA</text>
+2 <text font="3" height="7" left="144" textpieces="1" top="422" width="619">c Concordia University, Chemistry and Biochemistry Department, 7141 Sherbrooke St. West, Montreal, Canada H4B 1R6</text>
+2 <text font="3" height="7" left="173" textpieces="1" top="437" width="561">d Marine Chemistry and Geochemistry, Woods Hole Oceanographic Institution, Woods Hole, MA 02543, USA</text>
+2 <text font="3" height="7" left="257" textpieces="1" top="452" width="394">e Department of Physics, SUNY-Stony Brook, Stony Brook, NY 11794, USA</text>
+2 <text font="3" height="7" left="140" textpieces="1" top="467" width="627">f Geophysical Laboratory, Carnegie Institution of Washington, 5251 Broad Branch Road NW, Washington DC 20015, USA</text>
+2 <text font="4" height="11" left="283" textpieces="0" top="493" width="341">Received 4 April 2005; accepted in revised form 1 December 2005</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="569" width="48">Abstract</text>
+2 <text font="5" height="12" left="81" textpieces="0" top="602" width="762">The chemical composition of the graphitic black carbon (GBC) fraction of marine organic matter was explored in several marine and</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="618" width="780">freshwater sedimentary environments along the west coast of North America and the Pacic Ocean. Analysis by carbon X-ray absorp-</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="634" width="780">tion near-edge structure spectroscopy and scanning transmission X-ray microscopy shows the GBC fraction of Stillaguamish River sur-</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="651" width="780">face sediments to be dominated by more highly ordered and impure forms of graphite, together forming about 80% of the GBC, with a</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="667" width="780">smaller percent of an aliphatic carbon component. Eel River Margin surface sediments had very little highly ordered graphite, and were</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="684" width="780">instead dominated by amorphous carbon and to a lesser extent, impure graphite. However, the GBC of surface sediments from the</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="700" width="780">Washington State Slope and the Mexico Margin was composed almost solely of amorphous carbon. Pre-anthropogenic, highly oxidized</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="717" width="780">deep-sea sediments from the open Equatorial Pacic Ocean contained over half their GBC in dierent forms of graphite as well as highly</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="733" width="780">aliphatic carbon, low aromatic/highly acidic aliphatic carbon, low aromatic/highly aliphatic carbon, and amorphous forms of carbon.</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="750" width="780">Our results clearly show the impact of graphite and amorphous C phases in the BC fraction in modern riverine sediments and nearby</text>
+2 <text font="5" height="12" left="64" textpieces="0" top="766" width="780">marine shelf deposits. The pre-anthropogenic Equatorial Pacic GBC fraction is remarkable in the existence of highly ordered graphite.</text>
+2 <text font="5" height="13" left="64" textpieces="0" top="782" width="233"> 2005 Elsevier Inc. All rights reserved.</text>
+2 <text font="6" height="13" left="64" textpieces="0" top="846" width="93">1. Introduction</text>
+2 <text font="6" height="14" left="82" textpieces="0" top="882" width="359">Black carbon (BC) is comprised of a spectrum of heter-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="900" width="377">ogeneous, aromatic, and carbon-rich compounds, most of</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="918" width="377">which are thought to be the end products of fossil-fuel</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="936" width="376">combustion and biomass burning ( href="4.html#10"&gt;Goldberg, 1985; Masi-</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="953" width="377"> href="4.html#10"&gt;ello, 2004 href="4.html#10"&gt;). In marine sediments much of the BC has been</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="971" width="377">attributed to deposition of soot, though uxes from weath-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="989" width="377">ered kerogens and other soil BC sources have also been</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1007" width="377">implicated  href="4.html#11"&gt;( href="4.html#11"&gt;Suman et al., 1997; Dickens et al., 2004a href="4.html#11"&gt;). BC</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="846" width="376">compounds can also bind pollutants and organic substanc-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="864" width="376">es in general and therefore many forms of marine organic</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="882" width="376">matter could become associated with BC-rich particles</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="900" width="377"> href="4.html#11"&gt;( href="4.html#11"&gt;Gustafsson et al., 1997; Lee et al., 2004). The net ecologi-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="918" width="377">cal eect of BC formation may be to channel carbon and</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="936" width="377">oxygen away from biomass formation and cycling, into a</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="953" width="377">refractory pool which is poorly mineralized by microbial</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="971" width="376">communities. In addition, recent studies have shown that</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="989" width="376">a fraction of BC in sediments may derive from petrogenic</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1007" width="377">(rock) sources, rather than from combustion  href="4.html#10"&gt;( href="4.html#10"&gt;Dickens</text>
+2 <text font="7" height="14" left="467" textpieces="0" top="1025" width="376"> href="4.html#10"&gt;et al., 2004a,b href="4.html#10"&gt;). The presence of this recycled BC in sedi-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1043" width="377">ments may have led to signicant overestimates of burial</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1061" width="376">of combustion-derived BC in marine sediments, may bias</text>
+2 <text font="4" height="11" left="64" textpieces="1" top="1096" width="368">0016-7037/$ - see front matter  2005 Elsevier Inc. All rights reserved.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="1111" width="149">doi:10.1016/j.gca.2005.12.001</text>
+2 <text font="3" height="7" left="72" textpieces="1" top="1046" width="128">*  Corresponding author.</text>
+2 <text font="4" height="11" left="81" textpieces="2" top="1063" width="318">E-mail address:  href="mailto:phaberstroh@mohave.edu"&gt;phaberstroh@mohave.edu(P.R. Haberstroh).</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="6" height="14" left="49" textpieces="0" top="105" width="377">radiocarbon dating of marine sedimentary organic carbon,</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="123" width="377">and may form a closed loop in the carbon cycle ( href="4.html#10"&gt;Dickens</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="140" width="88"> href="4.html#10"&gt;et al., 2004a href="4.html#10"&gt;).</text>
+2 <text font="6" height="14" left="67" textpieces="0" top="158" width="359">All denitions of BC rely upon the extraction technique</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="176" width="377">employed, e.g., they are operationally dened. However,</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="194" width="377">depending upon the method BC may be produced from</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="212" width="377">non-BC compounds altered by the extraction techniques</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="230" width="376"> href="4.html#11"&gt;( href="4.html#11"&gt;Schmidt and Noack, 2000; Schmidt et al., 2001; Masiello,</text>
+2 <text font="7" height="14" left="49" textpieces="2" top="248" width="376"> href="4.html#11"&gt;2004). The  href="4.html#10"&gt;Gelinas et al. (2001) method isolates only the</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="266" width="376">most thermally recalcitrant forms of BC, generally soot</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="284" width="377">and graphite, resulting in an operationally dened graphit-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="302" width="377">ic black carbon fraction (GBC). This method removes</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="320" width="376">types I and II kerogen, coal, charcoal, as well as other</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="338" width="377">non-GBC organic compounds ( href="4.html#10"&gt;Gelinas et al., 2001; Dick-</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="356" width="376"> href="4.html#10"&gt;ens et al., 2004a). Application of the Gelinas method by</text>
+2 <text font="7" height="14" left="49" textpieces="1" top="374" width="377"> href="4.html#10"&gt;Dickens et al. (2004a,b) has shown the GBC in pre-indus-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="392" width="377">trial horizons of marine sediments of the Washington</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="409" width="377">Coast Slope to be dense, silt-sized (363 lm), and dominat-</text>
+2 <text font="6" height="14" left="49" textpieces="1" top="427" width="377">ed by14C-depleted fractions, the likely product of weather-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="445" width="377">ing of fossilized organic carbon from continental rocks.</text>
+2 <text font="6" height="14" left="49" textpieces="1" top="463" width="377">However, in recent sediments from an urban lake,  href="4.html#11"&gt;Wake-</text>
+2 <text font="7" height="14" left="49" textpieces="1" top="481" width="376"> href="4.html#11"&gt;ham et al. (2004)have shown that GBC derives primarily</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="499" width="377">from fossil fuel combustion. Therefore, GBC potentially</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="517" width="376">can be composed of varying fractions of modern compo-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="535" width="376">nents (soot from natural combustion processes) and an-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="553" width="377">cient ones (new soot from the anthropogenic combustion</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="571" width="377">of fossil fuels, old soot from natural paleores, and petro-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="589" width="377">genic sources of GBC) which are likely subcomponents of</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="607" width="377">kerogen. Little is known about the particle-scale composi-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="625" width="377">tion of GBC in natural samples. A detailed characteriza-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="643" width="377">tion of the GBC fraction of the BC pool in a variety of</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="660" width="376">sedimentary environments may help further resolve the rel-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="678" width="377">ative contributions of the modern and ancient sources to</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="696" width="128">these environments.</text>
+2 <text font="6" height="14" left="67" textpieces="0" top="714" width="359">GBC and other BC components are inherently dicult</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="732" width="377">to chemically analyze and thus it is not surprising that there</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="750" width="377">have been few studies that examined their chemical struc-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="768" width="376">ture. Microscopic investigations can chemically analyze</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="786" width="377">very small amounts of material and have indicated spatial</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="804" width="377">heterogeneity of chemical components in sediment particles</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="822" width="376"> href="4.html#11"&gt;( href="4.html#11"&gt;Mitchell, 2001; Sommer and Franke, 2002; Jamin et al.,</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="840" width="377"> href="4.html#11"&gt;2003). X-ray microscopic techniques are particularly prom-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="858" width="376">ising in the investigation of recalcitrant particles, since they</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="876" width="376">have small resolution limits ( href="4.html#11"&gt;Jacobsen and Kirz, 1998 href="4.html#11"&gt;).</text>
+2 <text font="6" height="14" left="49" textpieces="3" top="894" width="376">Synchrotron-based   X-ray   uorescence   microscopy</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="912" width="376">(SXRF), for example, has been successful in quantifying</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="929" width="377">a variety of trace element (e.g., Si, Mn, Fe, Ni, Zn, and</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="947" width="377">Cr) in bacteria, phytoplankton, and autotrophic- and het-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="965" width="377">erotrophic-agellates ( href="4.html#11"&gt;Kemner et al., 2004; Twining and</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="983" width="376"> href="4.html#11"&gt;Baines, 2004; Twining et al., 2003, 2004). One particularly</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1001" width="377">useful tool has been scanning transmission X-ray microsco-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1019" width="377">py (STXM), which allows for the non-invasive collection of</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1037" width="377">X-ray absorption near-edge structure (XANES; or NEXA-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1055" width="376">FS for near-edge X-ray absorption ne structure). This</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1073" width="377">combination of microscopy and spectroscopy (spectromi-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1091" width="377">croscopy) can map the abundance of dierent carbon func-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1109" width="376">tional groups within a particle with a current resolution</text>
+=============================== COL ===================================
+2 <text font="6" height="14" left="453" textpieces="0" top="105" width="376">limit of less than 50 nm, minimal signal averaging prob-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="123" width="377">lems, and minor sample handling (e.g., no extraction or</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="140" width="376">derivatization). In C-XANES, carbon functional groups</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="158" width="377">are identied by the energy of absorption of X-ray photons</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="176" width="376">by core-shell (C 1s) electrons, in the pre-ionization energy</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="194" width="377">range of 280300 eV for C 1s electrons. Recent STXM</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="212" width="377">and C-XANES examinations of sediment trap material</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="230" width="376">from the Arabian Sea material demonstrated four distinct</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="248" width="376">phases: protein, an aliphatic-rich phase, a carboxylic-rich</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="266" width="377">phase, and a phase of complex unsaturated and quinone</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="284" width="376">components  href="4.html#10"&gt;( href="4.html#10"&gt;Brandes et al., 2004 href="4.html#10"&gt;). Very few BC-like parti-</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="302" width="376">cles were observed in these waters by href="4.html#10"&gt;Brandes et al. (2004).</text>
+2 <text font="6" height="14" left="470" textpieces="0" top="320" width="359">Since GBC may originate both from erosion of ancient</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="338" width="377">rocks and in modern and ancient combustion processes</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="356" width="376">( href="4.html#10"&gt;Dickens et al., 2004a,b href="4.html#10"&gt;) it is critical to examine GBC from</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="374" width="377">a wide array of sedimentary environments in order to bet-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="392" width="376">ter resolve these possible sources and components. In this</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="409" width="376">work, we use C-XANES and STXM to examine natural</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="427" width="376">GBC samples, isolated from riverine and continental shelf</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="445" width="376">sediments located along the western coast of North Amer-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="463" width="377">ica, and in the deep Equatorial Pacic. The objective of this</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="481" width="376">study was to understand the degree of chemical heterogene-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="499" width="376">ity in the structure of GBC in these sedimentary environ-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="517" width="376">ments to explore whether these techniques may be useful</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="535" width="376">for identifying sources and fates of BC. Most of the GBC</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="553" width="377">samples examined in this work were isolated from surface</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="571" width="376">sediments and are considered to be recent and post-indus-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="589" width="377">trial. However, the Equatorial Pacic sediment was deter-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="607" width="377">mined to be below the sediment mixed-layer depth by</text>
+2 <text font="9" height="9" left="453" textpieces="0" top="622" width="377">210Pb-dating, and to be pre-industrial by low levels of nuc-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="643" width="376">lides from nuclear fallout ( href="4.html#10"&gt;Carpenter et al., 1987 href="4.html#10"&gt;), by back-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="661" width="377">ground concentrations of combustion-derived polycyclic</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="678" width="376">aromatic hydrocarbons ( href="4.html#11"&gt;Prahl and Carpenter, 1984), and</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="696" width="376">by 14C-determined sedimentation rates  href="4.html#10"&gt;( href="4.html#10"&gt;Dickens et al.,</text>
+2 <text font="7" height="14" left="453" textpieces="0" top="714" width="376"> href="4.html#10"&gt;2004a href="4.html#10"&gt;). The data are used to constrain the chemical compo-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="732" width="377">sition of GBC and to estimate the relative proportions of</text>
+2 <text font="6" height="14" left="453" textpieces="6" top="750" width="376">carbon  in  dierent  composition  classes  from  each</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="768" width="91">environments.</text>
+2 <text font="6" height="13" left="453" textpieces="0" top="804" width="161">2. Materials and methods</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="840" width="368">2.1. Graphitic black carbon treatment of sediment samples</text>
+2 <text font="6" height="14" left="470" textpieces="0" top="876" width="359">Archived sediment samples were analyzed from a variety</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="894" width="377">of sedimentary end-member environments, which ranged</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="912" width="377">from continental margin sentiments overlain by oxic and</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="929" width="377">suboxic waters, a river sediment from a small watershed,</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="947" width="376">a margin sediment from a dierent small river system,</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="965" width="376">and a highly oxidized deep-sea sediment ( href="4.html#3"&gt;Fig. 1; href="4.html#3"&gt;Table 1).</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="983" width="377">Surface sediments were collected from the Stillaguamish</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1001" width="377">River ( href="4.html#10"&gt;Dickens et al., 2004a,b) and the Eel River Margin</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1019" width="376">( href="4.html#10"&gt;Blair et al., 2004 href="4.html#10"&gt;). The Washington Coast Slope samples</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1037" width="377">were from 0 to 6 cm sediment depth, while Mexico Margin</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1055" width="376">samples were collected from 0 to 5 cm sediment depth</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1073" width="377">( href="4.html#10"&gt;Dickens et al., in press). The Equatorial Pacic 9N sam-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1091" width="376">ple was from 9 to 10 cm sediment depth ( href="4.html#11"&gt;Hammond et al.,</text>
+2 <text font="7" height="14" left="453" textpieces="0" top="1109" width="376"> href="4.html#11"&gt;1996 href="4.html#11"&gt;). The total organic carbon (TOC) and GBC fractions</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="6" height="14" left="64" textpieces="1" top="445" width="376">were isolated from whole sediments by the method of href="4.html#10"&gt;Geli-</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="463" width="376"> href="4.html#10"&gt;nas et al. (2001). As described below, due to time con-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="481" width="377">straints of C-XANES analysis from 8 to 12 C-XANES</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="499" width="377">particle images were examined in each sediment environ-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="517" width="100">ment ( href="4.html#3"&gt;Table 1 href="4.html#3"&gt;).</text>
+2 <text font="6" height="14" left="82" textpieces="0" top="535" width="359">For GBC isolation the sediments were demineralized by</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="553" width="377">sequential treatments with 1 N HCl, and between two to</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="571" width="377">eight treatments with 1 N HCl/10% HF in order to expose</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="589" width="376">organic matter trapped within mineral matrices to further</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="607" width="376">chemical treatment. Hydrolysable organic carbon was then</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="625" width="377">removed by treatment with O2-free triuoroacetic acid and</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="642" width="377">HCl to reduce the possibility that condensation products</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="660" width="376">would form during the thermal oxidation step  href="4.html#11"&gt;( href="4.html#11"&gt;Maillard,</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="678" width="377"> href="4.html#11"&gt;1913 href="4.html#11"&gt;). The remaining material was subjected to thermal</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="696" width="376">oxidation at 375C for 24 h. The method selectively iso-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="714" width="377">lates highly condensed BC (primarily soot) and graphite</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="732" width="377">while destroying charcoal, coal, and type I and II kerogen.</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="750" width="376">The weight % of TOC and GBC fractions was determined</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="768" width="376">directly with a Carlo-Erba elemental analyzer.  href="4.html#10"&gt;Gelinas</text>
+=============================== COL ===================================
+2 <text font="7" height="14" left="467" textpieces="1" top="105" width="377"> href="4.html#10"&gt;et al. (2001)conservatively estimate the standard deviations</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="123" width="235">in GBC concentrations to be 15%.</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="158" width="297">2.2. Sediment sample sectioning for C-XANES</text>
+2 <text font="6" height="14" left="485" textpieces="0" top="194" width="359">Small ($100 lg) subsamples of the GBC fraction were</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="212" width="377">embedded in reagent grade elemental sulfur by briey heat-</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="230" width="377">ing ($120 C) a mixture of ne Sograins and sample on a</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="248" width="377">clean glass slide until the mixture melted into a drop. Upon</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="266" width="377">cooling the drop was removed from the slide with a razor,</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="284" width="376">and xed to an epoxy mount using cyanoacrylate glue. The</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="302" width="376">drop was then sectioned into 130 nm (5 nm) thick slices</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="320" width="376">using a Leica Ultra-CutTM ultramicrotome and a dia-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="338" width="376">mond knife, and the slices were then transferred to silica</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="356" width="376">monoxide-supported TEM grids for storage and analysis</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="374" width="265"> href="4.html#10"&gt;( href="4.html#10"&gt;Flynn et al., 2003; Brandes et al., 2004 href="4.html#10"&gt;).</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="409" width="230">2.3. STXM and C-XANES analyses</text>
+2 <text font="6" height="14" left="485" textpieces="0" top="445" width="358">Images and stacks were collected using the scanning</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="463" width="376">transmission X-ray microscope located on beamline</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="481" width="377">X1-A1 (outboard branch) at the National Synchrotron</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="499" width="376">Light Source, Brookhaven National Laboratory  href="4.html#11"&gt;( href="4.html#11"&gt;Winn</text>
+2 <text font="7" height="14" left="467" textpieces="0" top="517" width="376"> href="4.html#11"&gt;et al., 2000 href="4.html#11"&gt;). Complete details on the design, operation,</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="535" width="377">and capabilities of the microscope are described in  href="4.html#10"&gt;Feser</text>
+2 <text font="7" height="14" left="467" textpieces="0" top="553" width="376"> href="4.html#10"&gt;et al. (2000, 2001) href="4.html#10"&gt;. Briey, synchrotron-generated mono-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="571" width="377">chromatic X-ray radiation is focused by a Fresnel zone</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="589" width="376">plate onto a sample with a beam diameter of 45 nm. The</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="607" width="376">sample stage is moved in the xy-plane using a piezo stage</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="625" width="377">so that an X-ray transmission absorption map of the sam-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="643" width="377">ple is scanned and recorded. The microtomed sections of</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="660" width="376">the material surviving the GBC method represent a large</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="678" width="376">subset of the total particles surviving the GBC method,</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="696" width="376">and within each section all carbon-containing particles</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="714" width="377">were examined by C-XANES. Initially two to 20 images</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="732" width="376">of similar size and at a xed energy (usually 290 eV) were</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="750" width="376">collected to locate regions of interest (ROI) containing</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="768" width="376">signicant absorption in the microtome section. The collec-</text>
+=============================== COL ===================================
+2 <text font="2" height="11" left="68" textpieces="0" top="110" width="28">50 oN</text>
+2 <text font="2" height="11" left="68" textpieces="0" top="162" width="28">40 oN</text>
+2 <text font="2" height="11" left="68" textpieces="0" top="214" width="28">30 oN</text>
+2 <text font="2" height="11" left="68" textpieces="0" top="265" width="28">20 oN</text>
+2 <text font="2" height="11" left="68" textpieces="0" top="316" width="28">10 oN</text>
+2 <text font="2" height="11" left="88" textpieces="2" top="356" width="123">160 oW   150 oW   140</text>
+2 <text font="10" height="7" left="214" textpieces="5" top="353" width="221">oW     130 oW     120 oW     110 oW     100 oW</text>
+2 <text font="2" height="11" left="218" textpieces="0" top="325" width="7">E</text>
+2 <text font="2" height="11" left="367" textpieces="0" top="255" width="9">D</text>
+2 <text font="2" height="11" left="276" textpieces="0" top="154" width="8">C</text>
+2 <text font="2" height="11" left="273" textpieces="0" top="134" width="8">B</text>
+2 <text font="2" height="11" left="302" textpieces="0" top="128" width="9">A</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="381" width="377">Fig. 1. Map of sampling sites (denoted by star symbols): A, Stillaguamish</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="396" width="377">River, Washington; B, Eel River Margin; C, Washington Coast Slope; D,</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="411" width="246">Mexico Margin; and E, Equatorial Pacic 9N.</text>
+=============================== COL ===================================
+2 <text font="4" height="11" left="64" textpieces="0" top="820" width="39">Table 1</text>
+1 <text font="4" height="11" left="64" textpieces="0" top="835" width="324">Sedimentary environments analyzed by STXM and C-XANES</text>
+1 <text font="4" height="11" left="64" textpieces="2" top="856" width="314">Description                   Location                   Water</text>
+1 <text font="4" height="11" left="346" textpieces="0" top="871" width="29">depth</text>
+1 <text font="4" height="11" left="346" textpieces="0" top="886" width="18">(m)</text>
+1 <text font="4" height="11" left="397" textpieces="0" top="856" width="47">Sediment</text>
+1 <text font="4" height="11" left="397" textpieces="0" top="871" width="29">depth</text>
+1 <text font="4" height="11" left="397" textpieces="0" top="886" width="23">(cm)</text>
+1 <text font="4" height="11" left="463" textpieces="0" top="856" width="57">Number of</text>
+1 <text font="4" height="11" left="463" textpieces="0" top="871" width="77">particle images</text>
+1 <text font="4" height="11" left="463" textpieces="0" top="886" width="49">examined</text>
+1 <text font="4" height="11" left="559" textpieces="0" top="856" width="70">Total particle</text>
+1 <text font="4" height="11" left="559" textpieces="0" top="871" width="74">area examined</text>
+1 <text font="4" height="11" left="559" textpieces="0" top="886" width="28">(lm2)</text>
+1 <text font="4" height="11" left="652" textpieces="2" top="856" width="192">Fraction    Wt. (%)    Percent GBC</text>
+1 <text font="4" height="11" left="776" textpieces="0" top="871" width="62">of TOC (%)</text>
+1 <text font="4" height="11" left="64" textpieces="0" top="907" width="104">Stillaguamish River,</text>
+1 <text font="4" height="11" left="76" textpieces="0" top="922" width="62">Washington</text>
+1 <text font="4" height="11" left="211" textpieces="7" top="907" width="586">48140N, 121470W            1      Surface href="4.html#3"&gt;a      9                  2768               TOC        0.142       31.0</text>
+1 <text font="4" height="11" left="652" textpieces="1" top="922" width="91">GBC        0.044</text>
+1 <text font="4" height="11" left="64" textpieces="0" top="937" width="94">Eel River Margin,</text>
+1 <text font="4" height="11" left="76" textpieces="0" top="952" width="86">California Coast</text>
+1 <text font="4" height="11" left="211" textpieces="7" top="937" width="586">41020N, 124200W         150      Surface href="4.html#3"&gt;b     10                  2770               TOC        1.164       17.6</text>
+1 <text font="4" height="11" left="652" textpieces="1" top="952" width="91">GBC        0.205</text>
+1 <text font="4" height="11" left="64" textpieces="8" top="967" width="733">Washington Coast Slope    46490N, 125W            640      06 href="4.html#3"&gt;c         12                  7789               TOC        2.70          3.4</text>
+1 <text font="4" height="11" left="652" textpieces="1" top="982" width="97">GBC        0.0929</text>
+1 <text font="4" height="11" left="64" textpieces="0" top="997" width="80">Mexico Margin</text>
+1 <text font="4" height="11" left="76" textpieces="0" top="1012" width="79">(Suboxic Zone)</text>
+1 <text font="4" height="11" left="211" textpieces="7" top="997" width="586">2241.80N, 10628.60W     395      Surface href="4.html#3"&gt;c     12                  5506               TOC        7.19          0.2</text>
+1 <text font="4" height="11" left="652" textpieces="1" top="1012" width="91">GBC        0.016</text>
+1 <text font="4" height="11" left="64" textpieces="8" top="1027" width="733">Equatorial Pacic 9N      8550N, 139520W         5000      910 href="4.html#3"&gt;d         8                  1305               TOC        0.31          3.8</text>
+1 <text font="4" height="11" left="652" textpieces="1" top="1041" width="97">GBC        0.0118</text>
+2 <text font="3" height="7" left="72" textpieces="2" top="1061" width="250">a  Location described in  href="4.html#10"&gt;Dickens et al. (2004a,b) href="4.html#10"&gt;.</text>
+2 <text font="3" height="7" left="71" textpieces="2" top="1076" width="172">b  Described in  href="4.html#10"&gt;Blair et al. (2004) href="4.html#10"&gt;.</text>
+2 <text font="3" height="7" left="72" textpieces="2" top="1091" width="203">c  Described in  href="4.html#10"&gt;Dickens et al. (in press) href="4.html#10"&gt;.</text>
+2 <text font="3" height="7" left="71" textpieces="2" top="1105" width="250">d  Location described in  href="4.html#11"&gt;Hammond et al. (1996) href="4.html#11"&gt;.</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="6" height="14" left="49" textpieces="0" top="105" width="377">tive area of all of the ROI for a particular sample section</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="123" width="377">covered the entire particle area. These ROI were subse-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="140" width="377">quently mapped in xy-energy space by sequential collection</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="158" width="376">of several hundred images (collectively called a stack),</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="176" width="377">usually spanning from 280 eV to 320 eV ( href="4.html#11"&gt;Jacobsen et al.,</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="194" width="377"> href="4.html#11"&gt;2000). Occasional unplanned termination of the X-ray</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="212" width="377">beam necessitated truncation of our stack collection to</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="230" width="376">280300 eV. The number of these particle image stacks for</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="248" width="374">each sediment environment ranged from 8 to 12  href="4.html#3"&gt;( href="4.html#3"&gt;Table 1).</text>
+2 <text font="6" height="14" left="67" textpieces="0" top="266" width="359">Typically images were collected at the following energy</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="284" width="377">levels: every 0.2 eV from 280 to 284 eV; followed by</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="302" width="377">0.1 eV from 284 to 292 eV, followed by 0.33 eV steps to</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="320" width="377">300 eV ( href="4.html#11"&gt;Jacobsen et al., 2000 href="4.html#11"&gt;). When instrument time al-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="338" width="377">lowed, additional images were collected at 0.51.0 eV steps</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="356" width="377">between 300 and 320 eV. The wider spacing in eV steps be-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="374" width="376">yond 300 eV was done to save time, since C-XANES typi-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="392" width="376">cally do not show any ne features in these regions. These</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="409" width="377">numerous images were aligned using an automated image</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="427" width="377">alignment program which optimized the location of each</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="445" width="376">image relative to the others using features of strong con-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="463" width="182">trast  href="4.html#11"&gt;( href="4.html#11"&gt;Jacobsen et al., 2000 href="4.html#11"&gt;).</text>
+2 <text font="6" height="14" left="67" textpieces="1" top="481" width="359">Pixel sizes ranged from 50 50 nm to 200  200 nm,</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="499" width="377">depending on the sample. The dwell times were usually kept</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="517" width="377">to 13 ms per pixel, depending upon the X-ray ux at a par-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="535" width="377">ticular energy, and to provide as low a radiation dosage to</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="553" width="376">samples prior to entering the XANES region where detailed</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="571" width="377">spectral information is critical to identifying the chemistry of</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="589" width="377">each sample. Typical stack analysis times ranged from</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="607" width="377">approximately 2 to 6 h. Principle component analysis</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="625" width="376">(PCA) was used to orthogonalize and noise-lter the spec-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="643" width="377">tromicroscopy data  href="4.html#11"&gt;( href="4.html#11"&gt;Lerotic et al., 2004). Cluster analysis</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="660" width="377">was then used to classify pixels according to spectral similar-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="678" width="377">ity, and to extract representative, cluster-averaged spectra</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="696" width="377">with good signal-to-noise ratios, and to obtain gradations</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="714" width="376">of the concentration of these spectra at each pixel  href="4.html#11"&gt;( href="4.html#11"&gt;Lerotic</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="732" width="377"> href="4.html#11"&gt;et al., 2004 href="4.html#11"&gt;). In this manner, C-XANES spectra and maps</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="750" width="376">of regions of similar composition can be extracted from the</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="768" width="32">data.</text>
+2 <text font="6" height="14" left="67" textpieces="0" top="786" width="359">Comprehensive C-XANES studies of polymers and</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="804" width="377">other well-characterized compounds have permitted robust</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="822" width="377">criteria for peak absorption energy assignments ( href="4.html#10"&gt;Ade and</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="840" width="376"> href="4.html#10"&gt;Urquhart, 2002; Dhez et al., 2003). Peak energy assign-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="858" width="377">ments for common carbon functional groups are listed in</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="876" width="377"> href="4.html#4"&gt;Table 2. For carbon K-shell electrons, the near-edge</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="894" width="376">absorption bands extend from 280 to 295 eV, and corre-</text>
+2 <text font="6" height="14" left="49" textpieces="1" top="912" width="377">spond to transitions to both unoccupied p*(antibonding)</text>
+2 <text font="6" height="14" left="49" textpieces="1" top="929" width="377">and low lying r*orbitals. The peak width is generally given</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="947" width="377">by the lifetime of the photoexcited transition, with transi-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="965" width="376">tions at lower energies relative to the ionization edge hav-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="983" width="376">ing longer lifetimes. In general, the lowest energy</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1001" width="377">absorption bands, from around 284 to 285 eV, are for func-</text>
+2 <text font="6" height="14" left="49" textpieces="1" top="1019" width="376">tional groups with unusually low energy p*states, e.g., qui-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1037" width="377">nones. An aromatic or unsaturated C atom bonded to</text>
+2 <text font="6" height="14" left="49" textpieces="1" top="1055" width="377">another C atom has a strong 1s1p* transition at about</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1073" width="377">285 eV. As more electron-drawing elements are added</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1091" width="376">(e.g., pyridinic nitrogen) or substituted to unsaturated C</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1109" width="376">(e.g., carbonyl or oxygen), the binding energy of the 1s elec-</text>
+=============================== COL ===================================
+2 <text font="6" height="14" left="453" textpieces="0" top="463" width="376">tron is increased. This binding energy increase shifts the 1s</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="481" width="376">1p* transitions of aromatic C to higher energies, up to</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="499" width="377">about 286 eV for carbonyl and nitrogen, and up to</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="517" width="376">286.9 eV for oxygen (e.g., as in phenols). For carboxyl</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="535" width="376">functional groups bonded to saturated C the two oxygens</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="553" width="376">result in a shift of the 1s1p* transition up to 288.5 eV.</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="571" width="376">For carboxyamide, the 1s1p*transition is a bit lower, at</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="588" width="377">288.2 eV. Saturated carbon has broad absorption band</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="606" width="376">around 287.5288 eV due to the r*transition, ethers and</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="624" width="280">alcohols exhibit a p*transition at 289.5 eV.</text>
+2 <text font="6" height="14" left="470" textpieces="0" top="642" width="359">The cluster optical density spectra generated by PCA</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="660" width="376">for a particle can be used to estimate the amount of car-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="678" width="376">bon characterized by that spectra (M. Lerotic and C. Jac-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="696" width="376">obsen, personal communication). It should be noted that</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="714" width="377">the following method calculates the relative, and not</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="732" width="376">absolute, amounts of C within clusters analyzed on the</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="750" width="376">same instrument. As X-rays travel through a sample they</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="768" width="377">are absorbed as a function of the LambertBeer law, as</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="786" width="56">given by</text>
+2 <text font="6" height="13" left="453" textpieces="0" top="813" width="51">IE  I</text>
+2 <text font="9" height="9" left="506" textpieces="0" top="819" width="66">0EelEt;</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="839" width="376">where I (E) is the transmitted ux at energy E, I0is the inci-</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="857" width="376">dent ux,l (E) is the linear absorption coecient at an</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="875" width="377">energy E, and t is the sample thickness. To calculate carbon</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="893" width="376">mass per unit area, two energies must be selected from the</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="911" width="376">cluster optical density spectrum: one from below the</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="928" width="377">absorption edge (E1) and one from above the absorption</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="946" width="377">edge (E2), and both energies need to be far from the pre-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="964" width="376">and post-edge XANES features, respectively. Mass per unit</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="982" width="164">area can then be given as</text>
+2 <text font="6" height="13" left="453" textpieces="3" top="1010" width="164">m qE2=E13lnfIE2=I</text>
+2 <text font="9" height="9" left="619" textpieces="0" top="1016" width="25">0E2</text>
+2 <text font="6" height="15" left="646" textpieces="0" top="1009" width="13">g</text>
+2 <text font="6" height="15" left="483" textpieces="0" top="1036" width="79"> lnfIE1=I</text>
+2 <text font="9" height="9" left="564" textpieces="0" top="1043" width="25">0E1</text>
+2 <text font="6" height="15" left="591" textpieces="2" top="1036" width="230">g=lhenkeE1  E2=E13lhenkeE2;</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1072" width="377">where q is the mass density of the desired component (e.g.,</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="1090" width="376">carbon) and lhenkeis the mass absorption coecient  href="4.html#11"&gt;( href="4.html#11"&gt;Hen-</text>
+2 <text font="7" height="14" left="453" textpieces="0" top="1108" width="376"> href="4.html#11"&gt;ke et al., 1993; Gullikson, 2001 href="4.html#11"&gt;). The total mass M can be</text>
+=============================== COL ===================================
+2 <text font="4" height="11" left="453" textpieces="0" top="105" width="39">Table 2</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="120" width="377">Approximate energy ranges for the primary absorption peaks at the</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="135" width="77">carbon 1s edge</text>
+1 <text font="4" height="11" left="453" textpieces="3" top="156" width="376">Band   Peak energy (eV)   Transition   C-functional group assignment</text>
+1 <text font="4" height="11" left="459" textpieces="3" top="177" width="284">1      283.0284.5         1s1p*        Benzoquinone</text>
+1 <text font="4" height="11" left="459" textpieces="3" top="192" width="325">2      285.0                 1s1p*        Unsaturated/aromatic</text>
+1 <text font="4" height="11" left="670" textpieces="0" top="206" width="74">or olen C@C</text>
+1 <text font="4" height="11" left="459" textpieces="3" top="221" width="368">3      285.5286.5         1s1p*        Aromatic C@O or pyridinic C</text>
+1 <text font="4" height="11" left="459" textpieces="3" top="236" width="297">4      286.5287.3         1s1p*        Aromatic COH</text>
+1 <text font="4" height="11" left="459" textpieces="3" top="251" width="369">5      287.4288.0         1s1p*        Ketone carbonyl R(C@O)R0</text>
+1 <text font="4" height="11" left="459" textpieces="3" top="266" width="286">6      287.6288.2         1s3p/r*     Aliphatic CH</text>
+1 <text font="4" height="11" left="459" textpieces="3" top="281" width="321">7      288.3                 1s1p*        Amide (NH2)C@O</text>
+1 <text font="4" height="11" left="459" textpieces="3" top="296" width="247">8      288.4288.7         1s1p*        COOR</text>
+1 <text font="4" height="11" left="459" textpieces="3" top="311" width="296">9      289.5                 1s3p/r*     Aliphatic COH</text>
+1 <text font="4" height="11" left="453" textpieces="3" top="326" width="306">10      290.0                 1s2p*        Aromatic COOR</text>
+1 <text font="4" height="11" left="453" textpieces="3" top="341" width="292">11      290.45               1s4p/r*     Aliphatic CH</text>
+1 <text font="4" height="11" left="453" textpieces="3" top="356" width="293">12      292.8                 1sr*         CC, aromatic</text>
+1 <text font="4" height="11" left="453" textpieces="3" top="371" width="291">13      296.5                 1sr*         CC, aliphatic</text>
+2 <text font="4" height="11" left="453" textpieces="1" top="392" width="377">Sources.  href="4.html#10"&gt;Francis and Hitchcock (1992), Hitchcock et al. (1986, 1992),</text>
+2 <text font="8" height="11" left="453" textpieces="0" top="407" width="377"> href="4.html#10"&gt;Hitchcock and Ishii (1987), Hitchcock and Stohr (1987), Cody et al. (1996,</text>
+2 <text font="8" height="11" left="453" textpieces="0" top="422" width="377"> href="4.html#10"&gt;1998), Urquhart and Ade (2002), and George Cody (pers. commun. 2004).</text>
+2 <text font="4" height="11" left="49" textpieces="1" top="72" width="504">1486                                                        P.R. Haberstroh et al. 70 (2006) 14831494</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="6" height="14" left="64" textpieces="0" top="105" width="377">calculated from the mass per unit area m, the number of</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="123" width="257">pixels Npixels, and the pixel size Apixelas</text>
+2 <text font="6" height="13" left="64" textpieces="2" top="148" width="135">M  m  Npixels  Apixel.</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="174" width="376">Ideally I2would be in the 320340 eV region, above most</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="192" width="377">of the r*resonances. However, time and instrument con-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="210" width="377">straints often precluded the collection of data above</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="228" width="377">300 eV. Therefore, total carbon was estimated for each</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="246" width="377">cluster spectral type by subtracting the optical density at</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="264" width="377">280 eV from the average of the optical density from 295</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="281" width="376">to 300 eV. Although absorptions at 295300 eV are consid-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="299" width="377">erably higher than post-edge values at 320340 eV, this dif-</text>
+2 <text font="6" height="14" left="64" textpieces="7" top="317" width="377">ference  is  consistent  across  a  variety  of  chemical</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="335" width="376">compositions. C-XANES spectra were examined from a li-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="353" width="377">brary of 11 polymeric compounds  href="http://www.physics.ncsu.edu/stxm/polymerspectro"&gt;( href="http://www.physics.ncsu.edu/stxm/polymerspectro"&gt;www.physics.ncsu.edu/</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="371" width="377"> href="http://www.physics.ncsu.edu/stxm/polymerspectro"&gt;stxm/polymerspectro href="http://www.physics.ncsu.edu/stxm/polymerspectro"&gt;). The average absorption at 295</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="389" width="377">300 eV was 20 10% higher than at the highest eV scanned,</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="407" width="377">320 eV. In addition, 15 of the 58 spectra examined were</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="425" width="376">collected up to 320 eV, and the average percent dierence</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="443" width="377">between the absorption at 295300 eV compared to that</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="461" width="376">at 320 eV fell in the range noted above. Therefore, the</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="479" width="377">absorption density-dierence between the average at 295</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="497" width="377">300 eV and that at 280 eV was multiplied times the areal</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="515" width="376">fraction of that cluster of the total particle image size,</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="533" width="376">and this product multiplied times the pixel size (lm2). This</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="550" width="377">allowed a comparison of the relative amount of carbon in</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="568" width="376">dierent compositional categories (see Section  href="4.html#5"&gt;3) in each</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="586" width="377">sedimentary environment. Since most of the variables be-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="604" width="376">tween the samples were internally normalized, the degree</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="622" width="376">of uncertainty in this technique is dependent on the vari-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="640" width="377">ability of the calculation in mean absorbance from 295 to</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="658" width="376">300 eV, which was approximately 13% of the mean</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="676" width="121">absorbance values.</text>
+2 <text font="6" height="13" left="64" textpieces="0" top="712" width="62">3. Results</text>
+2 <text font="6" height="14" left="82" textpieces="0" top="748" width="359">The sedimentary environments sampled had a wide</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="766" width="377">range of TOC and GBC weight percent of total sediment</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="784" width="376">mass ( href="4.html#3"&gt;Table 1). TOC weight percent was lowest for the Stil-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="801" width="377">laguamish River (0.14%), and highest for the Mexico Mar-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="819" width="376">gin (7.19%), while the GBC weight percent was lowest for</text>
+2 <text font="6" height="14" left="64" textpieces="4" top="837" width="377">the  pre-anthropogenic   Equatorial   Pacic   sediment</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="855" width="377">(0.012%), and highest in the Eel River Margin (0.20%).</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="873" width="377">The percent GBC of TOC was highest in the Stillaguamish</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="891" width="377">River sediment (31.0%), lower in the Eel River Margin</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="909" width="376">(17.6%), and very low in the Mexico Margin (0.20%).</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="927" width="377">The Washington Coast Slope and Mexico Margin had</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="945" width="341">about equal percent GBC of TOC (about 3.43.8%).</text>
+2 <text font="6" height="14" left="82" textpieces="0" top="963" width="359">For purposes of comparison, we present the cluster spec-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="981" width="376">tra for some well-characterized substances: graphite</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="999" width="376">( href="4.html#5"&gt;Fig. 2 href="4.html#5"&gt;A), NIST standard reference 2975 diesel soot ( href="4.html#5"&gt;Figs.</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="1017" width="376"> href="4.html#5"&gt;2B and C), and melanoidin produced by the reaction of ly-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1035" width="377">sine and glucose  href="4.html#5"&gt;( href="4.html#5"&gt;Fig. 2D). Graphite cluster spectra charac-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1053" width="376">teristically have a sharp peak for unsaturated carbon</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="1071" width="376">carbon bonds near 285 eV and a sharp r*exciton absorp-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1088" width="377">tion peak near 291.6 eV. The exciton is a bound excited</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1106" width="376">state with a long lifetime compared to the atomic de-exci-</text>
+=============================== COL ===================================
+2 <text font="6" height="14" left="467" textpieces="0" top="551" width="377">tation mechanisms, and so the excitonic peaks are very nar-</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="569" width="377">row ( href="4.html#11"&gt;Ma et al., 1993 href="4.html#11"&gt;; see href="4.html#4"&gt;Table 2 href="4.html#4"&gt;). The graphite spectra also</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="587" width="376">exhibit a well-dened asymmetric absorption peak at</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="605" width="376">292.8 eV, reecting the transition to the many superim-</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="623" width="377">posed r*states. The diesel soot shows the presence of both</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="641" width="376">aromatic and aliphatic carbon groups, i.e., at 287.6</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="658" width="377">288.2 eV for the 1s3p/r*  transition for CH and</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="676" width="377">289.5 eV for the 1s3p/r* transition for COH ( href="4.html#5"&gt;Figs. 2 href="4.html#5"&gt;B</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="694" width="377">and C), while melanoidin  href="4.html#5"&gt;( href="4.html#5"&gt;Fig. 2 href="4.html#5"&gt;D) has signicant spectral</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="712" width="376">content in the aromatic carbon region (285 eV), aromatic</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="730" width="376">alcohol (about 286.5 eV), and carboxyl region (288.6 eV).</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="748" width="377">In diesel soot, the lack of a sharp r* exciton absorption</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="766" width="377">peak near 291.6 eV, and the absence of the characteristic</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="784" width="377">r*absorption peak at about 292.8 eV, is indicative of the</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="802" width="376">lack of signicant spatial extent of graphene aromatic rings</text>
+2 <text font="6" height="14" left="467" textpieces="3" top="820" width="180">(see href="4.html#4"&gt;Table 2and Section href="4.html#7"&gt;4).</text>
+2 <text font="6" height="14" left="485" textpieces="0" top="838" width="358">The C-XANES spectra of observed GBC classes from</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="856" width="377">the sedimentary environments examined are presented in</text>
+2 <text font="7" height="14" left="467" textpieces="0" top="874" width="377"> href="4.html#6"&gt;Fig. 3. The cluster spectra were divided into six specic</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="892" width="377">classes, IVI, based upon similarity to the cluster spectra</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="909" width="376">of reference compounds and those presented in  href="4.html#10"&gt;Gago</text>
+2 <text font="7" height="14" left="467" textpieces="0" top="927" width="377"> href="4.html#10"&gt;et al. (2000, 2001) and Jimenez et al. (2003) href="4.html#10"&gt;. Binning of par-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="945" width="376">ticle classes within stack clusters was chosen based on cri-</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="963" width="377">teria given in   href="4.html#6"&gt;Fig. 3. For example, a region was</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="981" width="376">considered highly ordered graphite if it contained well-de-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="999" width="376">ned peaks at 295, 291.6, and 292 eV, with few or no spec-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1017" width="376">tral features between 286 and 290 eV. Impure graphitic</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1035" width="376">carbon exhibited strong and dened 285 and 292 eV fea-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1053" width="377">tures together with strong absorption features in the 287</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1071" width="376">290 eV region. Amorphous carbon consistently had strong</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1089" width="377">but poorly separated absorption features in the 285290 eV</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1107" width="376">region, followed by a broad increase in the 293296 eV</text>
+=============================== COL ===================================
+2 <text font="2" height="12" left="538" textpieces="0" top="257" width="104">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="533" textpieces="0" top="240" width="114">280 285 290 295 300</text>
+2 <text font="2" height="12" left="493" textpieces="1" top="195" width="15">% Maximum    Optical Density</text>
+2 <text font="2" height="12" left="493" textpieces="0" top="382" width="0">% Maximum </text>
+2 <text font="2" height="12" left="508" textpieces="0" top="388" width="0">Optical Density</text>
+2 <text font="2" height="12" left="676" textpieces="0" top="382" width="0">% Maximum </text>
+2 <text font="2" height="12" left="691" textpieces="0" top="388" width="0">Optical Density</text>
+2 <text font="2" height="12" left="677" textpieces="1" top="195" width="15">% Maximum    Optical Density</text>
+2 <text font="4" height="11" left="527" textpieces="0" top="225" width="6">0</text>
+2 <text font="4" height="11" left="521" textpieces="0" top="201" width="12">20</text>
+2 <text font="4" height="11" left="521" textpieces="0" top="178" width="12">40</text>
+2 <text font="4" height="11" left="521" textpieces="0" top="155" width="12">60</text>
+2 <text font="4" height="11" left="521" textpieces="0" top="131" width="12">80</text>
+2 <text font="4" height="11" left="515" textpieces="0" top="108" width="18">100</text>
+2 <text font="2" height="12" left="538" textpieces="0" top="437" width="104">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="533" textpieces="0" top="421" width="114">280 285 290 295 300</text>
+2 <text font="4" height="11" left="527" textpieces="0" top="405" width="6">0</text>
+2 <text font="4" height="11" left="521" textpieces="0" top="382" width="12">20</text>
+2 <text font="4" height="11" left="521" textpieces="0" top="358" width="12">40</text>
+2 <text font="4" height="11" left="521" textpieces="0" top="335" width="12">60</text>
+2 <text font="4" height="11" left="521" textpieces="0" top="312" width="12">80</text>
+2 <text font="4" height="11" left="515" textpieces="0" top="289" width="18">100</text>
+2 <text font="2" height="12" left="721" textpieces="0" top="257" width="104">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="716" textpieces="0" top="240" width="114">280 285 290 295 300</text>
+2 <text font="4" height="11" left="710" textpieces="0" top="225" width="6">0</text>
+2 <text font="4" height="11" left="704" textpieces="0" top="201" width="12">20</text>
+2 <text font="4" height="11" left="704" textpieces="0" top="178" width="12">40</text>
+2 <text font="4" height="11" left="704" textpieces="0" top="155" width="12">60</text>
+2 <text font="4" height="11" left="704" textpieces="0" top="131" width="12">80</text>
+2 <text font="4" height="11" left="698" textpieces="0" top="108" width="18">100</text>
+2 <text font="2" height="12" left="721" textpieces="0" top="437" width="104">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="716" textpieces="0" top="421" width="114">280 285 290 295 300</text>
+2 <text font="4" height="11" left="710" textpieces="0" top="405" width="6">0</text>
+2 <text font="4" height="11" left="704" textpieces="0" top="382" width="12">20</text>
+2 <text font="4" height="11" left="704" textpieces="0" top="358" width="12">40</text>
+2 <text font="4" height="11" left="704" textpieces="0" top="335" width="12">60</text>
+2 <text font="4" height="11" left="704" textpieces="0" top="312" width="12">80</text>
+2 <text font="4" height="11" left="698" textpieces="0" top="289" width="18">100</text>
+2 <text font="12" height="12" left="488" textpieces="1" top="108" width="189">A                              C</text>
+2 <text font="12" height="12" left="488" textpieces="1" top="288" width="190">B                               D</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="464" width="377">Fig. 2. Cluster spectra of separate particles for (A) graphite, (B,C) two</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="479" width="377">particles of NIST standard reference 2975 diesel soot particles, and (D)</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="494" width="377">melanoidin produced by the reaction of lysine and glucose (originally</text>
+2 <text font="4" height="11" left="467" textpieces="1" top="508" width="176">presented in  href="4.html#10"&gt;Brandes et al., 2004 href="4.html#10"&gt;).</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="6" height="14" left="49" textpieces="0" top="693" width="377">range (much broader than the graphite transition in this re-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="711" width="377">gion). This material was quite distinct from impure graph-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="729" width="377">ite in that impure graphite had a clear separation in</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="747" width="377">absorbance peaks between 285 and 287 eV, while amor-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="765" width="376">phous C did not  href="4.html#6"&gt;( href="4.html#6"&gt;Fig. 3 href="4.html#6"&gt;). Occasionally non-graphitic,</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="783" width="377">non-amorphous carbon types were observed that corre-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="801" width="377">sponded more closely to types observed in marine organic</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="819" width="376">matter  href="4.html#10"&gt;( href="4.html#10"&gt;Brandes et al., 2004). All of these forms were char-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="837" width="377">acterized by a much higher 287:285 ratio than either gra-</text>
+2 <text font="6" height="14" left="49" textpieces="6" top="855" width="376">phitic  or  amorphous  carbon,  indicating  a  higher</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="873" width="376">proportion of aliphatic and/or carboxylic acid C. Spectral</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="891" width="376">distinctions between classes were obvious and in no case</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="908" width="376">did we observe a compound class that did not clearly fall</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="926" width="182">into one of these six classes.</text>
+2 <text font="6" height="14" left="67" textpieces="0" top="944" width="359">All the particles in each of the microtomed thin sections</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="962" width="376">from the homogeneously mixed subsample of the material</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="980" width="377">surviving the GBC method were examined to ensure a rep-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="998" width="376">resentative sampling of the whole sample. For each of the</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1016" width="377">ve sedimentary environments, we examined between 8</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1034" width="377">and 12 image stacks ( href="4.html#3"&gt;Table 1 href="4.html#3"&gt;). This relatively limited num-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1052" width="377">ber of observations was necessitated by the long amount of</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1070" width="377">time required for each analysis (36 h per observation), so</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1088" width="377">our examinations represent a large subset of the total sam-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1106" width="377">ple particles surviving the GBC method. Most of the image</text>
+=============================== COL ===================================
+2 <text font="6" height="14" left="453" textpieces="0" top="693" width="377">stacks also included more than one distinct particle. In</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="711" width="376">addition, the stack images from some of the sedimentary</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="729" width="376">environments were more particle-rich than in others. The</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="747" width="377">total particle area examined varied from approximately</text>
+2 <text font="6" height="14" left="453" textpieces="6" top="765" width="376">1300 lm2  for  the  deep  Equatorial  Pacic  9N to</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="783" width="376">7800 lm2 for Washington Coast Slope sediments. The</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="801" width="377">chemical mapping of GBC components did not exhibit a</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="819" width="376">ring or crust of more oxidized material on the surfaces</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="837" width="377">of the particles. The lack of observable surface alteration</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="855" width="377">compared to particle interiors in our chemical maps is a</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="873" width="376">strong indication that the GBC treatment method of href="4.html#10"&gt;Geli-</text>
+2 <text font="7" height="14" left="453" textpieces="1" top="891" width="270"> href="4.html#10"&gt;nas et al. (2001)aects the entire particle.</text>
+2 <text font="6" height="14" left="470" textpieces="0" top="908" width="359">Within each sedimentary environment, the relative</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="926" width="376">amounts of carbon in each of the six spectral cluster classes</text>
+2 <text font="6" height="14" left="453" textpieces="3" top="944" width="376">were calculated (see Section href="4.html#2"&gt;2and href="4.html#7"&gt;Table 3). GBC in the Stil-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="962" width="376">laguamish River sediment is dominated by highly ordered</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="980" width="376">and impure forms of graphitic C, collectively constituting</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="998" width="377">over 80% of the total C, with the remainder primarily in</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1016" width="376">the form of more aliphatic carbon (17%). In contrast, the</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1034" width="376">GBC fraction in the sediments of the Eel River Margin is</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1052" width="377">dominated by amorphous C (72%) with lesser amounts of</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1070" width="377">impure graphitic C (27%). The GBC fraction in the sedi-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1088" width="376">ments from the Washington Coast Slope and in the Mexico</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1106" width="376">Margin entirely consists of amorphous C (97100%). In the</text>
+=============================== COL ===================================
+2 <text font="2" height="12" left="310" textpieces="0" top="254" width="102">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="305" textpieces="0" top="237" width="111">280 285 290 295 300</text>
+2 <text font="2" height="12" left="265" textpieces="1" top="200" width="14">% Maximum   Optical Density</text>
+2 <text font="4" height="11" left="300" textpieces="0" top="222" width="6">0</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="199" width="11">20</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="176" width="11">40</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="153" width="11">60</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="130" width="11">80</text>
+2 <text font="4" height="11" left="288" textpieces="0" top="107" width="17">100</text>
+2 <text font="2" height="12" left="310" textpieces="0" top="444" width="102">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="305" textpieces="0" top="427" width="111">280 285 290 295 300</text>
+2 <text font="2" height="12" left="265" textpieces="0" top="389" width="0">% Maximum </text>
+2 <text font="2" height="12" left="279" textpieces="0" top="395" width="0">Optical Density</text>
+2 <text font="4" height="11" left="299" textpieces="0" top="412" width="6">0</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="389" width="11">20</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="366" width="11">40</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="343" width="11">60</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="320" width="11">80</text>
+2 <text font="4" height="11" left="288" textpieces="0" top="297" width="17">100</text>
+2 <text font="2" height="12" left="310" textpieces="0" top="625" width="102">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="305" textpieces="0" top="609" width="111">280 285 290 295 300</text>
+2 <text font="2" height="12" left="264" textpieces="1" top="568" width="14">% Maximum   Optical Density</text>
+2 <text font="4" height="11" left="299" textpieces="0" top="593" width="6">0</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="570" width="11">20</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="548" width="11">40</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="525" width="11">60</text>
+2 <text font="4" height="11" left="294" textpieces="0" top="502" width="11">80</text>
+2 <text font="4" height="11" left="288" textpieces="0" top="479" width="17">100</text>
+2 <text font="2" height="12" left="675" textpieces="0" top="254" width="102">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="670" textpieces="0" top="237" width="111">280 285 290 295 300</text>
+2 <text font="2" height="12" left="624" textpieces="1" top="568" width="14">% Maximum   Optical Density</text>
+2 <text font="4" height="11" left="664" textpieces="0" top="222" width="6">0</text>
+2 <text font="4" height="11" left="658" textpieces="0" top="199" width="11">20</text>
+2 <text font="4" height="11" left="658" textpieces="0" top="176" width="11">40</text>
+2 <text font="4" height="11" left="658" textpieces="0" top="153" width="11">60</text>
+2 <text font="4" height="11" left="658" textpieces="0" top="130" width="11">80</text>
+2 <text font="4" height="11" left="653" textpieces="0" top="107" width="17">100</text>
+2 <text font="2" height="12" left="673" textpieces="0" top="443" width="102">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="668" textpieces="0" top="427" width="111">280 285 290 295 300</text>
+2 <text font="2" height="12" left="628" textpieces="0" top="389" width="0">% Maximum </text>
+2 <text font="2" height="12" left="642" textpieces="0" top="395" width="0">Optical Density</text>
+2 <text font="4" height="11" left="662" textpieces="0" top="412" width="6">0</text>
+2 <text font="4" height="11" left="657" textpieces="0" top="389" width="11">20</text>
+2 <text font="4" height="11" left="657" textpieces="0" top="366" width="11">40</text>
+2 <text font="4" height="11" left="657" textpieces="0" top="343" width="11">60</text>
+2 <text font="4" height="11" left="657" textpieces="0" top="320" width="11">80</text>
+2 <text font="4" height="11" left="651" textpieces="0" top="297" width="17">100</text>
+2 <text font="2" height="12" left="675" textpieces="0" top="625" width="102">Photon Energy (eV)</text>
+2 <text font="4" height="11" left="670" textpieces="0" top="609" width="111">280 285 290 295 300</text>
+=============================== COL ===================================
+2 <text font="2" height="12" left="628" textpieces="1" top="200" width="14">% Maximum   Optical Density</text>
+2 <text font="4" height="11" left="664" textpieces="0" top="593" width="6">0</text>
+2 <text font="4" height="11" left="658" textpieces="0" top="570" width="11">20</text>
+2 <text font="4" height="11" left="658" textpieces="0" top="548" width="11">40</text>
+2 <text font="4" height="11" left="658" textpieces="0" top="525" width="11">60</text>
+2 <text font="4" height="11" left="658" textpieces="0" top="502" width="11">80</text>
+2 <text font="4" height="11" left="653" textpieces="0" top="479" width="17">100</text>
+2 <text font="13" height="13" left="92" textpieces="0" top="114" width="147">Class I. Highly aliphatic </text>
+2 <text font="6" height="13" left="92" textpieces="0" top="130" width="112">carbon (little or no </text>
+2 <text font="6" height="13" left="92" textpieces="0" top="147" width="136">absorption peak at 285 </text>
+2 <text font="6" height="13" left="92" textpieces="0" top="163" width="131">eV; large post-287 eV </text>
+2 <text font="6" height="13" left="92" textpieces="0" top="180" width="123">absorption shoulder).</text>
+2 <text font="13" height="13" left="92" textpieces="0" top="299" width="140">Class II. Low aromatic,</text>
+2 <text font="6" height="13" left="92" textpieces="0" top="315" width="135">acidic, alippatic carbon</text>
+2 <text font="6" height="13" left="92" textpieces="0" top="332" width="126">(similar to Class I but</text>
+2 <text font="6" height="13" left="92" textpieces="0" top="348" width="93">with a small but</text>
+2 <text font="6" height="13" left="92" textpieces="0" top="365" width="132">significant peak at 285</text>
+2 <text font="6" height="13" left="92" textpieces="0" top="381" width="118">eV, and a very sharp</text>
+2 <text font="6" height="13" left="92" textpieces="0" top="398" width="126">narrow peak at 288.6 </text>
+2 <text font="6" height="13" left="92" textpieces="0" top="414" width="25">eV).</text>
+2 <text font="13" height="13" left="92" textpieces="0" top="477" width="145">Class III. Low aromatic,</text>
+2 <text font="6" height="13" left="92" textpieces="0" top="493" width="134">highly aliphatic carbon</text>
+2 <text font="6" height="13" left="92" textpieces="0" top="509" width="122">(similar to class I but</text>
+2 <text font="6" height="13" left="92" textpieces="0" top="526" width="135">with a significant peak </text>
+2 <text font="6" height="13" left="92" textpieces="0" top="542" width="136">at 285 eV, and no peak </text>
+2 <text font="6" height="13" left="92" textpieces="0" top="559" width="76">at 288.6 eV).</text>
+=============================== COL ===================================
+2 <text font="13" height="13" left="437" textpieces="0" top="114" width="131">Class IV.  Amorphous </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="130" width="117">carbon (large broad </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="147" width="133">adsorption shoulder at </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="163" width="112">285 eV, little or no </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="180" width="136">decrease in intensity at </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="196" width="121">286 eV, followed by </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="213" width="126">high absorption from </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="229" width="109">285-290 eV, and a </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="246" width="152">gradual rise in absorption </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="262" width="128">to the 293 eV region).</text>
+2 <text font="13" height="13" left="437" textpieces="0" top="299" width="148">Class V.  Impure graphite</text>
+2 <text font="6" height="13" left="437" textpieces="0" top="315" width="109">carbon (three well </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="332" width="138">separated peaks at 285, </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="348" width="131">288, and 292 eV, with </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="365" width="108">a sharp increase in</text>
+2 <text font="6" height="13" left="437" textpieces="0" top="381" width="142">absorption between 291 </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="398" width="142">and 292 eV, and a small </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="414" width="137">or non-existent 291 eV </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="431" width="82">exciton peak).</text>
+2 <text font="13" height="13" left="437" textpieces="0" top="477" width="150">Class VI. Highly-ordered</text>
+2 <text font="6" height="13" left="437" textpieces="0" top="493" width="163">graphite carbon (prominent </text>
+2 <text font="6" height="13" left="437" textpieces="0" top="509" width="124">peak at 285 eV, sharp</text>
+2 <text font="6" height="13" left="437" textpieces="0" top="526" width="146">exciton peak at 291.6 eV,</text>
+2 <text font="6" height="13" left="437" textpieces="0" top="542" width="143">and well-defined peak at</text>
+2 <text font="6" height="13" left="437" textpieces="0" top="559" width="51">292 eV).</text>
+2 <text font="5" height="12" left="393" textpieces="0" top="205" width="4">I</text>
+2 <text font="5" height="12" left="389" textpieces="0" top="393" width="9">II</text>
+2 <text font="5" height="12" left="385" textpieces="0" top="573" width="13">III</text>
+2 <text font="5" height="12" left="750" textpieces="0" top="205" width="14">IV</text>
+2 <text font="5" height="12" left="754" textpieces="0" top="393" width="10">V</text>
+2 <text font="5" height="12" left="750" textpieces="0" top="575" width="14">VI</text>
+2 <text font="4" height="11" left="249" textpieces="0" top="651" width="380">Fig. 3. Cluster spectra classes of GBC method-treated sediment particles.</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="6" height="14" left="64" textpieces="0" top="300" width="376">Equatorial Pacic 9N sediments, the GBC fraction has a</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="318" width="377">much broader distribution of the spectral classes, contain-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="336" width="377">ing impure graphitic C (35%) and highly organized graphit-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="354" width="377">ic C (21%), but also appreciable amounts of highly aliphatic</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="372" width="377">C, low aromatic, highly aliphatic C (12%) and low aromat-</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="390" width="376">ic, highly acidic aliphatic C (8%) and amorphous C (8%; href="4.html#7"&gt;Ta-</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="408" width="376"> href="4.html#7"&gt;ble 3). These percent dierences exceed the variability</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="426" width="376">introduced by the C mass determination method, which</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="443" width="376">was approximately 13%. We have also conrmed the</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="461" width="377">presence of aliphatic C in the Stillaguamish River sediment</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="479" width="282">GBC by FTIR (Gelinas, unpublished data).</text>
+2 <text font="6" height="14" left="82" textpieces="0" top="497" width="359">We also estimated the presence of inorganic material in</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="515" width="377">the samples based on their characteristic C-XANES cluster</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="533" width="377">spectra, which have a constant absorbance (with intensity</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="551" width="377">related to sample thickness) in the C-XANES region, from</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="569" width="377">280 to 300 eV ( href="4.html#10"&gt;Brandes et al., 2004 href="4.html#10"&gt;). We are currently</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="587" width="376">restricted to estimating their abundance to the percent area</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="605" width="377">of the C-XANES image. Very little inorganic material was</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="623" width="376">detected in the GBC fraction of sediments from the Eel</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="641" width="377">River Margin. In rare cases, distinct particles of inorganic</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="659" width="377">material were observed in the GBC fraction from the Stil-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="677" width="377">laguamish River and Mexico Margin sediments. However,</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="695" width="376">the paucity of inorganic material demonstrated that the</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="712" width="376">demineralization procedures used by  href="4.html#10"&gt;Gelinas et al. (2001)</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="730" width="377">were eective. Further resolution of inorganic components</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="748" width="377">and absolute estimation of C was further complicated by</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="766" width="376">the existence of unsublimated So, used during the sample</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="784" width="376">preparation stage, which is indistinguishable at the C-edge</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="802" width="377">from relict mineral phases. Thus, no direct estimates of</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="820" width="330">inorganic content were made for this investigation.</text>
+2 <text font="6" height="13" left="64" textpieces="0" top="856" width="82">4. Discussion</text>
+2 <text font="6" height="14" left="82" textpieces="0" top="892" width="359">Continental shelves and slopes contain approximately</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="910" width="376">90% of the OC buried in the oceans, and the processes</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="928" width="377">which control this burial inuence Earths atmospheric</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="946" width="376">chemistry and global climate over geological time scales</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="963" width="377">( href="4.html#10"&gt;Berner, 1982, 1989; Hedges and Keil, 1995 href="4.html#10"&gt;). Active mar-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="981" width="376">gins in particular have steep landscapes and are often</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="999" width="377">drained by short mountainous rivers that facilitate the ra-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1017" width="377">pid delivery and burial of terrestrial OC to the continental</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1035" width="376">shelf and slope ( href="4.html#10"&gt;Blair et al., 2003, 2004 href="4.html#10"&gt;). The Eel River</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1053" width="377">Margin, and to a lesser extent the Washington Coast Slope,</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1071" width="377">can be considered to be river-dominated sedimentary sys-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1089" width="377">tems as they receive considerable sediment inux from</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1107" width="377">the Eel River and Columbia River watersheds, respectively.</text>
+=============================== COL ===================================
+2 <text font="6" height="14" left="467" textpieces="0" top="300" width="377">The Columbia River has a much larger and longer wa-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="318" width="376">tershed than the Eel River, but both impact their respective</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="336" width="377">margins as important sites of terrestrial OC burial ( href="4.html#10"&gt;Berner,</text>
+2 <text font="7" height="14" left="467" textpieces="0" top="354" width="376"> href="4.html#10"&gt;1982; Hedges and Keil, 1995; Goni et al., 2005 href="4.html#10"&gt;). Enhanced</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="372" width="377">sedimentation rates, high uxes of terrigenous nutrients,</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="390" width="376">elevated inputs of mineral surfaces, and land-derived recal-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="408" width="376">citrant organic matter all combine to help sequester carbon</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="426" width="376">in these regions. The organic matter in river-dominated</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="443" width="377">margins has been shown to be highly heterogeneous in</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="461" width="376">composition with allochthonous OC including freshwater</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="479" width="376">algae, vascular plant debris, soil organic matter, ancient</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="497" width="376">kerogen, and fossilized carbon from sedimentary rocks,</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="515" width="377">and autochthonous OC consisting of marine phytoplank-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="533" width="376">ton debris, zooplankton fecal material, and marine bacteria</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="551" width="226"> href="4.html#11"&gt;( href="4.html#11"&gt;Masiello and Druel, 2001, 2003).</text>
+2 <text font="6" height="14" left="485" textpieces="0" top="569" width="359">Our analyses of sedimentary GBC illuminate the high</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="587" width="377">degree of chemical heterogeneity of the GBC fraction in</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="605" width="377">the dierent sedimentary environments and suggest possi-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="623" width="377">ble linkages to terrestrial sources. However, the admittedly</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="641" width="377">limited number of samples analyzed by C-XANES and</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="659" width="376">STXM do not permit robust conclusions on the sources</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="677" width="377">or fates of the GBC fraction of BC. In the Eel River wa-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="695" width="377">tershed kerogen, exposed in the uplifted MesozoicTertiary</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="712" width="377">Franciscan Complex, is rapidly eroded, transported, and</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="730" width="376">buried on the margin ( href="4.html#10"&gt;Blair et al., 2003, 2004). Of the mar-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="748" width="376">ine sediments analyzed in the present work, the Eel River</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="766" width="376">Margin had the highest weight percent of GBC (0.205%)</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="784" width="377">and percent GBC of TOC (17.6%), and almost 30% of this</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="802" width="376">GBC was graphite ( href="4.html#7"&gt;Table 3 href="4.html#7"&gt;). These ndings suggest that</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="820" width="376">this GBC derives primarily from rock OC and are consis-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="838" width="377">tent with this site being heavily impacted by deposition of</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="856" width="377">sub-soil materials eroded away from the Eel River wa-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="874" width="376">tershed  href="4.html#10"&gt;( href="4.html#10"&gt;Blair et al., 2003). Similarly, we found that a very</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="892" width="376">large portion of TOC in the Stillaguamish River sediment</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="910" width="376">was GBC (31%) and most of this GBC was highly ordered</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="928" width="377">graphite (45%). The Stillaguamish River is another small,</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="946" width="376">mountainous river and is fed by glaciers, and the domi-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="963" width="376">nance of graphite in the TOC of this sediment clearly indi-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="981" width="376">cates that much or most of the OC in this sediment derives</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="999" width="376">from sedimentary rock OC. The lowest GBC weight per-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1017" width="377">cent values (0.0120.016%) were found in the Mexico Mar-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1035" width="377">gin and Equatorial Pacic sediments, both areas which</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1053" width="377">experience very low input of terrestrial OC  href="4.html#10"&gt;( href="4.html#10"&gt;Dickens</text>
+2 <text font="7" height="14" left="467" textpieces="0" top="1071" width="376"> href="4.html#10"&gt;et al., 2004a href="4.html#10"&gt;). The composition of GBC in these two envi-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1089" width="376">ronments is remarkably dierent, however, since Mexico</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1107" width="377">Margin GBC is almost all amorphous C, while Equatorial</text>
+=============================== COL ===================================
+2 <text font="4" height="11" left="64" textpieces="0" top="105" width="39">Table 3</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="120" width="620">Distribution of six categories of carbon in GBC method-treated marine and riverine sediments, based on cluster spectra</text>
+1 <text font="4" height="11" left="64" textpieces="1" top="141" width="324">Carbon type                                          Stillaguamish</text>
+1 <text font="4" height="11" left="319" textpieces="0" top="156" width="50">River (%)</text>
+1 <text font="4" height="11" left="431" textpieces="0" top="141" width="49">Eel River</text>
+1 <text font="4" height="11" left="431" textpieces="0" top="156" width="60">Margin (%)</text>
+1 <text font="4" height="11" left="534" textpieces="0" top="141" width="62">Washington</text>
+1 <text font="4" height="11" left="534" textpieces="0" top="156" width="84">Coast Slope (%)</text>
+1 <text font="4" height="11" left="661" textpieces="0" top="141" width="38">Mexico</text>
+1 <text font="4" height="11" left="661" textpieces="0" top="156" width="60">Margin (%)</text>
+1 <text font="4" height="11" left="764" textpieces="0" top="141" width="55">Equatorial</text>
+1 <text font="4" height="11" left="764" textpieces="0" top="156" width="79">Pacic 9N (%)</text>
+1 <text font="4" height="11" left="64" textpieces="5" top="177" width="721">I. Highly aliphatic                                   16.8                     0                     0                          0                    17.0</text>
+1 <text font="4" height="11" left="64" textpieces="5" top="192" width="721">II. Low aromatic, highly acidic, aliphatic          1.1                     0                     0.3                        2.7                   7.7</text>
+1 <text font="4" height="11" left="64" textpieces="5" top="206" width="721">III. Low aromatic, highly aliphatic                  2.3                     0                     0                          0                    11.8</text>
+1 <text font="4" height="11" left="64" textpieces="5" top="221" width="721">IV. Amorphous                                        0                      71.5                  99.7                       97.3                   7.8</text>
+1 <text font="4" height="11" left="64" textpieces="5" top="236" width="721">V. Impure graphitic                                 34.8                    26.9                   0                          0                    35.1</text>
+1 <text font="4" height="11" left="64" textpieces="5" top="251" width="721">VI. Highly organized graphitic                     44.9                     1.6                   0                          0                    20.6</text>
+2 <text font="4" height="11" left="347" textpieces="1" top="72" width="497">Carbon XANES of graphitic black carbon                                                         1489</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="6" height="14" left="49" textpieces="0" top="105" width="377">Pacic 910 cm GBC is comprised of a wide variety of</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="123" width="377">GBC classes ( href="4.html#7"&gt;Table 3 href="4.html#7"&gt;). Similarly, the GBC of the Washing-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="140" width="377">ton Coast Slope and the Eel River Margin is both dominat-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="158" width="231">ed by amorphous carbon ( href="4.html#7"&gt;Table 3 href="4.html#7"&gt;).</text>
+2 <text font="6" height="14" left="67" textpieces="1" top="176" width="359">The Equatorial Pacic Ocean site (8550N, 139520W) is</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="194" width="376">a highly oxidized, open-ocean site that is remote from the</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="212" width="377">typical processes which create highly ordered graphite.</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="230" width="377">The East Pacic Rise hydrothermal vent eld has been</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="248" width="377">identied, however, as the source of crystalline graphite</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="266" width="377">found approximately 300 m from the ridge axis ( href="4.html#11"&gt;Jedwab</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="284" width="377"> href="4.html#11"&gt;and Boule`gue, 1984 href="4.html#11"&gt;) but the metaliferrous sediments typi-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="302" width="376">cal of this and other vent elds were not detected at the</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="320" width="376">Equatorial Pacic 9N sampling location. Therefore, the</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="338" width="376">presence of graphitic forms of GBC in the pre-anthropo-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="356" width="377">genic sediments of the deep Equatorial Pacic, far from</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="374" width="377">any signicant uvial or hydrothermal vent input, supports</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="392" width="376">an aeolian mode of GBC transport, possibly via dust mobi-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="409" width="377">lized by desert storms. Aeolian inputs of terrestrial organic</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="427" width="376">carbon, while dicult to determine, appear to have delivery</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="445" width="377">rates to the sediments comparable to those from marine-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="463" width="377">derived processes, and have been shown to be geochemical-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="481" width="376">ly signicant ( href="4.html#12"&gt;Zariou et al., 1985; Peltzer and Gagosian,</text>
+2 <text font="7" height="14" left="49" textpieces="0" top="499" width="376"> href="4.html#12"&gt;1989; Eglinton et al., 2002). The most likely source of the</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="517" width="376">highly ordered graphite in the open Equatorial Pacic</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="535" width="377">Ocean may be continental dust, possibly from central Mex-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="553" width="377">ico, and transported by the NE trade winds and storms to</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="571" width="152">the open Pacic Ocean.</text>
+2 <text font="6" height="14" left="67" textpieces="0" top="589" width="358">It is possible that the other non-amorphous, non-gra-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="607" width="376">phitic forms of organic carbon found in the Equatorial</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="625" width="377">Pacic GBC may be artifacts from the GBC method,</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="643" width="376">formed by the condensation of recent marine biomacro-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="660" width="377">molecules, and which could dilute the age of the GBC</text>
+2 <text font="6" height="14" left="49" textpieces="1" top="678" width="376">material to a relatively young14C-determined age of about</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="696" width="376">10,000 years, rather than 40,000 years for nearshore sedi-</text>
+2 <text font="6" height="14" left="49" textpieces="2" top="714" width="377">ments ( href="4.html#10"&gt;Dickens et al., 2004a). href="4.html#11"&gt;Gustafsson et al. (2001)have</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="732" width="376">shown the production of BC values from thermal oxidation</text>
+2 <text font="6" height="14" left="49" textpieces="1" top="750" width="377">of diatom exudates, and whereas the href="4.html#10"&gt;Gelinas et al. (2001)</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="768" width="377">method eectively removes most non-BC forms of carbon,</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="786" width="377">it is possible that it may produce small amounts of BC for</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="804" width="377">samples that are relatively low in pyrogenic carbon or fossil</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="822" width="376">graphitic carbon  href="4.html#11"&gt;( href="4.html#11"&gt;Simpson and Hatcher, 2004). Some of</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="840" width="377">the aliphatic cluster spectra types (e.g., types I, II, and</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="858" width="377">III) were somewhat similar to the melanoidin produced</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="876" width="376">through a reaction between lysine and glucose (i.e.,</text>
+2 <text font="7" height="14" left="49" textpieces="1" top="894" width="376"> href="4.html#5"&gt;Fig. 2, and  href="4.html#10"&gt;Brandes et al., 2004), but much more detailed</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="912" width="376">examination of dierent melanoidin reaction types should</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="929" width="298">be conducted. This research is also underway.</text>
+2 <text font="6" height="14" left="67" textpieces="0" top="947" width="359">What processes and/or sources of GBC are shared be-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="965" width="376">tween the Mexico Margin, the Washington Coast Slope,</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="983" width="376">and the Eel River Margin surface sediments, that results</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1001" width="376">in predominantly amorphous C in the GBC fraction? Giv-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1019" width="376">en the much higher burial rates usually found on continen-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1037" width="377">tal shelves as compared to deep-sea environments, it is</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1055" width="377">tempting to speculate that amorphous GBC forms, and</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1073" width="376">not graphitic forms, may dominate GBC burial in the</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1091" width="377">ocean. However, more work is needed to delineate the pos-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="1109" width="376">sible source mechanisms leading to the transport and burial</text>
+=============================== COL ===================================
+2 <text font="6" height="14" left="453" textpieces="0" top="105" width="376">of amorphous GBC. It is, however, important to note that</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="123" width="377">this form of GBC has not been previously observed and</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="140" width="376">was not predicted to survive the GBC extraction treatment.</text>
+2 <text font="6" height="14" left="470" textpieces="1" top="158" width="359">Based on the very old 14C-based age of the GBC</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="176" width="376">(11,00041,000 years old) in riverine- and coastal marine-</text>
+2 <text font="6" height="14" left="453" textpieces="2" top="194" width="376">sediments, as well as a heavy 13C value,  href="4.html#10"&gt;Dickens et al.</text>
+2 <text font="7" height="14" left="453" textpieces="1" top="212" width="376"> href="4.html#10"&gt;(2004a) concluded that the GBC source for Washington</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="230" width="376">Coast Margin must be fossilized graphite weathered from</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="248" width="376">continental rocks, carried to the oceans, and re-deposited</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="266" width="376">to marine sediments. Our analyses were constrained mostly</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="284" width="376">to modern sediments, yet are partially consistent with</text>
+2 <text font="7" height="14" left="453" textpieces="1" top="302" width="376"> href="4.html#10"&gt;Dickens et al. (2004a)conclusions, as we clearly show that</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="320" width="377">the GBC fraction in the sediments of the one mountainous</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="338" width="376">river we sampled to be predominantly highly ordered gra-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="356" width="376">phitic carbon. Yet our analyses show the GBC from the</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="374" width="377">Washington Coast Margin was not crystalline graphite</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="392" width="376">but amorphous carbon. Since GBC is well known to be re-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="409" width="376">calcitrant, then what could be the source and chemical</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="427" width="377">structure of the amorphous carbon form of GBC, which</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="445" width="376">leads to its persistence in such widely dierent sedimentary</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="463" width="377">environments? We consider three hypothetical sources of</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="481" width="376">the amorphous carbon: (1) petrogenic graphite which is</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="499" width="377">transformed to amorphous carbon during its transport to</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="517" width="376">marine sediments, (2) soot from combustion of either fossil</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="535" width="376">fuels or biomass, and (3) a form of non-graphitic kerogen,</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="553" width="376">which has not undergone the extensive metamorphic pro-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="571" width="377">cesses necessary to form the highly ordered graphene</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="589" width="282">planes characteristic of petrogenic graphite.</text>
+2 <text font="6" height="14" left="470" textpieces="0" top="607" width="359">Petrogenic graphite formation commonly occurs as a re-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="625" width="377">sult of organic matter conversion under natural heating</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="643" width="376">during low-grade metamorphism, or metamorphism of car-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="660" width="376">bonate-rich rocks or organic-rich sediments, or via precip-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="678" width="376">itation from natural carbon-bearing uids such as those</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="696" width="376">containing CO2, CO, and/or CH4( href="4.html#10"&gt;Frost et al., 1989; Per-</text>
+2 <text font="7" height="14" left="453" textpieces="0" top="714" width="377"> href="4.html#10"&gt;son et al., 1996; Luque et al., 1998; Duba et al., 2001; Jo-</text>
+2 <text font="7" height="14" left="453" textpieces="1" top="732" width="376"> href="4.html#10"&gt;dicke et al., 2004; Puceat et al., 2004). Studies by  href="4.html#10"&gt;Gago</text>
+2 <text font="7" height="14" left="453" textpieces="1" top="750" width="376"> href="4.html#10"&gt;et al. (2000, 2001)used highly oriented pyrolytic graphite</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="768" width="377">as precursor material and produced amorphous carbon</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="786" width="376">by ion beam assisted decomposition. This amorphous car-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="804" width="377">bon was examined by C-XANES and produced spectra</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="822" width="377">identical to some of our spectra. Amorphous carbon has</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="840" width="376">been distinguished from highly ordered graphite as a pro-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="858" width="376">gressive decrease of the p* exciton (at 285.4 eV), with the</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="876" width="377">appearance of several p* states of similar intensity due to</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="894" width="377">the increase in the sp2-related p* states in the region be-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="912" width="377">tween 285 and 288 eV ( href="4.html#10"&gt;Gago et al., 2000, 2001). The de-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="929" width="376">crease in the p* exciton is apparently due to the</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="947" width="376">reduction of graphite domain size in the amorphisation</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="965" width="377">process, as theoretical modeling of the XANES spectra</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="983" width="376">found a dependence of the exciton intensity with plane-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1001" width="377">cluster size  href="4.html#10"&gt;( href="4.html#10"&gt;Ahuja et al., 1996). The decrease of the p*</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1019" width="377">intensity as the ordered graphite becomes progressively</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1037" width="376">amorphous was likely due to the increase of sp3-hybridized</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1055" width="376">sites at the expense of the sp2-hybridized sites. Possible</text>
+2 <text font="6" height="14" left="453" textpieces="1" top="1073" width="376">mechanisms consistent with the increase in the sp3/sp2ra-</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1091" width="377">tios with amorphisation could include (1) formation of</text>
+2 <text font="6" height="14" left="453" textpieces="0" top="1109" width="376">vacancies in the graphitic basal planes, by removal of cer-</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="6" height="14" left="64" textpieces="0" top="105" width="377">tain carbon atoms and leaving dangling carbon bonds; (2)</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="123" width="376">formation of ve- and seven-member rings that curve the</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="140" width="377">basal planes and connect dangling bonds; and (3) promo-</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="158" width="377">tion of sp3 sites that can also distort the at basal plane</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="176" width="377">geometry and can cross-link dierent planes ( href="4.html#10"&gt;Gago et al.,</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="194" width="175"> href="4.html#10"&gt;2001; Jimenez et al., 2003 href="4.html#10"&gt;).</text>
+2 <text font="6" height="14" left="82" textpieces="0" top="212" width="359">Is it possible that the complete dissociation of the gra-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="230" width="376">phitic basal planes into amorphous carbon is a dominant</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="248" width="377">process controlling the GBC found in the continental mar-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="266" width="376">gin samples? Ion beam assisted deposition is not a direct</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="284" width="376">analog for any natural process. Perhaps photooxidation</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="302" width="377">has the ability to leave the graphitic structure intact enough</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="320" width="377">to resist oxidation by the GBC isolation method, but dis-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="338" width="377">rupted enough to appear amorphous via the C-XANES</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="356" width="376">analysis. The presence of impure- and highly ordered</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="374" width="376">graphite in the Eel River GBC suggests that the putative</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="392" width="377">graphite oxidative-dissociation mechanism may not had</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="409" width="376">enough time to act before being rapidly buried, because</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="427" width="377">of the intense erosion and burial of OC in this watershed.</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="445" width="376">In contrast, the longer residence time of carbon in the</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="463" width="377">Columbia River system before deposition on the North</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="481" width="369">American margin may promote extensive amorphisation.</text>
+2 <text font="6" height="14" left="82" textpieces="0" top="499" width="359">Another possible source of the pre-anthropogenic GBC</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="517" width="376">in the Equatorial Pacic 910 cm sediment might be soot</text>
+2 <text font="6" height="14" left="64" textpieces="1" top="535" width="376">from the combustion of C4grasses ( href="4.html#10"&gt;Eglinton et al., 2002;</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="553" width="376"> href="4.html#10"&gt;Dickens et al., 2004a). At the most extreme end of the com-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="571" width="377">bustion product spectrum, highly graphitized soot spher-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="589" width="376">oids are formed from extensive recombination of small</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="607" width="377">free radicals of acetylenic and aromatic molecules within</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="625" width="377">the ame ( href="4.html#10"&gt;Goldberg, 1985). The soot spheroids possess</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="643" width="377">onion-like layers and layers of graphite formed by sp2-hy-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="661" width="377">bridized carbon, but curved due to the presence of sp3-hy-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="678" width="376">bridized carbon ( href="4.html#10"&gt;Dobbins et al., 1998; Schmidt and Noack,</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="696" width="377"> href="4.html#10"&gt;2000 href="4.html#10"&gt;). Less intensive combustion of vegetative biomass</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="714" width="377">may produce more randomly oriented stacks of a few gra-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="732" width="376">phitic layers  href="4.html#11"&gt;( href="4.html#11"&gt;Heidenreich et al., 1968 href="4.html#11"&gt;). Soot particle nano-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="750" width="376">structure, which includes the graphene layer plane</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="768" width="377">dimensions, their tortuosity, and relative orientation, can</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="786" width="376">dictate its reactivity towards oxidation  href="4.html#11"&gt;( href="4.html#11"&gt;Vander Wal and</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="804" width="377"> href="4.html#11"&gt;Tomasek, 2003 href="4.html#11"&gt;). At the edge of the short (less than a few</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="822" width="377">nm) stacks of graphene plate-segments (termed crystal-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="840" width="377">lites) the potential carbon sites (aryl CH bonds) are well</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="858" width="376">known to be most susceptible to oxidation compared to the</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="876" width="376">carbon atoms within the basal plane, which have only</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="894" width="376">shared p electrons forming chemical bonds  href="4.html#11"&gt;( href="4.html#11"&gt;Palmer and</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="912" width="376"> href="4.html#11"&gt;Cullis, 1965; Vander Wal and Tomasek, 2003). The degree</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="929" width="377">of curvature of the crystallites also increases the suscepti-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="947" width="377">bility of the carbon atoms to oxidation, exposing weakened</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="965" width="377">CC bonds, as bond strain increases as the orbitals overlap</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="983" width="376">and the electronic stabilization is decreased ( href="4.html#10"&gt;Dresselhaus</text>
+2 <text font="7" height="14" left="64" textpieces="0" top="1001" width="377"> href="4.html#10"&gt;et al., 1996). The soot particles should be quickly oxidized</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1019" width="377">by ozone and other atmospheric oxidants, creating hydro-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1037" width="377">philic carboxylic acids and aromatic polyacids on their</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1055" width="377">exterior surfaces, and thus promoting soot particle solubi-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1073" width="376">lization  href="4.html#10"&gt;( href="4.html#10"&gt;Chughtai et al., 1991; Decessari et al., 2002). At</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1091" width="377">present we have only limited C-XANES and STXM exam-</text>
+2 <text font="6" height="14" left="64" textpieces="0" top="1109" width="377">inations of soot, and those were derived from diesel com-</text>
+=============================== COL ===================================
+2 <text font="6" height="14" left="467" textpieces="0" top="105" width="377">bustion  href="4.html#5"&gt;( href="4.html#5"&gt;Figs. 2 href="4.html#5"&gt;B and C). We did not observe these type</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="123" width="376">of spectra in Equatorial Pacic (nor any other location)</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="140" width="376">sediments. However, it is possible that soot derived from</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="158" width="377">vegetation res may have a less condensed structure and</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="176" width="376">thus have a dierent C-XANES spectrum. While soot</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="194" width="376">may have small domains of graphene layers and crystallites</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="212" width="376">their small dimensions will not lead to the large absorbance</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="230" width="376">we observed for unsaturated carbon at 291.8 eV, which is</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="248" width="377">more characteristic of multiple layers of aromatic rings typ-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="266" width="377">ical of petrogenic graphite. Furthermore, soot does not</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="284" width="376">exhibit the strong absorption between 285.5 and 287 eV</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="302" width="376">that we observe in our amorphous C class, and thus cannot</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="320" width="377">be the unaltered sources of this material. Soot can partially</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="338" width="376">survive the GBC-fractionation method yet NMR examina-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="356" width="377">tions of soot treated by the Gelinas method revealed a loss</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="374" width="376">of aliphatic components and a preservation of aromatic</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="392" width="376">components (Gelinas, personal communication), suggest-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="409" width="377">ing that the amorphous phase is not derived from chemical-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="427" width="377">ly altered soot. Further work at the N- and O-edges by</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="445" width="377">XANES on GBC should distinguish whether its origin is</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="463" width="376">petrogenic graphite, which should contain very little N,</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="481" width="377">or fossil fuel combustion products, which should contain</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="499" width="215">signicant N and O components.</text>
+2 <text font="6" height="14" left="485" textpieces="0" top="517" width="359">We cannot reject the possibility that the GBC found</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="535" width="376">along the coastal margins is neither transformed petrogenic</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="553" width="377">graphite nor combustion products, but is instead a non-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="571" width="376">graphitic form of kerogen. Kerogen is an inherently com-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="589" width="377">plex macromolecular mixture ( href="4.html#11"&gt;Tissot and Welte, 1978;</text>
+2 <text font="7" height="14" left="467" textpieces="0" top="607" width="377"> href="4.html#11"&gt;Hedges, 1992) that may include petrogenic graphite and</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="625" width="376">many molecularly uncharacterizable compounds. While</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="643" width="377">kerogen of types I and II does not survive the GBC-treat-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="660" width="377">ment method  href="4.html#10"&gt;( href="4.html#10"&gt;Dickens et al., 2004a,b href="4.html#10"&gt;), a fraction of type</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="678" width="376">III kerogen, which comprises a large aromatic component</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="696" width="377">(Tissot and Welte, 1978), might be thermally resistant</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="714" width="376">and could contribute to the GBC isolate. This could consist</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="732" width="377">of a sort of proto-graphite that is condensed enough to sur-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="750" width="377">vive the GBC method but irregular enough to appear as</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="768" width="152">graphite by C-XANES.</text>
+2 <text font="6" height="14" left="485" textpieces="0" top="786" width="359">Clearly a more detailed understanding of GBC sources,</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="804" width="376">transport, and diagenesis should include at the least a more</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="822" width="377">systematic and thorough sampling of the rivers of the both</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="840" width="376">coasts of the North American continent proper and their</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="858" width="377">related margins. Combustion products of grasses and</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="876" width="377">woods also need a more thorough examination by C-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="894" width="377">XANES and STXM. This type of research is underway</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="912" width="243">and will be presented in a later work.</text>
+2 <text font="6" height="13" left="467" textpieces="0" top="948" width="91">5. Conclusions</text>
+2 <text font="6" height="14" left="485" textpieces="0" top="983" width="358">Our results show a clear impact of graphite and amor-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1001" width="376">phous C phases in the BC fraction in modern riverine sed-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1019" width="376">iments and nearby marine shelf deposits, and also in the</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1037" width="376">pre-anthropogenic sediments in the open ocean. This is</text>
+2 <text font="6" height="14" left="467" textpieces="1" top="1055" width="377">consistent with the ndings of href="4.html#10"&gt;Dickens et al. (2004a,b), that</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1073" width="376">sedimentary GBC may not involve a signicant contribu-</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1091" width="377">tion by combustion products. Sedimentary environments</text>
+2 <text font="6" height="14" left="467" textpieces="0" top="1109" width="376">along continental margins have a GBC fraction of BC</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="6" height="14" left="49" textpieces="0" top="105" width="377">which is characterized by more disordered graphite and</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="123" width="376">amorphous carbon. The Equatorial Pacic GBC fraction</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="140" width="376">is remarkable in the existence of highly ordered graphite,</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="158" width="377">but they also appear to contain signicant aliphatic compo-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="176" width="377">nents. C-XANES and PCA are clearly powerful analytical</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="194" width="337">tools in the delineation of the composition of GBC.</text>
+2 <text font="6" height="13" left="49" textpieces="0" top="232" width="112">Acknowledgments</text>
+2 <text font="6" height="14" left="67" textpieces="0" top="268" width="359">This work was supported by NSF Grants OCE-0221295</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="286" width="377">and OCE-0118036 (J.A.B.), and OCE-9310364 (S.G.W.),</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="304" width="377">by a NSF Graduate Research Fellowship to A.F.D., and</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="322" width="376">the Canadian National Science and Engineering Research</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="339" width="376">Council to Y.G. The National Synchrotron Light Source</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="357" width="377">is a Department of Energy supported facility. The authors</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="375" width="377">thank Chris Jacobsen, Mirna Lerotic, and Holger Flecken-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="393" width="377">stein (SUNY) for their patient assistance in the operation</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="411" width="377">of the STXM, and in PCA and cluster analysis, and Marie</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="429" width="377">Helene Veilleux (CU) for FTIR analyses. This work is ded-</text>
+2 <text font="6" height="14" left="49" textpieces="0" top="447" width="377">icated to the memory of John I. Hedges, mentor and friend.</text>
+2 <text font="5" height="12" left="62" textpieces="0" top="484" width="208">Associate editor: H. Rodger Harvey</text>
+2 <text font="6" height="13" left="49" textpieces="0" top="519" width="67">References</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="554" width="377">Ade, H., Urquhart, S.G., 2002. NEXAFS spectroscopy and microscopy of</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="569" width="359">natural and synthetic polymers. In: Sham, T.K. (Ed.), Chemical</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="583" width="359">Applications of Synchrotron Radiation, Advanced Series in Physical</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="598" width="303">Chemistry, vol. 12. World Scientic Publishing, Singapore.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="613" width="377">Ahuja, R., Bruhwiler, P.A., Wills, J.M., Johansson, B., Martensson, N.,</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="628" width="359">Eriksson, O., 1996. Theoretical and experimental study of the graphite</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="643" width="316">1s x-ray absorption edge. Phys. Rev. B 54 (20), 1439614404.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="658" width="377">Berner, R.A., 1982. Burial of organic carbon and pyrite sulfur in the</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="673" width="359">modern ocean: its geochemical and environmental signicance. Am. J.</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="688" width="93">Sci. 282, 451473.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="703" width="377">Berner, R.A., 1989. New model for atmospheric oxygen over Phanerozoic</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="718" width="161">time. Am. J. Sci. 289, 333361.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="733" width="377">Blair, N.E., Leithold, E.I., Ford, S., Peeler, K., Holmes, J., Perkey, D.,</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="748" width="359">2003. The persistence of memory: the fate of ancient sedimentary</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="763" width="359">organic carbon in a modern sedimentary system. Geochim. Cosmochim.</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="778" width="80">Acta 63, 6373.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="793" width="377">Blair, N.E., Leithold, E.I., Aller, R.C., 2004. From bedrock to burial: the</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="808" width="359">evolution of particulate organic carbon across coupled watershed-</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="823" width="277">continental margin systems. Mar. Chem. 92, 141156.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="837" width="377">Brandes, J.A., Lee, C., Wakeham, S., Peterson, M., Jacobsen, C., Wirick,</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="852" width="359">S., Cody, C., 2004. Examining marine particulate organic matter at</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="867" width="359">sub-micron scales using scanning transmission X-ray microscopy and</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="882" width="359">carbon X-ray absorption near-edge structure spectroscopy. Mar.</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="897" width="100">Chem. 92, 107121.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="912" width="377">Carpenter, R., Beasely, T.M., Zahnle, D., Somayajulu, B.L.K., 1987.</text>
+2 <text font="4" height="11" left="67" textpieces="3" top="927" width="358">Cycling of fallout (Pu, 241Am, 137Cs) and natural (U, Th, 210Pb)</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="942" width="359">radionuclides in Washington continental slope sediments. Geochim.</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="957" width="169">Cosmochim. Acta 51, 18971921.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="972" width="377">Chughtai, A.R., Jassmin, J.A., Peterson, J.H., Stedman, D.H., Smith,</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="987" width="359">D.M., 1991. Spectroscopic and solubility characteristics of oxidized</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="1002" width="209">soots. Aerosol Sci. Technol. 15, 112126.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="1017" width="377">Cody, G.D., Botto, R.E., Ade, H., Wirick, S., 1996. The application of</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="1032" width="359">soft x-ray microscopy to the in-situ analysis of sporinite in coal. Int. J.</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="1047" width="110">Coal Geol. 32, 6986.</text>
+2 <text font="4" height="11" left="49" textpieces="0" top="1062" width="377">Cody, G.D., Ade, H., Wirick, S., Mitchell, G.D., Davis, A., 1998.</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="1077" width="359">Determination of chemical-structural changes in vitrinite accompany-</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="1092" width="359">ing luminescence alteration using C-NEXAFS analysis. Org. Geochem.</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="1107" width="64">28, 441455.</text>
+=============================== COL ===================================
+2 <text font="4" height="11" left="453" textpieces="0" top="105" width="377">Decessari, S., Facchini, M.C., Matta, E., Mircea, M., Fuzzi, S., Chughtai,</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="120" width="359">A.R., Smith, D.M., 2002. Water soluble compounds formed by</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="135" width="258">oxidation of soot. Atmos. Environ. 36, 18271832.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="150" width="377">Dhez, O., Ade, H., Urquhart, S.G., 2003. Calibrated NEXAFS spectra of</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="164" width="359">some common polymers. J. Electron Spectrosc. Relat. Phenomenon</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="180" width="58">128, 8596.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="194" width="377">Dickens, A.F., Gelinas, Y., Masiello, C.A., Wakeham, S., Hedges, J.I.,</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="209" width="359">2004a. Reburial of fossil organic carbon in marine sediments. Nature</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="225" width="70">427, 336339.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="239" width="377">Dickens, A.F., Gelinas, Y., Hedges, J.I., 2004b. Physical separation of</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="254" width="359">combustion and rock sources of graphitic black carbon in sediments.</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="269" width="130">Mar. Chem. 92, 215223.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="284" width="377">Dickens, A.F., Baldock, J.A., Smernik, R.J., Wakeham, S.G., Arnarson,</text>
+2 <text font="4" height="11" left="470" textpieces="1" top="299" width="359">T.S., Gelinas, Y., Hedges, J.I. (in press). Solid-state13C NMR analysis</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="314" width="359">of size and density fractions of marine sediments: insight into organic</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="329" width="359">carbon sources and preservation mechanisms. Geochim. Cosmochim.</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="344" width="27">Acta.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="359" width="377">Dobbins, R.A., Fletcher, R.A., Chang, H.-C., 1998. The evolution of soot</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="374" width="359">precursor particles in a diusion ame. Combust. Flame 115, 285298.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="389" width="377">Dresselhaus, M.S., Dresselhaus, G., Eklund, P.C., 1996. Science of</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="404" width="323">Fullerenes and Carbon Nanotubes. Academic Press, New York.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="419" width="377">Duba, A., Mathez, E.A., Shankland, T.J., 2001. Workshop addresesses</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="433" width="359">crustal carbon and its eect on electrical conductivity. EOSTrans.</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="448" width="149">Am. Geophys. Union 82, 456.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="463" width="377">Eglinton, T.I., Eglinton, G., Dupont, L., Sholkovitz, E.R., Montlucon,</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="478" width="359">D., Reddy, C.M., 2002. Composition, age, and provenance of organic</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="493" width="359">matter in NW African dust over the Atlantic Ocean. Geochem.</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="508" width="136">Geophys. Geosyst. 3, 127.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="523" width="377">Feser, M., Beetz, T., Carlucci-Dayton, M., Jacobsen, C., 2000. Instru-</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="538" width="359">mentation advances and detector development with the Stony Brook</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="553" width="359">scanning transmission x-ray microscope. In: Meyer-Ilse, W., Warwick,</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="568" width="359">A., Attwood, D.T. (Eds.), X-ray Microscopy: Proceedings of the Sixth</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="583" width="359">International Conference. American Institute of Physics, Melville, NY,</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="598" width="65">pp. 367372.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="613" width="377">Feser, M., Beetz, T., Carlucci-Dayton, M., Jacobsen, C., 2001. Scanning</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="628" width="359">transmission soft x-ray microscopy at beamline X-1A at the NSLS</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="643" width="359">advances in instrumentation and selected applications. In: Tichenor,</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="658" width="359">D.A., Folta, J.A. (Eds.), Soft X-ray and EUV Imaging Systems II.</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="673" width="359">Society of Photo-Optical Instrumentation Engineers, Bellingham, WA,</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="688" width="65">pp. 146153.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="703" width="377">Flynn, G.J., Keller, L.P., Feser, M., Wirick, S., Jacobsen, C., 2003. The</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="717" width="359">origin of organic matter in the solar system: evidence from the</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="732" width="359">interplanetary dust particles. Geochim. Cosmochim. Acta 67 (24), 4791</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="747" width="27">4806.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="762" width="377">Francis, J.T., Hitchcock, A.P., 1992. Inner-shell spectroscopy of para-</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="777" width="359">benzoquinone, hydroquinone, and phenol-distinguishing quinoid and</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="792" width="294">benzenoid structures. J. Phys. Chem. 96 (16), 65986610.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="807" width="377">Frost, B.R., Fyfe, W.S., Tazaki, K., Chan, T., 1989. Grain boundary</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="822" width="359">graphite in rocks and implications for high electrical conductivity in</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="837" width="193">the lower crust. Nature 340, 134136.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="852" width="377">Gago, R., Jimenez, I., Albella, J.M., Climent-Font, A., Caceres, D.,</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="867" width="359">Vergara, V., Banks, J.C., Doyle, B.L, Terminello, L.J., 2000. Bonding</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="882" width="359">and hardness in nonhydrogenated carbon lms with moderate sp3</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="897" width="221">content. J. Appl. Phys. 87 (11), 81748180.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="912" width="377">Gago, R., Jimenez, I., Albella, J.M., 2001. Detecting with X-ray</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="927" width="359">absorption spectroscopy the modications of the bonding structure</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="942" width="359">of graphitic carbon by amorphisation, hydrogenation and nitrogen-</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="957" width="177">ation. Surf. Sci. 482/485, 530536.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="972" width="377">Gelinas, Y., Prentice, K.M., Baldock, J.A., Hedges, J.I., 2001. An</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="986" width="359">improved thermal oxidation method for the quantication of soot/</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="1001" width="359">graphitic black carbon in sediments and soils. Environ. Sci. Technol. 35</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="1016" width="78">(7), 35193525.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="1031" width="377">Goldberg, E.D., 1985. Black Carbon in the Environment. Wiley, New</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="1046" width="69">York, 198pp.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="1061" width="377">Goni, M.A., Yunker, M.B., Macdonald, R.W., Eglinton, T.I., 2005. The</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="1076" width="359">supply and preservation of ancient and modern components of organic</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="1091" width="359">carbon in the Canadian Beaufort Shelf of the Arctic Ocean. Mar.</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="1106" width="88">Chem. 93, 5373.</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="11" left="64" textpieces="0" top="105" width="377">Gullikson, E., 2001. Mass absorption coecients. In: Thompson, A.C.,</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="120" width="359">Vaughn, D. (Eds.), X-ray Data Booklet. Center for X-ray Optics</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="135" width="342">Advanced Light Source, Lawrence Berkeley National Laboratory.</text>
+2 <text font="4" height="11" left="64" textpieces="1" top="150" width="377">Gustafsson, O  ., Haghseta, F., Chan, C., MacFarlane, J., Gschwend, P.M.,</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="164" width="359">1997. Quantication of the dilute sedimentary soot phase: implications</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="179" width="359">for PAH speciation and bioavailability. Environ. Sci. Technol. 31, 203</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="194" width="21">209.</text>
+2 <text font="4" height="11" left="64" textpieces="1" top="209" width="376">Gustafsson, O  ., Bucheli, T.D., Kukulska, Z., Andersson, M., Largeau, C.,</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="224" width="359">Rouzand, J.-N., Reddy, C.M., Eglinton, T.I., 2001. Evaluation of a</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="239" width="359">protocol for the quantication of black carbon in sediments. Global</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="254" width="168">Biogeochem. Cycles 15, 881890.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="269" width="377">Hammond, D.E., McManus, J., Berelson, W.M., Kilgore, T.E., Pope,</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="284" width="359">R.H., 1996. Early diagenesis of organic material in equatorial Pacic</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="299" width="359">sediments: stoichiometry and kinetics. Deep-Sea Res. II 43, 13651412.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="314" width="377">Hedges, J.I., 1992. Global biogeochemical cycles: progress and problems.</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="329" width="118">Mar. Chem. 39, 6793.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="344" width="377">Hedges, J.I., Keil, R.G., 1995. Sedimentary organic matter preservation:</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="359" width="335">an assessment and speculative synthesis. Mar. Chem. 49, 81115.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="374" width="377">Heidenreich, R.D., Hess, W.M., Ban, L.L., 1968. A test object and criteria</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="389" width="359">for high resolution electron microscopy. J. Appl. Crystallogr. 1, 119.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="404" width="377">Henke, B.L, Gullikson, E.M., Davis, J.C., 1993. X-ray interactions:</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="419" width="359">photoabsorption, scattering, transmission, and reection at E = 50</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="433" width="298">30,000 eV, Z = 192. At. Data Nucl. Data Tables 54, 181.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="448" width="377">Hitchcock, A.P., Horsley, J.A., Stohr, J., 1986. Inner shell excitation of</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="463" width="359">thiophene and thiolane-gas, solid, and monolayer states. J. Chem.</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="478" width="126">Phys. 85 (9), 48354848.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="493" width="377">Hitchcock, A.P., Ishii, I., 1987. Carbon K-shell excitation spectra of linear</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="508" width="359">and branched alkanes. J. Electron Spectrosc. Relat. Phenomena 42 (1),</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="523" width="33">1126.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="538" width="377">Hitchcock, A.P., Stohr, J., 1987. K-shell shape resonances and intramo-</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="553" width="359">lecular bond lengths-comments on the relationship between shape</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="568" width="331">resonances and bond lengths. J. Chem. Phys. 87 (5), 32533255.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="583" width="377">Hitchcock, A.P., Urquhart, S.G., Rightor, E.G., 1992. Inner shell</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="598" width="359">spectroscopy of benzaldehyde, terephthalaldehyde, ethyl benzoate,</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="613" width="359">terephthaloyl chloride, and phosgene-models for core excitation</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="628" width="359">of poly(ethylene-terephthalate). J. Phys. Chem. 96 (22), 8736</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="643" width="27">8750.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="658" width="377">Jacobsen, C., Kirz, J., 1998. X-ray microscopy with synchrotron radiation.</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="673" width="150">Nat. Struct. Biol. 5, 650653.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="688" width="377">Jacobsen, C., Flynn, G., Wirick, S., Zimba, C., 2000. Soft x-ray spectros-</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="703" width="359">copy from image sequences with sub-100 nm spatial resolution. J.</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="717" width="133">Microsc. 197 (2), 173184.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="732" width="377">Jamin, N., Miller, L., Moncuit, J., Fridman, W.H., Dumas, P., Teillaud,</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="747" width="359">J.L., 2003. Chemical heterogeneity in cell death: combined synchrotron</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="762" width="359">IR and uorescence microscopy studies of single apoptotic and</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="777" width="221">necrotic cells. Biopolymers 72 (5), 366373.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="792" width="377">Jedwab, J., Boule`gue, J., 1984. Graphite crystals in hydrothermal vents.</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="807" width="97">Nature 310, 4143.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="822" width="377">Jimenez, I., Gago, R., Albella, J.M., 2003. Fine structure at the X-ray</text>
+2 <text font="4" height="11" left="82" textpieces="2" top="837" width="358">absorption p* and p* bands of amorphous carbon. Diamond Relat.</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="852" width="103">Mater. 12, 110115.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="867" width="377">Jodicke, H., Kruhl, J.H., Ballhaus, C., Giese, P., Untiedt, J., 2004.</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="882" width="359">Syngenetic, thin graphite-rich horizons in lower crustal rocks from the</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="897" width="359">Serre San Bruno, Calabria (Italy), and implications for the nature of</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="912" width="359">high-conducting deep crustal layers. Phys. Earth Planet. Inter. 141, 37</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="927" width="15">58.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="942" width="377">Kemner, K.M., Kelly, S.D., Lai, B., Maser, J., OLoughin, E.J., Sholto-</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="957" width="359">Douglas, D., Cai, Z., Schneegurt, M.A., Kulpa, C.F., Nealson, K.H.,</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="972" width="359">2004. Elemental and redox analysis of single bacterial cells by X-ray</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="986" width="196">microbeam analysis. Science 306, 686.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="1001" width="377">Lee, C., Wakeham, S.G., Arnosti, C., 2004. Particulate organic matter in</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="1016" width="315">the sea: the composition conundrum. Ambio 33 (8), 565575.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="1031" width="377">Lerotic, M., Jacobsen, C., Schafer, T., Vogt, S., 2004. Cluster analysis</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="1046" width="359">of soft x-ray spectromicroscopy data. Ultramicroscopy 100 (12),</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="1061" width="33">3557.</text>
+2 <text font="4" height="11" left="64" textpieces="0" top="1076" width="377">Luque, F.L., Pasteris, J.D., Wopenka, B., Rodas, M., Barrenechea, J.F.,</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="1091" width="359">1998. Natural uid-deposited graphite: mineralogical characteristics</text>
+2 <text font="4" height="11" left="82" textpieces="0" top="1106" width="293">and mechanisms of formation. Am. J. Sci. 298, 471498.</text>
+=============================== COL ===================================
+2 <text font="4" height="11" left="467" textpieces="0" top="105" width="377">Ma, Y., Skytt, P., Wassadahl, N., Glnas, P., Mancini, D.C., Guo, J.,</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="120" width="359">Nordgren, J., 1993. Core excitons and vibronic coupling in diamond</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="135" width="259">and graphite. Phys. Rev. Lett. 71 (22), 37253728.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="150" width="377">Maillard, L.C., 1913. Formation de matie`res humiques par action de</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="164" width="343">polypeptides sur les sucres. C. R. Acad. Sci. (Paris) 156, 148149.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="179" width="377">Masiello, C.A., Druel, E., 2001. Carbon isotope geochemistry of the</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="194" width="306">Santa Clara River. Global Biogeochem. Cycles 15, 407416.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="209" width="377">Masiello, C.A., Druel, E., 2003. Organic and black carbon C-13 and C-</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="224" width="359">14 through the Santa Monica Basin sediment oxic-anoxic transition.</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="239" width="214">Geophys. Res. Lett. 30 (4) (art. no. 1185).</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="254" width="377">Masiello, C.A., 2004. New directions in black carbon organic geochem-</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="269" width="159">istry. Mar. Chem. 92, 201213.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="284" width="377">Mitchell, P., 2001. Turning the spotlight on cellular imaging-advances in</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="299" width="359">imaging are enabling researchers to track more accurately the</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="314" width="359">localization of macromolecules in cells. Nat. Biotechnol. 19 (11),</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="329" width="57">10131017.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="344" width="377">Palmer, H.B., Cullis, C.F., 1965. In: Walker, P.L. (Ed.), The Chemistry</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="359" width="340">and Physics of Carbon, vol. 1. Marcel Dekker, New York, p. 265.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="374" width="377">Peltzer, E.T., Gagosian, R.B., 1989. Organic geochemistry of aerosols over</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="389" width="252">the Pacic Ocean. Chem. Oceanogr. 10, 281338.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="404" width="377">Person, A., Bocherens, H., Mariotti, A., Renard, M., 1996. Diagenetic</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="419" width="359">evolution and experimental heating of bone phosphate. Palaeogeogr.</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="433" width="213">Palaeoclimatol. Palaeoecol. 126, 135149.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="448" width="377">Prahl, F.G., Carpenter, R., 1984. Hydrocarbons in Washington coastal</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="463" width="250">sediments. Estuar. Coast. Shelf Sci. 18, 703720.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="478" width="377">Puceat, E., Reynard, B., Lecuyer, C., 2004. Can crystallinity be used to</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="493" width="359">determine the degree of chemical alteration of biogenic appetites?</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="508" width="125">Chem. Geol. 205, 8397.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="523" width="377">Schmidt, M.W.I, Noack, A.G., 2000. Black carbon in soils and sediments:</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="538" width="359">analysis, distribution, implications, and current challenges. Global</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="553" width="168">Biogeochem. Cycles 14, 777793.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="568" width="377">Schmidt, M.W.I., Skjemstad, J.O., Czimczik, C.I., Glaser, B., Prentice,</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="583" width="359">K.M., Gelinas, Y., Kuhlbusch, T.A.J., 2001. Comparative analysis of</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="598" width="337">black carbon in soils. Global Biogeochem. Cycles 15 (1), 163167.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="613" width="377">Simpson, M.J., Hatcher, P.G., 2004. Overestimates of black carbon in</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="628" width="277">soils and sediments. Naturwissenschaften 91, 436440.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="643" width="377">Sommer, A.P., Franke, R.P., 2002. Near-eld optical analysis of living</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="658" width="238">cells in vitro. J. Proteome Res. 1 (2), 111114.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="673" width="377">Suman, D.O., Kuhlbusch, T.A.J., Lim, B., 1997. Marine sediments: a</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="688" width="359">reservoir for black carbon and their use as spatial and temporal</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="703" width="359">records of combustion. In: Clark, J.S., Cachier, H., Goldammer, J.G.,</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="717" width="359">Stoke, B.J. (Eds.), Sediment Records of Biomass Burning and Global</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="732" width="167">Change. Springer-Verlag, Berlin.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="747" width="377">Tissot, B.P., Welte, D.H., 1978. Petroleum Formation and Occurrence.</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="762" width="146">Springer-Verlag, New York.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="777" width="377">Twining, B.S., Baines, S.B., Fisher, N.S., Maser, J., Vogt, S., Jacobsen, C.,</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="792" width="359">Tovar-Sanchez, A., Sanudo-Wilhelmy, S.A., 2003. Quantifying trace</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="807" width="359">elements in individual aquatic protist cells with a synchrotron X-ray</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="822" width="275">uorescence microprobe. Anal. Chem. 75, 38063816.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="837" width="377">Twining, B.S., Baines, S.B., 2004. Element stoichiometries of individual</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="852" width="359">plankton cells collected during the Southern Ocean Iron Experiment</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="867" width="245">(SOFeX). Limnol. Oceanogr. 49 (6), 21152128.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="882" width="377">Twining, B.S., Baines, S.B., Fisher, N.S., Landry, M.R., 2004. Cellular</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="897" width="359">iron contents of plankton during the Southern Ocean Iron Experiment</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="912" width="207">(SOFeX). Deep-Sea Res. 51, 18271850.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="927" width="377">Urquhart, S.G., Ade, H., 2002. Trends in the carbonyl core (C 1s, O</text>
+2 <text font="4" height="11" left="485" textpieces="1" top="942" width="359">1s) p* C@O transition in the near-edge X-ray absorption ne</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="957" width="359">structure spectra of organic molecules. J. Phys. Chem. B 106 (34),</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="972" width="57">85318538.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="986" width="377">Vander Wal, R.L., Tomasek, A.J., 2003. Soot oxidation: dependence upon</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="1001" width="244">initial nanostructure. Combust. Flame 134, 19.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="1016" width="377">Wakeham, S.G., Forrest, J., Masiello, C.A., Gelinas, Y., Alexander, C.R.,</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="1031" width="359">Leavitt, P., 2004. Hydrocarbons in Lake Washington sediments-a 25</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="1046" width="359">year retrospective in an urban lake. Environ. Sci. Technol. 38 (2), 431</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="1061" width="21">439.</text>
+2 <text font="4" height="11" left="467" textpieces="0" top="1076" width="377">Winn, B., Ade, H., Buckley, C., Feser, M., Howells, M., Hulbert, S.,</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="1091" width="359">Jacobsen, C., Kaznacheyev, K., Kirz, J., Osanna, A., Maser, J.,</text>
+2 <text font="4" height="11" left="485" textpieces="0" top="1106" width="359">McNulty, I., Miao, J., Oversluizen, T., Spector, S., Sullivan, B., Wang,</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="11" left="67" textpieces="0" top="105" width="359">Y., Wirick, S., Zhang, H., . Illumination for coherent soft X-ray</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="120" width="359">applications: the new X1A beamline at the NSLS. J. Synchrotron</text>
+2 <text font="4" height="11" left="67" textpieces="0" top="135" width="99">Radiat. 7, 395404.</text>
+2 <text font="4" height="11" left="453" textpieces="0" top="105" width="377">Zariou, O.C., Gagosian, R.B., Peltzer, E.T., Alford, J.B., 1985. Air-to-</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="120" width="359">sea uxes of lipids at Enewetak Atoll. J. Geophys. Res. 90 (D1), 2409</text>
+2 <text font="4" height="11" left="470" textpieces="0" top="135" width="27">2423.</text>
+2 <text font="4" height="11" left="49" textpieces="1" top="72" width="504">1494                                                        P.R. Haberstroh et al. 70 (2006) 14831494</text>

@@ -8,6 +8,7 @@ import sys
 from SparseType import SparseType
 from Constants import Constants
 from Features import Features
+import math
 '''
     Implementing the Collins Perceptron for Learning parameters. Assuming a prob of 1 to predicted value.
     
@@ -18,15 +19,16 @@ from Features import Features
 '''
 class CRF:
 
-    def __init__(self):
-        self.trainedweights = list()
+    def __init__(self, trainedweights = list()):
+        self.trainedweights = trainedweights
         self.START = -1
+        self.learningrate = Constants.INITIAL_LEARNING_RATE
         self.possibletags = [SparseType.OTHERSPARSE, SparseType.NONSPARSE] #domain specific
         self.G1 = [0.01,0.99] #domain specific
         self.Features = Features()
         self.differenceweights = list()
         
-    
+   
     def domaintrain(self, annotatedxmllist):
         collist = list()
         for annotatedxml in annotatedxmllist:
@@ -60,8 +62,9 @@ class CRF:
                 self.differenceweights[weight] /= len(collist)
                 self.trainedweights[weight] = self.trainedweights[weight] + self.differenceweights[weight]
                 self.differenceweights[weight] = 0.0
-                
-            print "Error : Iteration " + str(r) + " Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
+            
+            self.learningrate = Constants.INITIAL_LEARNING_RATE * math.exp(-(float(r)/Constants.NUM_EPOCHS)) 
+            print "Iteration " + str(r) + " Learning Rate " + str(self.learningrate) + " Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
             
     def predict(self, col, fontdict):
         tagbyumatrix = self.GetMatrixForCalculatingArgMax(col, self.trainedweights, fontdict)
@@ -117,7 +120,7 @@ class CRF:
             FPredictedlist.append(PF)
         
         for floc in xrange(len(predictedfeatures[0])):  #wi = wi + alpha(Fjactual - Fjpredicted)
-            self.differenceweights[floc] += Constants.LEARNING_RATE * (FActuallist[floc] - FPredictedlist[floc]) 
+            self.differenceweights[floc] += self.learningrate * (FActuallist[floc] - FPredictedlist[floc]) 
         
         return [errorcount, sparseerrorcount]
         

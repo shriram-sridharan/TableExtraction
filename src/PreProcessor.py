@@ -8,7 +8,7 @@ import math
 import logging
 from SparseType import SparseType
 from Constants import Constants
-
+from Utilities import Utilities
 '''
 Dirty replace of <a> tags. Not a prime concern as of now?
 '''
@@ -34,6 +34,7 @@ class PreProcessor:
     def findColumns(self, combinedTextTagTuple, height):
         THRESHOLD_HEIGHT = height/Constants.DIFF_IN_HEIGHT_FOR_NEW_COLUMN
         pagecolumns = list()
+        newpagecolumns = list()
         
         prevtexttag = combinedTextTagTuple[0][1]
         col = list()
@@ -41,13 +42,27 @@ class PreProcessor:
             texttag = tup[1]
             prevtop = int(prevtexttag.attrib['top'])
             currtop = int(texttag.attrib['top'])
-            if((prevtop - currtop) > THRESHOLD_HEIGHT):
+            if(math.fabs(prevtop - currtop) > THRESHOLD_HEIGHT):
                 pagecolumns.append(col)
+                newpagecolumns.append(col)
                 col = list()
             col.append(tup)
             prevtexttag = texttag
-        pagecolumns.append(col)        
-        return pagecolumns
+            
+        if(len(col) > Constants.MIN_COL_LENGTH):
+            pagecolumns.append(col)
+            newpagecolumns.append(col)
+        
+        for colno in xrange(len(pagecolumns)):
+            if(Utilities().checkkeywordpresense(pagecolumns[colno], len(pagecolumns[colno]) - 1)):
+                for r in xrange(colno+1, len(pagecolumns)):
+                    prevtop = int(pagecolumns[colno][len(pagecolumns[colno]) - 1][1].attrib['top'])
+                    currtop = int(pagecolumns[r][0][1].attrib['top'])
+                    if(math.fabs(prevtop - currtop) < THRESHOLD_HEIGHT):
+                        newpagecolumns[colno].extend(newpagecolumns[r])
+                        newpagecolumns.remove(newpagecolumns[r])
+                        break
+        return newpagecolumns
     
     '''
     Combine Superscript and subscript.
@@ -121,13 +136,9 @@ class PreProcessor:
         
         return texttags
     
-    def combineTextTags(self, page, fontdict, f):
+    def combineTextTags(self, page, fontdict):
         subSupCombinedTexttags =  self.combineSubAndSuperScripts(page)
         texttags = self.combineTextPieces(fontdict, subSupCombinedTexttags)
-  
-        for r in texttags:
-            f.write(ET.tostring(r[1]))
-           
         return texttags   
     
     
@@ -146,10 +157,13 @@ class PreProcessor:
         preprocessedxml = list()
         fontdict = self.getFontDictionary(parseTree)
         for page in parseTree.iter('page'):
-            combinedTextTagTuple = self.combineTextTags(page, fontdict, f)
+            combinedTextTagTuple = self.combineTextTags(page, fontdict)
             height = int(page.attrib['height'])
             pagecols = self.findColumns(combinedTextTagTuple, height)
             preprocessedxml.append(pagecols)
+            for col in pagecols:
+                for tag in col:
+                    f.write(ET.tostring(tag[1]))
             #print "For Page " + page.attrib['number'] + " Col = " +str(len(columns)) 
         f.close() 
         return preprocessedxml

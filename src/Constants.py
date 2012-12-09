@@ -19,10 +19,11 @@ class Constants:
     
     ###################### TRAINING ALGORITHM #########################
     NUM_EPOCHS = 200
-    LEARNING_RATE = 0.2
+    INITIAL_LEARNING_RATE = 0.2
     
     ###################### PREPROCESSING #########################
     DIFF_IN_HEIGHT_FOR_NEW_COLUMN = 3
     FONT_LOC_FOR_MERGING = 2
     SUBSCRIPT_LEFT_THRESHOLD = 2
     SAME_LINE_HEIGHT_FACTOR = 2
+    MIN_COL_LENGTH = 2
