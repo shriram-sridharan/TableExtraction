@@ -6,6 +6,10 @@ Created on Nov 20, 2012
 
 class Constants:
 
+    LINES_TO_SEARCH_FOR_TABLE = 4
+
+    MAX_DIFF_BETWEEN_SPARSE_AND_NONSPARSE = 6
+
     LARGEST_SPACE_DIFF = 3
 
     WORDS_IN_LINE = 8
@@ -18,7 +22,7 @@ class Constants:
     NUM_TEXT_PIECES = 0
     
     ###################### TRAINING ALGORITHM #########################
-    NUM_EPOCHS = 200
+    NUM_EPOCHS = 500
     INITIAL_LEARNING_RATE = 0.2
     
     ###################### PREPROCESSING #########################

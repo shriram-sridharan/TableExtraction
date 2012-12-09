@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
-
 <pdf2xml>
 <page number="1" position="absolute" top="0" left="0" height="1188" width="918">
 	<fontspec id="0" size="21" family="Times" color="#231f20"/>

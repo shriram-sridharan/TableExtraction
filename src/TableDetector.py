@@ -34,25 +34,25 @@ if __name__ == '__main__':
 #        trainer.train(preprocessedxml, xmlname)
    
 ################### TRAIN USING ANNOTATE XMLS ####################
-#    CRFImpl = CRF()
-#    annotatedxmllist = list()
-#    for xmlname in xmls:
-#        fontdict = preprocessor.getFontDictionary(ET.parse("../TrainingData/xmls/"+ xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>) 
-#        annotatedxml = trainer.readAnnotatedXml('../TrainingData/annotated/' + xmlname +"_annotated")
-#        annotatedxmllist.append([annotatedxml, fontdict])
-#    CRFImpl.domaintrain(annotatedxmllist)
-#    print CRFImpl.trainedweights
-#    
-#    f = open("TrainedWeights",'w')
-#    for weight in CRFImpl.trainedweights:
-#        f.write(str(weight) + "\n")
-#    f.close()
+    CRFImpl = CRF()
+    annotatedxmllist = list()
+    for xmlname in xmls:
+        fontdict = preprocessor.getFontDictionary(ET.parse("../TrainingData/xmls/"+ xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>) 
+        annotatedxml = trainer.readAnnotatedXml('../TrainingData/annotated/' + xmlname +"_annotated")
+        annotatedxmllist.append([annotatedxml, fontdict])
+    CRFImpl.domaintrain(annotatedxmllist)
+    print CRFImpl.trainedweights
+    
+    f = open("TrainedWeights",'w')
+    for weight in CRFImpl.trainedweights:
+        f.write(str(weight) + "\n")
+    f.close()
 ################### TEST USING TRAINED MODEL ####################
     CRF = getCRFwithTrainedWeights()
-    predictxmlname = '9'
+    predictxmlname = 'Test4'
      
-    location = "../TestData/xmls/"
-    #location = "../TrainingData/xmls/"
+    #location = "../TestData/xmls/"
+    location = "../TrainingData/xmls/"
              
     fontdict = preprocessor.getFontDictionary(ET.parse(location + predictxmlname + ".xml"))                  
     preprocessedxml = preprocessor.preprocessxml(location + predictxmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     for table in alltables:
         print "============================================="
         for row in table:
-            print row[1].text
+            print row[1].text + " " + str(row[0]) 
             
     
     

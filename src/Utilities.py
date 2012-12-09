@@ -7,7 +7,7 @@ import re
 
 class Utilities:
     def checkkeywordpresense(self, predicted, currpredictedindex):
-        compiledre = re.compile('table \d')
+        compiledre = re.compile('table\d')
         if(predicted[currpredictedindex][1].text is None):
             return None
-        return (compiledre.match(predicted[currpredictedindex][1].text.lower()) is not None)
+        return (compiledre.match(predicted[currpredictedindex][1].text.lower().replace(' ','')) is not None)

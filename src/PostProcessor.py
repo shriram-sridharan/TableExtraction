@@ -5,6 +5,8 @@ Created on Dec 6, 2012
 '''
 from SparseType import SparseType
 from Utilities import Utilities
+from Constants import Constants
+import math
 
 class TableKeywordLoc:
     UNKNOWN = 0
@@ -12,6 +14,14 @@ class TableKeywordLoc:
     BOTTOM = 2
     
 class PostProcessor:
+    def isTableKeywordAfterThis(self, currpredictedindex, predicted):
+        for r in xrange(currpredictedindex, currpredictedindex + Constants.LINES_TO_SEARCH_FOR_TABLE):
+            if(r >= len(predicted)):
+                return -1
+            if(Utilities().checkkeywordpresense(predicted, r)):
+                return r
+        return -1
+    
     def getnextsparse(self, currpredictedindex, predicted):
         for r in xrange(currpredictedindex+1, len(predicted)):
             if(predicted[r][0] == SparseType.OTHERSPARSE):
@@ -31,7 +41,7 @@ class PostProcessor:
         nextsparselineno = predicted[nextsparse][2]
         table = list()
         diff = nextsparselineno - tablekeywordlineno
-        if(diff > 3): #No table
+        if(diff > Constants.MAX_DIFF_BETWEEN_SPARSE_AND_NONSPARSE or nextsparse == -1): #No table
             return [currpredictedindex, table]
         
         for _ in xrange(diff):
@@ -66,10 +76,12 @@ class PostProcessor:
         
         currentlineno = tablekeywordlineno
         prevlineno = tablekeywordlineno
-        while(prevlineno != -1 and currentlineno - prevlineno <= 2 and currpredictedindex >= 0):
-            table.append(predicted[currpredictedindex])
+        while(prevlineno != -1 and currpredictedindex >= 0):
             currentlineno = predicted[currpredictedindex][2]
             prevlineno = predicted[self.getprevioussparse(currpredictedindex, predicted)][2]
+            if(math.fabs(currentlineno - prevlineno) >  2):
+                break
+            table.append(predicted[currpredictedindex])
             currpredictedindex -= 1
                 
         return [inputcurrpredictedindex, table]
@@ -81,18 +93,21 @@ class PostProcessor:
         while currpredictedindex < len(predicted) - 1:
             currpredictedindex += 1
             if(Utilities().checkkeywordpresense(predicted, currpredictedindex)):
-                if(tablekeywordloc == TableKeywordLoc.UNKNOWN or tablekeywordloc == TableKeywordLoc.TOP):
-                    data = self.findPossibleTableStructureAfterThis(predicted, currpredictedindex)
-                    currpredictedindex = data[0]
-                    if(len(data[1])!=0):
-                        tables.append(data[1])
-                        tablekeywordloc = TableKeywordLoc.TOP
-                        
-                if(tablekeywordloc == TableKeywordLoc.UNKNOWN or tablekeywordloc == TableKeywordLoc.BOTTOM):
-                    data = self.findPossibleTableStructureBeforeThis(predicted, currpredictedindex)
-                    currpredictedindex = data[0]
+                data = self.findPossibleTableStructureAfterThis(predicted, currpredictedindex)
+                currpredictedindex = data[0]
+                if(len(data[1])!=0):
+                    tables.append(data[1])
+                    continue
+            if(predicted[currpredictedindex][0] == SparseType.OTHERSPARSE): #Hoping to find a table after this
+                data = self.findPossibleTableStructureAfterThis(predicted, currpredictedindex)
+                currpredictedindex = data[0]
+                if(len(data[1])!=0):
+                    tblkeywordloc = self.isTableKeywordAfterThis(currpredictedindex, predicted)
+                    if(tblkeywordloc == -1):
+                        continue
+                    data = self.findPossibleTableStructureBeforeThis(predicted, tblkeywordloc)
                     if(len(data[1])!=0):
                         tables.append(reversed(data[1]))
-                        tablekeywordloc = TableKeywordLoc.BOTTOM
-                            
+                        currpredictedindex = data[0]
+                        
         return [tables, tablekeywordloc]
