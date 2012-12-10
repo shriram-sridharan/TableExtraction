@@ -14,7 +14,7 @@ To Show output:
 Graphs showing accuracy estimates
 Accuracy Estimates using N% Confidence intervals
 Varying the number of epochs (with decayed learning rate) and precision recall values
-
+Perform Cross Validation for getting the approximate model (due to lack of training data)
 
 Future Work:
 Highly dependent on Table keyword location Eg: 7.pdf

@@ -6,9 +6,9 @@ Created on Nov 20, 2012
 import xml.etree.ElementTree as ET
 import math
 import logging
-from SparseType import SparseType
-from Constants import Constants
-from Utilities import Utilities
+from Utils.SparseType import SparseType
+from Utils.Utilities import Utilities
+from Utils.Constants import Constants
 '''
 Dirty replace of <a> tags. Not a prime concern as of now?
 '''

@@ -3,16 +3,11 @@ Created on Dec 6, 2012
 
 @author: sridharan5
 '''
-from SparseType import SparseType
-from Utilities import Utilities
-from Constants import Constants
+from Utils.SparseType import SparseType
+from Utils.Utilities import Utilities
+from Utils.Constants import Constants
 import math
 
-class TableKeywordLoc:
-    UNKNOWN = 0
-    TOP = 1
-    BOTTOM = 2
-    
 class PostProcessor:
     def isTableKeywordAfterThis(self, currpredictedindex, predicted):
         for r in xrange(currpredictedindex, currpredictedindex + Constants.LINES_TO_SEARCH_FOR_TABLE):
@@ -87,7 +82,7 @@ class PostProcessor:
         return [inputcurrpredictedindex, table]
     
     
-    def findTables(self, predicted, tablekeywordloc):
+    def findTables(self, predicted):
         tables = list()
         currpredictedindex = -1
         while currpredictedindex < len(predicted) - 1:
@@ -110,4 +105,4 @@ class PostProcessor:
                         tables.append(reversed(data[1]))
                         currpredictedindex = data[0]
                         
-        return [tables, tablekeywordloc]
+        return tables

@@ -16,8 +16,12 @@ for r in form.keys():
             ibegin = int(form.getvalue('colbegin'+str(cols)))
             iend = int(form.getvalue('colend'+str(cols)))
             tuplist = list()
+            sparsebegin = False
             for i in xrange(ibegin, iend):
                 if(form.getvalue('docparams'+str(i)) == "sparse"):
+                    sparsebegin = not sparsebegin
+                    tup0 = 1
+                elif(sparsebegin == True):
                     tup0 = 1
                 else:
                     tup0 = 2

@@ -5,9 +5,9 @@ Created on Nov 29, 2012
 '''
 import random
 import sys
-from SparseType import SparseType
-from Constants import Constants
-from Features import Features
+from Utils.SparseType import SparseType
+from Utils.Constants import Constants
+from CRFFeatures import CRFFeatures
 import math
 '''
     Implementing the Collins Perceptron for Learning parameters. Assuming a prob of 1 to predicted value.
@@ -25,7 +25,7 @@ class CRF:
         self.learningrate = Constants.INITIAL_LEARNING_RATE
         self.possibletags = [SparseType.OTHERSPARSE, SparseType.NONSPARSE] #domain specific
         self.G1 = [0.01,0.99] #domain specific
-        self.Features = Features()
+        self.Features = CRFFeatures()
         self.differenceweights = list()
         
    
@@ -47,7 +47,7 @@ class CRF:
             self.trainedweights.append(random.uniform(-0.001, 0.001))
             self.differenceweights.append(0.0)
             
-        for r in xrange(0,Constants.NUM_EPOCHS):
+        for r in xrange(0,Constants.CRF_NUM_EPOCHS):
             errorcount = 0.0
             totaltup = 0.0
             sparseerrorcount = 0.0
@@ -63,7 +63,7 @@ class CRF:
                 self.trainedweights[weight] = self.trainedweights[weight] + self.differenceweights[weight]
                 self.differenceweights[weight] = 0.0
             
-            self.learningrate = Constants.INITIAL_LEARNING_RATE * math.exp(-(float(r)/Constants.NUM_EPOCHS)) 
+            self.learningrate = Constants.INITIAL_LEARNING_RATE * math.exp(-(float(r)/Constants.CRF_NUM_EPOCHS)) 
             print "Iteration " + str(r) + " Learning Rate " + str(self.learningrate) + " Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
             
     def predict(self, col, fontdict):

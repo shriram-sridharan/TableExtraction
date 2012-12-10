@@ -1,3 +1,8 @@
+Perform Cross Validation for getting the approximate model (due to lack of training data)
+Or try bootstrap aggregation
+Stratified Sampling
+
+Try CRF with real valued features
 Train on more pdf documents
 Table feature with table text present below the table
 Change the Trainer code for Page Begin and Page End etc and for other sparse types

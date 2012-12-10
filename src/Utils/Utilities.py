@@ -10,4 +10,4 @@ class Utilities:
         compiledre = re.compile('table\d')
         if(predicted[currpredictedindex][1].text is None):
             return None
-        return (compiledre.match(predicted[currpredictedindex][1].text.lower().replace(' ','')) is not None)
+        return (compiledre.match(predicted[currpredictedindex][1].text[0:7].lower().replace(' ','')) is not None)

@@ -3,11 +3,10 @@ Created on Dec 1, 2012
 
 @author: shriram
 '''
-from SparseType import SparseType
-from Constants import Constants
+from Utils.SparseType import SparseType
+from Utils.Constants import Constants
 import sys
-class Features:
-
+class CRFFeatures:
     
     def orthographicfeatures(self, featurelist, col, prevtag, curtag, i, fontdict):
         issamefont = i!=0 and (fontdict[int(col[i][1].attrib['font'])] == fontdict[int(col[i - 1][1].attrib['font'])])
