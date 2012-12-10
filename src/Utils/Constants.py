@@ -18,7 +18,7 @@ class Constants:
     CRF_NUM_EPOCHS = 200
     INITIAL_LEARNING_RATE = 0.2
     
-    LR_EPOCHS = 30
+    LR_EPOCHS = 50
     LR_LEARNING_RATE = 0.2
     
     ###################### PREPROCESSING #########################

@@ -5,6 +5,7 @@ import Utils.Trainer
 import xml.etree.ElementTree as ET
 from Utils.SparseType import SparseType
 from LR.LogisticRegressor import LogisticRegressor
+from SVM.SVMImpl import SVMImpl
 
 def TrainUsingCRF(xmls, preprocessor, trainer):
     CRFImpl = CRF()
@@ -37,6 +38,18 @@ def TrainUsingLR(xmls, preprocessor, trainer):
         f.write(str(weight) + "\n")
     
     f.close()
+
+def TrainUsingSVM(xmls, preprocessor, trainer):
+    svm = SVMImpl()
+    annotatedxmllist = list()
+    for xmlname in xmls:
+        fontdict = preprocessor.getFontDictionary(ET.parse("../TrainingData/xmls/" + xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
+        annotatedxml = trainer.readAnnotatedXml('../TrainingData/annotated/' + xmlname + "_annotated")
+        annotatedxmllist.append([annotatedxml, fontdict])
+    
+    svm.domaintrain(annotatedxmllist)
+    return svm
+
     
 def getModelwithTrainedWeights(isCRF = True):
     trainedweights = list()
@@ -117,27 +130,50 @@ def TestUsingCRF(predictxmlname, location):
         print "============================================="
         for row in table:
             print row[1].text + " " + str(row[0]) 
-            
+
+def TestUsingSVM(svminstance, predictxmlname, location):
+    fontdict = preprocessor.getFontDictionary(ET.parse(location + predictxmlname + ".xml"))                  
+    preprocessedxml = preprocessor.preprocessxml(location + predictxmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
+    
+    alltables = list()
+    for page in preprocessedxml:
+        for col in page:
+            if(len(col) < 2):
+                    continue
+            for lineno in xrange(len(col)):
+                col[lineno].append(lineno)
+            predicted = svminstance.domainpredict(col, fontdict)
+#            for r in predicted:
+#                if(r[0] == SparseType.OTHERSPARSE):
+#                    print r[1].text + " *** Line no *** " + str(r[2])
+            data = postprocessor.findTables(predicted)
+            tables = data
+            if(len(tables) == 0):
+                continue
+            for t in tables:
+                alltables.append(t)
+    
+    for table in alltables:
+        print "============================================="
+        for row in table:
+            print row[1].text + " " + str(row[0]) 
+                        
 if __name__ == '__main__':
-    xmls = ["Test1","Test2","Test3","Test4","Test5"] #
+    xmls = ["1","3","Test1","Test2","Test3","Test4","Test5"] #
     preprocessor = Processors.PreProcessor.PreProcessor()
     postprocessor = Processors.PostProcessor.PostProcessor()
     trainer = Utils.Trainer.Trainer()
     
     #CreateHtmls(xmls, preprocessor, trainer)
    
-    predictxmlname = 'Test1'
-    location = "../TrainingData/xmls/" 
+    predictxmlname = '4'
+    location = "../TrainingData/xmls/"
     
-    TrainUsingCRF(xmls, preprocessor, trainer)
-    TestUsingCRF(predictxmlname, location)
-    
-#    TrainUsingLR(xmls, preprocessor, trainer)
+    svminstance = TrainUsingSVM(xmls, preprocessor, trainer)
+    #TestUsingSVM(svminstance, predictxmlname, location)
+#    TrainUsingCRF(xmls, preprocessor, trainer)
+#    TestUsingCRF(predictxmlname, location)
+#  
+    #TrainUsingLR(xmls, preprocessor, trainer)
 #    TestUsingLR(predictxmlname, location)
-    
-    
-          
-    
-    
-    
     

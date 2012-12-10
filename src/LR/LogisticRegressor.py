@@ -46,8 +46,10 @@ class LogisticRegressor:
         for r in range(Constants.LR_EPOCHS):
             errorcount = 0.0
             sparseerrorcount = 0.0
+            totalcount = 0.0
             for colnum in range(len(collist)):
                 for lineno in xrange(len(collist[colnum][0])):
+                    totalcount += 1
                     sigmoidExpected = 0
                     inputVector = collist[colnum][1][lineno]
                     if(int(collist[colnum][0][lineno][0]) == SparseType.OTHERSPARSE):
@@ -60,7 +62,7 @@ class LogisticRegressor:
                             sparseerrorcount += 1
                             
             self.learningrate = Constants.INITIAL_LEARNING_RATE * math.exp(-(float(r)/Constants.CRF_NUM_EPOCHS))                 
-            print "Iteration " + str(r) + " Learning Rate " + str(self.learningrate) + " Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
+            print "Iteration " + str(r) + " Learning Rate " + str(self.learningrate) + " Count= " + str(totalcount) +" Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
 
     def stochasticGradientDescent(self,inputVector, weightVector, sigmoidExpected, eta):
         sigmoid = self.getSigmoid(inputVector, weightVector)
