@@ -170,7 +170,7 @@ if __name__ == '__main__':
     location = "../TrainingData/xmls/"
     
     svminstance = TrainUsingSVM(xmls, preprocessor, trainer)
-    #TestUsingSVM(svminstance, predictxmlname, location)
+    TestUsingSVM(svminstance, predictxmlname, location)
 #    TrainUsingCRF(xmls, preprocessor, trainer)
 #    TestUsingCRF(predictxmlname, location)
 #  
