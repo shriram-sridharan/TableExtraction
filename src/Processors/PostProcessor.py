@@ -74,7 +74,9 @@ class PostProcessor:
         while(prevlineno != -1 and currpredictedindex >= 0):
             currentlineno = predicted[currpredictedindex][2]
             prevlineno = predicted[self.getprevioussparse(currpredictedindex, predicted)][2]
-            if(math.fabs(currentlineno - prevlineno) >  2):
+            if(currpredictedindex > 2 and math.fabs(currentlineno - prevlineno) >  2):
+                if(predicted[currpredictedindex][0] == SparseType.OTHERSPARSE):
+                    table.append(predicted[currpredictedindex])
                 break
             table.append(predicted[currpredictedindex])
             currpredictedindex -= 1
@@ -97,7 +99,7 @@ class PostProcessor:
                 data = self.findPossibleTableStructureAfterThis(predicted, currpredictedindex)
                 currpredictedindex = data[0]
                 if(len(data[1])!=0):
-                    tblkeywordloc = self.isTableKeywordAfterThis(currpredictedindex, predicted)
+                    tblkeywordloc = self.isTableKeywordAfterThis(currpredictedindex-2, predicted) # minus 2 because table line could be sparse
                     if(tblkeywordloc == -1):
                         continue
                     data = self.findPossibleTableStructureBeforeThis(predicted, tblkeywordloc)

@@ -8,12 +8,12 @@ from LR.LogisticRegressor import LogisticRegressor
 from SVM.SVMImpl import SVMImpl
 import sys
 
-def TrainUsingCRF(xmls, preprocessor, trainer):
+def TrainUsingCRF(xmls, preprocessor, trainer, xmlloc, annotatedxmlloc):
     CRFImpl = CRF()
     annotatedxmllist = list()
     for xmlname in xmls:
-        fontdict = preprocessor.getFontDictionary(ET.parse("../TrainingData/xmls/" + xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
-        annotatedxml = trainer.readAnnotatedXml('../TrainingData/annotated/' + xmlname + "_annotated")
+        fontdict = preprocessor.getFontDictionary(ET.parse(xmlloc + xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
+        annotatedxml = trainer.readAnnotatedXml(annotatedxmlloc + xmlname + "_annotated")
         annotatedxmllist.append([annotatedxml, fontdict])
     
     CRFImpl.domaintrain(annotatedxmllist)
@@ -24,12 +24,12 @@ def TrainUsingCRF(xmls, preprocessor, trainer):
     
     f.close()
     
-def TrainUsingLR(xmls, preprocessor, trainer):
+def TrainUsingLR(xmls, preprocessor, trainer, xmlloc, annotatedxmlloc):
     LRImpl = LogisticRegressor()
     annotatedxmllist = list()
     for xmlname in xmls:
-        fontdict = preprocessor.getFontDictionary(ET.parse("../TrainingData/xmls/" + xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
-        annotatedxml = trainer.readAnnotatedXml('../TrainingData/annotated/' + xmlname + "_annotated")
+        fontdict = preprocessor.getFontDictionary(ET.parse(xmlloc + xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
+        annotatedxml = trainer.readAnnotatedXml(annotatedxmlloc + xmlname + "_annotated")
         annotatedxmllist.append([annotatedxml, fontdict])
     
     LRImpl.domaintrain(annotatedxmllist)
@@ -40,12 +40,12 @@ def TrainUsingLR(xmls, preprocessor, trainer):
     
     f.close()
 
-def TrainUsingSVM(xmls, preprocessor, trainer):
+def TrainUsingSVM(xmls, preprocessor, trainer, xmlloc, annotatedxmlloc):
     svm = SVMImpl()
     annotatedxmllist = list()
     for xmlname in xmls:
-        fontdict = preprocessor.getFontDictionary(ET.parse("../TrainingData/xmls/" + xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
-        annotatedxml = trainer.readAnnotatedXml('../TrainingData/annotated/' + xmlname + "_annotated")
+        fontdict = preprocessor.getFontDictionary(ET.parse(xmlloc + xmlname + ".xml")) #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
+        annotatedxml = trainer.readAnnotatedXml(annotatedxmlloc + xmlname + "_annotated")
         annotatedxmllist.append([annotatedxml, fontdict])
     
     svm.domaintrain(annotatedxmllist)
@@ -99,10 +99,10 @@ def TestUsingLR(predictxmlname, location):
         print "============================================="
         for row in table:
             print row[1].text + " " + str(row[0])   
-def CreateHtmls(xmls, preprocessor, trainer):
+def CreateHtmls(xmls, preprocessor, trainer, xmlloc):
     for xmlname in xmls:
         try:
-            preprocessedxml = preprocessor.preprocessxml("../TrainingData/xmls/cs/" + xmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
+            preprocessedxml = preprocessor.preprocessxml(xmlloc + xmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
             trainer.train(preprocessedxml, xmlname)
         except:
             print "Problem with " + xmlname, sys.exc_info()[0]
@@ -170,15 +170,15 @@ if __name__ == '__main__':
     
     #CreateHtmls(xmls, preprocessor, trainer)
    
-    predictxmlname = '4'
+    predictxmlname = '14'
     location = "../TrainingData/xmls/cs/"
- 
-    TrainUsingCRF(xmls, preprocessor, trainer)
+    annotatedxmlloc = "../TrainingData/annotated/"
+    TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
     TestUsingCRF(predictxmlname, location)
        
-#    svminstance = TrainUsingSVM(xmls, preprocessor, trainer)
+#    svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
 #    TestUsingSVM(svminstance, predictxmlname, location)
 #  
-#    TrainUsingLR(xmls, preprocessor, trainer)
+#    TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
 #    TestUsingLR(predictxmlname, location)
     
