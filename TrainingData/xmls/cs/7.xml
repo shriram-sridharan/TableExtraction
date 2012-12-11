@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml>
+<page number="1" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="0" size="11" family="Times" color="#000000"/>
+	<fontspec id="1" size="19" family="Times" color="#000000"/>
+	<fontspec id="2" size="15" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="14" family="Times" color="#000000"/>
+	<fontspec id="5" size="9" family="Times" color="#000000"/>
+	<fontspec id="6" size="6" family="Times" color="#000000"/>
+<text top="1135" left="47" width="707" height="12" font="0">2012 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies</text>
+<text top="1135" left="754" width="91" height="12" font="0">, pages 563–567,</text>
+<text top="1148" left="215" width="463" height="12" font="0">Montr´eal, Canada, June 3-8, 2012. c 2012 Association for Computational Linguistics</text>
+<text top="100" left="181" width="556" height="19" font="1">Behavioral Factors in Interactive Training of Text Classiﬁers</text>
+<text top="173" left="262" width="92" height="16" font="2">Burr Settles</text>
+<text top="194" left="195" width="221" height="16" font="2">Machine Learning Department</text>
+<text top="215" left="206" width="200" height="16" font="2">Carnegie Mellon University</text>
+<text top="236" left="210" width="193" height="16" font="2">Pittsburgh PA 15213, USA</text>
+<text top="257" left="204" width="204" height="14" font="2">bsettles@cs.cmu.edu</text>
+<text top="173" left="565" width="93" height="16" font="2">Xiaojin Zhu</text>
+<text top="194" left="498" width="228" height="16" font="2">Computer Sciences Department</text>
+<text top="215" left="525" width="174" height="16" font="2">University of Wisconsin</text>
+<text top="236" left="520" width="184" height="16" font="2">Madison WI 53715, USA</text>
+<text top="257" left="504" width="215" height="14" font="2">jerryzhu@cs.wisc.edu</text>
+<text top="367" left="245" width="67" height="16" font="2">Abstract</text>
+<text top="403" left="141" width="275" height="13" font="3">This paper describes a user study where hu-</text>
+<text top="421" left="141" width="275" height="13" font="3">mans interactively train automatic text clas-</text>
+<text top="439" left="141" width="275" height="13" font="3">siﬁers. We attempt to replicate previous re-</text>
+<text top="457" left="141" width="275" height="13" font="3">sults using multiple “average” Internet users</text>
+<text top="475" left="141" width="275" height="13" font="3">instead of a few domain experts as annotators.</text>
+<text top="493" left="141" width="275" height="13" font="3">We also analyze user annotation behaviors to</text>
+<text top="511" left="141" width="275" height="13" font="3">ﬁnd that certain labeling actions have an im-</text>
+<text top="528" left="141" width="275" height="13" font="3">pact on classiﬁer accuracy, drawing attention</text>
+<text top="546" left="141" width="275" height="13" font="3">to the important role these behavioral factors</text>
+<text top="564" left="141" width="215" height="13" font="3">play in interactive learning systems.</text>
+<text top="609" left="108" width="9" height="16" font="2">1</text>
+<text top="609" left="135" width="97" height="16" font="2">Introduction</text>
+<text top="641" left="108" width="340" height="15" font="4">There is growing interest in methods that incorpo-</text>
+<text top="661" left="108" width="340" height="15" font="4">rate human domain knowledge in machine learning</text>
+<text top="682" left="108" width="340" height="15" font="4">algorithms, either as priors on model parameters or</text>
+<text top="702" left="108" width="340" height="15" font="4">as constraints in an objective function. Such ap-</text>
+<text top="722" left="108" width="340" height="15" font="4">proaches lend themselves well to natural language</text>
+<text top="743" left="108" width="340" height="15" font="4">tasks, where input features are often discrete vari-</text>
+<text top="763" left="108" width="340" height="15" font="4">ables that carry semantic meaning (e.g., words). A</text>
+<text top="784" left="108" width="83" height="14" font="4">feature label</text>
+<text top="783" left="196" width="252" height="15" font="4">is a simple but expressive form of do-</text>
+<text top="804" left="108" width="340" height="15" font="4">main knowledge that has received considerable at-</text>
+<text top="824" left="108" width="340" height="15" font="4">tention recently (Druck et al., 2008; Melville et al.,</text>
+<text top="844" left="108" width="340" height="15" font="4">2009). For example, a single feature (word) can be</text>
+<text top="865" left="108" width="340" height="15" font="4">used to indicate a particular label or set of labels,</text>
+<text top="885" left="108" width="340" height="15" font="4">such as “excellent” ⇒ positive or “terrible” ⇒ neg-</text>
+<text top="905" left="108" width="340" height="15" font="4">ative, which might be useful word-label rules for a</text>
+<text top="926" left="108" width="155" height="15" font="4">sentiment analysis task.</text>
+<text top="946" left="124" width="324" height="15" font="4">Contemporary work has also focused on mak-</text>
+<text top="966" left="108" width="340" height="15" font="4">ing such learning algorithms active, by enabling</text>
+<text top="987" left="108" width="340" height="15" font="4">them to pose “queries” in the form of feature-based</text>
+<text top="1007" left="108" width="340" height="15" font="4">rules to be labeled by annotators in addition to —</text>
+<text top="1027" left="108" width="340" height="15" font="4">and sometimes lieu of — data instances such as</text>
+<text top="1048" left="108" width="340" height="15" font="4">documents (Attenberg et al., 2010; Druck et al.,</text>
+<text top="368" left="470" width="340" height="15" font="4">2009). These concepts were recently implemented</text>
+<text top="389" left="470" width="340" height="15" font="4">in a practical system for interactive training of text</text>
+<text top="409" left="470" width="182" height="15" font="4">classiﬁers called DUALIST</text>
+<text top="406" left="652" width="6" height="11" font="5">1</text>
+<text top="409" left="659" width="151" height="15" font="4">. Settles (2011) reports</text>
+<text top="429" left="470" width="340" height="15" font="4">that, in user experiments with real annotators, hu-</text>
+<text top="450" left="470" width="340" height="15" font="4">mans were able to train near state of the art classi-</text>
+<text top="470" left="470" width="340" height="15" font="4">ﬁers with only a few minutes of effort. However,</text>
+<text top="490" left="470" width="340" height="15" font="4">there were only ﬁve subjects, who were all com-</text>
+<text top="511" left="470" width="340" height="15" font="4">puter science researchers. It is possible that these</text>
+<text top="531" left="470" width="340" height="15" font="4">positive results can be attributed to the subjects’ im-</text>
+<text top="551" left="470" width="340" height="15" font="4">plicit familiarity with machine learning and natural</text>
+<text top="572" left="470" width="211" height="15" font="4">language processing algorithms.</text>
+<text top="594" left="486" width="324" height="15" font="4">This short paper sheds more light on previous ex-</text>
+<text top="614" left="470" width="340" height="15" font="4">periments by replicating them with many more hu-</text>
+<text top="634" left="470" width="340" height="15" font="4">man subjects, and of a different type: non-experts</text>
+<text top="655" left="470" width="340" height="15" font="4">recruited through the Amazon Mechanical Turk ser-</text>
+<text top="675" left="470" width="27" height="15" font="4">vice</text>
+<text top="672" left="497" width="6" height="11" font="5">2</text>
+<text top="675" left="504" width="306" height="15" font="4">. We also analyze the impact of annotator be-</text>
+<text top="695" left="470" width="340" height="15" font="4">havior on the resulting classiﬁers, and suggest rela-</text>
+<text top="716" left="470" width="312" height="15" font="4">tionships to recent work in curriculum learning.</text>
+<text top="756" left="470" width="9" height="16" font="2">2</text>
+<text top="756" left="497" width="79" height="16" font="2">DUALIST</text>
+<text top="792" left="470" width="340" height="15" font="4">Figure 1 shows a screenshot of DUALIST, an inter-</text>
+<text top="813" left="470" width="340" height="15" font="4">active machine learning system for quickly build-</text>
+<text top="833" left="470" width="130" height="15" font="4">ing text classiﬁers.</text>
+<text top="833" left="616" width="194" height="15" font="4">The annotator is allowed to</text>
+<text top="853" left="470" width="188" height="15" font="4">take three kinds of actions:</text>
+<text top="853" left="669" width="141" height="17" font="4"> label query docu-</text>
+<text top="874" left="470" width="340" height="15" font="4">ments (instances) by clicking class-label buttons in</text>
+<text top="894" left="470" width="96" height="15" font="4">the left panel,</text>
+<text top="893" left="573" width="237" height="17" font="4"> label query words (features) by</text>
+<text top="914" left="470" width="340" height="15" font="4">selecting them from the class-label columns in the</text>
+<text top="935" left="470" width="93" height="15" font="4">right panel, or</text>
+<text top="934" left="567" width="243" height="17" font="4"> “volunteer” domain knowledge by</text>
+<text top="955" left="470" width="340" height="15" font="4">typing labeled words into a text box at the top of</text>
+<text top="975" left="470" width="340" height="15" font="4">each class column. The underlying classiﬁer is a</text>
+<text top="996" left="470" width="340" height="15" font="4">na¨ıve Bayes variant combining informative priors,</text>
+<text top="1030" left="489" width="4" height="8" font="6">1</text>
+<text top="1033" left="494" width="178" height="12" font="0">http://code.google.com/p/dualist/</text>
+<text top="1047" left="489" width="4" height="8" font="6">2</text>
+<text top="1050" left="494" width="91" height="12" font="0">http://mturk.com</text>
+<text top="1091" left="432" width="25" height="15" font="4">563</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="7" size="6" family="Times" color="#000000"/>
+<text top="216" left="122" width="5" height="6" font="7"><b>1</b></text>
+<text top="261" left="314" width="5" height="6" font="7"><b>2</b></text>
+<text top="156" left="430" width="5" height="6" font="7"><b>3</b></text>
+<text top="333" left="159" width="238" height="13" font="3">Figure 1: The DUALIST user interface.</text>
+<text top="366" left="108" width="340" height="15" font="4">maximum likelihood estimation, and the EM algo-</text>
+<text top="387" left="108" width="270" height="15" font="4">rithm for fast semi-supervised training.</text>
+<text top="387" left="394" width="54" height="15" font="4">When a</text>
+<text top="407" left="108" width="135" height="15" font="4">user performs action</text>
+<text top="407" left="247" width="201" height="17" font="4"> or , she labels queries that</text>
+<text top="427" left="108" width="340" height="15" font="4">should help minimize the classiﬁer’s uncertainty on</text>
+<text top="448" left="108" width="340" height="15" font="4">unlabeled documents (according to active learning</text>
+<text top="468" left="108" width="148" height="15" font="4">heuristics). For action</text>
+<text top="468" left="261" width="187" height="17" font="4">, the user is free to volun-</text>
+<text top="488" left="108" width="340" height="15" font="4">teer any relevant word, whether or not it appears in</text>
+<text top="509" left="108" width="340" height="15" font="4">a document or word column. For example, the user</text>
+<text top="529" left="108" width="340" height="15" font="4">might volunteer the labeled word “oscar” ⇒ posi-</text>
+<text top="549" left="108" width="340" height="15" font="4">tive in a sentiment analysis task for movie reviews</text>
+<text top="570" left="108" width="340" height="15" font="4">(leveraging her knowledge of domain), even if the</text>
+<text top="590" left="108" width="340" height="15" font="4">word “oscar” does not appear anywhere in the in-</text>
+<text top="610" left="108" width="340" height="15" font="4">terface. This ﬂexibility goes beyond traditional ac-</text>
+<text top="631" left="108" width="340" height="15" font="4">tive learning, which restricts the user to feedback on</text>
+<text top="651" left="108" width="268" height="15" font="4">items queried by the learner (i.e., actions</text>
+<text top="650" left="381" width="68" height="17" font="4"> and ).</text>
+<text top="671" left="108" width="340" height="15" font="4">After a few labeling actions, the user submits her</text>
+<text top="692" left="108" width="340" height="15" font="4">feedback and receives the next set of queries in real</text>
+<text top="712" left="108" width="274" height="15" font="4">time. For more details, see Settles (2011).</text>
+<text top="749" left="108" width="9" height="16" font="2">3</text>
+<text top="749" left="135" width="153" height="16" font="2">Experimental Setup</text>
+<text top="783" left="108" width="340" height="15" font="4">We recruited annotators through the crowdsourcing</text>
+<text top="803" left="108" width="340" height="15" font="4">marketplace Mechanical Turk. Subjects were shown</text>
+<text top="823" left="108" width="340" height="15" font="4">a tutorial page with a brief description of the clas-</text>
+<text top="844" left="108" width="340" height="15" font="4">siﬁcation task, as well as a cartoon of the interface</text>
+<text top="864" left="108" width="340" height="15" font="4">similar to Figure 1 explaining the various annotation</text>
+<text top="884" left="108" width="340" height="15" font="4">options. When they decided they were ready, users</text>
+<text top="905" left="108" width="340" height="15" font="4">followed a link to a web server running a customized</text>
+<text top="925" left="108" width="340" height="15" font="4">version of DUALIST, which is an open source web-</text>
+<text top="945" left="108" width="340" height="15" font="4">based application. At the end of each trial, subjects</text>
+<text top="966" left="108" width="338" height="15" font="4">were given a conﬁrmation code to receive payment.</text>
+<text top="987" left="124" width="324" height="15" font="4">We conducted experiments using two corpora</text>
+<text top="1007" left="108" width="340" height="15" font="4">from the original DUALIST study: Science (a subset</text>
+<text top="1027" left="108" width="340" height="15" font="4">of the 20 Newsgroups benchmark: cryptography,</text>
+<text top="1047" left="108" width="340" height="15" font="4">electronics, medicine, and space) and Movie Re-</text>
+<text top="92" left="470" width="36" height="14" font="4">views</text>
+<text top="92" left="512" width="298" height="15" font="4">(a sentiment analysis collection). These are</text>
+<text top="112" left="470" width="340" height="15" font="4">not specialized domains, i.e., we could expect av-</text>
+<text top="133" left="470" width="340" height="15" font="4">erage Internet users to be knowledgable enough to</text>
+<text top="153" left="470" width="340" height="15" font="4">perform the annotations. While both are generally</text>
+<text top="173" left="470" width="340" height="15" font="4">accessible, these corpora represent different types of</text>
+<text top="194" left="470" width="340" height="15" font="4">tasks and vary both in number of categories (four</text>
+<text top="214" left="470" width="340" height="15" font="4">vs. two) and difﬁculty (Movie Reviews is known to</text>
+<text top="234" left="470" width="340" height="15" font="4">be harder for learning algorithms). We replicated</text>
+<text top="255" left="470" width="340" height="15" font="4">the same experimental conditions as previous work:</text>
+<text top="275" left="470" width="65" height="14" font="4">DUALIST</text>
+<text top="275" left="540" width="270" height="15" font="4">(the full interface in Figure 1), active-doc</text>
+<text top="295" left="470" width="88" height="15" font="4">(the left-hand</text>
+<text top="295" left="562" width="248" height="17" font="4"> document panel only), and passive-</text>
+<text top="316" left="470" width="24" height="14" font="4">doc</text>
+<text top="316" left="499" width="25" height="15" font="4">(the</text>
+<text top="315" left="529" width="281" height="17" font="4"> document panel only, but with texts se-</text>
+<text top="336" left="470" width="340" height="15" font="4">lected at random and not queried by active learning).</text>
+<text top="358" left="486" width="324" height="15" font="4">For each condition, we recruited 25 users for the</text>
+<text top="378" left="470" width="340" height="15" font="4">Science corpus (75 total) and 35 users for Movie Re-</text>
+<text top="398" left="470" width="340" height="15" font="4">views (105 total). We were careful to publish tasks</text>
+<text top="419" left="470" width="340" height="15" font="4">on MTurk in a way that no one user annotated more</text>
+<text top="439" left="470" width="340" height="15" font="4">than one condition. Some users experienced techni-</text>
+<text top="459" left="470" width="340" height="15" font="4">cal difﬁculties that nulliﬁed their work, and four ap-</text>
+<text top="480" left="470" width="151" height="15" font="4">peared to be spammers</text>
+<text top="477" left="621" width="6" height="11" font="5">3</text>
+<text top="480" left="628" width="182" height="15" font="4">. After removing these sub-</text>
+<text top="500" left="470" width="340" height="15" font="4">jects from the analysis, we were left with 23 users</text>
+<text top="520" left="470" width="340" height="15" font="4">for the Science DUALIST condition, 25 each for the</text>
+<text top="540" left="470" width="340" height="15" font="4">two document-only conditions (73 total), 32 users</text>
+<text top="561" left="470" width="340" height="15" font="4">for the Movie Reviews DUALIST condition, and</text>
+<text top="581" left="470" width="340" height="15" font="4">33 each for the document-only conditions (98 total).</text>
+<text top="601" left="470" width="340" height="15" font="4">DUALIST automatically logged data about user ac-</text>
+<text top="622" left="470" width="340" height="15" font="4">tions and model accuracies as training progressed,</text>
+<text top="642" left="470" width="340" height="15" font="4">although users could not see these statistics. Trials</text>
+<text top="662" left="470" width="340" height="15" font="4">lasted 6 minutes for the Science corpus and 10 min-</text>
+<text top="683" left="470" width="340" height="15" font="4">utes for Movie Reviews. We did advertise a “bonus”</text>
+<text top="703" left="470" width="340" height="15" font="4">for the user who trained the best classiﬁer to encour-</text>
+<text top="723" left="470" width="340" height="15" font="4">age correctness, but otherwise offered no guidance</text>
+<text top="744" left="470" width="288" height="15" font="4">on how subjects should prioritize their time.</text>
+<text top="782" left="470" width="9" height="16" font="2">4</text>
+<text top="782" left="497" width="56" height="16" font="2">Results</text>
+<text top="818" left="470" width="340" height="15" font="4">Figure 2(a) shows learning curves aggregated across</text>
+<text top="839" left="470" width="340" height="15" font="4">all users in each experimental condition. Curves are</text>
+<text top="859" left="470" width="340" height="15" font="4">LOESS ﬁts to classiﬁer accuracy over time: locally-</text>
+<text top="879" left="470" width="340" height="15" font="4">weighted polynomial regressions (Cleveland et al.,</text>
+<text top="900" left="470" width="340" height="15" font="4">1992) ±1 standard error, with the actual user data</text>
+<text top="920" left="470" width="340" height="15" font="4">points omitted for clarity. For the Science task (top),</text>
+<text top="940" left="470" width="340" height="15" font="4">DUALIST users trained signiﬁcantly better classi-</text>
+<text top="961" left="470" width="340" height="15" font="4">ﬁers after about four minutes of annotation time.</text>
+<text top="981" left="470" width="340" height="15" font="4">Document-only active learning also outperformed</text>
+<text top="1014" left="489" width="4" height="8" font="6">3</text>
+<text top="1017" left="494" width="316" height="12" font="0">A spammer was ruled to be one whose document error rate</text>
+<text top="1033" left="470" width="340" height="12" font="0">(vs. the gold standard) was more than double the chance error,</text>
+<text top="1050" left="470" width="302" height="12" font="0">and whose feature labels appeared to be arbitrary clicks.</text>
+<text top="1091" left="432" width="25" height="15" font="4">564</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="8" size="8" family="Times" color="#000000"/>
+<text top="200" left="135" width="21" height="10" font="8">0.20</text>
+<text top="179" left="135" width="21" height="10" font="8">0.30</text>
+<text top="158" left="135" width="21" height="10" font="8">0.40</text>
+<text top="137" left="135" width="21" height="10" font="8">0.50</text>
+<text top="116" left="135" width="21" height="10" font="8">0.60</text>
+<text top="95" left="135" width="21" height="10" font="8">0.70</text>
+<text top="211" left="158" width="9" height="10" font="8"> 0</text>
+<text top="211" left="184" width="15" height="10" font="8"> 60</text>
+<text top="211" left="209" width="135" height="10" font="8"> 120  180  240  300  360</text>
+<text top="158" left="122" width="0" height="10" font="8">Science</text>
+<text top="227" left="246" width="3" height="10" font="8"> </text>
+<text top="94" left="169" width="46" height="10" font="8">DUALIST</text>
+<text top="105" left="169" width="49" height="10" font="8">active-doc</text>
+<text top="115" left="169" width="58" height="10" font="8">passive-doc</text>
+<text top="333" left="135" width="21" height="10" font="8">0.49</text>
+<text top="312" left="135" width="21" height="10" font="8">0.52</text>
+<text top="292" left="135" width="21" height="10" font="8">0.55</text>
+<text top="271" left="135" width="21" height="10" font="8">0.58</text>
+<text top="251" left="135" width="21" height="10" font="8">0.61</text>
+<text top="230" left="135" width="21" height="10" font="8">0.64</text>
+<text top="350" left="158" width="9" height="10" font="8"> 0</text>
+<text top="350" left="186" width="21" height="10" font="8"> 120</text>
+<text top="350" left="220" width="21" height="10" font="8"> 240</text>
+<text top="350" left="254" width="21" height="10" font="8"> 360</text>
+<text top="350" left="289" width="21" height="10" font="8"> 480</text>
+<text top="350" left="323" width="21" height="10" font="8"> 600</text>
+<text top="314" left="122" width="0" height="10" font="8">Movie Reviews</text>
+<text top="366" left="197" width="101" height="10" font="8">annotation time (sec)</text>
+<text top="233" left="169" width="46" height="10" font="8">DUALIST</text>
+<text top="244" left="169" width="49" height="10" font="8">active-doc</text>
+<text top="255" left="169" width="58" height="10" font="8">passive-doc</text>
+<text top="390" left="180" width="103" height="12" font="0">(a) learning curves</text>
+<text top="211" left="394" width="43" height="10" font="8">DUALIST</text>
+<text top="211" left="448" width="106" height="10" font="8">active-doc passive-doc</text>
+<text top="196" left="366" width="0" height="10" font="8">0</text>
+<text top="190" left="366" width="0" height="10" font="8">.3</text>
+<text top="158" left="366" width="0" height="10" font="8">0</text>
+<text top="152" left="366" width="0" height="10" font="8">.5</text>
+<text top="120" left="366" width="0" height="10" font="8">0</text>
+<text top="114" left="366" width="0" height="10" font="8">.7</text>
+<text top="353" left="394" width="43" height="10" font="8">DUALIST</text>
+<text top="353" left="448" width="106" height="10" font="8">active-doc passive-doc</text>
+<text top="335" left="366" width="0" height="10" font="8">0</text>
+<text top="329" left="366" width="0" height="10" font="8">.5</text>
+<text top="320" left="366" width="0" height="10" font="8">0</text>
+<text top="290" left="366" width="0" height="10" font="8">0</text>
+<text top="284" left="366" width="0" height="10" font="8">.6</text>
+<text top="275" left="366" width="0" height="10" font="8">0</text>
+<text top="245" left="366" width="0" height="10" font="8">0</text>
+<text top="239" left="366" width="0" height="10" font="8">.7</text>
+<text top="230" left="366" width="0" height="10" font="8">0</text>
+<text top="390" left="381" width="156" height="12" font="0">(b) ﬁnal classiﬁer accuracies</text>
+<text top="200" left="591" width="21" height="10" font="8">0.20</text>
+<text top="179" left="591" width="21" height="10" font="8">0.30</text>
+<text top="158" left="591" width="21" height="10" font="8">0.40</text>
+<text top="137" left="591" width="21" height="10" font="8">0.50</text>
+<text top="116" left="591" width="21" height="10" font="8">0.60</text>
+<text top="95" left="591" width="21" height="10" font="8">0.70</text>
+<text top="211" left="614" width="9" height="10" font="8"> 0</text>
+<text top="211" left="639" width="15" height="10" font="8"> 60</text>
+<text top="211" left="665" width="135" height="10" font="8"> 120  180  240  300  360</text>
+<text top="158" left="578" width="0" height="10" font="8">Science</text>
+<text top="227" left="702" width="3" height="10" font="8"> </text>
+<text top="94" left="625" width="44" height="10" font="8">DV++ (5)</text>
+<text top="105" left="625" width="38" height="10" font="8">DV+ (9)</text>
+<text top="115" left="625" width="35" height="10" font="8">DV- (9)</text>
+<text top="333" left="591" width="21" height="10" font="8">0.49</text>
+<text top="312" left="591" width="21" height="10" font="8">0.52</text>
+<text top="292" left="591" width="21" height="10" font="8">0.55</text>
+<text top="271" left="591" width="21" height="10" font="8">0.58</text>
+<text top="251" left="591" width="21" height="10" font="8">0.61</text>
+<text top="230" left="591" width="21" height="10" font="8">0.64</text>
+<text top="350" left="614" width="9" height="10" font="8"> 0</text>
+<text top="350" left="642" width="21" height="10" font="8"> 120</text>
+<text top="350" left="676" width="21" height="10" font="8"> 240</text>
+<text top="350" left="710" width="21" height="10" font="8"> 360</text>
+<text top="350" left="744" width="21" height="10" font="8"> 480</text>
+<text top="350" left="778" width="21" height="10" font="8"> 600</text>
+<text top="314" left="578" width="0" height="10" font="8">Movie Reviews</text>
+<text top="366" left="653" width="101" height="10" font="8">annotation time (sec)</text>
+<text top="233" left="625" width="44" height="10" font="8">DV++ (8)</text>
+<text top="244" left="625" width="44" height="10" font="8">DV+ (13)</text>
+<text top="255" left="625" width="41" height="10" font="8">DV- (11)</text>
+<text top="390" left="603" width="169" height="12" font="0">(c) behavioral subgroup curves</text>
+<text top="426" left="108" width="702" height="13" font="3">Figure 2: (a) Learning curves plotting accuracy vs. actual annotation time for the three conditions. Curves are LOESS</text>
+<text top="443" left="108" width="702" height="13" font="3">ﬁts (±1 SE) to all classiﬁer accuracies at that point in time. (b) Box plots showing the distribution of ﬁnal accuracies</text>
+<text top="461" left="108" width="702" height="13" font="3">under each condition. (c) Learning curves for three behavioral subgroups found in the DUALIST condition. The</text>
+<text top="479" left="108" width="319" height="13" font="3">DV++ group volunteered many labeled words (action</text>
+<text top="479" left="431" width="331" height="16" font="3">), DV+ volunteered some, and DV- volunteered none.</text>
+<text top="512" left="108" width="340" height="15" font="4">standard passive learning, which is consistent with</text>
+<text top="532" left="108" width="340" height="15" font="4">previous work. However, for Movie Reviews (bot-</text>
+<text top="552" left="108" width="340" height="15" font="4">tom), there is little difference among the three set-</text>
+<text top="573" left="108" width="340" height="15" font="4">tings, and in fact models trained with DUALIST ap-</text>
+<text top="593" left="108" width="330" height="15" font="4">pear to lag behind active learning with documents.</text>
+<text top="617" left="124" width="324" height="15" font="4">Figure 2(b) shows the distribution of ﬁnal classi-</text>
+<text top="637" left="108" width="340" height="15" font="4">ﬁer accuracies in each condition. For Science, the</text>
+<text top="658" left="108" width="340" height="15" font="4">DUALIST users are signiﬁcantly better than either</text>
+<text top="678" left="108" width="340" height="15" font="4">of the baselines (two-sided KS test, p &lt; 0.005).</text>
+<text top="698" left="108" width="340" height="15" font="4">While the differences in DUALIST accuracies are</text>
+<text top="719" left="108" width="340" height="15" font="4">not signiﬁcantly different, we can see that the top</text>
+<text top="739" left="108" width="340" height="15" font="4">quartile does much better than the two baselines.</text>
+<text top="759" left="108" width="340" height="15" font="4">Clearly some DUALIST users are making better use</text>
+<text top="780" left="108" width="339" height="15" font="4">of the interface and training better classiﬁers. How?</text>
+<text top="804" left="124" width="324" height="15" font="4">It is important to note that users in the active-</text>
+<text top="824" left="108" width="340" height="15" font="4">doc and passive-doc conditions can only choose ac-</text>
+<text top="844" left="108" width="25" height="15" font="4">tion</text>
+<text top="844" left="138" width="310" height="17" font="4"> (label documents), whereas those in the DU-</text>
+<text top="865" left="108" width="340" height="15" font="4">ALIST condition must allocate their time among</text>
+<text top="885" left="108" width="340" height="15" font="4">three kinds of actions. It turns out that the anno-</text>
+<text top="905" left="108" width="340" height="15" font="4">tators exhibited very non-uniform behavior in this</text>
+<text top="926" left="108" width="253" height="15" font="4">respect. In particular, activity of action</text>
+<text top="925" left="365" width="84" height="17" font="4"> (volunteer</text>
+<text top="946" left="108" width="340" height="15" font="4">labeled words) follows a power law, and many sub-</text>
+<text top="966" left="108" width="340" height="15" font="4">jects volunteered no features at all. By inspecting</text>
+<text top="987" left="108" width="340" height="15" font="4">the distribution of these actions for natural break-</text>
+<text top="1007" left="108" width="340" height="15" font="4">points, we identiﬁed three subgroups of DUALIST</text>
+<text top="1027" left="108" width="340" height="15" font="4">users: DV++ (many volunteered words), DV+ (some</text>
+<text top="1048" left="108" width="340" height="15" font="4">words), and DV- (none; labeled queries only). Note</text>
+<text top="508" left="562" width="95" height="13" font="3">Movie Reviews</text>
+<text top="508" left="700" width="47" height="13" font="3">Science</text>
+<text top="527" left="507" width="38" height="13" font="3">Group</text>
+<text top="527" left="560" width="50" height="13" font="3"># Words</text>
+<text top="527" left="625" width="34" height="13" font="3">Users</text>
+<text top="527" left="674" width="50" height="13" font="3"># Words</text>
+<text top="527" left="739" width="34" height="13" font="3">Users</text>
+<text top="555" left="507" width="38" height="13" font="3">DV++</text>
+<text top="555" left="573" width="37" height="13" font="3">21–62</text>
+<text top="555" left="652" width="7" height="13" font="3">8</text>
+<text top="555" left="686" width="37" height="13" font="3">24–42</text>
+<text top="555" left="765" width="7" height="13" font="3">5</text>
+<text top="573" left="507" width="29" height="13" font="3">DV+</text>
+<text top="573" left="580" width="30" height="13" font="3">1–15</text>
+<text top="573" left="644" width="15" height="13" font="3">13</text>
+<text top="573" left="694" width="30" height="13" font="3">2–19</text>
+<text top="573" left="765" width="7" height="13" font="3">9</text>
+<text top="591" left="507" width="24" height="13" font="3">DV-</text>
+<text top="591" left="603" width="7" height="13" font="3">0</text>
+<text top="591" left="644" width="15" height="13" font="3">11</text>
+<text top="591" left="716" width="7" height="13" font="3">0</text>
+<text top="591" left="765" width="7" height="13" font="3">9</text>
+<text top="629" left="470" width="340" height="13" font="3">Table 1: The range of volunteered words and number of</text>
+<text top="647" left="470" width="340" height="13" font="3">users in each behavioral subgroup of DUALIST subjects.</text>
+<text top="681" left="470" width="340" height="15" font="4">that DV- is not functionally equivalent to the active-</text>
+<text top="702" left="470" width="340" height="15" font="4">doc condition, as users in the DV- group could still</text>
+<text top="722" left="470" width="340" height="15" font="4">view and label word queries. The three behavioral</text>
+<text top="742" left="470" width="249" height="15" font="4">subgroups are summarized in Table 1.</text>
+<text top="763" left="486" width="324" height="15" font="4">Figure 2(c) shows learning curves for these three</text>
+<text top="783" left="470" width="340" height="15" font="4">groups. We can see that the DV++ and DV+ groups</text>
+<text top="804" left="470" width="340" height="15" font="4">ultimately train better classiﬁers than the DV- group,</text>
+<text top="824" left="470" width="340" height="15" font="4">and DV++ also dominates both the active and pas-</text>
+<text top="844" left="470" width="340" height="15" font="4">sive baselines from Figure 2(a). The DV++ group is</text>
+<text top="864" left="470" width="340" height="15" font="4">particularly effective on the Movie Reviews corpus.</text>
+<text top="885" left="470" width="340" height="15" font="4">This suggests that a user’s choice to volunteer more</text>
+<text top="905" left="470" width="340" height="15" font="4">labeled features — by occasionally side-stepping the</text>
+<text top="925" left="470" width="340" height="15" font="4">queries posed by the active learner and directly in-</text>
+<text top="946" left="470" width="340" height="15" font="4">jecting their domain knowledge — is a good predic-</text>
+<text top="966" left="470" width="243" height="15" font="4">tor of classiﬁer accuracy on this task.</text>
+<text top="987" left="486" width="324" height="15" font="4">To tease apart the relative impact of other behav-</text>
+<text top="1007" left="470" width="340" height="15" font="4">iors, we conducted an ordinary least-squares regres-</text>
+<text top="1027" left="470" width="340" height="15" font="4">sion to predict classiﬁer accuracy at the end of a trial.</text>
+<text top="1048" left="470" width="340" height="15" font="4">We included the number of user events for each ac-</text>
+<text top="1091" left="432" width="25" height="15" font="4">565</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="92" left="108" width="340" height="15" font="4">tion as independent variables, plus two controls: the</text>
+<text top="112" left="108" width="340" height="15" font="4">subject’s document error rate in [0,1] with respect to</text>
+<text top="133" left="108" width="340" height="15" font="4">the gold standard, and class entropy in [0, log C] of</text>
+<text top="153" left="108" width="340" height="15" font="4">all labeled words (where C is the number of classes).</text>
+<text top="173" left="108" width="340" height="15" font="4">The entropy variable is meant to capture how “bal-</text>
+<text top="194" left="108" width="340" height="15" font="4">anced” a user’s word-labeling activity was for ac-</text>
+<text top="214" left="108" width="32" height="15" font="4">tions</text>
+<text top="214" left="143" width="305" height="17" font="4"> and , with the intuition that a skewed set of</text>
+<text top="234" left="108" width="340" height="15" font="4">words could confuse the learner, by biasing it away</text>
+<text top="255" left="108" width="275" height="15" font="4">from categories with fewer labeled words.</text>
+<text top="275" left="124" width="324" height="15" font="4">Table 2 summarizes these results. Surprisingly,</text>
+<text top="295" left="108" width="158" height="15" font="4">query-labeling actions (</text>
+<text top="295" left="266" width="182" height="17" font="4"> and ) have a relatively</text>
+<text top="316" left="108" width="340" height="15" font="4">small impact on accuracy. The number of volun-</text>
+<text top="336" left="108" width="340" height="15" font="4">teered words and entropy among word labels appear</text>
+<text top="356" left="108" width="340" height="15" font="4">to be the only two factors that are somewhat signif-</text>
+<text top="377" left="108" width="340" height="15" font="4">icant: the former is strongest in the Movie Reviews</text>
+<text top="397" left="108" width="178" height="15" font="4">corpus, the latter in Science</text>
+<text top="394" left="286" width="6" height="11" font="5">4</text>
+<text top="397" left="293" width="155" height="15" font="4">. Interestingly, there is a</text>
+<text top="417" left="108" width="340" height="15" font="4">strong positive correlation between these two factors</text>
+<text top="438" left="108" width="340" height="15" font="4">in the Movie Reviews corpus (Spearman’s ρ = 0.51,</text>
+<text top="458" left="108" width="340" height="15" font="4">p = 0.02) but not in Science (ρ = 0.03). When we</text>
+<text top="478" left="108" width="340" height="15" font="4">consider change in word label entropy over time, the</text>
+<text top="499" left="108" width="340" height="15" font="4">Science DA++ group is balanced early on and be-</text>
+<text top="519" left="108" width="240" height="15" font="4">comes steadily more so on average</text>
+<text top="519" left="384" width="65" height="15" font="4">, whereas</text>
+<text top="539" left="108" width="340" height="15" font="4">DA+ goes for several minutes before catching up</text>
+<text top="560" left="108" width="161" height="15" font="4">(and brieﬂy overtaking)</text>
+<text top="560" left="306" width="4" height="15" font="4">.</text>
+<text top="560" left="325" width="123" height="15" font="4">This may account</text>
+<text top="580" left="108" width="340" height="15" font="4">for DA+’s early dip in accuracy in Figure 2(c). For</text>
+<text top="600" left="108" width="340" height="15" font="4">Movie Reviews, DA++ is more balanced than DA+</text>
+<text top="621" left="108" width="340" height="15" font="4">throughout the trial. DA++ labeled many words that</text>
+<text top="641" left="108" width="340" height="15" font="4">were also class-balanced, which may explain why</text>
+<text top="661" left="108" width="340" height="15" font="4">it is the best consistently-performing group. As is</text>
+<text top="682" left="108" width="340" height="15" font="4">common in behavior modeling with small samples,</text>
+<text top="702" left="108" width="340" height="15" font="4">the data are noisy and the regressions in Table 2 only</text>
+<text top="722" left="108" width="303" height="15" font="4">explain 33%–46% of the variance in accuracy.</text>
+<text top="757" left="108" width="9" height="16" font="2">5</text>
+<text top="757" left="135" width="81" height="16" font="2">Discussion</text>
+<text top="790" left="108" width="340" height="15" font="4">We were able to partially replicate the results from</text>
+<text top="810" left="108" width="340" height="15" font="4">Settles (2011). That is, for two of the same data sets,</text>
+<text top="831" left="108" width="340" height="15" font="4">some of the subjects using DUALIST signiﬁcantly</text>
+<text top="851" left="108" width="340" height="15" font="4">outperformed those using traditional document-only</text>
+<text top="871" left="108" width="68" height="15" font="4">interfaces.</text>
+<text top="871" left="196" width="252" height="15" font="4">However, our results show that the</text>
+<text top="892" left="108" width="340" height="15" font="4">gains come not merely from the interface itself, but</text>
+<text top="912" left="108" width="340" height="15" font="4">from which labeling actions the users chose to per-</text>
+<text top="932" left="108" width="340" height="15" font="4">form. As interactive learning systems continue to</text>
+<text top="953" left="108" width="340" height="15" font="4">expand the palette of interactive options (e.g., la-</text>
+<text top="981" left="127" width="4" height="8" font="6">4</text>
+<text top="984" left="132" width="316" height="12" font="0">Science has four labels and a larger entropy range, which</text>
+<text top="1000" left="108" width="340" height="12" font="0">might explain the importance of the entropy factor here. Also,</text>
+<text top="1017" left="108" width="340" height="12" font="0">labels are more related to natural clusterings in this corpus</text>
+<text top="1033" left="108" width="340" height="12" font="0">(Nigam et al., 2000), so class-balanced priors might be key for</text>
+<text top="1050" left="108" width="312" height="12" font="0">DUALIST’s semi-supervised EM procedure to work well.</text>
+<text top="89" left="609" width="95" height="13" font="3">Movie Reviews</text>
+<text top="89" left="742" width="47" height="13" font="3">Science</text>
+<text top="107" left="474" width="41" height="13" font="3">Action</text>
+<text top="107" left="633" width="8" height="13" font="3">β</text>
+<text top="107" left="664" width="17" height="13" font="3">SE</text>
+<text top="107" left="746" width="8" height="13" font="3">β</text>
+<text top="107" left="778" width="17" height="13" font="3">SE</text>
+<text top="139" left="474" width="63" height="13" font="3">(intercept)</text>
+<text top="139" left="608" width="207" height="13" font="3">0.505 0.038 *** 0.473 0.147 **</text>
+<text top="156" left="474" width="113" height="16" font="3"> label query docs</text>
+<text top="156" left="608" width="75" height="13" font="3">0.001 0.001</text>
+<text top="156" left="722" width="75" height="13" font="3">0.005 0.005</text>
+<text top="174" left="474" width="210" height="16" font="3"> label query words -0.001 0.001</text>
+<text top="174" left="722" width="75" height="13" font="3">0.000 0.001</text>
+<text top="192" left="474" width="112" height="16" font="3"> volunteer words</text>
+<text top="192" left="608" width="86" height="13" font="3">0.002 0.001 *</text>
+<text top="192" left="722" width="75" height="13" font="3">0.000 0.002</text>
+<text top="210" left="474" width="100" height="13" font="3">human error rate</text>
+<text top="210" left="603" width="80" height="13" font="3">-0.036 0.109</text>
+<text top="210" left="717" width="80" height="13" font="3">-0.328 0.230</text>
+<text top="228" left="474" width="113" height="13" font="3">word label entropy</text>
+<text top="228" left="608" width="75" height="13" font="3">0.053 0.051</text>
+<text top="228" left="722" width="82" height="13" font="3">0.201 0.102 .</text>
+<text top="258" left="603" width="11" height="13" font="3">R</text>
+<text top="255" left="615" width="6" height="9" font="8">2</text>
+<text top="258" left="626" width="75" height="14" font="3">= 0.4608 **</text>
+<text top="258" left="717" width="11" height="13" font="3">R</text>
+<text top="255" left="728" width="6" height="9" font="8">2</text>
+<text top="258" left="739" width="56" height="14" font="3">= 0.3342</text>
+<text top="281" left="474" width="71" height="11" font="5">*** p &lt; 0.001</text>
+<text top="281" left="556" width="59" height="11" font="5">** p &lt; 0.01</text>
+<text top="281" left="627" width="53" height="11" font="5">* p &lt; 0.05</text>
+<text top="281" left="691" width="44" height="11" font="5">. p &lt; 0.1</text>
+<text top="311" left="470" width="340" height="13" font="3">Table 2: Linear regressions estimating the accuracy of a</text>
+<text top="329" left="470" width="340" height="13" font="3">classiﬁer as a function of annotator actions and behaviors.</text>
+<text top="368" left="470" width="340" height="15" font="4">beling and/or volunteering features), understanding</text>
+<text top="389" left="470" width="340" height="15" font="4">how these options impact learning becomes more</text>
+<text top="409" left="470" width="340" height="15" font="4">important. In particular, training a good classiﬁer</text>
+<text top="429" left="470" width="340" height="15" font="4">in our experiments appears to be linked to (1) vol-</text>
+<text top="450" left="470" width="340" height="15" font="4">unteering more labeled words, and (2) maintaining</text>
+<text top="470" left="470" width="340" height="15" font="4">a class balance among them. Users who exhibited</text>
+<text top="490" left="470" width="340" height="15" font="4">both of these behaviors — which are possibly arti-</text>
+<text top="511" left="470" width="337" height="15" font="4">facts of their good intuitions — performed the best.</text>
+<text top="535" left="486" width="324" height="15" font="4">We posit that there is a conceptual connection be-</text>
+<text top="556" left="470" width="340" height="15" font="4">tween these insights and curriculum learning (Ben-</text>
+<text top="576" left="470" width="340" height="15" font="4">gio et al., 2009), the commonsense notion that learn-</text>
+<text top="596" left="470" width="340" height="15" font="4">ers perform better if they begin with clear and unam-</text>
+<text top="617" left="470" width="340" height="15" font="4">biguous examples before graduating to more com-</text>
+<text top="637" left="470" width="340" height="15" font="4">plex training data. A recent study found that some</text>
+<text top="657" left="470" width="340" height="15" font="4">humans use a curriculum strategy when teaching a</text>
+<text top="678" left="470" width="340" height="15" font="4">1D classiﬁcation task to a robot (Khan et al., 2012).</text>
+<text top="698" left="470" width="340" height="15" font="4">About half of those subjects alternated between ex-</text>
+<text top="718" left="470" width="340" height="15" font="4">treme positive and negative instances in a relatively</text>
+<text top="738" left="470" width="340" height="15" font="4">class-balanced way. This behavior was explained by</text>
+<text top="759" left="470" width="340" height="15" font="4">showing that it is optimal under an assumption that,</text>
+<text top="779" left="470" width="340" height="15" font="4">in reality, the learning task has many input features</text>
+<text top="799" left="470" width="271" height="15" font="4">for which only one is relevant to the task.</text>
+<text top="824" left="486" width="324" height="15" font="4">Text classiﬁcation exhibits similar properties:</text>
+<text top="844" left="470" width="340" height="15" font="4">there are many features (words), of which only a few</text>
+<text top="865" left="470" width="340" height="15" font="4">are relevant. We argue that labeling features can be</text>
+<text top="885" left="470" width="340" height="15" font="4">seen as a kind of training by curriculum. By volun-</text>
+<text top="905" left="470" width="340" height="15" font="4">teering labeled words in a class-balanced way (espe-</text>
+<text top="926" left="470" width="340" height="15" font="4">cially early on), a user provides clear, unambiguous</text>
+<text top="946" left="470" width="340" height="15" font="4">training signals that effectively perform feature se-</text>
+<text top="966" left="470" width="340" height="15" font="4">lection while biasing the classiﬁer toward the user’s</text>
+<text top="987" left="470" width="340" height="15" font="4">hypothesis. Future research on mixed-initiative user</text>
+<text top="1007" left="470" width="340" height="15" font="4">interfaces might try to detect and encourage these</text>
+<text top="1027" left="470" width="340" height="15" font="4">kinds of annotator behaviors, and potentially im-</text>
+<text top="1048" left="470" width="297" height="15" font="4">prove interactive machine learning outcomes.</text>
+<text top="1091" left="432" width="25" height="15" font="4">566</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="91" left="108" width="140" height="16" font="2">Acknowledgments</text>
+<text top="123" left="108" width="340" height="15" font="4">This work was funded in part by DARPA, the</text>
+<text top="144" left="108" width="340" height="15" font="4">National Science Foundation (under grants IIS-</text>
+<text top="164" left="108" width="265" height="15" font="4">0953219 and IIS-0968487), and Google.</text>
+<text top="199" left="108" width="83" height="16" font="2">References</text>
+<text top="229" left="108" width="340" height="13" font="3">J. Attenberg, P. Melville, and F. Provost. 2010. A uni-</text>
+<text top="247" left="124" width="324" height="13" font="3">ﬁed approach to active dual supervision for labeling</text>
+<text top="265" left="124" width="324" height="13" font="3">features and examples. In Proceedings of the Euro-</text>
+<text top="283" left="124" width="324" height="13" font="3">pean Conference on Machine Learning and Principles</text>
+<text top="301" left="124" width="324" height="13" font="3">and Practice of Knowledge Discovery in Databases</text>
+<text top="319" left="124" width="94" height="13" font="3">(ECML PKDD)</text>
+<text top="319" left="219" width="144" height="13" font="3">, pages 40–55. Springer.</text>
+<text top="338" left="108" width="340" height="13" font="3">Y. Bengio, J. Louradour, R. Collobert, and J. Weston.</text>
+<text top="356" left="124" width="324" height="13" font="3">2009. Curriculum learning. In Proceedings of the In-</text>
+<text top="374" left="124" width="320" height="13" font="3">ternational Conference on Machine Learning (ICML)</text>
+<text top="374" left="444" width="4" height="13" font="3">,</text>
+<text top="392" left="124" width="166" height="13" font="3">pages 119–126. Omnipress.</text>
+<text top="411" left="108" width="340" height="13" font="3">W.S. Cleveland, E. Grosse, and W.M. Shyu. 1992. Lo-</text>
+<text top="429" left="124" width="139" height="13" font="3">cal regression models.</text>
+<text top="429" left="279" width="170" height="13" font="3">In J.M. Chambers and T.J.</text>
+<text top="446" left="124" width="324" height="13" font="3">Hastie, editors, Statistical Models in S. Wadsworth &amp;</text>
+<text top="464" left="124" width="79" height="13" font="3">Brooks/Cole.</text>
+<text top="483" left="108" width="340" height="13" font="3">G. Druck, G. Mann, and A. McCallum. 2008. Learn-</text>
+<text top="501" left="124" width="324" height="13" font="3">ing from labeled features using generalized expecta-</text>
+<text top="519" left="124" width="324" height="13" font="3">tion criteria. In Proceedings of the ACM SIGIR Con-</text>
+<text top="537" left="124" width="324" height="13" font="3">ference on Research and Development in Information</text>
+<text top="555" left="124" width="55" height="13" font="3">Retrieval</text>
+<text top="555" left="179" width="177" height="13" font="3">, pages 595–602. ACM Press.</text>
+<text top="574" left="108" width="256" height="13" font="3">G. Druck, B. Settles, and A. McCallum.</text>
+<text top="574" left="378" width="34" height="13" font="3">2009.</text>
+<text top="574" left="426" width="22" height="13" font="3">Ac-</text>
+<text top="592" left="124" width="324" height="13" font="3">tive learning by labeling features. In Proceedings of</text>
+<text top="610" left="124" width="324" height="13" font="3">the Conference on Empirical Methods in Natural Lan-</text>
+<text top="628" left="124" width="167" height="13" font="3">guage Processing (EMNLP)</text>
+<text top="628" left="292" width="156" height="13" font="3">, pages 81–90. ACL Press.</text>
+<text top="647" left="108" width="340" height="13" font="3">F. Khan, X. Zhu, and B. Mutlu. 2012. How do humans</text>
+<text top="665" left="124" width="324" height="13" font="3">teach: On curriculum learning and teaching dimen-</text>
+<text top="683" left="124" width="324" height="13" font="3">sion. In Advances in Neural Information Processing</text>
+<text top="701" left="124" width="94" height="13" font="3">Systems (NIPS)</text>
+<text top="701" left="219" width="230" height="13" font="3">, volume 24, pages 1449–1457. Mor-</text>
+<text top="719" left="124" width="92" height="13" font="3">gan Kaufmann.</text>
+<text top="738" left="108" width="340" height="13" font="3">P. Melville, W. Gryc, and R.D. Lawrence. 2009. Sen-</text>
+<text top="756" left="124" width="324" height="13" font="3">timent analysis of blogs by combining lexical knowl-</text>
+<text top="774" left="124" width="324" height="13" font="3">edge with text classiﬁcation. In Proceedings of the In-</text>
+<text top="792" left="124" width="324" height="13" font="3">ternational Conference on Knowledge Discovery and</text>
+<text top="810" left="124" width="122" height="13" font="3">Data Mining (KDD)</text>
+<text top="810" left="246" width="192" height="13" font="3">, pages 1275–1284. ACM Press.</text>
+<text top="829" left="108" width="340" height="13" font="3">K. Nigam, A.K. Mccallum, S. Thrun, and T. Mitchell.</text>
+<text top="847" left="124" width="324" height="13" font="3">2000. Text classiﬁcation from labeled and unlabeled</text>
+<text top="865" left="124" width="324" height="13" font="3">documents using em. Machine Learning, 39:103–134.</text>
+<text top="884" left="108" width="64" height="13" font="3">B. Settles.</text>
+<text top="884" left="185" width="34" height="13" font="3">2011.</text>
+<text top="884" left="232" width="216" height="13" font="3">Closing the loop: Fast, interactive</text>
+<text top="902" left="124" width="324" height="13" font="3">semi-supervised annotation with queries on features</text>
+<text top="919" left="124" width="324" height="13" font="3">and instances. In Proceedings of the Conference on</text>
+<text top="938" left="124" width="324" height="13" font="3">Empirical Methods in Natural Language Processing</text>
+<text top="955" left="124" width="59" height="13" font="3">(EMNLP)</text>
+<text top="955" left="183" width="188" height="13" font="3">, pages 1467–1478. ACL Press.</text>
+<text top="1091" left="432" width="25" height="15" font="4">567</text>
+</page>
+</pdf2xml>

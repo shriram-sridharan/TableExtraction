@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml>
+<page number="1" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="0" size="24" family="Helvetica" color="#000000"/>
+	<fontspec id="1" size="15" family="Helvetica" color="#000000"/>
+	<fontspec id="2" size="12" family="Helvetica" color="#000000"/>
+	<fontspec id="3" size="15" family="Times" color="#000000"/>
+	<fontspec id="4" size="11" family="Times" color="#000000"/>
+	<fontspec id="5" size="9" family="Times" color="#000000"/>
+	<fontspec id="6" size="9" family="Times" color="#000000"/>
+	<fontspec id="7" size="11" family="Times" color="#000000"/>
+<text top="109" left="144" width="627" height="25" font="0"><b>Fast Learning for Sentiment Analysis on Bullying</b></text>
+<text top="177" left="183" width="210" height="17" font="1">Jun-Ming Xu, Xiaojin Zhu</text>
+<text top="195" left="173" width="230" height="14" font="2">Department of Computer Sciences</text>
+<text top="210" left="180" width="216" height="14" font="2">University of Wisconsin-Madison</text>
+<text top="226" left="204" width="168" height="14" font="2">Madison, WI 53706, USA</text>
+<text top="240" left="173" width="230" height="17" font="1">{xujm,jerryzhu}@cs.wisc.edu</text>
+<text top="177" left="571" width="111" height="17" font="1">Amy Bellmore</text>
+<text top="195" left="498" width="258" height="14" font="2">Department of Educational Psychology</text>
+<text top="210" left="519" width="216" height="14" font="2">University of Wisconsin-Madison</text>
+<text top="226" left="543" width="168" height="14" font="2">Madison, WI 53706, USA</text>
+<text top="240" left="543" width="167" height="17" font="1">abellmore@wisc.edu</text>
+<text top="312" left="81" width="97" height="16" font="3"><b>ABSTRACT</b></text>
+<text top="331" left="81" width="359" height="12" font="4">Bullying is a serious national health issue among adolescents.</text>
+<text top="347" left="81" width="359" height="12" font="4">Social media oﬀers a new opportunity to study bullying in</text>
+<text top="363" left="81" width="359" height="12" font="4">both physical and cyber worlds. Sentiment analysis has the</text>
+<text top="378" left="81" width="359" height="12" font="4">potential to identify victims who pose high risk to them-</text>
+<text top="394" left="81" width="359" height="12" font="4">selves or others, and to enhance the scientiﬁc understanding</text>
+<text top="410" left="81" width="359" height="12" font="4">of bullying overall. We identify seven emotions common in</text>
+<text top="426" left="81" width="359" height="12" font="4">bullying. While some of the emotions are well-studied be-</text>
+<text top="441" left="81" width="359" height="12" font="4">fore, others are non-standard in the sentiment analysis lit-</text>
+<text top="457" left="81" width="359" height="12" font="4">erature. We propose a fast training procedure to recognize</text>
+<text top="473" left="81" width="359" height="12" font="4">these emotions without explicitly producing a conventional</text>
+<text top="488" left="81" width="359" height="12" font="4">labeled training dataset. We apply our procedure to social</text>
+<text top="504" left="81" width="297" height="12" font="4">media posts on bullying and discuss our ﬁndings.</text>
+<text top="537" left="81" width="270" height="16" font="3"><b>Categories and Subject Descriptors</b></text>
+<text top="556" left="81" width="359" height="12" font="4">H.2.8 [DATABASE MANAGEMENT]: Database Ap-</text>
+<text top="572" left="81" width="359" height="12" font="4">plications—Data mining ; I.2.7 [ARTIFICIAL INTELLI-</text>
+<text top="587" left="81" width="339" height="12" font="4">GENCE]: Natural Language Processing—Text analysis</text>
+<text top="620" left="81" width="114" height="16" font="3"><b>General Terms</b></text>
+<text top="639" left="81" width="67" height="12" font="4">Algorithms</text>
+<text top="672" left="81" width="77" height="16" font="3"><b>Keywords</b></text>
+<text top="691" left="81" width="296" height="12" font="4">sentiment analysis, bullying, social media mining</text>
+<text top="724" left="81" width="13" height="16" font="3"><b>1.</b></text>
+<text top="724" left="112" width="271" height="16" font="3"><b>INTRODUCTION TO BULLYING</b></text>
+<text top="743" left="81" width="359" height="12" font="4">Bullying, also called peer victimization, has been identiﬁed</text>
+<text top="759" left="81" width="359" height="12" font="4">as a serious national health concern among adolescents [39,</text>
+<text top="775" left="81" width="359" height="12" font="4">38, 1]. One is being bullied or victimized when he or she</text>
+<text top="790" left="81" width="359" height="12" font="4">is exposed repeatedly over time to negative actions on the</text>
+<text top="806" left="81" width="359" height="12" font="4">part of others [30]. Far-reaching and insidious sequelae of</text>
+<text top="822" left="81" width="359" height="12" font="4">bullying include intrapersonal problems [18, 17] and lethal</text>
+<text top="837" left="81" width="359" height="12" font="4">school violence in the most extreme cases [26]. Youth who</text>
+<text top="853" left="81" width="359" height="12" font="4">experience peer victimization report more symptoms of de-</text>
+<text top="869" left="81" width="359" height="12" font="4">pression, anxiety, loneliness, and low self-worth compared to</text>
+<text top="884" left="81" width="359" height="12" font="4">their nonvictimized counterparts [3, 4, 13, 15]. Bullying hap-</text>
+<text top="900" left="81" width="359" height="12" font="4">pens traditionally in the physical world and, recently, online</text>
+<text top="916" left="81" width="359" height="12" font="4">as well; the latter is known as cyberbullying [7, 12, 42, 41].</text>
+<text top="963" left="81" width="359" height="11" font="5">Permission to make digital or hard copies of all or part of this work for</text>
+<text top="977" left="81" width="359" height="11" font="5">personal or classroom use is granted without fee provided that copies are not</text>
+<text top="990" left="81" width="359" height="11" font="5">made or distributed for proﬁt or commercial advantage and that copies bear</text>
+<text top="1004" left="81" width="359" height="11" font="5">this notice and the full citation on the ﬁrst page. Copyrights for components</text>
+<text top="1017" left="81" width="359" height="11" font="5">of this work owned by others than ACM must be honored. Abstracting with</text>
+<text top="1031" left="81" width="359" height="11" font="5">credit is permitted. To copy otherwise, to republish, to post on servers or to</text>
+<text top="1044" left="81" width="317" height="11" font="5">redistribute to lists, requires prior speciﬁc permission and/or a fee.</text>
+<text top="1058" left="81" width="227" height="11" font="6"><i>WISDOM ’12, </i>August 12 2012, Beijing, China.</text>
+<text top="1071" left="81" width="277" height="11" font="5">Copyright 2012 ACM 978-1-4503-1543-2/12/08 ...$15.00</text>
+<text top="315" left="475" width="359" height="12" font="4">Bullying takes multiple forms, most noticeably face-to-face</text>
+<text top="331" left="475" width="359" height="12" font="4">physical (e.g., hitting), verbal (e.g., name-calling), and rela-</text>
+<text top="346" left="475" width="359" height="12" font="4">tional (e.g., exclusion) [2, 23, 29]. Cyberbullying reﬂects a</text>
+<text top="362" left="475" width="359" height="12" font="4">venue (other than face to face contact) through which ver-</text>
+<text top="378" left="475" width="359" height="12" font="4">bal and relational forms can occur. Bullying usually starts</text>
+<text top="393" left="475" width="359" height="12" font="4">in primary school, peaks in middle school, and lasts well into</text>
+<text top="409" left="475" width="359" height="12" font="4">high school and beyond [27, 36, 9]. Across a national sam-</text>
+<text top="425" left="475" width="359" height="12" font="4">ple of students in grades 4 through 12 in the United States,</text>
+<text top="440" left="475" width="359" height="12" font="4">38% of students reported being bullied by others and 32%</text>
+<text top="456" left="475" width="176" height="12" font="4">reported bullying others [40].</text>
+<text top="488" left="475" width="359" height="12" font="4">Participants in a bullying episode take well-deﬁned roles (see</text>
+<text top="503" left="475" width="359" height="12" font="4">Figure 1). The traditional roles include the bully (or bul-</text>
+<text top="519" left="475" width="359" height="12" font="4">lies), the victims, bystanders (who saw the event but did not</text>
+<text top="535" left="475" width="359" height="12" font="4">intervene), defenders of the victim, assistants to the bully</text>
+<text top="550" left="475" width="359" height="12" font="4">(who did not initiate but went along with the bully), and</text>
+<text top="566" left="475" width="359" height="12" font="4">reinforcers (who did not directly join in with the bully but</text>
+<text top="582" left="475" width="359" height="12" font="4">encouraged the bully by laughing, for example) [34]. We</text>
+<text top="597" left="475" width="359" height="12" font="4">also deﬁned two new roles that are common in social media:</text>
+<text top="613" left="475" width="359" height="12" font="4">reporter (may not be present during the episode, unlike a by-</text>
+<text top="629" left="475" width="359" height="12" font="4">stander) and accuser (accusing someone as the bully) [43].</text>
+<text top="644" left="475" width="359" height="12" font="4">More than one person can have the same role in a bullying</text>
+<text top="660" left="475" width="48" height="12" font="4">episode.</text>
+<text top="797" left="502" width="44" height="10" font="5">reinforcer</text>
+<text top="713" left="502" width="43" height="10" font="5">bystander</text>
+<text top="795" left="595" width="29" height="13" font="7">bully</text>
+<text top="795" left="665" width="36" height="13" font="7">victim</text>
+<text top="713" left="591" width="38" height="10" font="5">assistant</text>
+<text top="713" left="665" width="39" height="10" font="5">defender</text>
+<text top="711" left="762" width="44" height="13" font="7">reporter</text>
+<text top="795" left="767" width="42" height="13" font="7">accuser</text>
+<text top="893" left="475" width="359" height="12" font="4">Figure 1: Participants’ role in a bullying episode</text>
+<text top="909" left="475" width="164" height="12" font="4">(Reproduced from [43])</text>
+<text top="941" left="475" width="359" height="12" font="4">Bullying has been studied from at least two angles. The</text>
+<text top="957" left="475" width="359" height="12" font="4">social science study of bullying has a long history but is lim-</text>
+<text top="972" left="475" width="359" height="12" font="4">ited by small sample size and time-consuming data collec-</text>
+<text top="988" left="475" width="359" height="12" font="4">tion [28]. The computer science study of bullying is emerg-</text>
+<text top="1004" left="475" width="359" height="12" font="4">ing with promising results [43, 22, 10, 33, 20, 5, 21]. The</text>
+<text top="1020" left="475" width="359" height="12" font="4">latter has a distinct focus on bullying in social media, where</text>
+<text top="1035" left="475" width="359" height="12" font="4">participants of a bullying episode post their bullying experi-</text>
+<text top="1051" left="475" width="359" height="12" font="4">ences. Such posts, called bullying traces, include but far</text>
+<text top="1067" left="475" width="359" height="12" font="4">exceed incidences of cyberbullying. In our previous work,</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="86" left="81" width="359" height="12" font="4">we showed how computational techniques can help to an-</text>
+<text top="102" left="81" width="359" height="12" font="4">swer several scientiﬁc questions by mining bullying traces in</text>
+<text top="118" left="81" width="359" height="12" font="4">Twitter [43]. However, to our knowledge emotions in bully-</text>
+<text top="133" left="81" width="359" height="12" font="4">ing traces have not received wide attention from the research</text>
+<text top="149" left="81" width="359" height="12" font="4">community. It is the goal of the present paper to raise aware-</text>
+<text top="165" left="81" width="359" height="12" font="4">ness of this fertile topic, and to provide initial results on the</text>
+<text top="180" left="81" width="169" height="12" font="4">sentiment study of bullying.</text>
+<text top="211" left="81" width="13" height="16" font="3"><b>2.</b></text>
+<text top="211" left="112" width="327" height="16" font="3"><b>EMOTIONS IN BULLYING TRACES AS</b></text>
+<text top="232" left="112" width="346" height="16" font="3"><b>IDENTIFIED BY OUR SENTIMENT CLAS-</b></text>
+<text top="253" left="112" width="60" height="16" font="3"><b>SIFIER</b></text>
+<text top="272" left="81" width="359" height="12" font="4">Sentiment analysis on bullying traces is of signiﬁcant impor-</text>
+<text top="288" left="81" width="359" height="12" font="4">tance. Victims usually experience negative emotions such</text>
+<text top="303" left="81" width="359" height="12" font="4">as depression, anxiety and loneliness. In extreme cases such</text>
+<text top="319" left="81" width="338" height="12" font="4">emotions are more violent or even suicidal, for example,</text>
+<text top="356" left="113" width="293" height="12" font="4">“I’m tired of all this bullying. I could never stand</text>
+<text top="372" left="114" width="291" height="12" font="4">up for myself &amp; sometimes I just want to kill</text>
+<text top="388" left="114" width="49" height="12" font="4">myself.”</text>
+<text top="425" left="81" width="359" height="12" font="4">Detecting at-risk individuals via sentiment analysis enables</text>
+<text top="441" left="81" width="359" height="12" font="4">potential interventions. In addition, social scientists are in-</text>
+<text top="456" left="81" width="359" height="12" font="4">terested in sentiment analysis on bullying traces to under-</text>
+<text top="472" left="81" width="192" height="12" font="4">stand participants’ motivations.</text>
+<text top="503" left="81" width="359" height="12" font="4">There are a wide range of emotions expressed in bullying</text>
+<text top="519" left="81" width="39" height="12" font="4">traces.</text>
+<text top="519" left="135" width="305" height="12" font="4">After manually inspecting a number of bullying</text>
+<text top="535" left="81" width="359" height="12" font="4">traces in Twitter, our domain experts identiﬁed seven most</text>
+<text top="550" left="81" width="113" height="12" font="4">common emotions:</text>
+<text top="588" left="97" width="343" height="12" font="4">1. Anger: “He is always laughing at me because he is a</text>
+<text top="603" left="114" width="144" height="12" font="4">bully damnit! #Ashley”</text>
+<text top="627" left="97" width="342" height="12" font="4">2. Embarrassment: “@USER everyone is bullying me be-</text>
+<text top="643" left="114" width="325" height="12" font="4">cause I couldn’t ﬁnd the word peach in a crossword.</text>
+<text top="659" left="114" width="57" height="12" font="4">It’s 1am”</text>
+<text top="683" left="97" width="309" height="12" font="4">3. Empathy: “@USER I’m sorry you get bullied.</text>
+<text top="683" left="419" width="21" height="12" font="4">I’m</text>
+<text top="698" left="114" width="325" height="12" font="4">really surprised at how many people this has happened</text>
+<text top="714" left="114" width="111" height="12" font="4">to. #bulliesSuck ”</text>
+<text top="738" left="97" width="343" height="12" font="4">4. Fear: “i was being bullied and i didn’t want to go to</text>
+<text top="754" left="114" width="325" height="12" font="4">school really i would throw ﬁts everymorning and i hope</text>
+<text top="769" left="114" width="129" height="12" font="4">that michel sees this”</text>
+<text top="793" left="97" width="343" height="12" font="4">5. Pride: “Everyone on this earth is a bully , except me .</text>
+<text top="809" left="114" width="184" height="12" font="4">Because I’m perfect. #jillism”</text>
+<text top="833" left="97" width="343" height="12" font="4">6. Relief: “@USER I was rambling and then... I cried.</text>
+<text top="849" left="114" width="325" height="12" font="4">Like, CRIED. He was touched! APC helped me thru</text>
+<text top="864" left="114" width="193" height="12" font="4">the teasing and bullying man...”</text>
+<text top="888" left="97" width="342" height="12" font="4">7. Sadness: “things were bad when I was younger I got</text>
+<text top="904" left="114" width="325" height="12" font="4">bullied so much because of my disabilites I don’t want</text>
+<text top="920" left="114" width="251" height="12" font="4">the same thing happening to my brother.”</text>
+<text top="957" left="81" width="359" height="12" font="4">This list is by no means comprehensive. Other emotions or</text>
+<text top="972" left="81" width="359" height="12" font="4">mixtures of several basic emotions may also appear in bul-</text>
+<text top="988" left="81" width="359" height="12" font="4">lying traces. These seven categories are the most common</text>
+<text top="1004" left="81" width="359" height="12" font="4">ones based on our current study. Also note that due to the</text>
+<text top="1020" left="81" width="359" height="12" font="4">length limits (140 characters), an individual tweet may be</text>
+<text top="1035" left="81" width="259" height="12" font="4">only a sentence in a conversation thread.</text>
+<text top="1035" left="351" width="88" height="12" font="4">Therefore, the</text>
+<text top="1051" left="81" width="359" height="12" font="4">majority of bullying traces in Twitter cannot be associated</text>
+<text top="1067" left="81" width="138" height="12" font="4">with deﬁnite emotions.</text>
+<text top="83" left="475" width="13" height="16" font="3"><b>3.</b></text>
+<text top="83" left="507" width="327" height="16" font="3"><b>A FAST MACHINE LEARNING PROCE-</b></text>
+<text top="104" left="507" width="51" height="16" font="3"><b>DURE</b></text>
+<text top="124" left="475" width="359" height="12" font="4">As shown above, some emotions involved in bullying traces</text>
+<text top="139" left="475" width="359" height="12" font="4">have not been well studied in sentiment analysis, for exam-</text>
+<text top="155" left="475" width="359" height="12" font="4">ple, embarrassment and relief. To make the problem worse,</text>
+<text top="171" left="475" width="359" height="12" font="4">manually labeling a large amount of training tweets is diﬃ-</text>
+<text top="186" left="475" width="328" height="12" font="4">cult and time consuming even for our domain experts.</text>
+<text top="218" left="475" width="359" height="12" font="4">Recognizing these challenges, we use a fast training proce-</text>
+<text top="234" left="475" width="359" height="12" font="4">dure for sentiment analysis. Our goal is supervised learn-</text>
+<text top="249" left="475" width="359" height="12" font="4">ing, speciﬁcally classifying a tweet into one of the predeﬁned</text>
+<text top="265" left="475" width="359" height="12" font="4">emotion categories. However, we require no explicit labeled</text>
+<text top="281" left="475" width="359" height="12" font="4">training data on tweets. Instead, we will rely on “distantly</text>
+<text top="296" left="475" width="359" height="12" font="4">labeled data” (to be made clear next) that are much easier</text>
+<text top="312" left="475" width="359" height="12" font="4">to obtain. We point out upfront that it will be diﬃcult to</text>
+<text top="328" left="475" width="359" height="12" font="4">assess the accuracy of the resulting classiﬁer, since we do</text>
+<text top="343" left="475" width="359" height="12" font="4">not have an in-domain labeled dataset. However, our obser-</text>
+<text top="359" left="475" width="359" height="12" font="4">vations point to a useful classiﬁer. Coupled with the ease of</text>
+<text top="375" left="475" width="359" height="12" font="4">training and its applicability to other emotions and domains,</text>
+<text top="390" left="475" width="192" height="12" font="4">our procedure is still attractive.</text>
+<text top="427" left="475" width="22" height="16" font="3"><b>3.1</b></text>
+<text top="427" left="516" width="184" height="16" font="3"><b>Relations to Prior Work</b></text>
+<text top="446" left="475" width="359" height="12" font="4">Most sentiment analysis work focused on the overall polar-</text>
+<text top="462" left="475" width="359" height="12" font="4">ity of a document: positive, negative or neutral [32, 24]. A</text>
+<text top="477" left="475" width="359" height="12" font="4">few work considered several basic emotions at a ﬁner level</text>
+<text top="493" left="475" width="359" height="12" font="4">and created emotional lexicons for each category [37]. Re-</text>
+<text top="509" left="475" width="359" height="12" font="4">cently, sentiment analysis on social media [44], especially</text>
+<text top="525" left="475" width="359" height="12" font="4">Twitter [31], has been receiving increasing attention. Cam-</text>
+<text top="540" left="475" width="359" height="12" font="4">bria et al. [6] proposed a sentiment analysis approach to</text>
+<text top="556" left="475" width="359" height="12" font="4">identify malicious posts from social media. Our domain of</text>
+<text top="572" left="475" width="359" height="12" font="4">bullying is fresh with very few existing resources. In addi-</text>
+<text top="587" left="475" width="359" height="12" font="4">tion, although bullying traces are abundant, only a small</text>
+<text top="603" left="475" width="336" height="12" font="4">fraction of them are associated with strong emotions.</text>
+<text top="603" left="824" width="10" height="12" font="4">It</text>
+<text top="619" left="475" width="359" height="12" font="4">poses challenges to obtain enough training examples for all</text>
+<text top="634" left="475" width="359" height="12" font="4">the emotion categories, especially the rare and non-standard</text>
+<text top="650" left="475" width="30" height="12" font="4">ones.</text>
+<text top="681" left="475" width="359" height="12" font="4">Our approach is inspired by the “concept labeling” work of</text>
+<text top="697" left="475" width="359" height="12" font="4">Chenthamarakshan et al. [8] to minimize the supervision ef-</text>
+<text top="713" left="475" width="359" height="12" font="4">fort in constructing text classiﬁcation models. In their sys-</text>
+<text top="729" left="475" width="359" height="12" font="4">tem, instead of labeling a set of training examples experts</text>
+<text top="744" left="475" width="359" height="12" font="4">annotate how “concepts” are related to the target class. We</text>
+<text top="760" left="475" width="359" height="12" font="4">push this idea further where neither labeled examples nor</text>
+<text top="776" left="475" width="359" height="12" font="4">labeled concepts are necessary for building the emotion clas-</text>
+<text top="791" left="475" width="38" height="12" font="4">siﬁers.</text>
+<text top="823" left="475" width="359" height="12" font="4">Our procedure consists of two steps. The ﬁrst step is in</text>
+<text top="838" left="475" width="359" height="12" font="4">the same spirit as the dictionary-based sentiment lexicon</text>
+<text top="854" left="475" width="359" height="12" font="4">generation method [16], which exploits synonym structure of</text>
+<text top="870" left="475" width="359" height="12" font="4">a dictionary to bootstrap the sentiment lexicon. Our second</text>
+<text top="885" left="475" width="359" height="12" font="4">step is similar to the idea of corpus-based sentiment lexicon</text>
+<text top="901" left="475" width="359" height="12" font="4">generation method [14, 19], which uses a domain corpus to</text>
+<text top="917" left="475" width="359" height="12" font="4">extend sentiment lexicon by sentence structure or sentiment</text>
+<text top="933" left="475" width="359" height="12" font="4">consistency assumption. As tweets are very short – usually</text>
+<text top="948" left="475" width="359" height="12" font="4">a few sentences – the sentiment is usually consistent within</text>
+<text top="964" left="475" width="48" height="12" font="4">a tweet.</text>
+<text top="1000" left="475" width="22" height="16" font="3"><b>3.2</b></text>
+<text top="1000" left="516" width="129" height="16" font="3"><b>Task Description</b></text>
+<text top="1020" left="475" width="359" height="12" font="4">Following [43], we obtain bullying traces via Twitter stream-</text>
+<text top="1035" left="475" width="359" height="12" font="4">ing API such that: (i) each tweet contains at lease one the</text>
+<text top="1051" left="475" width="359" height="12" font="4">following keywords “bully, bullied, bullying”, and (ii) the</text>
+<text top="1067" left="475" width="359" height="12" font="4">tweet passes a bullying-or-not text classiﬁer. We want to rec-</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1262" width="892">
+	<fontspec id="8" size="6" family="Times" color="#000000"/>
+<text top="86" left="81" width="359" height="12" font="4">ognize the emotion involved in each bullying trace identiﬁed</text>
+<text top="102" left="81" width="359" height="12" font="4">by this procedure. We deﬁne 8 emotion classes: anger, em-</text>
+<text top="118" left="81" width="359" height="12" font="4">barrassment, empathy, fear, pride, relief, sadness, and other.</text>
+<text top="133" left="81" width="359" height="12" font="4">The last class captures bullying traces without obvious emo-</text>
+<text top="149" left="81" width="359" height="12" font="4">tion or not one of the seven emotions. Thus, our task is to</text>
+<text top="165" left="81" width="341" height="12" font="4">build an eight-class text classiﬁer with little supervision.</text>
+<text top="201" left="81" width="22" height="16" font="3"><b>3.3</b></text>
+<text top="201" left="121" width="107" height="16" font="3"><b>Fast Learning</b></text>
+<text top="220" left="81" width="359" height="12" font="4">Our learning procedure includes four steps: (1) collecting</text>
+<text top="236" left="81" width="359" height="12" font="4">seed words, (2) collecting online documents, (3) creating fea-</text>
+<text top="252" left="81" width="359" height="12" font="4">ture extractors, and (4) building a text classiﬁer. None of</text>
+<text top="268" left="81" width="265" height="12" font="4">the steps requires explicit labeling a corpus.</text>
+<text top="299" left="81" width="359" height="12" font="4">Collecting Seed Words. We start by collecting seed words</text>
+<text top="315" left="81" width="8" height="12" font="4">S</text>
+<text top="319" left="89" width="5" height="8" font="8">e</text>
+<text top="315" left="99" width="340" height="12" font="4">which are related to each emotion e (except for the other</text>
+<text top="330" left="81" width="359" height="12" font="4">category). Lexicons exist for certain emotions such as anger</text>
+<text top="346" left="81" width="359" height="12" font="4">and sadness but not all [37]. As we want to handle the non-</text>
+<text top="362" left="81" width="359" height="12" font="4">standard emotion categories, we create such lists from two</text>
+<text top="377" left="81" width="324" height="12" font="4">general resources which are available for all emotions:</text>
+<text top="421" left="97" width="336" height="12" font="4">1. Many websites provide synonym dictionary service.</text>
+<text top="419" left="433" width="5" height="8" font="8">1</text>
+<text top="437" left="114" width="325" height="12" font="4">We look up the category name of emotion e such as</text>
+<text top="453" left="113" width="231" height="12" font="4">“anger” and add all its synonyms to S</text>
+<text top="450" left="344" width="25" height="8" font="8">SY N</text>
+<text top="458" left="343" width="5" height="8" font="8">e</text>
+<text top="453" left="370" width="4" height="12" font="4">.</text>
+<text top="482" left="97" width="343" height="12" font="4">2. We search for the category name of emotion e in Word-</text>
+<text top="498" left="114" width="325" height="12" font="4">Net [25, 11], and add all words appearing in the synsets</text>
+<text top="514" left="114" width="28" height="12" font="4">to S</text>
+<text top="511" left="143" width="20" height="8" font="8">W N</text>
+<text top="519" left="142" width="5" height="8" font="8">e</text>
+<text top="514" left="165" width="4" height="12" font="4">.</text>
+<text top="514" left="182" width="258" height="12" font="4">In addition, we also include all words in</text>
+<text top="530" left="114" width="325" height="12" font="4">synsets listed as their “derivationally related form” and</text>
+<text top="545" left="114" width="327" height="12" font="4">their “similar to,” “full troponym” or “full hyponyms”</text>
+<text top="561" left="114" width="325" height="12" font="4">sets depending on the part of speech (adjectives, verbs,</text>
+<text top="577" left="114" width="61" height="12" font="4">or nouns).</text>
+<text top="620" left="81" width="269" height="12" font="4">By doing so, we collect two seed word lists S</text>
+<text top="618" left="350" width="25" height="8" font="8">SY N</text>
+<text top="626" left="350" width="5" height="8" font="8">e</text>
+<text top="620" left="381" width="35" height="12" font="4">and S</text>
+<text top="618" left="417" width="20" height="8" font="8">W N</text>
+<text top="626" left="416" width="5" height="8" font="8">e</text>
+<text top="636" left="81" width="359" height="12" font="4">for each emotion e. This step took less than half an hour</text>
+<text top="652" left="81" width="359" height="12" font="4">manually. Note that it does not require any human judg-</text>
+<text top="668" left="81" width="351" height="12" font="4">ments and can be implemented automatically if preferred.</text>
+<text top="699" left="81" width="359" height="12" font="4">Collecting Online Documents. We can broaden the cov-</text>
+<text top="715" left="81" width="359" height="12" font="4">erage of the keywords by collecting documents containing</text>
+<text top="730" left="81" width="359" height="12" font="4">them. We invoked Twitter search API to query each key-</text>
+<text top="746" left="81" width="359" height="12" font="4">word and retrieve up to 100 recent tweets per query. We</text>
+<text top="762" left="81" width="143" height="12" font="4">queried each word in S</text>
+<text top="759" left="225" width="25" height="8" font="8">SY N</text>
+<text top="767" left="224" width="5" height="8" font="8">e</text>
+<text top="762" left="257" width="36" height="12" font="4">and S</text>
+<text top="759" left="294" width="20" height="8" font="8">W N</text>
+<text top="767" left="294" width="5" height="8" font="8">e</text>
+<text top="762" left="322" width="117" height="12" font="4">separately, and ob-</text>
+<text top="777" left="81" width="160" height="12" font="4">tained two tweet corpora T</text>
+<text top="775" left="243" width="25" height="8" font="8">SY N</text>
+<text top="783" left="241" width="5" height="8" font="8">e</text>
+<text top="777" left="273" width="34" height="12" font="4">and T</text>
+<text top="775" left="309" width="20" height="8" font="8">W N</text>
+<text top="783" left="307" width="5" height="8" font="8">e</text>
+<text top="777" left="331" width="108" height="12" font="4">. Obviously, other</text>
+<text top="793" left="81" width="359" height="12" font="4">search services can be employed, too. Given the seed word</text>
+<text top="809" left="81" width="359" height="12" font="4">list, this step can be automated without any human inter-</text>
+<text top="824" left="81" width="48" height="12" font="4">vention.</text>
+<text top="856" left="81" width="359" height="12" font="4">Creating Feature Extractors. We perform stopword re-</text>
+<text top="872" left="81" width="163" height="12" font="4">moval and stemming on T</text>
+<text top="869" left="245" width="25" height="8" font="8">SY N</text>
+<text top="877" left="243" width="5" height="8" font="8">e</text>
+<text top="872" left="278" width="36" height="12" font="4">and T</text>
+<text top="869" left="316" width="20" height="8" font="8">W N</text>
+<text top="877" left="314" width="5" height="8" font="8">e</text>
+<text top="872" left="344" width="95" height="12" font="4">as in [43]. Our</text>
+<text top="887" left="81" width="359" height="12" font="4">stopword list is based on the SMART system [35], aug-</text>
+<text top="903" left="81" width="359" height="12" font="4">mented with domain speciﬁc stopwords such as “bully,”“bul-</text>
+<text top="919" left="81" width="359" height="12" font="4">lying,” “bullied,” “bullies,” “@USER,” “ref” and some punc-</text>
+<text top="934" left="81" width="272" height="12" font="4">tuations. We then represent each tweet in T</text>
+<text top="932" left="355" width="25" height="8" font="8">SY N</text>
+<text top="940" left="353" width="5" height="8" font="8">e</text>
+<text top="934" left="381" width="14" height="12" font="4">, T</text>
+<text top="932" left="397" width="20" height="8" font="8">W N</text>
+<text top="940" left="395" width="5" height="8" font="8">e</text>
+<text top="934" left="425" width="15" height="12" font="4">by</text>
+<text top="950" left="81" width="359" height="12" font="4">unigrams and bigrams features. We count the occurrences</text>
+<text top="966" left="81" width="223" height="12" font="4">of each feature collectively within T</text>
+<text top="963" left="305" width="25" height="8" font="8">SY N</text>
+<text top="971" left="304" width="5" height="8" font="8">e</text>
+<text top="966" left="338" width="27" height="12" font="4">or T</text>
+<text top="963" left="367" width="20" height="8" font="8">W N</text>
+<text top="971" left="365" width="5" height="8" font="8">e</text>
+<text top="966" left="395" width="45" height="12" font="4">and re-</text>
+<text top="981" left="81" width="359" height="12" font="4">move features appearing less than ﬁve times. We deﬁne a</text>
+<text top="997" left="81" width="258" height="12" font="4">vocabulary as the union of seed words in S</text>
+<text top="994" left="340" width="25" height="8" font="8">SY N</text>
+<text top="996" left="369" width="20" height="13" font="4">∪ S</text>
+<text top="994" left="390" width="20" height="8" font="8">W N</text>
+<text top="997" left="417" width="22" height="12" font="4">and</text>
+<text top="1013" left="81" width="160" height="12" font="4">the remained features in T</text>
+<text top="1010" left="242" width="25" height="8" font="8">SY N</text>
+<text top="1012" left="272" width="20" height="13" font="4">∪ T</text>
+<text top="1010" left="294" width="20" height="8" font="8">W N</text>
+<text top="1013" left="316" width="4" height="12" font="4">.</text>
+<text top="1037" left="81" width="5" height="8" font="8">1</text>
+<text top="1041" left="88" width="218" height="11" font="4">http://www.synonyms.net/synonym</text>
+<text top="1054" left="81" width="268" height="11" font="4">http://dico.isc.cnrs.fr/dico/en/search</text>
+<text top="1068" left="81" width="226" height="11" font="4">http://dictionary.reference.com/</text>
+<text top="86" left="475" width="218" height="12" font="4">With the vocabulary, we represent S</text>
+<text top="84" left="694" width="25" height="8" font="8">SY N</text>
+<text top="92" left="693" width="5" height="8" font="8">e</text>
+<text top="86" left="724" width="110" height="12" font="4">as a feature vector</text>
+<text top="102" left="475" width="7" height="12" font="4">v</text>
+<text top="99" left="482" width="25" height="8" font="8">SY N</text>
+<text top="107" left="482" width="5" height="8" font="8">e</text>
+<text top="102" left="513" width="321" height="12" font="4">where the elements are the counts. We normalize the</text>
+<text top="118" left="475" width="287" height="12" font="4">vector so that it has norm 1. Do the same for S</text>
+<text top="115" left="763" width="20" height="8" font="8">W N</text>
+<text top="123" left="762" width="5" height="8" font="8">e</text>
+<text top="118" left="785" width="16" height="12" font="4">, T</text>
+<text top="115" left="804" width="25" height="8" font="8">SY N</text>
+<text top="123" left="802" width="5" height="8" font="8">e</text>
+<text top="118" left="830" width="4" height="12" font="4">,</text>
+<text top="133" left="475" width="34" height="12" font="4">and T</text>
+<text top="131" left="511" width="20" height="8" font="8">W N</text>
+<text top="139" left="510" width="5" height="8" font="8">e</text>
+<text top="133" left="538" width="130" height="12" font="4">separately to obtain v</text>
+<text top="131" left="669" width="20" height="8" font="8">W N</text>
+<text top="139" left="668" width="5" height="8" font="8">e</text>
+<text top="133" left="691" width="15" height="12" font="4">, v</text>
+<text top="131" left="706" width="25" height="8" font="8">SY N</text>
+<text top="139" left="705" width="5" height="8" font="8">e</text>
+<text top="133" left="732" width="41" height="12" font="4">, and v</text>
+<text top="131" left="774" width="20" height="8" font="8">W N</text>
+<text top="139" left="773" width="5" height="8" font="8">e</text>
+<text top="133" left="796" width="38" height="12" font="4">. Here</text>
+<text top="149" left="475" width="105" height="12" font="4">we treat each of T</text>
+<text top="146" left="582" width="25" height="8" font="8">SY N</text>
+<text top="155" left="580" width="5" height="8" font="8">e</text>
+<text top="149" left="612" width="34" height="12" font="4">and T</text>
+<text top="146" left="648" width="20" height="8" font="8">W N</text>
+<text top="155" left="646" width="5" height="8" font="8">e</text>
+<text top="149" left="674" width="160" height="12" font="4">as a single large document.</text>
+<text top="165" left="475" width="216" height="12" font="4">Furthermore, we treat the union S</text>
+<text top="162" left="692" width="25" height="8" font="8">SY N</text>
+<text top="170" left="691" width="5" height="8" font="8">e</text>
+<text top="164" left="722" width="22" height="13" font="4">∪ S</text>
+<text top="162" left="745" width="20" height="8" font="8">W N</text>
+<text top="170" left="744" width="5" height="8" font="8">e</text>
+<text top="164" left="771" width="21" height="13" font="4">∪ T</text>
+<text top="162" left="794" width="25" height="8" font="8">SY N</text>
+<text top="170" left="792" width="5" height="8" font="8">e</text>
+<text top="164" left="825" width="9" height="13" font="4">∪</text>
+<text top="180" left="475" width="8" height="12" font="4">T</text>
+<text top="178" left="485" width="20" height="8" font="8">W N</text>
+<text top="186" left="483" width="5" height="8" font="8">e</text>
+<text top="180" left="514" width="320" height="12" font="4">as single document and compute its feature vector</text>
+<text top="196" left="475" width="7" height="12" font="4">v</text>
+<text top="194" left="482" width="13" height="8" font="8">all</text>
+<text top="202" left="482" width="5" height="8" font="8">e</text>
+<text top="196" left="496" width="337" height="12" font="4">. Thus, for each emotion e we have ﬁve feature vectors</text>
+<text top="211" left="475" width="14" height="13" font="4">{v</text>
+<text top="209" left="489" width="25" height="8" font="8">SY N</text>
+<text top="217" left="489" width="5" height="8" font="8">e</text>
+<text top="212" left="516" width="13" height="12" font="4">, v</text>
+<text top="209" left="529" width="20" height="8" font="8">W N</text>
+<text top="217" left="529" width="5" height="8" font="8">e</text>
+<text top="212" left="551" width="13" height="12" font="4">, v</text>
+<text top="209" left="565" width="25" height="8" font="8">SY N</text>
+<text top="217" left="564" width="5" height="8" font="8">e</text>
+<text top="212" left="591" width="13" height="12" font="4">, v</text>
+<text top="209" left="604" width="20" height="8" font="8">W N</text>
+<text top="217" left="604" width="5" height="8" font="8">e</text>
+<text top="212" left="627" width="13" height="12" font="4">, v</text>
+<text top="209" left="640" width="13" height="8" font="8">all</text>
+<text top="217" left="639" width="5" height="8" font="8">e</text>
+<text top="211" left="654" width="180" height="13" font="4">}. In total, we have 35 such</text>
+<text top="228" left="475" width="233" height="12" font="4">feature vectors for the seven emotions.</text>
+<text top="259" left="475" width="359" height="12" font="4">We use these 35 vectors as feature extractors. Given a test</text>
+<text top="275" left="475" width="359" height="12" font="4">document we apply the same text processing and represent</text>
+<text top="290" left="475" width="353" height="12" font="4">it as feature vector d. We then compute the inner product</text>
+<text top="316" left="643" width="23" height="12" font="4">d v</text>
+<text top="342" left="475" width="359" height="12" font="4">against each of the 35 feature extractors v above and ob-</text>
+<text top="358" left="475" width="359" height="12" font="4">tain a 35-dimensional vector x. Clearly, no supervision from</text>
+<text top="374" left="475" width="216" height="12" font="4">human is needed in this step either.</text>
+<text top="405" left="475" width="359" height="12" font="4">Building Text Classiﬁers. This is the step where tra-</text>
+<text top="421" left="475" width="359" height="12" font="4">ditionally labeled bullying tweets are needed. Instead, we</text>
+<text top="437" left="475" width="359" height="12" font="4">use easy-to-obtain distantly-labeled data. Though our do-</text>
+<text top="452" left="475" width="359" height="12" font="4">main is tweets, we train a text classiﬁer on Wikipedia pages.</text>
+<text top="468" left="475" width="359" height="12" font="4">Wikipedia API supports downloading pages matching a ti-</text>
+<text top="484" left="475" width="283" height="12" font="4">tle or category name query. For each word in S</text>
+<text top="481" left="759" width="25" height="8" font="8">SY N</text>
+<text top="489" left="758" width="5" height="8" font="8">e</text>
+<text top="483" left="787" width="20" height="13" font="4">∪ S</text>
+<text top="481" left="808" width="20" height="8" font="8">W N</text>
+<text top="489" left="807" width="5" height="8" font="8">e</text>
+<text top="484" left="830" width="4" height="12" font="4">,</text>
+<text top="499" left="475" width="247" height="12" font="4">we collect the retrieved Wikipedia pages.</text>
+<text top="497" left="729" width="5" height="8" font="8">2</text>
+<text top="499" left="741" width="93" height="12" font="4">Each such page</text>
+<text top="515" left="475" width="359" height="12" font="4">is automatically labeled as with emotion e. We therefore</text>
+<text top="531" left="475" width="359" height="12" font="4">automatically constructed a labeled Wikipedia corpus with</text>
+<text top="546" left="475" width="62" height="12" font="4">964 pages.</text>
+<text top="578" left="475" width="359" height="12" font="4">We run each Wikipedia page in this corpus through our fea-</text>
+<text top="593" left="475" width="359" height="12" font="4">ture extractors to represent the page as a 35-dimensional</text>
+<text top="609" left="475" width="359" height="12" font="4">vector. We train a standard 7-class SVM (note we do not</text>
+<text top="625" left="475" width="359" height="12" font="4">model the “other” class yet) on the Wikipedia corpus. We</text>
+<text top="641" left="475" width="359" height="12" font="4">compared linear and RBF kernels, tuned SVM regularization</text>
+<text top="656" left="475" width="359" height="12" font="4">parameter C and γ in the RBF kernel function (exp(−γ x −</text>
+<text top="672" left="475" width="7" height="12" font="4">y</text>
+<text top="669" left="489" width="5" height="8" font="8">2</text>
+<text top="672" left="496" width="113" height="12" font="4">)) in the grid {10</text>
+<text top="669" left="609" width="14" height="8" font="8">−3</text>
+<text top="672" left="624" width="20" height="12" font="4">, 10</text>
+<text top="669" left="644" width="14" height="8" font="8">−2</text>
+<text top="672" left="659" width="45" height="12" font="4">, . . . , 10</text>
+<text top="669" left="703" width="5" height="8" font="8">3</text>
+<text top="671" left="709" width="125" height="13" font="4">} with 10-fold cross</text>
+<text top="688" left="475" width="359" height="12" font="4">validation. The best model is obtained with RBF kernel,</text>
+<text top="703" left="475" width="359" height="12" font="4">C = 1000 and γ = 0.1.On the Wikipedia corpus, it achieves</text>
+<text top="719" left="475" width="359" height="12" font="4">a CV error of 15%. Its confusion matrix is shown in Table 1.</text>
+<text top="755" left="475" width="22" height="16" font="3"><b>3.4</b></text>
+<text top="755" left="516" width="221" height="16" font="3"><b>Model Evaluation and Usage</b></text>
+<text top="774" left="475" width="359" height="12" font="4">To understand the performance of the trained SVM, we com-</text>
+<text top="790" left="475" width="359" height="12" font="4">pare it against three baseline methods. Note the comparison</text>
+<text top="805" left="475" width="359" height="12" font="4">is based on the Wikipedia corpus, not the Twitter domain</text>
+<text top="821" left="475" width="359" height="12" font="4">where we have no labeled data. Using the SVM on Twitter</text>
+<text top="837" left="475" width="260" height="12" font="4">will be discussed at the end of this section.</text>
+<text top="868" left="475" width="194" height="12" font="4">The three baseline methods are:</text>
+<text top="912" left="491" width="26" height="12" font="4">1. S</text>
+<text top="909" left="518" width="25" height="8" font="8">SY N</text>
+<text top="912" left="545" width="289" height="12" font="4">. For test document d, we compute the inner</text>
+<text top="927" left="509" width="76" height="12" font="4">product d v</text>
+<text top="925" left="586" width="25" height="8" font="8">SY N</text>
+<text top="933" left="585" width="5" height="8" font="8">e</text>
+<text top="927" left="618" width="216" height="12" font="4">for each emotion e and predict the</text>
+<text top="943" left="509" width="187" height="12" font="4">class with the maximum value:</text>
+<text top="969" left="604" width="6" height="12" font="4">e</text>
+<text top="965" left="610" width="6" height="8" font="8">∗</text>
+<text top="969" left="621" width="62" height="12" font="4">= arg max</text>
+<text top="980" left="667" width="5" height="8" font="8">e</text>
+<text top="969" left="685" width="23" height="12" font="4">d v</text>
+<text top="966" left="709" width="25" height="8" font="8">SY N</text>
+<text top="975" left="708" width="5" height="8" font="8">e</text>
+<text top="969" left="735" width="4" height="12" font="4">.</text>
+<text top="1000" left="509" width="159" height="12" font="4">Ties are randomly broken.</text>
+<text top="1024" left="476" width="5" height="8" font="8">2</text>
+<text top="1026" left="482" width="352" height="12" font="4">It is important to note that the nature of the Wikipedia</text>
+<text top="1040" left="475" width="359" height="12" font="4">API means that the pages do not necessarily contain the</text>
+<text top="1053" left="475" width="359" height="12" font="4">query keywords, which enables us to learn something more</text>
+<text top="1067" left="475" width="146" height="12" font="4">than keyword matching.</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="96" left="81" width="359" height="12" font="4">Table 1: Confusion Matrix of the 7-class SVM on</text>
+<text top="112" left="81" width="150" height="12" font="4">the Wikipedia corpus</text>
+<text top="128" left="246" width="73" height="12" font="4">predicted as</text>
+<text top="144" left="149" width="25" height="12" font="4">ang.</text>
+<text top="144" left="190" width="29" height="12" font="4">emb.</text>
+<text top="144" left="235" width="29" height="12" font="4">emp.</text>
+<text top="144" left="280" width="23" height="12" font="4">fear</text>
+<text top="144" left="319" width="21" height="12" font="4">pri.</text>
+<text top="144" left="357" width="19" height="12" font="4">rel.</text>
+<text top="144" left="393" width="24" height="12" font="4">sad.</text>
+<text top="160" left="103" width="25" height="12" font="4">ang.</text>
+<text top="160" left="153" width="21" height="12" font="4">112</text>
+<text top="160" left="212" width="7" height="12" font="4">0</text>
+<text top="160" left="257" width="7" height="12" font="4">0</text>
+<text top="160" left="296" width="7" height="12" font="4">9</text>
+<text top="160" left="333" width="7" height="12" font="4">0</text>
+<text top="160" left="370" width="7" height="12" font="4">2</text>
+<text top="160" left="410" width="7" height="12" font="4">3</text>
+<text top="176" left="103" width="29" height="12" font="4">emb.</text>
+<text top="176" left="167" width="7" height="12" font="4">0</text>
+<text top="176" left="205" width="14" height="12" font="4">21</text>
+<text top="176" left="257" width="7" height="12" font="4">0</text>
+<text top="176" left="296" width="7" height="12" font="4">3</text>
+<text top="176" left="333" width="7" height="12" font="4">0</text>
+<text top="176" left="370" width="7" height="12" font="4">2</text>
+<text top="176" left="410" width="7" height="12" font="4">1</text>
+<text top="193" left="103" width="29" height="12" font="4">emp.</text>
+<text top="193" left="167" width="7" height="12" font="4">1</text>
+<text top="193" left="212" width="7" height="12" font="4">0</text>
+<text top="193" left="257" width="7" height="12" font="4">7</text>
+<text top="193" left="296" width="7" height="12" font="4">7</text>
+<text top="193" left="333" width="7" height="12" font="4">0</text>
+<text top="193" left="370" width="7" height="12" font="4">1</text>
+<text top="193" left="410" width="7" height="12" font="4">2</text>
+<text top="209" left="103" width="23" height="12" font="4">fear</text>
+<text top="209" left="167" width="7" height="12" font="4">3</text>
+<text top="209" left="212" width="7" height="12" font="4">1</text>
+<text top="209" left="257" width="7" height="12" font="4">0</text>
+<text top="209" left="282" width="21" height="12" font="4">381</text>
+<text top="209" left="333" width="7" height="12" font="4">1</text>
+<text top="209" left="363" width="14" height="12" font="4">23</text>
+<text top="209" left="410" width="7" height="12" font="4">4</text>
+<text top="226" left="103" width="21" height="12" font="4">pri.</text>
+<text top="226" left="167" width="7" height="12" font="4">0</text>
+<text top="226" left="212" width="7" height="12" font="4">0</text>
+<text top="226" left="257" width="7" height="12" font="4">0</text>
+<text top="226" left="296" width="7" height="12" font="4">4</text>
+<text top="226" left="326" width="14" height="12" font="4">23</text>
+<text top="226" left="370" width="7" height="12" font="4">0</text>
+<text top="226" left="410" width="7" height="12" font="4">1</text>
+<text top="242" left="103" width="19" height="12" font="4">rel.</text>
+<text top="242" left="167" width="7" height="12" font="4">2</text>
+<text top="242" left="212" width="7" height="12" font="4">1</text>
+<text top="242" left="257" width="7" height="12" font="4">0</text>
+<text top="242" left="289" width="14" height="12" font="4">42</text>
+<text top="242" left="333" width="7" height="12" font="4">0</text>
+<text top="242" left="356" width="21" height="12" font="4">198</text>
+<text top="242" left="410" width="7" height="12" font="4">3</text>
+<text top="259" left="103" width="24" height="12" font="4">sad.</text>
+<text top="259" left="167" width="7" height="12" font="4">4</text>
+<text top="259" left="212" width="7" height="12" font="4">0</text>
+<text top="259" left="257" width="7" height="12" font="4">2</text>
+<text top="259" left="289" width="14" height="12" font="4">14</text>
+<text top="259" left="333" width="7" height="12" font="4">0</text>
+<text top="259" left="370" width="7" height="12" font="4">4</text>
+<text top="259" left="403" width="14" height="12" font="4">82</text>
+<text top="306" left="81" width="359" height="12" font="4">Table 2: Cross validation error of diﬀerent methods</text>
+<text top="320" left="118" width="117" height="12" font="4">Fast Training SVM</text>
+<text top="320" left="250" width="8" height="12" font="4">S</text>
+<text top="318" left="259" width="25" height="8" font="8">SY N</text>
+<text top="320" left="302" width="8" height="12" font="4">S</text>
+<text top="318" left="311" width="20" height="8" font="8">W N</text>
+<text top="320" left="350" width="53" height="12" font="4">Majority</text>
+<text top="337" left="164" width="25" height="12" font="4">0.15</text>
+<text top="337" left="256" width="25" height="12" font="4">0.31</text>
+<text top="337" left="305" width="25" height="12" font="4">0.43</text>
+<text top="337" left="364" width="25" height="12" font="4">0.42</text>
+<text top="385" left="97" width="26" height="12" font="4">2. S</text>
+<text top="382" left="124" width="20" height="8" font="8">W N</text>
+<text top="385" left="146" width="294" height="12" font="4">. Same as above but use the WordNet keywords:</text>
+<text top="410" left="211" width="6" height="12" font="4">e</text>
+<text top="406" left="218" width="6" height="8" font="8">∗</text>
+<text top="410" left="228" width="62" height="12" font="4">= arg max</text>
+<text top="421" left="275" width="5" height="8" font="8">e</text>
+<text top="410" left="293" width="23" height="12" font="4">d v</text>
+<text top="407" left="316" width="20" height="8" font="8">W N</text>
+<text top="416" left="316" width="5" height="8" font="8">e</text>
+<text top="410" left="338" width="4" height="12" font="4">.</text>
+<text top="440" left="114" width="325" height="12" font="4">Both baselines are related to simple keyword matching.</text>
+<text top="468" left="97" width="343" height="12" font="4">3. Majority. All ﬁve feature extractors make their own</text>
+<text top="484" left="114" width="331" height="12" font="4">predictions as above, and there is a majority vote among</text>
+<text top="499" left="114" width="325" height="12" font="4">the ﬁve for the ﬁnal decision. Again, ties are randomly</text>
+<text top="515" left="114" width="45" height="12" font="4">broken.</text>
+<text top="558" left="81" width="359" height="12" font="4">Table 2 shows the cross validation error of these methods.</text>
+<text top="574" left="81" width="353" height="12" font="4">The proposed fast training SVM achieves the lowest error.</text>
+<text top="605" left="81" width="359" height="12" font="4">However, the above results were all on the Wikipedia corpus.</text>
+<text top="621" left="81" width="359" height="12" font="4">Recall that our test domain is Twitter, for which we do not</text>
+<text top="636" left="81" width="359" height="12" font="4">have labeled data. When a test tweet comes, we ﬁrst convert</text>
+<text top="652" left="81" width="359" height="12" font="4">it into the 35-dimensional vector via the feature extractors</text>
+<text top="668" left="81" width="359" height="12" font="4">and apply the trained SVM. We set a threshold τ on the</text>
+<text top="683" left="81" width="359" height="12" font="4">margin output from SVM, whenever the largest margin is</text>
+<text top="699" left="81" width="359" height="12" font="4">lower than τ , we predict it as other. Otherwise, we predict</text>
+<text top="715" left="81" width="359" height="12" font="4">the label with the largest margin. The threshold τ is set</text>
+<text top="731" left="81" width="359" height="12" font="4">manually by controlling the positive rate at 5% on a separate</text>
+<text top="746" left="81" width="140" height="12" font="4">random tweet data set.</text>
+<text top="781" left="81" width="13" height="16" font="3"><b>4.</b></text>
+<text top="781" left="112" width="287" height="16" font="3"><b>EMOTION IN BULLYING TRACES</b></text>
+<text top="800" left="81" width="359" height="12" font="4">We apply the SVM to 3,001,427 bullying traces from August</text>
+<text top="816" left="81" width="359" height="12" font="4">5, 2011 to April 12, 2012 (about eight months). Figure 2</text>
+<text top="831" left="81" width="359" height="12" font="4">shows the number of daily bullying traces in each emotion</text>
+<text top="847" left="81" width="359" height="12" font="4">categories. Overall, the number of bullying traces is increas-</text>
+<text top="863" left="81" width="359" height="12" font="4">ing because of growing social media usages. All emotion</text>
+<text top="878" left="81" width="359" height="12" font="4">curves have the similar shape but diﬀerent oﬀset (note the</text>
+<text top="894" left="81" width="359" height="12" font="4">y-axis is in log scale), indicating that the fraction of diﬀer-</text>
+<text top="910" left="81" width="359" height="12" font="4">ent emotions remain stable in the study period. The curves</text>
+<text top="925" left="81" width="359" height="12" font="4">show a weekly (7-day) pattern, which we hypothesize is due</text>
+<text top="941" left="81" width="359" height="12" font="4">to fewer direct interactions among students during the week-</text>
+<text top="957" left="81" width="359" height="12" font="4">ends. The few spikes are caused by celebrity events related</text>
+<text top="972" left="81" width="359" height="12" font="4">to bullying which generated a large number of tweets. In</text>
+<text top="988" left="81" width="359" height="12" font="4">what follows, we remove the few spike days since they are</text>
+<text top="1004" left="81" width="48" height="12" font="4">outliers.</text>
+<text top="1035" left="81" width="359" height="12" font="4">We aggregate the counts over the study period for each cat-</text>
+<text top="1051" left="81" width="359" height="12" font="4">egory and compute their fractions over all bullying traces.</text>
+<text top="1067" left="81" width="359" height="12" font="4">Figure 3(a) shows that most (94%) bullying traces are not</text>
+<text top="385" left="475" width="359" height="12" font="4">Figure 2: The daily counts of bullying traces in dif-</text>
+<text top="401" left="475" width="359" height="12" font="4">ferent emotion categories from August 5, 2011 to</text>
+<text top="417" left="475" width="103" height="12" font="4">April 12, 2012.</text>
+<text top="460" left="475" width="359" height="12" font="4">associated with obvious emotions, which matches our ob-</text>
+<text top="475" left="475" width="359" height="12" font="4">servations from manual inspection. Figure 3(b) presents a</text>
+<text top="491" left="475" width="359" height="12" font="4">break down of the 6% emotional bullying traces. Half of</text>
+<text top="507" left="475" width="359" height="12" font="4">them contain fear, followed by sadness, anger and relief.</text>
+<text top="522" left="475" width="359" height="12" font="4">Embarrassment, empathy and pride are virtually abscent.</text>
+<text top="538" left="475" width="359" height="12" font="4">This also highlights the data skewness issue if the human</text>
+<text top="554" left="475" width="304" height="12" font="4">annotators were to manually label bullying traces.</text>
+<text top="724" left="512" width="123" height="12" font="4">(a) emotional or not</text>
+<text top="724" left="680" width="176" height="12" font="4">(b) fraction within emotional</text>
+<text top="755" left="512" width="280" height="12" font="4">Figure 3: Fraction of emotion categories</text>
+<text top="800" left="475" width="359" height="12" font="4">Recall that participants in a bullying episode take several</text>
+<text top="816" left="475" width="359" height="12" font="4">well-deﬁned roles. We hypothesize that diﬀerent roles may</text>
+<text top="831" left="475" width="166" height="12" font="4">express diﬀerent emotions.</text>
+<text top="831" left="656" width="178" height="12" font="4">We apply author-role classi-</text>
+<text top="847" left="475" width="359" height="12" font="4">ﬁer [43] to the bullying traces, therefore, each tweet is asso-</text>
+<text top="863" left="475" width="359" height="12" font="4">ciated with an author role label by this classiﬁer. Figure 4</text>
+<text top="878" left="475" width="359" height="12" font="4">shows the fraction of emotions for each author’s role. We</text>
+<text top="894" left="475" width="359" height="12" font="4">assume that authors of one role generate tweets in one emo-</text>
+<text top="910" left="475" width="359" height="12" font="4">tion with probability p. The bars show the MLE estimations</text>
+<text top="925" left="475" width="359" height="12" font="4">of p and the error bars indicate the Binomial 95% conﬁdence</text>
+<text top="941" left="475" width="359" height="12" font="4">intervals. Compared to other roles, accusers seem to express</text>
+<text top="957" left="475" width="359" height="12" font="4">more fear but less anger. Reporter and victims seem to ex-</text>
+<text top="972" left="475" width="359" height="12" font="4">perience more sadness and relief than other roles. However,</text>
+<text top="988" left="475" width="359" height="12" font="4">these observations should be taken with a grain of salt: The</text>
+<text top="1004" left="475" width="359" height="12" font="4">emotion in a bullying trace may not be the author’s own feel-</text>
+<text top="1020" left="475" width="359" height="12" font="4">ings. It is possible that the authors sometimes discuss other</text>
+<text top="1035" left="475" width="359" height="12" font="4">participants’ emotions. Our emotion classiﬁer is not capable</text>
+<text top="1051" left="475" width="359" height="12" font="4">of distinguishing emotions of the author vs. of other people.</text>
+<text top="1067" left="475" width="359" height="12" font="4">A detailed analysis with deeper natural language processing</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="86" left="81" width="359" height="12" font="4">remains future work. In addition, we have noticed that ac-</text>
+<text top="102" left="81" width="359" height="12" font="4">cusers often express fear jokingly (i.e., teasing; see below).</text>
+<text top="118" left="81" width="359" height="12" font="4">For example, “@USER lol really?! I’m so scared!! I hope I</text>
+<text top="133" left="81" width="359" height="12" font="4">am not verbally beaten. You cyber bully ;),” “@USER you</text>
+<text top="149" left="81" width="359" height="12" font="4">are such a bully!!!haha &amp; im sooooo scared if him.lol.” This</text>
+<text top="165" left="81" width="349" height="12" font="4">might help explain why accusers seems to have more fear.</text>
+<text top="498" left="81" width="359" height="12" font="4">Figure 4: The fraction of emotions by author’s role.</text>
+<text top="531" left="81" width="359" height="12" font="4">In our previous work, we found that many bullying traces</text>
+<text top="547" left="81" width="359" height="12" font="4">were written jokingly (i.e., teasing ), which may indicate the</text>
+<text top="562" left="81" width="359" height="12" font="4">lack of severity of a bullying episode [43]. It is interesting to</text>
+<text top="578" left="81" width="359" height="12" font="4">see if there is any diﬀerences in terms of emotion between</text>
+<text top="594" left="81" width="248" height="12" font="4">teasing and non-teasing bullying traces.</text>
+<text top="594" left="341" width="98" height="12" font="4">In Figure 5, we</text>
+<text top="609" left="81" width="359" height="12" font="4">observe that teasing bullying traces contain less sadness and</text>
+<text top="625" left="81" width="359" height="12" font="4">relief. This seems reasonable, as in general these emotions</text>
+<text top="641" left="81" width="359" height="12" font="4">are expressed more seriously rather than jokingly. On the</text>
+<text top="657" left="81" width="359" height="12" font="4">other hand, teasing bullying traces contain more fear. We</text>
+<text top="672" left="81" width="359" height="12" font="4">speculate that people may pretend to be afraid of a bully</text>
+<text top="688" left="81" width="359" height="12" font="4">even though in reality they are not. For example,“@USER</text>
+<text top="704" left="81" width="359" height="12" font="4">I’m so scared haha there’s like ten girls then like 30 lads! I’m</text>
+<text top="719" left="81" width="359" height="12" font="4">gonna get so bullied#boohoo,”“@USER eh ya!!!! sometimes</text>
+<text top="735" left="81" width="359" height="12" font="4">i very scared to approach them, like i want to bully them like</text>
+<text top="751" left="81" width="138" height="12" font="4">that LOL HAHAHA..”</text>
+<text top="785" left="81" width="13" height="16" font="3"><b>5.</b></text>
+<text top="785" left="112" width="132" height="16" font="3"><b>CONCLUSIONS</b></text>
+<text top="804" left="81" width="359" height="12" font="4">We identiﬁed a wide range of emotions in bullying traces and</text>
+<text top="820" left="81" width="359" height="12" font="4">proposed a fast learning procedure to train a model to auto-</text>
+<text top="835" left="81" width="359" height="12" font="4">matically recognizing them. We applied the trained model</text>
+<text top="851" left="81" width="359" height="12" font="4">to Twitter posts on bullying and report several interesting</text>
+<text top="867" left="81" width="359" height="12" font="4">ﬁndings. We hope this study encourages the community to</text>
+<text top="882" left="81" width="359" height="12" font="4">devote more eﬀort to sentiment analysis on bullying, with</text>
+<text top="898" left="81" width="300" height="12" font="4">the goal of reliably identifying individuals at-risk.</text>
+<text top="932" left="81" width="140" height="16" font="3"><b>Acknowledgments</b></text>
+<text top="951" left="81" width="372" height="12" font="4">We thank Kwang-Sung Jun, Hillary Breidel, and Maria Hughes</text>
+<text top="967" left="81" width="247" height="12" font="4">for their help on the data and the paper.</text>
+<text top="1001" left="81" width="13" height="16" font="3"><b>6.</b></text>
+<text top="1001" left="112" width="121" height="16" font="3"><b>REFERENCES</b></text>
+<text top="1020" left="88" width="340" height="12" font="4">[1] American Psychological Association. APA resolution</text>
+<text top="1035" left="109" width="271" height="12" font="4">on bullying among children and youth, 2004.</text>
+<text top="1052" left="109" width="310" height="11" font="4">http://www.apa.org/about/governance/council/</text>
+<text top="1068" left="109" width="138" height="11" font="4">policy/bullying.pdf.</text>
+<text top="385" left="475" width="359" height="12" font="4">Figure 5: The fractions of emotions by teasing or</text>
+<text top="401" left="475" width="27" height="12" font="4">not.</text>
+<text top="455" left="482" width="335" height="12" font="4">[2] J. Archer and S. M. Coyne. An integrated review of</text>
+<text top="471" left="503" width="323" height="12" font="4">indirect, relational, and social aggression. Personality</text>
+<text top="487" left="503" width="286" height="12" font="4">and Social Psychology Review, 9:212–230, 2005.</text>
+<text top="504" left="482" width="312" height="12" font="4">[3] A. D. Bellmore, M. R. Witkow, S. Graham, and</text>
+<text top="520" left="503" width="303" height="12" font="4">J. Juvonen. Beyond the individual: The impact of</text>
+<text top="535" left="503" width="304" height="12" font="4">ethnic context and classroom behavioral norms on</text>
+<text top="551" left="503" width="289" height="12" font="4">victims’ adjustment. Developmental Psychology,</text>
+<text top="567" left="503" width="120" height="12" font="4">40:1159–1172, 2004.</text>
+<text top="584" left="482" width="334" height="12" font="4">[4] B. K. Biggs, J. M. Nelson, and M. L. Sampilo. Peer</text>
+<text top="600" left="503" width="297" height="12" font="4">relations in the anxiety-depression link: Test of a</text>
+<text top="615" left="503" width="266" height="12" font="4">mediation model. Anxiety, Stress &amp; Coping,</text>
+<text top="631" left="503" width="123" height="12" font="4">23(4):431–447, 2010.</text>
+<text top="648" left="482" width="336" height="12" font="4">[5] T. Bosse and S. Stam. A normative agent system to</text>
+<text top="664" left="503" width="280" height="12" font="4">prevent cyberbullying. In WI-IAT 2011, pages</text>
+<text top="680" left="503" width="88" height="12" font="4">425–430, 2011.</text>
+<text top="697" left="482" width="347" height="12" font="4">[6] E. Cambria, P. Chandra, A. Sharma, and A. Hussain.</text>
+<text top="712" left="503" width="275" height="12" font="4">Do not feel the trolls. In the 9th ISWC, 2010.</text>
+<text top="730" left="482" width="349" height="12" font="4">[7] W. Cassidy, M. Jackson, and K. N. Brown. Sticks and</text>
+<text top="745" left="503" width="314" height="12" font="4">stones can break my bones, but how can pixels hurt</text>
+<text top="761" left="503" width="326" height="12" font="4">me? students’ experiences with cyber-bullying. School</text>
+<text top="777" left="503" width="227" height="12" font="4">Psychology Int’l, 30(4):383–402, 2009.</text>
+<text top="794" left="482" width="349" height="12" font="4">[8] V. Chenthamarakshan, P. Melville, V. Sindhwani, and</text>
+<text top="810" left="503" width="294" height="12" font="4">R. D. Lawrence. Concept labeling: Building text</text>
+<text top="825" left="503" width="291" height="12" font="4">classiﬁers with minimal supervision. In the 22nd</text>
+<text top="841" left="503" width="186" height="12" font="4">IJCAI, pages 1225–1230, 2011.</text>
+<text top="858" left="482" width="352" height="12" font="4">[9] C. R. Cook, K. R. Williams, N. G. Guerra, T. E. Kim,</text>
+<text top="874" left="503" width="328" height="12" font="4">and S. Sadek. Predictors of bullying and victimization</text>
+<text top="890" left="503" width="283" height="12" font="4">in childhood and adolescence: A meta-analytic</text>
+<text top="905" left="503" width="259" height="12" font="4">investigation. School Psychology Quarterly,</text>
+<text top="921" left="503" width="110" height="12" font="4">25(2):65–83, 2010.</text>
+<text top="938" left="475" width="356" height="12" font="4">[10] K. Dinakar, R. Reichart, and H. Lieberman. Modeling</text>
+<text top="954" left="503" width="295" height="12" font="4">the detection of textual cyberbullying. In the 5th</text>
+<text top="969" left="503" width="290" height="12" font="4">ICWSM Workshop on Social Mobile Web, 2011.</text>
+<text top="987" left="475" width="304" height="12" font="4">[11] C. Fellbaum. WordNet: An Electronic Lexical</text>
+<text top="1002" left="503" width="272" height="12" font="4">Database. MIT Press, Cambridge, MA, 1988.</text>
+<text top="1020" left="475" width="316" height="12" font="4">[12] B. K. Fredstrom, R. E. Adams, and R. Gilman.</text>
+<text top="1035" left="503" width="304" height="12" font="4">Electronic and school-based victimization: Unique</text>
+<text top="1051" left="503" width="330" height="12" font="4">contexts for adjustment diﬃculties during adolescence.</text>
+<text top="1067" left="503" width="286" height="12" font="4">J. Youth and Adolescence, 40(4):405–415, 2011.</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1262" width="892">
+<text top="86" left="81" width="310" height="12" font="4">[13] S. Graham, A. Bellmore, and J. Juvonen. Peer</text>
+<text top="102" left="109" width="313" height="12" font="4">victimization in middle school: When self- and peer</text>
+<text top="118" left="109" width="307" height="12" font="4">views diverge. In J. E. Zins, M. J. Elias, and C. A.</text>
+<text top="133" left="109" width="293" height="12" font="4">Maher, editors, Bullying, victimization, and peer</text>
+<text top="149" left="109" width="258" height="12" font="4">harassment: A handbook of prevention and</text>
+<text top="165" left="109" width="299" height="12" font="4">intervention, pages 121–141. Haworth Press, New</text>
+<text top="180" left="109" width="98" height="12" font="4">York, NY, 2007.</text>
+<text top="198" left="81" width="349" height="12" font="4">[14] V. Hatzivassiloglou and K. McKeown. Predicting the</text>
+<text top="213" left="109" width="313" height="12" font="4">semantic orientation of adjectives. In the 35th ACL,</text>
+<text top="229" left="109" width="126" height="12" font="4">pages 174–181, 1997.</text>
+<text top="246" left="81" width="333" height="12" font="4">[15] D. S. J. Hawker and M. J. Boulton. Twenty years’</text>
+<text top="262" left="109" width="287" height="12" font="4">research on peer victimization and psychosocial</text>
+<text top="278" left="109" width="256" height="12" font="4">maladjustment: A meta-analytic review of</text>
+<text top="293" left="109" width="305" height="12" font="4">cross-sectional studies. J. of Child Psychology And</text>
+<text top="309" left="109" width="195" height="12" font="4">Psychiatry, 41(4):441–455, 2000.</text>
+<text top="326" left="81" width="355" height="12" font="4">[16] M. Hu and B. Liu. Mining and summarizing customer</text>
+<text top="342" left="109" width="314" height="12" font="4">reviews. In the 10th ACM SIGKDD, pages 168–177,</text>
+<text top="358" left="109" width="31" height="12" font="4">2004.</text>
+<text top="375" left="81" width="338" height="12" font="4">[17] S. R. Jimerson, S. M. Swearer, and D. L. Espelage.</text>
+<text top="390" left="109" width="305" height="12" font="4">Handbook of Bullying in Schools: An international</text>
+<text top="406" left="109" width="320" height="12" font="4">perspective. Routledge/Taylor &amp; Francis Group, New</text>
+<text top="422" left="109" width="98" height="12" font="4">York, NY, 2010.</text>
+<text top="439" left="81" width="359" height="12" font="4">[18] J. Juvonen and S. Graham. Peer harassment in school:</text>
+<text top="455" left="109" width="315" height="12" font="4">The plight of the vulnerable and victimized. Guilford</text>
+<text top="470" left="109" width="169" height="12" font="4">Press, New York, NY, 2001.</text>
+<text top="488" left="81" width="325" height="12" font="4">[19] H. Kanayama and T. Nasukawa. Fully automatic</text>
+<text top="503" left="109" width="292" height="12" font="4">lexicon expansion for domain-oriented sentiment</text>
+<text top="519" left="109" width="313" height="12" font="4">analysis. In the EMNLP 2006, pages 355–363, 2006.</text>
+<text top="536" left="81" width="332" height="12" font="4">[20] A. Kontostathis, L. Edwards, and A. Leatherman.</text>
+<text top="552" left="109" width="301" height="12" font="4">Text mining and cybercrime. In M. W. Berry and</text>
+<text top="568" left="109" width="297" height="12" font="4">J. Kogan, editors, Text Mining: Applications and</text>
+<text top="583" left="109" width="303" height="12" font="4">Theory. John Wiley &amp; Sons, Ltd, Chichester, UK,</text>
+<text top="599" left="109" width="31" height="12" font="4">2010.</text>
+<text top="616" left="81" width="289" height="12" font="4">[21] A. Latham, K. Crockett, and Z. Bandar. A</text>
+<text top="632" left="109" width="324" height="12" font="4">conversational expert system supporting bullying and</text>
+<text top="647" left="109" width="288" height="12" font="4">harassment policies. In the 2nd ICAART, pages</text>
+<text top="663" left="109" width="88" height="12" font="4">163–168, 2010.</text>
+<text top="680" left="81" width="344" height="12" font="4">[22] H. Lieberman, K. Dinakar, and B. Jones. Let’s gang</text>
+<text top="696" left="109" width="289" height="12" font="4">up on cyberbullying. Computer, 44:93–96, 2011.</text>
+<text top="713" left="81" width="336" height="12" font="4">[23] T. D. Little, C. C. Henrich, S. M. Jones, and P. H.</text>
+<text top="729" left="109" width="325" height="12" font="4">Hawley. Disentangling the “whys” from the “whats” of</text>
+<text top="745" left="109" width="251" height="12" font="4">aggressive behavior. Int’l J. of Behavioral</text>
+<text top="760" left="109" width="191" height="12" font="4">Development, 27:122–133, 2003.</text>
+<text top="777" left="81" width="353" height="12" font="4">[24] B. Liu and L. Zhang. A survey of opinion mining and</text>
+<text top="793" left="109" width="310" height="12" font="4">sentiment analysis. In C. C. Aggarwal and C. Zhai,</text>
+<text top="809" left="109" width="310" height="12" font="4">editors, Mining Text Data, pages 415–463. Springer</text>
+<text top="825" left="109" width="58" height="12" font="4">US, 2012.</text>
+<text top="842" left="81" width="332" height="12" font="4">[25] G. Miller. Wordnet: a lexical database for english.</text>
+<text top="857" left="109" width="302" height="12" font="4">Communications of the ACM, 38(11):39–41, 1995.</text>
+<text top="875" left="81" width="336" height="12" font="4">[26] M. H. Moore, C. V. Petrie, A. A. Braga, and B. L.</text>
+<text top="890" left="109" width="303" height="12" font="4">McLaughlin. Deadly lessons: Understanding lethal</text>
+<text top="906" left="109" width="286" height="12" font="4">school violence. The National Academies Press,</text>
+<text top="922" left="109" width="140" height="12" font="4">Washington, DC, 2003.</text>
+<text top="939" left="81" width="345" height="12" font="4">[27] T. R. Nansel, M. Overpeck, R. S. Pilla, W. J. Ruan,</text>
+<text top="955" left="109" width="328" height="12" font="4">B. Simons-Morton, and P. Scheidt. Bullying behaviors</text>
+<text top="970" left="109" width="303" height="12" font="4">among US youth: prevalence and association with</text>
+<text top="986" left="109" width="306" height="12" font="4">psychosocial adjustment. J. Amer. Medical Assoc.,</text>
+<text top="1002" left="109" width="151" height="12" font="4">285(16):2094–2100, 2001.</text>
+<text top="1019" left="81" width="299" height="12" font="4">[28] A. Nishina and A. D. Bellmore. When might</text>
+<text top="1035" left="109" width="317" height="12" font="4">aggression, victimization, and conﬂict matter most?:</text>
+<text top="1050" left="109" width="310" height="12" font="4">Contextual considerations. J. of Early Adolescence,</text>
+<text top="1066" left="109" width="105" height="12" font="4">pages 5–26, 2010.</text>
+<text top="86" left="475" width="350" height="12" font="4">[29] K. Nylund, A. Bellmore, A. Nishina, and S. Graham.</text>
+<text top="102" left="503" width="303" height="12" font="4">Subtypes, severity, and structural stability of peer</text>
+<text top="118" left="503" width="308" height="12" font="4">victimization: What does latent class analysis say?</text>
+<text top="133" left="503" width="242" height="12" font="4">Child Development, 78:1706–1722, 2007.</text>
+<text top="151" left="475" width="332" height="12" font="4">[30] D. Olweus. Bullying at school: What we know and</text>
+<text top="166" left="503" width="278" height="12" font="4">what we can do. Blackwell, Oxford, UK, 1993.</text>
+<text top="183" left="475" width="324" height="12" font="4">[31] A. Pak and P. Paroubek. Twitter as a corpus for</text>
+<text top="199" left="503" width="304" height="12" font="4">sentiment analysis and opinion mining. Computer,</text>
+<text top="215" left="503" width="140" height="12" font="4">pages 1320–1326, 2010.</text>
+<text top="232" left="475" width="339" height="12" font="4">[32] B. Pang and L. Lee. Opinion mining and sentiment</text>
+<text top="248" left="503" width="296" height="12" font="4">analysis. Foundations and Trends in Information</text>
+<text top="263" left="503" width="176" height="12" font="4">Retrieval, 2(1-2):1–135, 2008.</text>
+<text top="281" left="475" width="328" height="12" font="4">[33] M. Ptaszynski, P. Dybala, T. Matsuba, F. Masui,</text>
+<text top="296" left="503" width="326" height="12" font="4">R. Rzepka, and K. Araki. Machine learning and aﬀect</text>
+<text top="312" left="503" width="302" height="12" font="4">analysis against cyber-bullying. In the 36th AISB,</text>
+<text top="328" left="503" width="105" height="12" font="4">pages 7–16, 2010.</text>
+<text top="345" left="475" width="326" height="12" font="4">[34] C. Salmivalli. Participant role approach to school</text>
+<text top="361" left="503" width="267" height="12" font="4">bullying: Implications for intervention. J. of</text>
+<text top="376" left="503" width="203" height="12" font="4">Adolescence, 22(4):453–459, 1999.</text>
+<text top="393" left="475" width="281" height="12" font="4">[35] G. Salton. The SMART Retrieval System.</text>
+<text top="409" left="503" width="255" height="12" font="4">Prentice-Hall, Englewood Cliﬀs, NJ, 1971.</text>
+<text top="426" left="475" width="345" height="12" font="4">[36] P. K. Smith, K. C. Madsen, and J. C. Moody. What</text>
+<text top="442" left="503" width="311" height="12" font="4">causes the age decline in reports of being bullied at</text>
+<text top="458" left="503" width="319" height="12" font="4">school? Towards a developmental analysis of risks of</text>
+<text top="473" left="503" width="310" height="12" font="4">being bullied. Educational Research, 41(3):267–285,</text>
+<text top="489" left="503" width="31" height="12" font="4">1999.</text>
+<text top="506" left="475" width="344" height="12" font="4">[37] C. Strapparava and A. Valitutti. Wordnet-aﬀect: an</text>
+<text top="522" left="503" width="294" height="12" font="4">aﬀective extension of wordnet. In the 4th LREC,</text>
+<text top="538" left="503" width="203" height="12" font="4">volume 4, pages 1083–1086, 2004.</text>
+<text top="555" left="475" width="300" height="12" font="4">[38] The American Academy of Pediatrics. Policy</text>
+<text top="570" left="503" width="312" height="12" font="4">statement–role of the pediatrician in youth violence</text>
+<text top="586" left="503" width="270" height="12" font="4">prevention. Pediatrics, 124(1):393–402, 2009.</text>
+<text top="603" left="475" width="317" height="12" font="4">[39] The White House. Background on White House</text>
+<text top="619" left="503" width="243" height="12" font="4">conference on bullying prevention, 2011.</text>
+<text top="635" left="503" width="234" height="12" font="4">http://www.whitehouse.gov/the-press-</text>
+<text top="650" left="503" width="264" height="12" font="4">oﬃce/2011/03/10/background-white-house-</text>
+<text top="666" left="503" width="188" height="12" font="4">conference-bullying-prevention.</text>
+<text top="683" left="475" width="335" height="12" font="4">[40] T. Vaillancourt, V. Trinh, P. McDougall, E. Duku,</text>
+<text top="699" left="503" width="293" height="12" font="4">L. Cunningham, C. Cunningham, S. Hymel, and</text>
+<text top="715" left="503" width="326" height="12" font="4">K. Short. Optimizing population screening of bullying</text>
+<text top="730" left="503" width="277" height="12" font="4">in school-aged children. J. of School Violence,</text>
+<text top="746" left="503" width="99" height="12" font="4">9:233–250, 2010.</text>
+<text top="763" left="475" width="340" height="12" font="4">[41] H. Vandebosch and K. V. Cleemput. Cyberbullying</text>
+<text top="779" left="503" width="329" height="12" font="4">among youngsters: proﬁles of bullies and victims. New</text>
+<text top="795" left="503" width="242" height="12" font="4">media &amp; society, 11(8):1349–1371, 2009.</text>
+<text top="812" left="475" width="330" height="12" font="4">[42] J. Wang, R. J. Iannotti, and T. R. Nansel. School</text>
+<text top="828" left="503" width="291" height="12" font="4">bullying among adolescents in the united states:</text>
+<text top="843" left="503" width="317" height="12" font="4">Physical, verbal, relational, and cyber. J. Adolescent</text>
+<text top="859" left="503" width="170" height="12" font="4">Health, 45(4):368–375, 2009.</text>
+<text top="876" left="475" width="311" height="12" font="4">[43] J.-M. Xu, K.-S. Jun, X. Zhu, and A. Bellmore.</text>
+<text top="892" left="503" width="295" height="12" font="4">Learning from bullying traces in social media. In</text>
+<text top="907" left="503" width="121" height="12" font="4">NAACL-HLT, 2012.</text>
+<text top="925" left="475" width="327" height="12" font="4">[44] C. Yang, K. H.-Y. Lin, and H.-H. Chen. Emotion</text>
+<text top="940" left="503" width="302" height="12" font="4">classiﬁcation using web blog corpora. In WI 2007,</text>
+<text top="956" left="503" width="126" height="12" font="4">pages 275–278, 2007.</text>
+</page>
+</pdf2xml>

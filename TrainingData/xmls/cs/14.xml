@@ -1,0 +1,1995 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml>
+<page number="1" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="0" size="23" family="Times" color="#000000"/>
+	<fontspec id="1" size="15" family="Times" color="#000000"/>
+	<fontspec id="2" size="12" family="Times" color="#000000"/>
+	<fontspec id="3" size="12" family="Times" color="#000000"/>
+	<fontspec id="4" size="12" family="Courier" color="#000000"/>
+	<fontspec id="5" size="15" family="Times" color="#000000"/>
+	<fontspec id="6" size="9" family="Times" color="#000000"/>
+	<fontspec id="7" size="11" family="Times" color="#000000"/>
+	<fontspec id="8" size="12" family="Times" color="#000000"/>
+<text top="108" left="151" width="621" height="23" font="0"><b>Data Morphing: An Adaptive, Cache-Conscious Storage</b></text>
+<text top="140" left="405" width="114" height="23" font="0"><b>Technique</b></text>
+<text top="213" left="297" width="143" height="16" font="1">Richard A. Hankins</text>
+<text top="213" left="508" width="119" height="16" font="1">Jignesh M. Patel</text>
+<text top="249" left="392" width="140" height="13" font="2">University of Michigan</text>
+<text top="266" left="301" width="322" height="13" font="2">1301 Beal Avenue; Ann Arbor, MI 48109-2122; USA</text>
+<text top="279" left="311" width="7" height="19" font="3">{</text>
+<text top="284" left="318" width="152" height="12" font="4">hankinsr, jignesh</text>
+<text top="279" left="471" width="7" height="19" font="3">}</text>
+<text top="284" left="478" width="134" height="12" font="4">@eecs.umich.edu</text>
+<text top="349" left="239" width="67" height="16" font="5"><b>Abstract</b></text>
+<text top="399" left="124" width="297" height="13" font="2">The number of processor cache misses has a crit-</text>
+<text top="416" left="124" width="297" height="13" font="2">ical impact on the performance of DBMSs run-</text>
+<text top="433" left="124" width="297" height="13" font="2">ning on servers with large main-memory conﬁgu-</text>
+<text top="450" left="124" width="297" height="13" font="2">rations. In turn, the cache utilization of database</text>
+<text top="467" left="124" width="297" height="13" font="2">systems is highly dependent on the physical or-</text>
+<text top="484" left="124" width="297" height="13" font="2">ganization of the records in main-memory. A re-</text>
+<text top="501" left="124" width="297" height="13" font="2">cently proposed storage model, called PAX, was</text>
+<text top="518" left="124" width="297" height="13" font="2">shown to greatly improve the performance of se-</text>
+<text top="535" left="124" width="297" height="13" font="2">quential ﬁle-scan operations when compared to</text>
+<text top="552" left="124" width="297" height="13" font="2">the commonly implemented N-ary storage model.</text>
+<text top="569" left="124" width="297" height="13" font="2">However, the PAX storage model can also demon-</text>
+<text top="586" left="124" width="297" height="13" font="2">strate poor cache utilization for other common op-</text>
+<text top="603" left="124" width="297" height="13" font="2">erations, such as index scans. Under a workload</text>
+<text top="620" left="124" width="297" height="13" font="2">of heterogenous database operations, neither the</text>
+<text top="637" left="124" width="297" height="13" font="2">PAX storage model nor the N-ary storage model</text>
+<text top="654" left="124" width="63" height="13" font="2">is optimal.</text>
+<text top="685" left="124" width="297" height="13" font="2">In this paper, we propose a ﬂexible data stor-</text>
+<text top="702" left="124" width="241" height="13" font="2">age technique called Data Morphing.</text>
+<text top="702" left="386" width="36" height="13" font="2">Using</text>
+<text top="719" left="124" width="297" height="13" font="2">Data Morphing, a cache-efﬁcient attribute layout,</text>
+<text top="737" left="124" width="297" height="13" font="2">called a partition, is ﬁrst determined through an</text>
+<text top="754" left="124" width="297" height="13" font="2">analysis of the query workload. This partition is</text>
+<text top="771" left="124" width="297" height="13" font="2">then used as a template for storing data in a cache-</text>
+<text top="788" left="124" width="297" height="13" font="2">efﬁcient way. We present two algorithms for com-</text>
+<text top="805" left="124" width="297" height="13" font="2">puting partitions, and also present a versatile stor-</text>
+<text top="822" left="124" width="297" height="13" font="2">age model that accommodates the dynamic reor-</text>
+<text top="839" left="124" width="297" height="13" font="2">ganization of the attributes in a ﬁle. Finally, we</text>
+<text top="856" left="124" width="297" height="13" font="2">experimentally demonstrate that the Data Morph-</text>
+<text top="873" left="124" width="297" height="13" font="2">ing technique provides a signiﬁcant performance</text>
+<text top="890" left="124" width="297" height="13" font="2">improvement over both the traditional N-ary stor-</text>
+<text top="907" left="124" width="186" height="13" font="2">age model and the PAX model.</text>
+<text top="956" left="97" width="351" height="11" font="6"><i>Permission to copy without fee all or part of this material is granted pro-</i></text>
+<text top="970" left="97" width="351" height="11" font="6"><i>vided that the copies are not made or distributed for direct commercial</i></text>
+<text top="983" left="97" width="351" height="11" font="6"><i>advantage, the VLDB copyright notice and the title of the publication and</i></text>
+<text top="997" left="97" width="351" height="11" font="6"><i>its date appear, and notice is given that copying is by permission of the</i></text>
+<text top="1010" left="97" width="351" height="11" font="6"><i>Very Large Data Base Endowment. To copy otherwise, or to republish,</i></text>
+<text top="1024" left="97" width="297" height="11" font="6"><i>requires a fee and/or special permission from the Endowment.</i></text>
+<text top="1042" left="97" width="247" height="12" font="7"><b>Proceedings of the 29th VLDB Conference,</b></text>
+<text top="1057" left="97" width="130" height="12" font="7"><b>Berlin, Germany, 2003</b></text>
+<text top="349" left="475" width="9" height="16" font="5"><b>1</b></text>
+<text top="349" left="502" width="97" height="16" font="5"><b>Introduction</b></text>
+<text top="384" left="475" width="351" height="13" font="2">Database systems have traditionally focused on improving</text>
+<text top="401" left="475" width="351" height="13" font="2">the overall system performance by minimizing the num-</text>
+<text top="418" left="475" width="351" height="13" font="2">ber of disk I/O operations. Disk I/O has traditionally been</text>
+<text top="435" left="475" width="351" height="13" font="2">the most important component of the memory access hi-</text>
+<text top="452" left="475" width="351" height="13" font="2">erarchy, but the current trend in Random Access Memory</text>
+<text top="469" left="475" width="351" height="13" font="2">(RAM) cost and capacity now makes it necessary to re-</text>
+<text top="486" left="475" width="351" height="13" font="2">evaluate this focus. The cost of RAM is decreasing rapidly,</text>
+<text top="503" left="475" width="351" height="13" font="2">while the capacity of RAM is increasing exponentially.</text>
+<text top="520" left="475" width="351" height="13" font="2">This trend was recognized by the authors of the Asilomar</text>
+<text top="537" left="475" width="351" height="13" font="2">report where they predicted that, in the future, all but the</text>
+<text top="554" left="475" width="351" height="13" font="2">largest data sets will reside entirely in main-memory [5].</text>
+<text top="571" left="475" width="351" height="13" font="2">As increasing amounts of data become main-memory res-</text>
+<text top="588" left="475" width="351" height="13" font="2">ident, the performance bottleneck becomes the accesses to</text>
+<text top="605" left="475" width="351" height="13" font="2">main-memory rather than the accesses to disk [7]. Because</text>
+<text top="622" left="475" width="351" height="13" font="2">of this shift, intelligently storing and accessing the data in</text>
+<text top="639" left="475" width="351" height="13" font="2">main-memory is becoming critical to the performance of</text>
+<text top="657" left="475" width="182" height="13" font="2">database systems [2, 7, 17, 22].</text>
+<text top="678" left="493" width="333" height="13" font="2">Unfortunately, the main-memory bottleneck is becom-</text>
+<text top="695" left="475" width="351" height="13" font="2">ing more severe due to the growing disparity between</text>
+<text top="712" left="475" width="351" height="13" font="2">processor speeds and the latency in accessing the main-</text>
+<text top="729" left="475" width="351" height="13" font="2">memory. To alleviate this disparity, modern processors em-</text>
+<text top="746" left="475" width="351" height="13" font="2">ploy a hierarchy of low-latency memory, called <i>caches</i>, that</text>
+<text top="763" left="475" width="351" height="13" font="2">reside between the processor and the RAM. Each cache</text>
+<text top="780" left="475" width="351" height="13" font="2">stores the most frequently accessed data blocks (includ-</text>
+<text top="797" left="475" width="351" height="13" font="2">ing instructions), reducing the amount of data that must be</text>
+<text top="814" left="475" width="351" height="13" font="2">retrieved directly from the main-memory. Starting at the</text>
+<text top="831" left="475" width="351" height="13" font="2">ﬁrst level of cache memory, each subsequent level of cache</text>
+<text top="848" left="475" width="351" height="13" font="2">stores larger amounts of data, but each subsequent level of</text>
+<text top="865" left="475" width="351" height="13" font="2">cache is also more expensive to access. Modern processors</text>
+<text top="882" left="475" width="351" height="13" font="2">typically contain two, or even three, levels of processor</text>
+<text top="899" left="475" width="351" height="13" font="2">cache, with each level storing both instructions and data.</text>
+<text top="916" left="475" width="351" height="13" font="2">Research has shown that database systems incur a signif-</text>
+<text top="933" left="475" width="351" height="13" font="2">icant amount of second level (L2) data cache misses, and</text>
+<text top="950" left="475" width="351" height="13" font="2">consequently, the L2 cache utilization is critical to overall</text>
+<text top="967" left="475" width="351" height="13" font="2">performance [3]. In this paper we only focus on techniques</text>
+<text top="984" left="475" width="351" height="13" font="2">for reducing the L2 cache misses, and simply refer to them</text>
+<text top="1001" left="475" width="283" height="13" font="2">as cache misses for the remainder of this paper.</text>
+<text top="1022" left="493" width="333" height="13" font="2">Critical to system performance is the efﬁcient retrieval</text>
+<text top="1039" left="475" width="351" height="13" font="2">and update of data records inside the database. Database</text>
+<text top="1056" left="475" width="351" height="13" font="2">systems typically store records of data in <i>ﬁles</i>, where each</text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="9" size="11" family="Times" color="#000000"/>
+	<fontspec id="10" size="11" family="Courier" color="#000000"/>
+	<fontspec id="11" size="11" family="Times" color="#000000"/>
+<text top="86" left="97" width="351" height="13" font="2">ﬁle consists of a collection of <i>slotted-pages</i>, and each</text>
+<text top="103" left="97" width="351" height="13" font="2">slotted-page contains a collection of records. A <i>page </i>is</text>
+<text top="120" left="97" width="351" height="13" font="2">a ﬁxed-size block of allocated memory. A <i>slotted-page </i>is</text>
+<text top="137" left="97" width="351" height="13" font="2">a page that contains an array of byte-offsets that reference</text>
+<text top="154" left="97" width="351" height="13" font="2">the start of each record allocated within the page. Typi-</text>
+<text top="171" left="97" width="351" height="13" font="2">cally, each attribute of the record is stored in consecutive</text>
+<text top="188" left="97" width="351" height="13" font="2">memory addresses on the slotted page, in what is called the</text>
+<text top="205" left="97" width="351" height="13" font="2">N-ary storage model. Common implementations of the N-</text>
+<text top="222" left="97" width="351" height="13" font="2">ary storage model place variable length attributes at the end</text>
+<text top="239" left="97" width="351" height="13" font="2">of the ﬁxed-length attributes, and use ﬁxed length place-</text>
+<text top="256" left="97" width="262" height="13" font="2">holders to reference the relocated attributes.</text>
+<text top="273" left="115" width="333" height="13" font="2">A recently proposed storage model, called PAX, ver-</text>
+<text top="290" left="97" width="351" height="13" font="2">tically decomposes each record, storing each attribute in</text>
+<text top="307" left="97" width="351" height="13" font="2">subdivisions of a page, called <i>mini-pages </i>[2]. The PAX</text>
+<text top="324" left="97" width="351" height="13" font="2">storage model improves the cache utilization for queries</text>
+<text top="341" left="97" width="351" height="13" font="2">that access only a few attributes from a high percentage</text>
+<text top="359" left="97" width="351" height="13" font="2">of records, such as during a sequential ﬁle scan. This im-</text>
+<text top="376" left="97" width="351" height="13" font="2">provement in cache utilization is a direct result of being</text>
+<text top="393" left="97" width="351" height="13" font="2">able to pack attributes of many different records into the</text>
+<text top="410" left="97" width="351" height="13" font="2">same cache line. However, for access plans where only a</text>
+<text top="427" left="97" width="351" height="13" font="2">fraction of the records are accessed, such as during an index</text>
+<text top="444" left="97" width="351" height="13" font="2">scan, the PAX storage model can result in a greater number</text>
+<text top="461" left="97" width="351" height="13" font="2">of cache misses. In such cases, N-ary may actually perform</text>
+<text top="478" left="97" width="351" height="13" font="2">better, especially as the number of attributes accessed per</text>
+<text top="495" left="97" width="100" height="13" font="2">record increases.</text>
+<text top="512" left="115" width="333" height="13" font="2">As previously demonstrated, both the N-ary and the</text>
+<text top="529" left="97" width="351" height="13" font="2">PAX storage models work well for different families of ac-</text>
+<text top="546" left="97" width="351" height="13" font="2">cess plans. A choice between the two storage models is dif-</text>
+<text top="563" left="97" width="351" height="13" font="2">ﬁcult as the query workload may be large or may vary over</text>
+<text top="580" left="97" width="351" height="13" font="2">time. A better storage model should incorporate the best</text>
+<text top="597" left="97" width="351" height="13" font="2">characteristics of both models; namely, vertical decompo-</text>
+<text top="614" left="97" width="351" height="13" font="2">sition and groups of sequentially allocated attributes. This</text>
+<text top="631" left="97" width="351" height="13" font="2">storage model should also provide the ﬂexibility to adapt to</text>
+<text top="648" left="97" width="351" height="13" font="2">changing workloads. In this paper, we propose a novel data</text>
+<text top="665" left="97" width="351" height="13" font="2">storage technique, called <i>Data Morphing </i>(DM) that meets</text>
+<text top="682" left="97" width="70" height="13" font="2">these goals.</text>
+<text top="699" left="115" width="275" height="13" font="2">This paper makes the following contributions:</text>
+<text top="723" left="97" width="351" height="19" font="3">• We present a ﬂexible page architecture that is a gener-</text>
+<text top="744" left="107" width="341" height="13" font="2">alization of the previously proposed PAX page architec-</text>
+<text top="762" left="107" width="341" height="13" font="2">ture. In the Data Morphing page architecture, attributes</text>
+<text top="779" left="107" width="341" height="13" font="2">of the same tuple can be stored in non-contiguous groups,</text>
+<text top="796" left="107" width="341" height="13" font="2">which increases the spatial locality of memory accesses.</text>
+<text top="813" left="107" width="341" height="13" font="2">As a result, fewer cache misses are incurred during query</text>
+<text top="830" left="107" width="68" height="13" font="2">processing.</text>
+<text top="845" left="97" width="351" height="19" font="3">• We present two algorithms for calculating the attribute</text>
+<text top="866" left="107" width="341" height="13" font="2">groups that are stored on each page. The Naive algo-</text>
+<text top="883" left="107" width="341" height="13" font="2">rithm performs an exhaustive search of the possible at-</text>
+<text top="900" left="107" width="341" height="13" font="2">tribute layouts, but the algorithm is expensive to compute</text>
+<text top="918" left="107" width="341" height="13" font="2">for relations with a large number of attributes. The Hill-</text>
+<text top="935" left="107" width="341" height="13" font="2">Climb algorithm performs a greedy search of the layout</text>
+<text top="952" left="107" width="310" height="13" font="2">space, trading optimality for faster time complexity.</text>
+<text top="967" left="97" width="351" height="19" font="3">• We present an empirical evaluation of the Data Morphing</text>
+<text top="988" left="107" width="341" height="13" font="2">technique. We show that the partitioning algorithms cal-</text>
+<text top="1005" left="107" width="341" height="13" font="2">culate attribute groupings that reduce the number of cache</text>
+<text top="1022" left="107" width="341" height="13" font="2">misses incurred during query execution. As a direct result</text>
+<text top="1039" left="107" width="341" height="13" font="2">of improving the cache utilization, our prototype DBMS</text>
+<text top="1057" left="107" width="341" height="13" font="2">implementing the DM technique can evaluate queries up</text>
+<text top="86" left="485" width="341" height="13" font="2">to 45% faster than the N-ary storage model and up to 25%</text>
+<text top="103" left="485" width="162" height="13" font="2">faster than the PAX model.</text>
+<text top="133" left="493" width="333" height="13" font="2">The remainder of this paper is organized as follows:</text>
+<text top="150" left="475" width="351" height="13" font="2">Section 2 presents an example motivating the need for Data</text>
+<text top="167" left="475" width="351" height="13" font="2">Morphing. Section 3 provides deﬁnitions for the common</text>
+<text top="184" left="475" width="351" height="13" font="2">terms used in the subsequent sections. In Section 4, we</text>
+<text top="201" left="475" width="351" height="13" font="2">present the Data Morphing technique. A detailed experi-</text>
+<text top="218" left="475" width="351" height="13" font="2">mental evaluation is presented in Section 5. Related work</text>
+<text top="235" left="475" width="351" height="13" font="2">is discussed in Section 6, and Section 7 contains our con-</text>
+<text top="252" left="475" width="53" height="13" font="2">clusions.</text>
+<text top="289" left="475" width="9" height="16" font="5"><b>2</b></text>
+<text top="289" left="502" width="157" height="16" font="5"><b>Motivating Example</b></text>
+<text top="317" left="475" width="351" height="13" font="2">As described in the introduction, neither the N-ary storage</text>
+<text top="334" left="475" width="351" height="13" font="2">model nor the PAX storage model provide the optimal stor-</text>
+<text top="351" left="475" width="351" height="13" font="2">age model for data. To illustrate this fact, we will use the</text>
+<text top="368" left="475" width="351" height="13" font="2">relation and query shown in Figure 1 in the following ex-</text>
+<text top="385" left="475" width="40" height="13" font="2">ample.</text>
+<text top="418" left="484" width="41" height="12" font="9">Client (</text>
+<text top="419" left="525" width="16" height="11" font="10">id</text>
+<text top="418" left="541" width="49" height="12" font="9">: Integer,</text>
+<text top="419" left="593" width="65" height="11" font="10">priority</text>
+<text top="418" left="658" width="49" height="12" font="9">: Integer,</text>
+<text top="419" left="710" width="32" height="11" font="10">name</text>
+<text top="418" left="742" width="75" height="12" font="9">: Varchar(32),</text>
+<text top="435" left="525" width="40" height="11" font="10">usage</text>
+<text top="434" left="565" width="36" height="12" font="9">: Real,</text>
+<text top="435" left="604" width="57" height="11" font="10">address</text>
+<text top="434" left="661" width="75" height="12" font="9">: Varchar(32),</text>
+<text top="450" left="525" width="65" height="11" font="10">location</text>
+<text top="450" left="589" width="81" height="12" font="9">: Integer) key (</text>
+<text top="450" left="670" width="16" height="11" font="10">id</text>
+<text top="450" left="686" width="8" height="12" font="9">);</text>
+<text top="481" left="484" width="49" height="12" font="9">SELECT</text>
+<text top="482" left="537" width="65" height="11" font="10">location</text>
+<text top="481" left="601" width="3" height="12" font="9">,</text>
+<text top="482" left="608" width="40" height="11" font="10">usage</text>
+<text top="496" left="484" width="125" height="12" font="9">FROM Client WHERE</text>
+<text top="497" left="612" width="65" height="11" font="10">priority</text>
+<text top="496" left="680" width="11" height="12" font="11">&lt;</text>
+<text top="493" left="695" width="14" height="17" font="11">12</text>
+<text top="532" left="543" width="216" height="13" font="2">Figure 1: Client Relation and Query</text>
+<text top="562" left="493" width="101" height="13" font="2">In Figure 1, the</text>
+<text top="562" left="601" width="54" height="12" font="4">Client</text>
+<text top="562" left="661" width="165" height="13" font="2">relation consists of six at-</text>
+<text top="579" left="475" width="351" height="13" font="2">tributes of types Integer, Real, and Varchar. The Integer and</text>
+<text top="596" left="475" width="351" height="13" font="2">Real data types are each four bytes in size. The Varchar(32)</text>
+<text top="613" left="475" width="351" height="13" font="2">data type is a variable length string with a maximum length</text>
+<text top="630" left="475" width="276" height="13" font="2">of 32 bytes. The selectivity of the predicate on</text>
+<text top="631" left="754" width="72" height="12" font="4">priority</text>
+<text top="647" left="475" width="351" height="13" font="2">is 12.5%, and the processor cache line size is 32 bytes. Fig-</text>
+<text top="664" left="475" width="201" height="13" font="2">ure 2 shows a single record in the</text>
+<text top="665" left="680" width="54" height="12" font="4">Client</text>
+<text top="664" left="738" width="88" height="13" font="2">relation as it is</text>
+<text top="681" left="475" width="351" height="13" font="2">stored on a page using the N-ary storage model; as in typ-</text>
+<text top="698" left="475" width="351" height="13" font="2">ical implementations, the variable-length strings are stored</text>
+<text top="715" left="475" width="351" height="13" font="2">at the end of the ﬁxed-length attributes. To visualize the at-</text>
+<text top="732" left="475" width="351" height="13" font="2">tributes that are read into the processor cache as the result</text>
+<text top="749" left="475" width="351" height="13" font="2">of a cache miss, the width of the diagram is shown to be the</text>
+<text top="766" left="475" width="152" height="13" font="2">same size as a cache line.</text>
+<text top="784" left="493" width="333" height="13" font="2">Assuming that a sequential ﬁle scan is used to answer</text>
+<text top="801" left="475" width="351" height="13" font="2">this query, the records are retrieved as follows. The ﬁrst</text>
+<text top="818" left="475" width="72" height="12" font="4">priority</text>
+<text top="818" left="555" width="229" height="13" font="2">attribute is requested from memory.</text>
+<text top="818" left="800" width="27" height="13" font="2">This</text>
+<text top="835" left="475" width="351" height="13" font="2">memory access incurs a cache miss to read the contigu-</text>
+<text top="852" left="475" width="351" height="13" font="2">ous block of memory containing the attribute into the pro-</text>
+<text top="869" left="475" width="203" height="13" font="2">cessor cache. If the value of the</text>
+<text top="869" left="684" width="72" height="12" font="4">priority</text>
+<text top="869" left="761" width="65" height="13" font="2">attribute is</text>
+<text top="886" left="475" width="52" height="13" font="2">less than</text>
+<text top="882" left="531" width="41" height="19" font="3">12, the</text>
+<text top="887" left="576" width="72" height="12" font="4">location</text>
+<text top="886" left="652" width="22" height="13" font="2">and</text>
+<text top="887" left="678" width="45" height="12" font="4">usage</text>
+<text top="886" left="726" width="100" height="13" font="2">attributes are ac-</text>
+<text top="903" left="475" width="120" height="13" font="2">cessed. Because the</text>
+<text top="904" left="599" width="72" height="12" font="4">location</text>
+<text top="903" left="675" width="22" height="13" font="2">and</text>
+<text top="904" left="700" width="45" height="12" font="4">usage</text>
+<text top="903" left="749" width="77" height="13" font="2">attributes are</text>
+<text top="920" left="475" width="351" height="13" font="2">contained in the processor cache, retrieving them incurs no</text>
+<text top="937" left="475" width="351" height="13" font="2">additional cache misses. The select operator then continues</text>
+<text top="954" left="475" width="351" height="13" font="2">with the next record, until all of the records have been read.</text>
+<text top="971" left="475" width="351" height="13" font="2">The cost of answering this query totals approximately one</text>
+<text top="988" left="475" width="134" height="13" font="2">cache miss per record.</text>
+<text top="1005" left="493" width="333" height="13" font="2">The PAX storage model vertically decomposes the</text>
+<text top="1022" left="475" width="351" height="13" font="2">records into zones, called mini-pages, as shown in Fig-</text>
+<text top="1039" left="475" width="351" height="13" font="2">ure 3; for simplicity, we do not show all of the details.</text>
+<text top="1056" left="475" width="351" height="13" font="2">In the ﬁgure, the attributes are presented as belonging</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="12" size="9" family="Times" color="#000000"/>
+	<fontspec id="13" size="8" family="Times" color="#000000"/>
+	<fontspec id="14" size="6" family="Times" color="#000000"/>
+	<fontspec id="15" size="7" family="Times" color="#000000"/>
+	<fontspec id="16" size="6" family="Times" color="#000000"/>
+	<fontspec id="17" size="11" family="Times" color="#000000"/>
+	<fontspec id="18" size="12" family="Times" color="#000000"/>
+<text top="286" left="128" width="170" height="10" font="12">1 Cache Line − 32 bytes (Pentium III)</text>
+<text top="194" left="251" width="14" height="10" font="12">loc</text>
+<text top="194" left="109" width="9" height="10" font="12">id</text>
+<text top="194" left="134" width="12" height="10" font="12">pri</text>
+<text top="219" left="276" width="33" height="10" font="12">address</text>
+<text top="195" left="189" width="23" height="9" font="13">usage</text>
+<text top="194" left="276" width="24" height="10" font="12">name</text>
+<text top="90" left="377" width="13" height="8" font="14">id:2</text>
+<text top="90" left="356" width="13" height="8" font="14">id:1</text>
+<text top="90" left="398" width="13" height="8" font="14">id:3</text>
+<text top="90" left="419" width="13" height="8" font="14">id:4</text>
+<text top="90" left="440" width="13" height="8" font="14">id:5</text>
+<text top="90" left="460" width="13" height="8" font="14">id:6</text>
+<text top="90" left="481" width="13" height="8" font="14">id:7</text>
+<text top="90" left="502" width="13" height="8" font="14">id:8</text>
+<text top="188" left="394" width="122" height="8" font="14">use:3 use:4 use:5 use:6 use:7 use:8</text>
+<text top="188" left="352" width="38" height="8" font="14">use:1 use:2</text>
+<text top="122" left="352" width="162" height="8" font="14">pri:1 pri:2 pri:3 pri:4 pri:5 pri:6 pri:7 pri:8</text>
+<text top="255" left="352" width="17" height="8" font="14">loc:1</text>
+<text top="255" left="394" width="17" height="8" font="14">loc:3</text>
+<text top="255" left="373" width="17" height="8" font="14">loc:2</text>
+<text top="255" left="415" width="100" height="8" font="14">loc:4 loc:5 loc:6 loc:7 loc:8</text>
+<text top="288" left="392" width="95" height="9" font="15">1 Cache Line − 32 bytes</text>
+<text top="155" left="356" width="25" height="8" font="14">name:1</text>
+<text top="222" left="356" width="32" height="8" font="14">address:1</text>
+<text top="98" left="525" width="51" height="9" font="15">Mini−Page 1</text>
+<text top="131" left="525" width="51" height="9" font="15">Mini−Page 2</text>
+<text top="164" left="525" width="51" height="9" font="15">Mini−Page 3</text>
+<text top="198" left="525" width="51" height="9" font="15">Mini−Page 4</text>
+<text top="231" left="525" width="51" height="9" font="15">Mini−Page 5</text>
+<text top="265" left="525" width="51" height="9" font="15">Mini−Page 6</text>
+<text top="113" left="600" width="172" height="8" font="14">pri:1 pri:2 pri:3 pri:4 pri:5 pri:6 pri:7 pri:8</text>
+<text top="287" left="642" width="101" height="9" font="13">1 Cache Line − 32 bytes</text>
+<text top="224" left="604" width="26" height="8" font="14">name:1</text>
+<text top="241" left="602" width="33" height="8" font="14">address:1</text>
+<text top="148" left="600" width="173" height="8" font="14">use:1 loc:1 use:2 loc:2 use:3 loc:3 use:4 loc:4</text>
+<text top="123" left="784" width="29" height="9" font="13">Zone 1</text>
+<text top="161" left="786" width="29" height="9" font="13">Zone 2</text>
+<text top="198" left="784" width="29" height="9" font="13">Zone 3</text>
+<text top="191" left="604" width="14" height="8" font="14">id:1</text>
+<text top="191" left="626" width="14" height="8" font="14">id:2</text>
+<text top="191" left="648" width="14" height="8" font="14">id:3</text>
+<text top="191" left="670" width="14" height="8" font="14">id:4</text>
+<text top="191" left="693" width="14" height="8" font="14">id:5</text>
+<text top="191" left="715" width="14" height="8" font="14">id:6</text>
+<text top="191" left="737" width="14" height="8" font="14">id:7</text>
+<text top="191" left="759" width="14" height="8" font="14">id:8</text>
+<text top="247" left="786" width="29" height="9" font="13">Zone 4</text>
+<text top="313" left="124" width="186" height="13" font="2">Figure 2: N-ary Storage Model</text>
+<text top="313" left="359" width="206" height="13" font="2">Figure 3: PAX (Vertical Decomp.)</text>
+<text top="313" left="620" width="174" height="13" font="2">Figure 4: Attribute Grouping</text>
+<text top="350" left="97" width="351" height="13" font="2">to speciﬁc records by indicating the record number next</text>
+<text top="367" left="97" width="351" height="13" font="2">to the attribute name. Using the PAX storage model, a</text>
+<text top="384" left="97" width="274" height="13" font="2">cache miss is incurred upon reading the ﬁrst</text>
+<text top="385" left="376" width="72" height="12" font="4">priority</text>
+<text top="401" left="97" width="252" height="13" font="2">attribute. After the ﬁrst cache miss, the</text>
+<text top="402" left="355" width="72" height="12" font="4">priority</text>
+<text top="401" left="432" width="16" height="13" font="2">at-</text>
+<text top="418" left="97" width="351" height="13" font="2">tributes of the next eight records are read without incur-</text>
+<text top="435" left="97" width="351" height="13" font="2">ring any additional cache misses. Because the predicate on</text>
+<text top="452" left="97" width="18" height="13" font="2">the</text>
+<text top="453" left="121" width="72" height="12" font="4">priority</text>
+<text top="452" left="197" width="251" height="13" font="2">attribute is true for one record out of ev-</text>
+<text top="469" left="97" width="229" height="13" font="2">ery eight records accessed, reading the</text>
+<text top="470" left="330" width="72" height="12" font="4">location</text>
+<text top="469" left="405" width="43" height="13" font="2">and the</text>
+<text top="487" left="97" width="45" height="12" font="4">usage</text>
+<text top="487" left="148" width="301" height="13" font="2">attributes incurs two additional cache misses per</text>
+<text top="504" left="97" width="351" height="13" font="2">eight records. The resulting cost of the select operator is</text>
+<text top="521" left="97" width="86" height="13" font="2">approximately</text>
+<text top="517" left="187" width="261" height="19" font="3">1/8+2/8 = 0.375 cache misses per record.</text>
+<text top="538" left="97" width="351" height="13" font="2">This is a signiﬁcant improvement over the traditional N-ary</text>
+<text top="555" left="97" width="88" height="13" font="2">storage model.</text>
+<text top="576" left="115" width="333" height="13" font="2">While the PAX storage model performs better than the</text>
+<text top="593" left="97" width="351" height="13" font="2">N-ary storage model, the number of cache misses can</text>
+<text top="610" left="97" width="154" height="13" font="2">be reduced even further.</text>
+<text top="610" left="266" width="130" height="13" font="2">Recognizing that the</text>
+<text top="610" left="403" width="45" height="12" font="4">usage</text>
+<text top="627" left="97" width="22" height="13" font="2">and</text>
+<text top="628" left="127" width="72" height="12" font="4">location</text>
+<text top="627" left="207" width="241" height="13" font="2">attributes are always accessed collec-</text>
+<text top="644" left="97" width="351" height="13" font="2">tively, the record should be partitioned into four <i>zones</i>:</text>
+<text top="661" left="97" width="18" height="13" font="2">the</text>
+<text top="662" left="123" width="72" height="12" font="4">priority</text>
+<text top="661" left="202" width="164" height="13" font="2">attribute in one zone, the</text>
+<text top="662" left="374" width="45" height="12" font="4">usage</text>
+<text top="661" left="427" width="22" height="13" font="2">and</text>
+<text top="679" left="97" width="72" height="12" font="4">location</text>
+<text top="678" left="175" width="195" height="13" font="2">attributes in a second zone, the</text>
+<text top="679" left="375" width="18" height="12" font="4">id</text>
+<text top="678" left="399" width="50" height="13" font="2">attribute</text>
+<text top="695" left="97" width="351" height="13" font="2">in a third zone, and the remaining attributes in a fourth</text>
+<text top="712" left="97" width="351" height="13" font="2">zone, as shown in Figure 4. Similar to the PAX layout, the</text>
+<text top="730" left="97" width="72" height="12" font="4">priority</text>
+<text top="729" left="172" width="276" height="13" font="2">attribute from eight consecutive records can be</text>
+<text top="746" left="97" width="351" height="13" font="2">read while incurring only a single cache miss. For every</text>
+<text top="763" left="97" width="73" height="13" font="2">value of the</text>
+<text top="764" left="175" width="72" height="12" font="4">priority</text>
+<text top="763" left="251" width="197" height="13" font="2">attribute that is less than 12, the</text>
+<text top="781" left="97" width="45" height="12" font="4">usage</text>
+<text top="780" left="147" width="22" height="13" font="2">and</text>
+<text top="781" left="174" width="72" height="12" font="4">location</text>
+<text top="780" left="251" width="197" height="13" font="2">attributes are read. Because the</text>
+<text top="798" left="97" width="45" height="12" font="4">usage</text>
+<text top="797" left="145" width="22" height="13" font="2">and</text>
+<text top="798" left="170" width="72" height="12" font="4">location</text>
+<text top="797" left="245" width="203" height="13" font="2">attributes were located in different</text>
+<text top="814" left="97" width="351" height="13" font="2">cache blocks in the PAX layout, two cache misses were in-</text>
+<text top="831" left="97" width="351" height="13" font="2">curred to read both of the attributes. When using the group</text>
+<text top="848" left="97" width="351" height="13" font="2">layout (Figure 4), however, a single cache miss is incurred</text>
+<text top="865" left="97" width="94" height="13" font="2">to read the ﬁrst</text>
+<text top="866" left="197" width="45" height="12" font="4">usage</text>
+<text top="865" left="247" width="104" height="13" font="2">attribute, and the</text>
+<text top="866" left="356" width="72" height="12" font="4">location</text>
+<text top="865" left="432" width="16" height="13" font="2">at-</text>
+<text top="882" left="97" width="351" height="13" font="2">tribute is then read from the cache. Using this particular</text>
+<text top="899" left="97" width="351" height="13" font="2">grouping, the number of cache misses per record shrinks to</text>
+<text top="916" left="97" width="236" height="13" font="2">two cache misses per eight records, or</text>
+<text top="912" left="338" width="110" height="19" font="3">0.25 cache misses</text>
+<text top="933" left="97" width="65" height="13" font="2">per record.</text>
+<text top="954" left="115" width="333" height="13" font="2">As the example demonstrates, partitioning the records’</text>
+<text top="971" left="97" width="351" height="13" font="2">attributes into non-contiguous zones can signiﬁcantly re-</text>
+<text top="988" left="97" width="351" height="13" font="2">duce the number of processor cache misses. Determin-</text>
+<text top="1005" left="97" width="351" height="13" font="2">ing the attribute partition for a single query is not difﬁcult;</text>
+<text top="1022" left="97" width="351" height="13" font="2">however, choosing a partition that reduces the total amount</text>
+<text top="1039" left="97" width="351" height="13" font="2">of cache misses for the entire query workload is much more</text>
+<text top="1056" left="97" width="351" height="13" font="2">complex. In addition, the query workload may change over</text>
+<text top="348" left="496" width="45" height="12" font="9">Variable</text>
+<text top="348" left="568" width="55" height="12" font="9">Deﬁnition</text>
+<text top="367" left="513" width="10" height="12" font="11">A</text>
+<text top="367" left="568" width="221" height="12" font="9">The set of all attributes in relation R</text>
+<text top="363" left="801" width="11" height="17" font="11">=</text>
+<text top="379" left="568" width="14" height="17" font="11">{a</text>
+<text top="385" left="583" width="5" height="12" font="16">1</text>
+<text top="382" left="589" width="13" height="12" font="11">, a</text>
+<text top="385" left="602" width="5" height="12" font="16">2</text>
+<text top="382" left="609" width="4" height="12" font="11">,</text>
+<text top="379" left="615" width="34" height="17" font="11">· · · , a</text>
+<text top="387" left="649" width="7" height="9" font="16">n</text>
+<text top="379" left="657" width="7" height="17" font="11">}</text>
+<text top="399" left="503" width="32" height="12" font="17"><i>group</i></text>
+<text top="399" left="568" width="209" height="12" font="9">A subset of the set of attributes, group</text>
+<text top="395" left="781" width="25" height="17" font="11">⊆ A</text>
+<text top="415" left="495" width="47" height="12" font="17"><i>partition</i></text>
+<text top="415" left="568" width="121" height="12" font="9">A collection of groups</text>
+<text top="431" left="506" width="25" height="12" font="17"><i>zone</i></text>
+<text top="431" left="568" width="243" height="12" font="9">The area of a slotted page where all instances</text>
+<text top="447" left="568" width="117" height="12" font="9">of a group are written</text>
+<text top="463" left="487" width="64" height="12" font="17"><i>zone-record</i></text>
+<text top="463" left="568" width="243" height="12" font="9">An instance of the attributes in a particular</text>
+<text top="479" left="568" width="31" height="12" font="9">group</text>
+<text top="495" left="513" width="11" height="12" font="11">G</text>
+<text top="495" left="568" width="158" height="12" font="9">The set of all possible groups</text>
+<text top="508" left="509" width="18" height="17" font="11">|G|</text>
+<text top="511" left="568" width="170" height="12" font="9">The number all possible groups</text>
+<text top="527" left="513" width="9" height="12" font="11">P</text>
+<text top="527" left="568" width="165" height="12" font="9">The set of all unique partitions</text>
+<text top="540" left="509" width="18" height="17" font="11">|P |</text>
+<text top="544" left="568" width="191" height="12" font="9">The number of all unique partitions</text>
+<text top="568" left="591" width="119" height="13" font="2">Table 1: Deﬁnitions</text>
+<text top="598" left="475" width="351" height="13" font="2">time, so the optimal layout may change accordingly. The</text>
+<text top="615" left="475" width="351" height="13" font="2">Data Morphing technique presented in this paper provides</text>
+<text top="632" left="475" width="351" height="13" font="2">a method to calculate a cache-efﬁcient partition for a given</text>
+<text top="649" left="475" width="351" height="13" font="2">workload of queries, and also provides a method to reor-</text>
+<text top="666" left="475" width="351" height="13" font="2">ganize data to dynamically adapt to a changing workload.</text>
+<text top="683" left="475" width="351" height="13" font="2">Before the Data Morphing technique is presented, the fol-</text>
+<text top="700" left="475" width="351" height="13" font="2">lowing section provides the deﬁnitions to the terms used in</text>
+<text top="717" left="475" width="88" height="13" font="2">the discussion.</text>
+<text top="786" left="475" width="9" height="16" font="5"><b>3</b></text>
+<text top="786" left="502" width="83" height="16" font="5"><b>Deﬁnitions</b></text>
+<text top="817" left="475" width="351" height="13" font="2">For the presentation of the Data Morphing technique, the</text>
+<text top="834" left="475" width="351" height="13" font="2">following deﬁnitions apply. A <b>group </b>represents a set of</text>
+<text top="851" left="475" width="351" height="13" font="2">attributes that are written to consecutive memory addresses</text>
+<text top="868" left="475" width="351" height="13" font="2">on a page. A <b>partition </b>is a set of groups that uniquely</text>
+<text top="885" left="475" width="351" height="13" font="2">deﬁnes the position of every attribute in a relation. A <b>zone</b></text>
+<text top="902" left="475" width="351" height="13" font="2">deﬁnes the area of a page where all instances of a particular</text>
+<text top="919" left="475" width="351" height="13" font="2">group are written. A <b>zone-record </b>deﬁnes an instance of</text>
+<text top="936" left="475" width="351" height="13" font="2">the attributes in a particular group. These deﬁnitions are</text>
+<text top="953" left="475" width="140" height="13" font="2">summarized in Table 1.</text>
+<text top="971" left="493" width="333" height="13" font="2">To further illustrate the concepts in this section suc-</text>
+<text top="988" left="475" width="351" height="13" font="2">cinctly, we will use a simpliﬁed version of the previous</text>
+<text top="1005" left="475" width="351" height="13" font="2">example. The new example relation and the correspond-</text>
+<text top="1022" left="475" width="351" height="13" font="2">ing query are shown in Figure 5. As before, the predicate</text>
+<text top="1039" left="475" width="37" height="13" font="2">on the</text>
+<text top="1040" left="516" width="72" height="12" font="4">priority</text>
+<text top="1039" left="591" width="235" height="13" font="2">attribute has a selectivity of 12.5%, and</text>
+<text top="1056" left="475" width="244" height="13" font="2">all of the attributes are four bytes in size.</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="19" size="8" family="Times" color="#000000"/>
+<text top="88" left="134" width="31" height="13" font="2">R = (</text>
+<text top="89" left="165" width="72" height="12" font="4">priority</text>
+<text top="88" left="237" width="49" height="13" font="2">:Integer,</text>
+<text top="89" left="290" width="72" height="12" font="4">location</text>
+<text top="88" left="362" width="49" height="13" font="2">:Integer,</text>
+<text top="106" left="165" width="45" height="12" font="4">usage</text>
+<text top="105" left="210" width="51" height="13" font="2">:Integer)</text>
+<text top="139" left="134" width="55" height="13" font="2">SELECT</text>
+<text top="140" left="193" width="72" height="12" font="4">location</text>
+<text top="139" left="265" width="4" height="13" font="2">,</text>
+<text top="140" left="272" width="45" height="12" font="4">usage</text>
+<text top="156" left="134" width="112" height="13" font="2">FROM R WHERE</text>
+<text top="157" left="250" width="72" height="12" font="4">priority</text>
+<text top="156" left="326" width="12" height="14" font="3">&lt;</text>
+<text top="152" left="342" width="15" height="19" font="3">12</text>
+<text top="193" left="156" width="233" height="13" font="2">Figure 5: Example Relation and Query</text>
+<text top="238" left="115" width="333" height="13" font="2">Using the relation R, shown in Figure 5, a partition p</text>
+<text top="255" left="97" width="305" height="13" font="2">representing the traditional N-ary Storage Model is</text>
+<text top="281" left="141" width="8" height="14" font="3">p</text>
+<text top="277" left="153" width="31" height="19" font="3">= {{</text>
+<text top="282" left="184" width="72" height="12" font="4">priority</text>
+<text top="281" left="255" width="4" height="14" font="3">,</text>
+<text top="282" left="262" width="72" height="12" font="4">location</text>
+<text top="281" left="334" width="4" height="14" font="3">,</text>
+<text top="282" left="340" width="45" height="12" font="4">usage</text>
+<text top="277" left="385" width="19" height="19" font="3">}}.</text>
+<text top="307" left="97" width="351" height="13" font="2">Partition p has one group of attributes, and all three at-</text>
+<text top="324" left="97" width="351" height="13" font="2">tributes are to be written consecutively in memory. A par-</text>
+<text top="341" left="97" width="265" height="13" font="2">tition representing the PAX storage model is</text>
+<text top="367" left="126" width="8" height="14" font="3">p</text>
+<text top="363" left="138" width="31" height="19" font="3">= {{</text>
+<text top="368" left="169" width="72" height="12" font="4">priority</text>
+<text top="363" left="240" width="22" height="19" font="3">}, {</text>
+<text top="368" left="262" width="72" height="12" font="4">location</text>
+<text top="363" left="334" width="22" height="19" font="3">}, {</text>
+<text top="368" left="355" width="45" height="12" font="4">usage</text>
+<text top="363" left="400" width="19" height="19" font="3">}}.</text>
+<text top="393" left="97" width="351" height="13" font="2">This partition has three groups, with each attribute belong-</text>
+<text top="410" left="97" width="140" height="13" font="2">ing to a separate group.</text>
+<text top="427" left="115" width="333" height="13" font="2">Formalizing the discussion, consider the set A of all at-</text>
+<text top="444" left="97" width="351" height="13" font="2">tributes in relation R. From the deﬁnition, a partition p of</text>
+<text top="461" left="97" width="351" height="13" font="2">set A is a collection of subsets of A, called <i>groups</i>, such that</text>
+<text top="478" left="97" width="351" height="13" font="2">each group is non-empty and is pairwise disjoint with all</text>
+<text top="495" left="97" width="105" height="13" font="2">other groups, and</text>
+<text top="491" left="207" width="242" height="19" font="3">∪p = A. The set of all possible groups,</text>
+<text top="512" left="97" width="351" height="14" font="3">G, is the power set of the attribute set A. The size of G</text>
+<text top="529" left="97" width="10" height="13" font="2">is</text>
+<text top="525" left="112" width="7" height="19" font="3">2</text>
+<text top="524" left="120" width="7" height="14" font="19">n</text>
+<text top="529" left="128" width="320" height="13" font="2">, where n is the number of attributes in the relation</text>
+<text top="546" left="97" width="351" height="14" font="3">R. The set of all possible partitions is P . The number of</text>
+<text top="563" left="97" width="191" height="13" font="2">possible partitions of set A, or</text>
+<text top="559" left="294" width="154" height="19" font="3">|P |, is described by Bell</text>
+<text top="580" left="97" width="97" height="13" font="2">numbers [4, 21].</text>
+<text top="597" left="115" width="333" height="13" font="2">From the example, the set of all attributes, A, the set of</text>
+<text top="614" left="97" width="351" height="13" font="2">all possible groups, G, and the set of all possible partitions,</text>
+<text top="631" left="97" width="106" height="14" font="3">P , are as follows:</text>
+<text top="657" left="98" width="11" height="14" font="3">A</text>
+<text top="653" left="113" width="23" height="19" font="3">= {</text>
+<text top="658" left="136" width="72" height="12" font="4">priority</text>
+<text top="657" left="208" width="4" height="14" font="3">,</text>
+<text top="658" left="215" width="72" height="12" font="4">location</text>
+<text top="657" left="286" width="4" height="14" font="3">,</text>
+<text top="658" left="293" width="45" height="12" font="4">usage</text>
+<text top="653" left="338" width="7" height="19" font="3">}</text>
+<text top="678" left="97" width="12" height="14" font="3">G</text>
+<text top="675" left="113" width="31" height="19" font="3">= {{</text>
+<text top="680" left="144" width="72" height="12" font="4">priority</text>
+<text top="675" left="216" width="22" height="19" font="3">}, {</text>
+<text top="680" left="237" width="72" height="12" font="4">location</text>
+<text top="675" left="309" width="22" height="19" font="3">}, {</text>
+<text top="680" left="330" width="45" height="12" font="4">usage</text>
+<text top="675" left="375" width="12" height="19" font="3">},</text>
+<text top="696" left="136" width="7" height="19" font="3">{</text>
+<text top="701" left="144" width="72" height="12" font="4">priority</text>
+<text top="700" left="216" width="4" height="14" font="3">,</text>
+<text top="701" left="222" width="72" height="12" font="4">location</text>
+<text top="696" left="294" width="22" height="19" font="3">}, {</text>
+<text top="701" left="315" width="72" height="12" font="4">priority</text>
+<text top="700" left="387" width="4" height="14" font="3">,</text>
+<text top="701" left="394" width="45" height="12" font="4">usage</text>
+<text top="696" left="439" width="12" height="19" font="3">},</text>
+<text top="718" left="136" width="7" height="19" font="3">{</text>
+<text top="723" left="144" width="72" height="12" font="4">location</text>
+<text top="721" left="216" width="4" height="14" font="3">,</text>
+<text top="723" left="222" width="45" height="12" font="4">usage</text>
+<text top="718" left="267" width="12" height="19" font="3">},</text>
+<text top="739" left="136" width="7" height="19" font="3">{</text>
+<text top="744" left="144" width="72" height="12" font="4">priority</text>
+<text top="743" left="216" width="4" height="14" font="3">,</text>
+<text top="744" left="222" width="72" height="12" font="4">location</text>
+<text top="743" left="294" width="4" height="14" font="3">,</text>
+<text top="744" left="301" width="45" height="12" font="4">usage</text>
+<text top="739" left="345" width="15" height="19" font="3">}}</text>
+<text top="764" left="97" width="10" height="14" font="3">P</text>
+<text top="761" left="113" width="38" height="19" font="3">= {{{</text>
+<text top="766" left="151" width="72" height="12" font="4">priority</text>
+<text top="761" left="223" width="22" height="19" font="3">}, {</text>
+<text top="766" left="245" width="72" height="12" font="4">location</text>
+<text top="761" left="316" width="22" height="19" font="3">}, {</text>
+<text top="766" left="338" width="45" height="12" font="4">usage</text>
+<text top="761" left="383" width="19" height="19" font="3">}},</text>
+<text top="782" left="136" width="15" height="19" font="3">{{</text>
+<text top="787" left="151" width="72" height="12" font="4">priority</text>
+<text top="786" left="223" width="4" height="14" font="3">,</text>
+<text top="787" left="230" width="72" height="12" font="4">location</text>
+<text top="782" left="301" width="22" height="19" font="3">}, {</text>
+<text top="787" left="323" width="45" height="12" font="4">usage</text>
+<text top="782" left="368" width="19" height="19" font="3">}},</text>
+<text top="804" left="136" width="15" height="19" font="3">{{</text>
+<text top="809" left="151" width="72" height="12" font="4">priority</text>
+<text top="807" left="223" width="4" height="14" font="3">,</text>
+<text top="809" left="230" width="45" height="12" font="4">usage</text>
+<text top="804" left="275" width="22" height="19" font="3">}, {</text>
+<text top="809" left="296" width="72" height="12" font="4">location</text>
+<text top="804" left="368" width="19" height="19" font="3">}},</text>
+<text top="825" left="136" width="15" height="19" font="3">{{</text>
+<text top="830" left="151" width="72" height="12" font="4">priority</text>
+<text top="825" left="223" width="22" height="19" font="3">}, {</text>
+<text top="830" left="245" width="72" height="12" font="4">location</text>
+<text top="829" left="316" width="4" height="14" font="3">,</text>
+<text top="830" left="323" width="45" height="12" font="4">usage</text>
+<text top="825" left="368" width="19" height="19" font="3">}},</text>
+<text top="847" left="136" width="15" height="19" font="3">{{</text>
+<text top="852" left="151" width="72" height="12" font="4">priority</text>
+<text top="851" left="223" width="4" height="14" font="3">,</text>
+<text top="852" left="230" width="72" height="12" font="4">location</text>
+<text top="851" left="301" width="4" height="14" font="3">,</text>
+<text top="852" left="308" width="45" height="12" font="4">usage</text>
+<text top="847" left="353" width="27" height="19" font="3">}}}.</text>
+<text top="877" left="115" width="333" height="13" font="2">Now that the deﬁnitions have been presented, the next</text>
+<text top="894" left="97" width="278" height="13" font="2">section introduces the Data Morphing process.</text>
+<text top="927" left="97" width="9" height="16" font="5"><b>4</b></text>
+<text top="927" left="124" width="119" height="16" font="5"><b>Data Morphing</b></text>
+<text top="954" left="97" width="351" height="13" font="2">Data Morphing consists of two phases: (a) calculating a</text>
+<text top="971" left="97" width="351" height="13" font="2">cache-efﬁcient storage template and (b) reorganizing the</text>
+<text top="988" left="97" width="351" height="13" font="2">data into this cache-efﬁcient organization. In this section,</text>
+<text top="1005" left="97" width="351" height="13" font="2">we ﬁrst introduce the DM page architecture, which allows</text>
+<text top="1022" left="97" width="351" height="13" font="2">attributes to be grouped into non-contiguous zones. We</text>
+<text top="1039" left="97" width="351" height="13" font="2">then introduce two algorithms for calculating attribute par-</text>
+<text top="1056" left="97" width="300" height="13" font="2">titions that improve the spatial locality of the data.</text>
+<text top="86" left="475" width="19" height="13" font="18"><b>4.1</b></text>
+<text top="86" left="509" width="95" height="13" font="18"><b>Page Structure</b></text>
+<text top="111" left="475" width="351" height="13" font="2">To support decomposition of the records’ attributes into</text>
+<text top="128" left="475" width="351" height="13" font="2">groups, a ﬂexible page structure is required. The new page</text>
+<text top="145" left="475" width="351" height="13" font="2">structure must allow the attributes of a record to be written</text>
+<text top="162" left="475" width="351" height="13" font="2">in an arbitrary pattern while also retaining the link between</text>
+<text top="179" left="475" width="351" height="13" font="2">the external record id and the internal record. The PAX</text>
+<text top="196" left="475" width="351" height="13" font="2">page structure [2] has many of these properties; however,</text>
+<text top="214" left="475" width="351" height="13" font="2">the PAX page structure stores each attribute individually.</text>
+<text top="231" left="475" width="351" height="13" font="2">We need a more general page architecture that allows arbi-</text>
+<text top="248" left="475" width="351" height="13" font="2">trary grouping of attributes and also seamlessly accommo-</text>
+<text top="265" left="475" width="351" height="13" font="2">dates the traditional N-ary representation (which is more</text>
+<text top="282" left="475" width="351" height="13" font="2">efﬁcient in some cases). In this section, we present the</text>
+<text top="299" left="475" width="351" height="13" font="2">Data Morphing page structure. The DM page structure can</text>
+<text top="316" left="475" width="338" height="13" font="2">be viewed as a generalization of the PAX page structure.</text>
+<text top="349" left="475" width="30" height="13" font="18"><b>4.1.1</b></text>
+<text top="349" left="520" width="108" height="13" font="18"><b>Page Description</b></text>
+<text top="375" left="475" width="351" height="13" font="2">The traditional slotted page includes meta-data at the top of</text>
+<text top="392" left="475" width="351" height="13" font="2">the page along with a slot array located at the bottom of the</text>
+<text top="409" left="475" width="351" height="13" font="2">page. The attributes of each record are written to consecu-</text>
+<text top="426" left="475" width="351" height="13" font="2">tive memory addresses on the page, with the starting offset</text>
+<text top="443" left="475" width="351" height="13" font="2">of a record stored in the slot array [20]. The record space</text>
+<text top="460" left="475" width="351" height="13" font="2">typically grows downwards (increasing memory addresses)</text>
+<text top="477" left="475" width="351" height="13" font="2">while the slot array grows upwards (decreasing memory ad-</text>
+<text top="494" left="475" width="351" height="13" font="2">dresses), and the free space on the page is determined by</text>
+<text top="511" left="475" width="297" height="13" font="2">the unallocated memory between the two regions.</text>
+<text top="528" left="493" width="333" height="13" font="2">To support the partitioning of attributes into separate</text>
+<text top="545" left="475" width="351" height="13" font="2">zones, the new DM slotted-page structure requires ﬁve ad-</text>
+<text top="562" left="475" width="351" height="13" font="2">ditional arrays. The ﬁrst array, ATT-ZON, records the zone</text>
+<text top="579" left="475" width="165" height="13" font="2">number for each attribute.</text>
+<text top="579" left="654" width="172" height="13" font="2">The second array, ATT-SZ,</text>
+<text top="596" left="475" width="351" height="13" font="2">records the size of each attribute, with variable-length at-</text>
+<text top="613" left="475" width="351" height="13" font="2">tributes marked accordingly. The third array, ATT-OFF,</text>
+<text top="630" left="475" width="351" height="13" font="2">records the offset of the attribute into each zone-record.</text>
+<text top="647" left="475" width="351" height="13" font="2">The fourth array, ZON-OFF, records the starting offset of</text>
+<text top="665" left="475" width="351" height="13" font="2">each zone on the page. The ﬁfth array, REC-SZ, records</text>
+<text top="682" left="475" width="351" height="13" font="2">the size of each zone-record. Figure 6 illustrates the new</text>
+<text top="699" left="475" width="161" height="13" font="2">slotted-page data structure.</text>
+<text top="716" left="493" width="333" height="13" font="2">A partition is local to each page. This allows the work-</text>
+<text top="733" left="475" width="351" height="13" font="2">ing set of pages for one workload to be organized differ-</text>
+<text top="750" left="475" width="351" height="13" font="2">ently than the working set of pages for a different work-</text>
+<text top="767" left="475" width="351" height="13" font="2">load. If the entire relation uses the same static layout, the</text>
+<text top="784" left="475" width="347" height="13" font="2">partition information can be stored in the system catalogs.</text>
+<text top="801" left="493" width="333" height="13" font="2">The size of each DM array is implementation depen-</text>
+<text top="818" left="475" width="351" height="13" font="2">dent. For our particular implementation, the number of en-</text>
+<text top="835" left="475" width="351" height="13" font="2">tries in each table is equal to the number of attributes in</text>
+<text top="852" left="475" width="351" height="13" font="2">the relation. We use 1-byte entries for the ATT-ZON ta-</text>
+<text top="869" left="475" width="351" height="13" font="2">ble and 2-byte entries for the remaining tables. For a rela-</text>
+<text top="886" left="475" width="351" height="13" font="2">tion with 16 attributes, the total size of the meta-data would</text>
+<text top="903" left="475" width="351" height="13" font="2">be 144 bytes, spanning ﬁve 32-byte cache lines. If only a</text>
+<text top="920" left="475" width="351" height="13" font="2">few records on each page are accessed, the cost of access-</text>
+<text top="937" left="475" width="351" height="13" font="2">ing the meta-data can be quite expensive. For this reason,</text>
+<text top="954" left="475" width="351" height="13" font="2">we are examining alternatives to allocating the meta-data</text>
+<text top="971" left="475" width="351" height="13" font="2">on each page while still allowing the partitions to vary be-</text>
+<text top="988" left="475" width="77" height="13" font="2">tween pages.</text>
+<text top="1005" left="493" width="333" height="13" font="2">It is important to note that the slotted-page data struc-</text>
+<text top="1022" left="475" width="351" height="13" font="2">tures are located at the same byte-offsets on each page. If</text>
+<text top="1039" left="475" width="351" height="13" font="2">the records are accessed in a random order, the data struc-</text>
+<text top="1057" left="475" width="351" height="13" font="2">tures on each page may be removed from the processor</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="86" left="97" width="351" height="13" font="2">cache due to conﬂict misses; therefore, a more efﬁcient</text>
+<text top="103" left="97" width="351" height="13" font="2">technique is to access all the necessary records on a page</text>
+<text top="120" left="97" width="351" height="13" font="2">before moving to any other pages in the heap ﬁle. This</text>
+<text top="137" left="97" width="351" height="13" font="2">problem is not unique to the DM technique, but is common</text>
+<text top="154" left="97" width="328" height="13" font="2">to all heap ﬁles that use the slotted-page data structure.</text>
+<text top="203" left="189" width="39" height="8" font="14">ATT−ZON</text>
+<text top="203" left="254" width="31" height="8" font="14">ATT−SZ</text>
+<text top="203" left="317" width="37" height="8" font="14">ATT−OFF</text>
+<text top="217" left="189" width="38" height="8" font="14">ZON−OFF</text>
+<text top="217" left="254" width="31" height="8" font="14">REC−SZ</text>
+<text top="319" left="217" width="108" height="8" font="14">Variable Length Attribute Zone</text>
+<text top="330" left="249" width="24" height="8" font="14">(Heap)</text>
+<text top="303" left="240" width="43" height="8" font="14">Hello World</text>
+<text top="303" left="222" width="9" height="8" font="14">11</text>
+<text top="356" left="303" width="36" height="8" font="14">Slot Array</text>
+<text top="189" left="301" width="24" height="8" font="14">att−cnt</text>
+<text top="189" left="212" width="43" height="8" font="14">Page Header</text>
+<text top="189" left="333" width="27" height="8" font="14">zon−cnt</text>
+<text top="242" left="201" width="98" height="8" font="14">Fixed Length Attribute Zone</text>
+<text top="268" left="273" width="46" height="8" font="14">Presence Bits</text>
+<text top="242" left="335" width="9" height="8" font="14">10</text>
+<text top="384" left="169" width="208" height="13" font="2">Figure 6: DM Slotted Page Layout</text>
+<text top="423" left="115" width="333" height="13" font="2">The DM slotted page consists of one or more zones.</text>
+<text top="440" left="97" width="351" height="13" font="2">Fixed-length attributes and variable-length attributes can</text>
+<text top="457" left="97" width="306" height="13" font="2">be grouped together into <b>variable-length zones</b>.</text>
+<text top="457" left="418" width="30" height="13" font="2">Each</text>
+<text top="474" left="97" width="351" height="13" font="2">variable-length zone has a slot-array that contains refer-</text>
+<text top="491" left="97" width="351" height="13" font="2">ences to the position of all of that zone’s records. All</text>
+<text top="508" left="97" width="351" height="13" font="2">variable-length zone-records store the variable-length val-</text>
+<text top="525" left="97" width="351" height="13" font="2">ues at the end of each record, as is typically done in the</text>
+<text top="542" left="97" width="351" height="13" font="2">N-ary storage model. If a group consists of only ﬁxed-</text>
+<text top="559" left="97" width="351" height="13" font="2">length attributes, the group can be stored in a <b>ﬁxed-length</b></text>
+<text top="576" left="97" width="351" height="13" font="18"><b>zone</b>. Since the attributes in a ﬁxed-length zone can be</text>
+<text top="593" left="97" width="351" height="13" font="2">accessed using a simple byte-offset calculation, the ﬁxed-</text>
+<text top="610" left="97" width="351" height="13" font="2">length zones do not contain a slot-array. In place of the</text>
+<text top="627" left="97" width="351" height="13" font="2">slot-array, a bit-array is used to indicate the presence or ab-</text>
+<text top="644" left="97" width="139" height="13" font="2">sence of a zone-record.</text>
+<text top="663" left="115" width="333" height="13" font="2">The ﬁxed-length zone is not required but can be conve-</text>
+<text top="680" left="97" width="351" height="13" font="2">nient. For example, ﬁxed-length zones are easier to manage</text>
+<text top="697" left="97" width="351" height="13" font="2">because there is no need to maintain a heap. Also, using a</text>
+<text top="714" left="97" width="351" height="13" font="2">simple byte-offset calculation to access the attribute is more</text>
+<text top="731" left="97" width="212" height="13" font="2">efﬁcient than accessing a slot array.</text>
+<text top="772" left="97" width="30" height="13" font="18"><b>4.1.2</b></text>
+<text top="772" left="142" width="106" height="13" font="18"><b>Page Operations</b></text>
+<text top="800" left="97" width="351" height="13" font="2">For the DM slotted-page layout, the typical operations, in-</text>
+<text top="817" left="97" width="351" height="13" font="2">cluding attribute retrieval, record insertion, deletion, and</text>
+<text top="834" left="97" width="351" height="13" font="2">updates, are modiﬁed in a straight-forward way. The key</text>
+<text top="851" left="97" width="351" height="13" font="2">changes are that these operations need to consult the addi-</text>
+<text top="868" left="97" width="351" height="13" font="2">tional meta-data to locate the attribute values. In the inter-</text>
+<text top="885" left="97" width="351" height="13" font="2">est of space, we omit these details in this presentation and</text>
+<text top="902" left="97" width="201" height="13" font="2">refer the interested reader to [15].</text>
+<text top="943" left="97" width="30" height="13" font="18"><b>4.1.3</b></text>
+<text top="943" left="142" width="210" height="13" font="18"><b>Dynamically Reorganizing Pages</b></text>
+<text top="971" left="97" width="351" height="13" font="2">Because the query workload may change over time, the</text>
+<text top="988" left="97" width="351" height="13" font="2">Data Morphing process may periodically recommend a</text>
+<text top="1005" left="97" width="351" height="13" font="2">new attribute partition. The attribute layout will then need</text>
+<text top="1022" left="97" width="351" height="13" font="2">to be reorganized to match the new partition. The reorgani-</text>
+<text top="1039" left="97" width="351" height="13" font="2">zation process is as follows. The Storage Manager is ﬁrst</text>
+<text top="1056" left="97" width="351" height="13" font="2">provided a new attribute partition. When a page is accessed</text>
+<text top="86" left="475" width="351" height="13" font="2">from the data ﬁle, the page’s partition description is com-</text>
+<text top="103" left="475" width="351" height="13" font="2">pared to the recommended partition. If the two partitions</text>
+<text top="120" left="475" width="351" height="13" font="2">differ, the page is reorganized based on the recommended</text>
+<text top="137" left="475" width="54" height="13" font="2">partition.</text>
+<text top="155" left="493" width="333" height="13" font="2">The structure of the DM slotted page allows pages to be</text>
+<text top="172" left="475" width="351" height="13" font="2">lazily reorganized at access time. Therefore, only highly</text>
+<text top="189" left="475" width="351" height="13" font="2">accessed pages will be reorganized. Some pages in the ﬁle</text>
+<text top="206" left="475" width="351" height="13" font="2">may rarely be reorganized. Because the partition informa-</text>
+<text top="223" left="475" width="351" height="13" font="2">tion is stored on each page, pages with different partitions</text>
+<text top="240" left="475" width="175" height="13" font="2">may co-exist in the same ﬁle.</text>
+<text top="258" left="493" width="333" height="13" font="2">We expect page reorganization to be an expensive oper-</text>
+<text top="275" left="475" width="351" height="13" font="2">ation relative to the cost of scanning the records on a page,</text>
+<text top="292" left="475" width="351" height="13" font="2">so a reorganization should be performed judiciously. Anal-</text>
+<text top="309" left="475" width="338" height="13" font="2">ysis of the reorganization strategy is left for future work.</text>
+<text top="348" left="475" width="19" height="13" font="18"><b>4.2</b></text>
+<text top="348" left="509" width="170" height="13" font="18"><b>Partitioning the Attributes</b></text>
+<text top="375" left="475" width="351" height="13" font="2">The Data Morphing technique consists of two phases: cal-</text>
+<text top="392" left="475" width="351" height="13" font="2">culating a cache-efﬁcient attribute partition, and reorganiz-</text>
+<text top="409" left="475" width="351" height="13" font="2">ing the data. The ﬁrst phase of the DM process calculates</text>
+<text top="426" left="475" width="351" height="13" font="2">a cache efﬁcient layout for the attributes of a given rela-</text>
+<text top="443" left="475" width="39" height="13" font="2">tion R</text>
+<text top="439" left="515" width="14" height="19" font="3">(a</text>
+<text top="446" left="528" width="6" height="14" font="19">1</text>
+<text top="443" left="535" width="15" height="14" font="3">, a</text>
+<text top="446" left="550" width="6" height="14" font="19">2</text>
+<text top="443" left="556" width="4" height="14" font="3">,</text>
+<text top="439" left="563" width="37" height="19" font="3">· · · , a</text>
+<text top="446" left="600" width="7" height="14" font="19">n</text>
+<text top="439" left="608" width="218" height="19" font="3">), and a given set of queries, Q. To</text>
+<text top="460" left="475" width="351" height="13" font="2">calculate this layout, we present two algorithms. First, we</text>
+<text top="477" left="475" width="351" height="13" font="2">present a naive algorithm which ﬁnds the <i>optimal </i>layout,</text>
+<text top="494" left="475" width="351" height="13" font="2">but requires exponential space and time in the number of</text>
+<text top="512" left="475" width="351" height="13" font="2">attributes. We then present a heuristic algorithm to reduce</text>
+<text top="529" left="475" width="351" height="13" font="2">the computational complexity. The heuristic algorithm is</text>
+<text top="546" left="475" width="351" height="13" font="2">based on a hill-climbing (steepest-descent) algorithm, and</text>
+<text top="563" left="475" width="286" height="13" font="2">trades optimality for improved time complexity.</text>
+<text top="601" left="475" width="30" height="13" font="18"><b>4.2.1</b></text>
+<text top="601" left="520" width="139" height="13" font="18"><b>Data Morphing Input</b></text>
+<text top="629" left="475" width="351" height="13" font="2">Each of the proposed algorithms relies on information</text>
+<text top="646" left="475" width="351" height="13" font="2">about the queries that are executed. A query q in the query</text>
+<text top="663" left="475" width="308" height="13" font="2">set Q is described by an ordered sequence of pairs,</text>
+<text top="659" left="788" width="38" height="19" font="3">(x, y),</text>
+<text top="680" left="475" width="351" height="13" font="2">where x represents the attribute accessed, and y represents</text>
+<text top="697" left="475" width="351" height="13" font="2">the frequency at which attribute x is accessed. Using the</text>
+<text top="714" left="475" width="351" height="13" font="2">example from Section 3 for illustration, a sequential ﬁle-</text>
+<text top="731" left="475" width="174" height="13" font="2">scan will access 100% of the</text>
+<text top="732" left="653" width="72" height="12" font="4">priority</text>
+<text top="731" left="729" width="97" height="13" font="2">attributes. If the</text>
+<text top="748" left="475" width="74" height="13" font="2">value of the</text>
+<text top="749" left="554" width="72" height="12" font="4">priority</text>
+<text top="748" left="632" width="195" height="13" font="2">attribute is less than 12, the re-</text>
+<text top="765" left="475" width="351" height="13" font="2">maining two attributes are accessed. The selectivity of the</text>
+<text top="782" left="475" width="74" height="13" font="2">predicate on</text>
+<text top="783" left="554" width="72" height="12" font="4">priority</text>
+<text top="782" left="630" width="196" height="13" font="2">is 12.5%, so both of the remain-</text>
+<text top="799" left="475" width="351" height="13" font="2">ing attributes will be accessed for 12.5% of the records.</text>
+<text top="816" left="475" width="243" height="13" font="2">The resulting query sequence, q, will be:</text>
+<text top="850" left="512" width="7" height="14" font="3">q</text>
+<text top="846" left="524" width="27" height="19" font="3">= ((</text>
+<text top="851" left="551" width="72" height="12" font="4">priority</text>
+<text top="850" left="623" width="4" height="14" font="3">,</text>
+<text top="846" left="630" width="45" height="19" font="3">100%),</text>
+<text top="867" left="545" width="6" height="19" font="3">(</text>
+<text top="872" left="551" width="72" height="12" font="4">location</text>
+<text top="871" left="623" width="4" height="14" font="3">,</text>
+<text top="867" left="630" width="57" height="19" font="3">12.5%), (</text>
+<text top="872" left="687" width="45" height="12" font="4">usage</text>
+<text top="871" left="732" width="4" height="14" font="3">,</text>
+<text top="867" left="738" width="51" height="19" font="3">12.5%))</text>
+<text top="910" left="475" width="30" height="13" font="18"><b>4.2.2</b></text>
+<text top="910" left="520" width="118" height="13" font="18"><b>Cache Miss Model</b></text>
+<text top="937" left="475" width="351" height="13" font="2">The cache miss model computes the cost, in the number of</text>
+<text top="954" left="475" width="351" height="13" font="2">processor cache misses, for a query to access the attributes</text>
+<text top="971" left="475" width="351" height="13" font="2">in a group. For the cache miss model, we deﬁne the ac-</text>
+<text top="988" left="475" width="351" height="13" font="2">cess rate of the group, <i>acc</i>, as the rate of the most accessed</text>
+<text top="1005" left="475" width="351" height="13" font="2">attribute in that group. Given a query q and an attribute</text>
+<text top="1022" left="475" width="351" height="13" font="2">group g, the number of cache misses incurred is calculated</text>
+<text top="1039" left="475" width="350" height="13" font="2">as follows: Accessing the ﬁrst attribute a in the sequence q</text>
+<text top="1056" left="475" width="314" height="13" font="2">that is also a member of group g incurs a cache miss.</text>
+<text top="1056" left="803" width="23" height="13" font="2">The</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="86" left="97" width="351" height="13" font="2">number of zone-records available per cache line, τ , is given</text>
+<text top="103" left="97" width="88" height="13" font="2">by Equation 1.</text>
+<text top="145" left="202" width="7" height="14" font="3">τ</text>
+<text top="141" left="226" width="12" height="19" font="3">=</text>
+<text top="135" left="254" width="87" height="13" font="2">cache line size</text>
+<text top="155" left="266" width="41" height="14" font="3">sizeof</text>
+<text top="151" left="309" width="19" height="19" font="3">(g)</text>
+<text top="145" left="431" width="17" height="13" font="2">(1)</text>
+<text top="188" left="97" width="351" height="13" font="2">The number of zone-records between successive record ac-</text>
+<text top="205" left="97" width="214" height="13" font="2">cesses, itval, is given in Equation 2</text>
+<text top="246" left="224" width="31" height="14" font="3">itval</text>
+<text top="242" left="270" width="12" height="19" font="3">=</text>
+<text top="232" left="305" width="7" height="19" font="3">1</text>
+<text top="256" left="299" width="21" height="14" font="3">acc</text>
+<text top="246" left="431" width="17" height="13" font="2">(2)</text>
+<text top="285" left="97" width="351" height="13" font="2">If the interval of zone-records, itval, is larger than the num-</text>
+<text top="303" left="97" width="351" height="13" font="2">ber of zone-records available in one cache line, each zone-</text>
+<text top="320" left="97" width="351" height="13" font="2">record accessed incurs a cache miss for each cache line</text>
+<text top="337" left="97" width="351" height="13" font="2">spanned by the group. The model returns the number of</text>
+<text top="354" left="97" width="293" height="13" font="2">cache misses per record, as shown in Equation 3.</text>
+<text top="397" left="123" width="40" height="14" font="3">model</text>
+<text top="393" left="163" width="60" height="19" font="3">(q, g) =</text>
+<text top="383" left="258" width="6" height="14" font="19">1</text>
+<text top="394" left="258" width="6" height="14" font="19">τ</text>
+<text top="388" left="330" width="70" height="13" font="2">if itval &lt; τ</text>
+<text top="406" left="256" width="21" height="14" font="3">acc</text>
+<text top="402" left="280" width="7" height="19" font="3">∗</text>
+<text top="400" left="300" width="6" height="14" font="19">1</text>
+<text top="411" left="299" width="6" height="14" font="19">τ</text>
+<text top="406" left="330" width="60" height="13" font="2">if itval &gt;</text>
+<text top="402" left="389" width="22" height="19" font="3">= τ</text>
+<text top="397" left="431" width="17" height="13" font="2">(3)</text>
+<text top="441" left="115" width="333" height="13" font="2">Our cache-miss model attempts to capture the ﬁrst-order</text>
+<text top="458" left="97" width="351" height="13" font="2">effects of accessing the records in a heap ﬁle, either through</text>
+<text top="475" left="97" width="351" height="13" font="2">a sequential ﬁle-scan or as part of an index scan. This</text>
+<text top="492" left="97" width="351" height="13" font="2">model relies on the assumption that the attributes are ac-</text>
+<text top="509" left="97" width="351" height="13" font="2">cessed in a uniformly random fashion, the cache line be-</text>
+<text top="526" left="97" width="351" height="13" font="2">ing accessed is not removed from the processor cache be-</text>
+<text top="543" left="97" width="351" height="13" font="2">fore the all of the attributes in that cache line have been</text>
+<text top="560" left="97" width="351" height="13" font="2">processed, and that the data was removed from the pro-</text>
+<text top="577" left="97" width="351" height="13" font="2">cessor cache between successive record scan operations.</text>
+<text top="594" left="97" width="351" height="13" font="2">Our model may unfairly penalize group sizes larger than a</text>
+<text top="611" left="97" width="351" height="13" font="2">cache line due to the assumption that a query on that group</text>
+<text top="628" left="97" width="351" height="13" font="2">will incur a cache miss for each cache line spanned by that</text>
+<text top="646" left="97" width="39" height="13" font="2">group.</text>
+<text top="664" left="115" width="333" height="13" font="2">For typical cache line sizes (32 and 64 bytes), we be-</text>
+<text top="681" left="97" width="351" height="13" font="2">lieve it is reasonable to assume that all of the data in a sin-</text>
+<text top="698" left="97" width="351" height="13" font="2">gle cache line will be processed before that cache line is</text>
+<text top="715" left="97" width="351" height="13" font="2">evicted. Also, when processing sequential scans of even</text>
+<text top="732" left="97" width="351" height="13" font="2">moderate size heap ﬁles, and with many concurrently exe-</text>
+<text top="749" left="97" width="351" height="13" font="2">cuting database operations, the processor cache is unlikely</text>
+<text top="766" left="97" width="351" height="13" font="2">to contain the same records upon the next occurrence of a</text>
+<text top="783" left="97" width="351" height="13" font="2">ﬁle scan operation. But, if the heap ﬁle is used in many</text>
+<text top="800" left="97" width="351" height="13" font="2">queries or the heap ﬁle is not large relative to the processor</text>
+<text top="817" left="97" width="351" height="13" font="2">cache, the data may reside in the processor cache between</text>
+<text top="834" left="97" width="351" height="13" font="2">successive scans. For this scenario, incorporating Carde-</text>
+<text top="851" left="97" width="351" height="13" font="2">nas’s formula [10], or possibly Yao’s formula [23], into the</text>
+<text top="868" left="97" width="351" height="13" font="2">model may provide a more cache-efﬁcient attribute parti-</text>
+<text top="885" left="97" width="351" height="13" font="2">tion and is the subject of future work. We also plan to</text>
+<text top="902" left="97" width="351" height="13" font="2">revisit the assumption that data is accessed uniformly by</text>
+<text top="919" left="97" width="351" height="13" font="2">incorporating the distribution type of the data. Finally, we</text>
+<text top="936" left="97" width="351" height="13" font="2">plan to more fairly incorporate group sizes larger than the</text>
+<text top="953" left="97" width="306" height="13" font="2">cache line size in future versions of the cost model.</text>
+<text top="971" left="115" width="333" height="13" font="2">Even though our cache-miss model is very simple, the</text>
+<text top="988" left="97" width="351" height="13" font="2">experimental evaluation shows that it still allows cache-</text>
+<text top="1005" left="97" width="351" height="13" font="2">efﬁcient attribute partitions to be calculated. We expect</text>
+<text top="1022" left="97" width="351" height="13" font="2">that the performance of a more complex cost model will</text>
+<text top="1039" left="97" width="351" height="13" font="2">improve the quality of the attribute partitions but with an</text>
+<text top="1056" left="97" width="181" height="13" font="2">additional computational cost.</text>
+<text top="86" left="493" width="333" height="13" font="2">Using the example relation and query in Figure 5, the</text>
+<text top="103" left="475" width="123" height="13" font="2">cost of grouping the</text>
+<text top="104" left="603" width="72" height="12" font="4">priority</text>
+<text top="103" left="680" width="22" height="13" font="2">and</text>
+<text top="104" left="706" width="45" height="12" font="4">usage</text>
+<text top="103" left="756" width="70" height="13" font="2">attributes is</text>
+<text top="120" left="475" width="320" height="13" font="2">calculated as follows. The query, q, on the relation is:</text>
+<text top="150" left="512" width="7" height="14" font="3">q</text>
+<text top="147" left="524" width="27" height="19" font="3">= ((</text>
+<text top="152" left="551" width="72" height="12" font="4">priority</text>
+<text top="150" left="623" width="4" height="14" font="3">,</text>
+<text top="147" left="630" width="45" height="19" font="3">100%),</text>
+<text top="168" left="545" width="6" height="19" font="3">(</text>
+<text top="173" left="551" width="72" height="12" font="4">location</text>
+<text top="172" left="623" width="4" height="14" font="3">,</text>
+<text top="168" left="630" width="57" height="19" font="3">12.5%), (</text>
+<text top="173" left="687" width="45" height="12" font="4">usage</text>
+<text top="172" left="732" width="4" height="14" font="3">,</text>
+<text top="168" left="738" width="51" height="19" font="3">12.5%))</text>
+<text top="203" left="475" width="99" height="13" font="2">The group, g, is:</text>
+<text top="234" left="568" width="7" height="14" font="3">g</text>
+<text top="230" left="580" width="23" height="19" font="3">= {</text>
+<text top="235" left="603" width="72" height="12" font="4">priority</text>
+<text top="234" left="675" width="4" height="14" font="3">,</text>
+<text top="235" left="681" width="45" height="12" font="4">usage</text>
+<text top="230" left="726" width="7" height="19" font="3">}</text>
+<text top="265" left="475" width="351" height="13" font="2">The size of group g is 8 bytes. The size of a cache line is</text>
+<text top="282" left="475" width="351" height="13" font="2">assumed to be 32 bytes. The access rate, acc, of group g is</text>
+<text top="299" left="475" width="299" height="13" font="2">the access rate of the highest accessed attribute a</text>
+<text top="295" left="780" width="47" height="19" font="3">∈ g. In</text>
+<text top="316" left="475" width="107" height="13" font="2">this example, acc</text>
+<text top="312" left="589" width="238" height="19" font="3">= 1. The number of groups per cache</text>
+<text top="333" left="475" width="37" height="13" font="2">line, τ</text>
+<text top="329" left="520" width="306" height="19" font="3">= 32/8 = 4, means that four zone-records of this</text>
+<text top="350" left="475" width="351" height="13" font="2">group g can be accessed in one cache miss. Now, we need</text>
+<text top="367" left="475" width="318" height="13" font="2">to calculate how often this group is accessed. itval</text>
+<text top="363" left="800" width="26" height="19" font="3">= 1</text>
+<text top="384" left="475" width="351" height="13" font="2">states that every record is accessed. Because four zone-</text>
+<text top="401" left="475" width="351" height="13" font="2">records can be read for every cache miss, the cost of this</text>
+<text top="418" left="475" width="116" height="13" font="2">query on group g is</text>
+<text top="414" left="595" width="176" height="19" font="3">0.25 cache misses per record.</text>
+<text top="451" left="475" width="30" height="13" font="18"><b>4.2.3</b></text>
+<text top="451" left="520" width="106" height="13" font="18"><b>Naive Algorithm</b></text>
+<text top="477" left="475" width="351" height="13" font="2">The Naive algorithm calculates the optimal attribute parti-</text>
+<text top="494" left="475" width="351" height="13" font="2">tions based on the cost of each possible partition. The opti-</text>
+<text top="511" left="475" width="351" height="13" font="2">mal partitions are the candidates that result in the fewest</text>
+<text top="528" left="475" width="351" height="13" font="2">number of overall cache misses for the query workload.</text>
+<text top="545" left="475" width="351" height="13" font="2">The cost of executing a query on a relation that uses a par-</text>
+<text top="562" left="475" width="351" height="13" font="2">ticular partition p is the sum of the cost to access the at-</text>
+<text top="579" left="475" width="351" height="13" font="2">tributes from each group in the partition, as shown in Equa-</text>
+<text top="596" left="475" width="38" height="13" font="2">tion 4.</text>
+<text top="640" left="545" width="26" height="14" font="3">cost</text>
+<text top="637" left="571" width="49" height="19" font="3">(q, p) =</text>
+<text top="621" left="628" width="13" height="14" font="19">|p|</text>
+<text top="658" left="625" width="19" height="14" font="19">i=1</text>
+<text top="640" left="648" width="40" height="14" font="3">model</text>
+<text top="637" left="688" width="27" height="19" font="3">(q, p</text>
+<text top="643" left="715" width="4" height="14" font="19">i</text>
+<text top="637" left="720" width="6" height="19" font="3">)</text>
+<text top="641" left="809" width="17" height="13" font="2">(4)</text>
+<text top="685" left="475" width="351" height="13" font="2">Equation 4 calculates the cost of executing query q on the</text>
+<text top="702" left="475" width="168" height="13" font="2">partition p. In Equation 4,</text>
+<text top="698" left="650" width="176" height="19" font="3">|p| represents the number of</text>
+<text top="719" left="475" width="162" height="13" font="2">groups in the partition p, p</text>
+<text top="722" left="637" width="4" height="14" font="19">i</text>
+<text top="719" left="646" width="180" height="13" font="2">represents group i in partition</text>
+<text top="736" left="475" width="79" height="14" font="3">p, and model</text>
+<text top="732" left="555" width="27" height="19" font="3">(q, p</text>
+<text top="739" left="582" width="4" height="14" font="19">i</text>
+<text top="732" left="587" width="239" height="19" font="3">) is the number of cache misses incurred</text>
+<text top="753" left="475" width="265" height="13" font="2">for query q to access the attributes in group p</text>
+<text top="756" left="740" width="4" height="14" font="19">i</text>
+<text top="753" left="748" width="78" height="13" font="2">(Equation 3).</text>
+<text top="770" left="493" width="333" height="13" font="2">The Naive algorithm calculates the cost of each possible</text>
+<text top="787" left="475" width="351" height="13" font="2">partition and selects the partitions with the lowest overall</text>
+<text top="804" left="475" width="351" height="13" font="2">cost for the set of queries Q. The method for calculating</text>
+<text top="821" left="475" width="233" height="13" font="2">the lowest cost is shown in Equation 5.</text>
+<text top="870" left="517" width="26" height="14" font="3">cost</text>
+<text top="873" left="543" width="22" height="14" font="19">min</text>
+<text top="867" left="581" width="12" height="19" font="3">=</text>
+<text top="867" left="619" width="25" height="19" font="3">min</text>
+<text top="881" left="608" width="46" height="14" font="19">i=1...|P |</text>
+<text top="837" left="657" width="13" height="19" font="3"></text>
+<text top="863" left="657" width="13" height="19" font="3"></text>
+<text top="851" left="672" width="17" height="14" font="19">|Q|</text>
+<text top="888" left="670" width="21" height="14" font="19">j=1</text>
+<text top="870" left="694" width="26" height="14" font="3">cost</text>
+<text top="867" left="720" width="18" height="19" font="3">(Q</text>
+<text top="873" left="738" width="5" height="14" font="19">j</text>
+<text top="870" left="744" width="16" height="14" font="3">, P</text>
+<text top="873" left="760" width="4" height="14" font="19">i</text>
+<text top="867" left="765" width="6" height="19" font="3">)</text>
+<text top="837" left="771" width="13" height="19" font="3"></text>
+<text top="863" left="771" width="13" height="19" font="3"></text>
+<text top="871" left="809" width="17" height="13" font="2">(5)</text>
+<text top="920" left="475" width="87" height="13" font="2">In Equation 5,</text>
+<text top="916" left="568" width="258" height="19" font="3">|P | is the number of possible partitions of</text>
+<text top="937" left="475" width="156" height="13" font="2">the set of attributes A, P</text>
+<text top="940" left="631" width="4" height="14" font="19">i</text>
+<text top="937" left="642" width="77" height="13" font="2">is partition i</text>
+<text top="933" left="727" width="99" height="19" font="3">∈ P , |Q| is the</text>
+<text top="954" left="475" width="249" height="13" font="2">number of queries in the workload, and Q</text>
+<text top="957" left="725" width="5" height="14" font="19">j</text>
+<text top="954" left="734" width="57" height="13" font="2">is query j</text>
+<text top="950" left="797" width="30" height="19" font="3">∈ Q.</text>
+<text top="971" left="493" width="333" height="13" font="2">Because a group may be used in several partitions, cal-</text>
+<text top="988" left="475" width="351" height="13" font="2">culating the cost of a partition in Equation 5 repeats work</text>
+<text top="1005" left="475" width="351" height="13" font="2">that may have been previously computed. Instead of calcu-</text>
+<text top="1022" left="475" width="351" height="13" font="2">lating the cost of each partition, we can calculate the cost</text>
+<text top="1039" left="475" width="351" height="13" font="2">of each possible group. The cost of a partition is the sum of</text>
+<text top="1056" left="475" width="351" height="13" font="2">the costs of each group in the partition. If a table is created</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="88" left="141" width="76" height="12" font="7"><b>Naive(Q,P,G)</b></text>
+<text top="104" left="141" width="163" height="12" font="9">(* Q is the set of all queries *)</text>
+<text top="119" left="141" width="173" height="12" font="9">(* P is the set of all partitions *)</text>
+<text top="135" left="141" width="161" height="12" font="9">(* G is the set of all groups *)</text>
+<text top="166" left="168" width="166" height="12" font="9">(* Compute each group cost *)</text>
+<text top="182" left="168" width="24" height="12" font="9">for i</text>
+<text top="178" left="195" width="99" height="17" font="11">← 1 to length[G]</text>
+<text top="197" left="195" width="25" height="12" font="9">for j</text>
+<text top="194" left="224" width="99" height="17" font="11">← 1 to length[Q]</text>
+<text top="213" left="222" width="29" height="12" font="11">table</text>
+<text top="209" left="251" width="136" height="17" font="11">[i] ← model(Q[j], G[i])</text>
+<text top="229" left="168" width="237" height="12" font="9">(* Compute each possible partition’s cost *)</text>
+<text top="244" left="168" width="10" height="12" font="11">R</text>
+<text top="241" left="182" width="25" height="17" font="11">← ∅</text>
+<text top="260" left="168" width="24" height="12" font="9">for i</text>
+<text top="256" left="195" width="99" height="17" font="11">← 1 to length[P ]</text>
+<text top="275" left="195" width="7" height="12" font="11">p</text>
+<text top="272" left="205" width="41" height="17" font="11">← P [i]</text>
+<text top="291" left="195" width="25" height="12" font="9">for j</text>
+<text top="287" left="224" width="96" height="17" font="11">← 1 to length[p]</text>
+<text top="307" left="222" width="166" height="12" font="9">(* g is a <i>group </i>in partition p *)</text>
+<text top="322" left="222" width="7" height="12" font="11">g</text>
+<text top="319" left="232" width="25" height="17" font="11">← p</text>
+<text top="327" left="257" width="5" height="9" font="16">j</text>
+<text top="338" left="222" width="27" height="12" font="11">sum</text>
+<text top="334" left="252" width="105" height="17" font="11">← sum + table[g]</text>
+<text top="353" left="195" width="188" height="12" font="9">(* Record all min cost partitions *)</text>
+<text top="369" left="195" width="38" height="12" font="9">if sum</text>
+<text top="366" left="237" width="64" height="17" font="11">= mincost</text>
+<text top="384" left="222" width="10" height="12" font="11">R</text>
+<text top="381" left="236" width="51" height="17" font="11">← R ∪ p</text>
+<text top="400" left="195" width="106" height="12" font="9">if sum &lt; mincost</text>
+<text top="416" left="222" width="10" height="12" font="11">R</text>
+<text top="412" left="236" width="25" height="17" font="11">← p</text>
+<text top="431" left="222" width="49" height="12" font="11">mincost</text>
+<text top="428" left="275" width="44" height="17" font="11">← sum</text>
+<text top="447" left="168" width="46" height="12" font="9">return R</text>
+<text top="483" left="193" width="160" height="13" font="2">Figure 7: Naive Algorithm</text>
+<text top="514" left="97" width="201" height="13" font="2">to record the cost of each group g</text>
+<text top="510" left="303" width="146" height="19" font="3">∈ G, the cost of the par-</text>
+<text top="531" left="97" width="351" height="13" font="2">tition p can be calculated by a series of table lookups. The</text>
+<text top="548" left="97" width="26" height="14" font="3">cost</text>
+<text top="551" left="123" width="22" height="14" font="19">min</text>
+<text top="548" left="150" width="299" height="13" font="2">formula in Equation 5 can then be expressed using</text>
+<text top="565" left="97" width="69" height="13" font="2">Equation 8.</text>
+<text top="615" left="173" width="31" height="14" font="3">table</text>
+<text top="611" left="204" width="43" height="19" font="3">[g] =</text>
+<text top="596" left="264" width="17" height="14" font="19">|Q|</text>
+<text top="633" left="263" width="19" height="14" font="19">i=1</text>
+<text top="615" left="286" width="40" height="14" font="3">model</text>
+<text top="611" left="326" width="18" height="19" font="3">(Q</text>
+<text top="618" left="343" width="4" height="14" font="19">i</text>
+<text top="615" left="348" width="14" height="14" font="3">, g</text>
+<text top="611" left="362" width="6" height="19" font="3">)</text>
+<text top="615" left="431" width="17" height="13" font="2">(6)</text>
+<text top="669" left="175" width="26" height="14" font="3">cost</text>
+<text top="666" left="201" width="46" height="19" font="3">(p) =</text>
+<text top="650" left="266" width="13" height="14" font="19">|p|</text>
+<text top="688" left="264" width="18" height="14" font="19">i=i</text>
+<text top="669" left="286" width="31" height="14" font="3">table</text>
+<text top="666" left="317" width="12" height="19" font="3">[p</text>
+<text top="672" left="329" width="4" height="14" font="19">i</text>
+<text top="666" left="334" width="4" height="19" font="3">]</text>
+<text top="670" left="431" width="17" height="13" font="2">(7)</text>
+<text top="706" left="171" width="26" height="14" font="3">cost</text>
+<text top="709" left="197" width="22" height="14" font="19">min</text>
+<text top="702" left="235" width="12" height="19" font="3">=</text>
+<text top="702" left="272" width="25" height="19" font="3">min</text>
+<text top="717" left="262" width="46" height="14" font="19">i=1...|P |</text>
+<text top="702" left="310" width="47" height="19" font="3">(cost(P</text>
+<text top="709" left="358" width="4" height="14" font="19">i</text>
+<text top="702" left="363" width="12" height="19" font="3">))</text>
+<text top="706" left="431" width="17" height="13" font="2">(8)</text>
+<text top="749" left="115" width="333" height="13" font="2">In Equation 6, a table of the costs of each group g is</text>
+<text top="766" left="97" width="351" height="13" font="2">ﬁrst computed for the query workload Q. In Equation 7,</text>
+<text top="783" left="97" width="351" height="13" font="2">the cost of a partition is then computed by summing the</text>
+<text top="800" left="97" width="351" height="13" font="2">costs of the individual groups contained in the partition.</text>
+<text top="817" left="97" width="351" height="13" font="2">Equation 8 ﬁnds the minimum cost of all the partitions in</text>
+<text top="834" left="97" width="351" height="14" font="3">P . The partitions that correspond to the minimum number</text>
+<text top="851" left="97" width="351" height="13" font="2">of cache misses is the solution. Pseudo-code for the Naive</text>
+<text top="868" left="97" width="187" height="13" font="2">algorithm is shown in Figure 7.</text>
+<text top="886" left="115" width="333" height="13" font="2">Unfortunately, the Naive algorithm is exponential in</text>
+<text top="903" left="97" width="242" height="13" font="2">both time and space. For each query q</text>
+<text top="899" left="347" width="102" height="19" font="3">∈ Q, n possible</text>
+<text top="920" left="97" width="351" height="13" font="2">attributes are examined. The number of groups to exam-</text>
+<text top="937" left="97" width="32" height="13" font="2">ine is</text>
+<text top="933" left="134" width="7" height="19" font="3">2</text>
+<text top="932" left="141" width="7" height="14" font="19">n</text>
+<text top="937" left="149" width="299" height="13" font="2">, where n is the number of attributes in a relation.</text>
+<text top="954" left="97" width="281" height="13" font="2">The total cost to record the group cost table is</text>
+<text top="950" left="383" width="48" height="19" font="3">O(mn2</text>
+<text top="949" left="431" width="7" height="14" font="19">n</text>
+<text top="950" left="439" width="10" height="19" font="3">),</text>
+<text top="971" left="97" width="351" height="13" font="2">where m is the number of queries in the query set. The</text>
+<text top="988" left="97" width="351" height="13" font="2">number of possible attribute partitions is described by Bell</text>
+<text top="1005" left="97" width="351" height="13" font="2">numbers. Several authors have studied the asymptotic limit</text>
+<text top="1022" left="97" width="351" height="13" font="2">of the Bell numbers [13, 19]. Approximating the ﬁndings</text>
+<text top="1039" left="97" width="351" height="13" font="2">of de Bruijn, the Bell numbers have an asymptotic limit of</text>
+<text top="1052" left="97" width="25" height="19" font="3">O(e</text>
+<text top="1051" left="122" width="36" height="14" font="19">n ln(n)</text>
+<text top="1052" left="159" width="289" height="19" font="3">). The time complexity of the algorithm is there-</text>
+<text top="84" left="528" width="34" height="12" font="9">Group</text>
+<text top="84" left="742" width="25" height="12" font="9">Cost</text>
+<text top="99" left="528" width="7" height="17" font="11">{</text>
+<text top="103" left="535" width="65" height="11" font="10">priority</text>
+<text top="99" left="600" width="7" height="17" font="11">}</text>
+<text top="99" left="742" width="31" height="17" font="11">0.125</text>
+<text top="115" left="528" width="7" height="17" font="11">{</text>
+<text top="120" left="535" width="65" height="11" font="10">location</text>
+<text top="115" left="600" width="7" height="17" font="11">}</text>
+<text top="115" left="742" width="31" height="17" font="11">0.125</text>
+<text top="132" left="528" width="7" height="17" font="11">{</text>
+<text top="136" left="535" width="40" height="11" font="10">usage</text>
+<text top="132" left="575" width="7" height="17" font="11">}</text>
+<text top="132" left="742" width="31" height="17" font="11">0.125</text>
+<text top="148" left="528" width="7" height="17" font="11">{</text>
+<text top="152" left="535" width="65" height="11" font="10">priority</text>
+<text top="151" left="600" width="4" height="12" font="11">,</text>
+<text top="152" left="606" width="65" height="11" font="10">location</text>
+<text top="148" left="670" width="7" height="17" font="11">}</text>
+<text top="148" left="742" width="25" height="17" font="11">0.25</text>
+<text top="164" left="528" width="7" height="17" font="11">{</text>
+<text top="168" left="535" width="65" height="11" font="10">priority</text>
+<text top="167" left="600" width="4" height="12" font="11">,</text>
+<text top="168" left="606" width="40" height="11" font="10">usage</text>
+<text top="164" left="646" width="7" height="17" font="11">}</text>
+<text top="164" left="742" width="25" height="17" font="11">0.25</text>
+<text top="180" left="528" width="7" height="17" font="11">{</text>
+<text top="185" left="535" width="65" height="11" font="10">location</text>
+<text top="184" left="600" width="4" height="12" font="11">,</text>
+<text top="185" left="606" width="40" height="11" font="10">usage</text>
+<text top="180" left="646" width="7" height="17" font="11">}</text>
+<text top="180" left="742" width="31" height="17" font="11">0.125</text>
+<text top="196" left="528" width="7" height="17" font="11">{</text>
+<text top="201" left="535" width="65" height="11" font="10">priority</text>
+<text top="200" left="600" width="4" height="12" font="11">,</text>
+<text top="201" left="606" width="65" height="11" font="10">location</text>
+<text top="200" left="670" width="4" height="12" font="11">,</text>
+<text top="201" left="677" width="40" height="11" font="10">usage</text>
+<text top="196" left="717" width="7" height="17" font="11">}</text>
+<text top="196" left="742" width="31" height="17" font="11">0.375</text>
+<text top="231" left="556" width="190" height="13" font="2">Table 2: Example: Group Costs</text>
+<text top="265" left="507" width="46" height="12" font="9">Partition</text>
+<text top="265" left="762" width="25" height="12" font="9">Cost</text>
+<text top="280" left="507" width="14" height="17" font="11">{{</text>
+<text top="285" left="521" width="65" height="11" font="10">priority</text>
+<text top="280" left="586" width="20" height="17" font="11">}, {</text>
+<text top="285" left="606" width="65" height="11" font="10">location</text>
+<text top="280" left="670" width="20" height="17" font="11">}, {</text>
+<text top="285" left="690" width="40" height="11" font="10">usage</text>
+<text top="280" left="731" width="14" height="17" font="11">}}</text>
+<text top="280" left="762" width="31" height="17" font="11">0.375</text>
+<text top="297" left="507" width="14" height="17" font="11">{{</text>
+<text top="301" left="521" width="65" height="11" font="10">priority</text>
+<text top="300" left="586" width="4" height="12" font="11">,</text>
+<text top="301" left="592" width="65" height="11" font="10">location</text>
+<text top="297" left="657" width="20" height="17" font="11">}, {</text>
+<text top="301" left="677" width="40" height="11" font="10">usage</text>
+<text top="297" left="717" width="14" height="17" font="11">}}</text>
+<text top="297" left="762" width="31" height="17" font="11">0.375</text>
+<text top="313" left="507" width="14" height="17" font="11">{{</text>
+<text top="317" left="521" width="65" height="11" font="10">priority</text>
+<text top="316" left="586" width="4" height="12" font="11">,</text>
+<text top="317" left="592" width="40" height="11" font="10">usage</text>
+<text top="313" left="632" width="20" height="17" font="11">}, {</text>
+<text top="317" left="652" width="65" height="11" font="10">location</text>
+<text top="313" left="717" width="14" height="17" font="11">}}</text>
+<text top="313" left="762" width="31" height="17" font="11">0.375</text>
+<text top="329" left="507" width="14" height="17" font="11">{{</text>
+<text top="333" left="521" width="65" height="11" font="10">priority</text>
+<text top="329" left="586" width="20" height="17" font="11">}, {</text>
+<text top="333" left="606" width="65" height="11" font="10">location</text>
+<text top="332" left="670" width="4" height="12" font="11">,</text>
+<text top="333" left="677" width="40" height="11" font="10">usage</text>
+<text top="329" left="717" width="14" height="17" font="11">}}</text>
+<text top="329" left="762" width="25" height="17" font="11">0.25</text>
+<text top="345" left="507" width="14" height="17" font="11">{{</text>
+<text top="349" left="521" width="65" height="11" font="10">priority</text>
+<text top="348" left="586" width="4" height="12" font="11">,</text>
+<text top="349" left="592" width="65" height="11" font="10">location</text>
+<text top="348" left="657" width="4" height="12" font="11">,</text>
+<text top="349" left="663" width="40" height="11" font="10">usage</text>
+<text top="345" left="703" width="14" height="17" font="11">}}</text>
+<text top="345" left="762" width="31" height="17" font="11">0.375</text>
+<text top="380" left="549" width="203" height="13" font="2">Table 3: Example: Partition Costs</text>
+<text top="411" left="475" width="24" height="13" font="2">fore</text>
+<text top="407" left="503" width="25" height="19" font="3">O(e</text>
+<text top="406" left="528" width="36" height="14" font="19">n ln(n)</text>
+<text top="407" left="569" width="45" height="19" font="3">+ mn2</text>
+<text top="406" left="614" width="7" height="14" font="19">n</text>
+<text top="407" left="622" width="190" height="19" font="3">). The space complexity is Θ(2</text>
+<text top="406" left="812" width="7" height="14" font="19">n</text>
+<text top="407" left="820" width="6" height="19" font="3">)</text>
+<text top="428" left="475" width="171" height="13" font="2">to store the group-cost table.</text>
+<text top="446" left="493" width="333" height="13" font="2">We can demonstrate the Naive algorithm on the exam-</text>
+<text top="463" left="475" width="351" height="13" font="2">ple query in Figure 5. First, the cost of each group is pre-</text>
+<text top="480" left="475" width="351" height="13" font="2">computed and stored in a cost table, as shown in Table 2.</text>
+<text top="497" left="475" width="351" height="13" font="2">After precomputing the cost of each group, we compute the</text>
+<text top="514" left="475" width="351" height="13" font="2">cost of each partition, as shown in Table 3. The partition</text>
+<text top="531" left="475" width="351" height="13" font="2">that results in the minimum cost for this query workload is</text>
+<text top="544" left="475" width="15" height="19" font="3">{{</text>
+<text top="549" left="490" width="72" height="12" font="4">priority</text>
+<text top="544" left="562" width="22" height="19" font="3">}, {</text>
+<text top="549" left="583" width="72" height="12" font="4">location</text>
+<text top="548" left="655" width="4" height="14" font="3">,</text>
+<text top="549" left="662" width="45" height="12" font="4">usage</text>
+<text top="544" left="707" width="120" height="19" font="3">}}. In other words,</text>
+<text top="565" left="475" width="18" height="13" font="2">the</text>
+<text top="566" left="499" width="72" height="12" font="4">priority</text>
+<text top="565" left="575" width="251" height="13" font="2">attributes should be in one zone, and the</text>
+<text top="583" left="475" width="72" height="12" font="4">location</text>
+<text top="582" left="551" width="22" height="13" font="2">and</text>
+<text top="583" left="578" width="45" height="12" font="4">usage</text>
+<text top="582" left="627" width="199" height="13" font="2">attributes should be in a separate</text>
+<text top="599" left="475" width="87" height="13" font="2">zone, with the</text>
+<text top="600" left="568" width="72" height="12" font="4">location</text>
+<text top="599" left="644" width="22" height="13" font="2">and</text>
+<text top="600" left="671" width="45" height="12" font="4">usage</text>
+<text top="599" left="721" width="105" height="13" font="2">attributes of each</text>
+<text top="617" left="475" width="242" height="13" font="2">record written contiguously on the page.</text>
+<text top="634" left="493" width="333" height="13" font="2">The time complexity of the Naive algorithm is expo-</text>
+<text top="651" left="475" width="351" height="13" font="2">nential due to the number of possible partitions that must</text>
+<text top="668" left="475" width="351" height="13" font="2">be examined. The Hill-Climb algorithm, presented next,</text>
+<text top="685" left="475" width="351" height="13" font="2">trades the guarantee of ﬁnding the optimal partition for an</text>
+<text top="702" left="475" width="198" height="13" font="2">improvement in time complexity.</text>
+<text top="740" left="475" width="30" height="13" font="18"><b>4.2.4</b></text>
+<text top="740" left="520" width="139" height="13" font="18"><b>Hill-Climb Algorithm</b></text>
+<text top="767" left="475" width="351" height="13" font="2">The Naive algorithm computes the set of optimal partitions</text>
+<text top="784" left="475" width="351" height="13" font="2">but the time complexity is exponential due to the number of</text>
+<text top="801" left="475" width="351" height="13" font="2">possible partitions that must be examined. The Hill-Climb</text>
+<text top="818" left="475" width="351" height="13" font="2">algorithm trades the guarantee of optimality for faster com-</text>
+<text top="835" left="475" width="351" height="13" font="2">putation time. The Hill-Climb algorithm is computed as</text>
+<text top="852" left="475" width="351" height="13" font="2">follows. First, the cost of each attribute grouping is cal-</text>
+<text top="869" left="475" width="351" height="13" font="2">culated as in Equation 6 of the Naive algorithm. Each of</text>
+<text top="886" left="475" width="351" height="13" font="2">the n attributes are then partitioned into separate groups.</text>
+<text top="903" left="475" width="351" height="13" font="2">The algorithm then begins an iterative process to select a</text>
+<text top="920" left="475" width="351" height="13" font="2">partition. In the ﬁrst iteration, the algorithm considers the</text>
+<text top="937" left="475" width="351" height="13" font="2">effect of “merging” any two partitions. The cost of each</text>
+<text top="954" left="475" width="351" height="13" font="2">of these combinations is computed. (Each partition has ex-</text>
+<text top="971" left="475" width="42" height="13" font="2">actly n</text>
+<text top="967" left="521" width="305" height="19" font="3">− 2 groups with one attribute, and one group with</text>
+<text top="988" left="475" width="351" height="13" font="2">two attributes.) The partition that has the cheapest cost is</text>
+<text top="1005" left="475" width="351" height="13" font="2">then picked for the next iteration. The next iteration pro-</text>
+<text top="1022" left="475" width="351" height="13" font="2">ceeds in a similar fashion and considers all possible pair-</text>
+<text top="1039" left="475" width="351" height="13" font="2">ings of the remaining groups. Thus, in each iteration, the</text>
+<text top="1056" left="475" width="351" height="13" font="2">number of groups is reduced by one. This process is re-</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="88" left="124" width="95" height="12" font="7"><b>Hill-Climb(Q,G)</b></text>
+<text top="104" left="124" width="163" height="12" font="9">(* Q is the set of all queries *)</text>
+<text top="119" left="124" width="161" height="12" font="9">(* G is the set of all groups *)</text>
+<text top="150" left="151" width="144" height="12" font="9">(* Compute the cost, table</text>
+<text top="147" left="295" width="112" height="17" font="11">[i], of each group i*)</text>
+<text top="166" left="151" width="24" height="12" font="9">for i</text>
+<text top="163" left="178" width="103" height="17" font="11">← 1 to length(G)</text>
+<text top="182" left="177" width="25" height="12" font="9">for j</text>
+<text top="178" left="207" width="103" height="17" font="11">← 1 to length(Q)</text>
+<text top="197" left="204" width="29" height="12" font="11">table</text>
+<text top="194" left="233" width="136" height="17" font="11">[i] ← model(Q[j], G[i])</text>
+<text top="213" left="151" width="219" height="12" font="9">(* Compute the cost for each partition *)</text>
+<text top="228" left="151" width="34" height="12" font="11">Cand</text>
+<text top="225" left="188" width="134" height="17" font="11">← {{1}, {2}, · · · , {n}}</text>
+<text top="244" left="151" width="53" height="12" font="11">candcost</text>
+<text top="241" left="207" width="177" height="17" font="11">← cost(Cand) (* Equation 7 *)</text>
+<text top="259" left="151" width="10" height="12" font="11">R</text>
+<text top="256" left="165" width="25" height="17" font="11">← ∅</text>
+<text top="275" left="151" width="13" height="12" font="9">do</text>
+<text top="291" left="177" width="10" height="12" font="11">R</text>
+<text top="287" left="192" width="51" height="17" font="11">← Cand</text>
+<text top="306" left="177" width="49" height="12" font="11">mincost</text>
+<text top="303" left="231" width="71" height="17" font="11">← candcost</text>
+<text top="322" left="177" width="34" height="12" font="11">Cand</text>
+<text top="319" left="215" width="25" height="17" font="11">← ∅</text>
+<text top="338" left="177" width="24" height="12" font="9">for i</text>
+<text top="334" left="205" width="102" height="17" font="11">← 1 to length(R)</text>
+<text top="353" left="204" width="25" height="12" font="9">for j</text>
+<text top="350" left="234" width="124" height="17" font="11">← i + 1 to length(R)</text>
+<text top="369" left="231" width="6" height="12" font="11">s</text>
+<text top="366" left="241" width="42" height="17" font="11">← {{R</text>
+<text top="371" left="283" width="5" height="12" font="16">1</text>
+<text top="369" left="290" width="4" height="12" font="11">,</text>
+<text top="366" left="296" width="37" height="17" font="11">· · · , R</text>
+<text top="373" left="333" width="4" height="9" font="16">i</text>
+<text top="366" left="341" width="23" height="17" font="11">∪ R</text>
+<text top="373" left="364" width="5" height="9" font="16">j</text>
+<text top="369" left="370" width="4" height="12" font="11">,</text>
+<text top="366" left="376" width="32" height="17" font="11">· · · }}</text>
+<text top="384" left="231" width="34" height="12" font="11">Cand</text>
+<text top="381" left="269" width="73" height="17" font="11">← Cand ∪ s</text>
+<text top="400" left="177" width="191" height="12" font="9">(* Compute lowest cost partition *)</text>
+<text top="416" left="177" width="53" height="12" font="11">candcost</text>
+<text top="412" left="234" width="41" height="17" font="11">← min</text>
+<text top="421" left="275" width="62" height="9" font="16">i=1...|Cand|</text>
+<text top="412" left="338" width="69" height="17" font="11">(cost(Cand</text>
+<text top="420" left="406" width="4" height="9" font="16">i</text>
+<text top="412" left="411" width="11" height="17" font="11">))</text>
+<text top="431" left="177" width="34" height="12" font="11">Cand</text>
+<text top="428" left="215" width="41" height="17" font="11">← min</text>
+<text top="437" left="256" width="62" height="9" font="16">i=1...|Cand|</text>
+<text top="428" left="319" width="39" height="17" font="11">(Cand</text>
+<text top="436" left="358" width="4" height="9" font="16">i</text>
+<text top="428" left="362" width="5" height="17" font="11">)</text>
+<text top="447" left="151" width="154" height="12" font="9">while candcost &lt; mincost</text>
+<text top="463" left="151" width="46" height="12" font="9">return R</text>
+<text top="498" left="177" width="191" height="13" font="2">Figure 8: Hill-Climb Algorithm</text>
+<text top="528" left="97" width="351" height="13" font="2">peated until the total cost of the partition does not improve.</text>
+<text top="545" left="97" width="351" height="13" font="2">Ties among candidate partitions with the same cost are bro-</text>
+<text top="562" left="97" width="351" height="13" font="2">ken by randomly selecting a partition from the set. The</text>
+<text top="579" left="97" width="313" height="13" font="2">pseudo-code for this algorithm is shown in Figure 8.</text>
+<text top="596" left="115" width="137" height="13" font="2">The time complexity is</text>
+<text top="592" left="255" width="48" height="19" font="3">O(mn2</text>
+<text top="591" left="303" width="7" height="14" font="19">n</text>
+<text top="592" left="311" width="137" height="19" font="3">) to calculate the group</text>
+<text top="614" left="97" width="85" height="13" font="2">cost table and</text>
+<text top="610" left="188" width="27" height="19" font="3">O(n</text>
+<text top="608" left="215" width="6" height="14" font="19">3</text>
+<text top="610" left="222" width="227" height="19" font="3">) to calculate the best partition. The</text>
+<text top="631" left="97" width="231" height="13" font="2">resulting time complexity is therefore</text>
+<text top="627" left="333" width="48" height="19" font="3">O(mn2</text>
+<text top="625" left="381" width="7" height="14" font="19">n</text>
+<text top="627" left="389" width="59" height="19" font="3">). Again,</text>
+<text top="648" left="97" width="138" height="13" font="2">the space complexity is</text>
+<text top="644" left="238" width="25" height="19" font="3">Θ(2</text>
+<text top="642" left="263" width="7" height="14" font="19">n</text>
+<text top="644" left="271" width="177" height="19" font="3">) to store the group-cost table.</text>
+<text top="665" left="97" width="351" height="13" font="2">If space is not an issue, and if the query information arrives</text>
+<text top="682" left="97" width="351" height="13" font="2">at a relatively low rate, then this algorithm may perform</text>
+<text top="699" left="97" width="254" height="13" font="2">well, even for a large number of attributes.</text>
+<text top="716" left="115" width="333" height="13" font="2">The following describes the use of the Hill-Climb algo-</text>
+<text top="733" left="97" width="351" height="13" font="2">rithm on the example in Figure 5. The candidate partition</text>
+<text top="750" left="97" width="89" height="13" font="2">is initialized to</text>
+<text top="775" left="114" width="31" height="14" font="3">cand</text>
+<text top="771" left="150" width="31" height="19" font="3">= {{</text>
+<text top="776" left="180" width="72" height="12" font="4">priority</text>
+<text top="771" left="252" width="22" height="19" font="3">}, {</text>
+<text top="776" left="274" width="72" height="12" font="4">location</text>
+<text top="771" left="345" width="22" height="19" font="3">}, {</text>
+<text top="776" left="367" width="45" height="12" font="4">usage</text>
+<text top="771" left="412" width="19" height="19" font="3">}},</text>
+<text top="801" left="97" width="144" height="13" font="2">with a cost of candcost</text>
+<text top="797" left="246" width="202" height="19" font="3">= 0.375 cache misses per record.</text>
+<text top="818" left="97" width="351" height="13" font="2">The result of combining each group would result in a can-</text>
+<text top="835" left="97" width="77" height="13" font="2">didate set of:</text>
+<text top="860" left="117" width="31" height="14" font="3">cand</text>
+<text top="856" left="152" width="38" height="19" font="3">= {{{</text>
+<text top="861" left="190" width="72" height="12" font="4">priority</text>
+<text top="860" left="262" width="4" height="14" font="3">,</text>
+<text top="861" left="268" width="72" height="12" font="4">location</text>
+<text top="856" left="340" width="22" height="19" font="3">}, {</text>
+<text top="861" left="362" width="45" height="12" font="4">usage</text>
+<text top="856" left="406" width="19" height="19" font="3">}},</text>
+<text top="878" left="175" width="15" height="19" font="3">{{</text>
+<text top="883" left="190" width="72" height="12" font="4">priority</text>
+<text top="882" left="262" width="4" height="14" font="3">,</text>
+<text top="883" left="268" width="45" height="12" font="4">usage</text>
+<text top="878" left="313" width="22" height="19" font="3">}, {</text>
+<text top="883" left="335" width="72" height="12" font="4">location</text>
+<text top="878" left="406" width="19" height="19" font="3">}},</text>
+<text top="899" left="175" width="15" height="19" font="3">{{</text>
+<text top="904" left="190" width="72" height="12" font="4">priority</text>
+<text top="899" left="262" width="22" height="19" font="3">}, {</text>
+<text top="904" left="283" width="72" height="12" font="4">location</text>
+<text top="903" left="355" width="4" height="14" font="3">,</text>
+<text top="904" left="362" width="45" height="12" font="4">usage</text>
+<text top="899" left="406" width="22" height="19" font="3">}}}</text>
+<text top="929" left="97" width="351" height="13" font="2">The respective costs for each partition in the candidate set</text>
+<text top="946" left="97" width="10" height="13" font="2">is</text>
+<text top="942" left="112" width="336" height="19" font="3">(0.375, 0.375, 0.25) cache misses per record. The best</text>
+<text top="963" left="97" width="200" height="13" font="2">partition from the candidate set is</text>
+<text top="988" left="136" width="8" height="14" font="3">p</text>
+<text top="984" left="147" width="31" height="19" font="3">= {{</text>
+<text top="989" left="178" width="72" height="12" font="4">priority</text>
+<text top="984" left="250" width="22" height="19" font="3">}, {</text>
+<text top="989" left="271" width="72" height="12" font="4">location</text>
+<text top="988" left="343" width="4" height="14" font="3">,</text>
+<text top="989" left="350" width="45" height="12" font="4">usage</text>
+<text top="984" left="395" width="15" height="19" font="3">}}</text>
+<text top="1014" left="97" width="84" height="13" font="2">with a cost of</text>
+<text top="1010" left="186" width="263" height="19" font="3">0.25 cache misses per record, as calculated</text>
+<text top="1031" left="97" width="351" height="13" font="2">from Table 2. The second iteration creates the candidate set</text>
+<text top="1056" left="124" width="31" height="14" font="3">cand</text>
+<text top="1052" left="159" width="38" height="19" font="3">= {{{</text>
+<text top="1057" left="197" width="72" height="12" font="4">priority</text>
+<text top="1056" left="269" width="4" height="14" font="3">,</text>
+<text top="1057" left="276" width="72" height="12" font="4">location</text>
+<text top="1056" left="348" width="4" height="14" font="3">,</text>
+<text top="1057" left="354" width="45" height="12" font="4">usage</text>
+<text top="1052" left="399" width="22" height="19" font="3">}}}</text>
+<text top="86" left="475" width="84" height="13" font="2">with a cost of</text>
+<text top="82" left="564" width="262" height="19" font="3">0.375. Because the cost is greater than the</text>
+<text top="103" left="475" width="170" height="13" font="2">current best partition cost of</text>
+<text top="99" left="649" width="177" height="19" font="3">0.25 cache misses per record,</text>
+<text top="120" left="475" width="248" height="13" font="2">the algorithm terminates and the partition</text>
+<text top="152" left="514" width="8" height="14" font="3">p</text>
+<text top="148" left="525" width="31" height="19" font="3">= {{</text>
+<text top="153" left="556" width="72" height="12" font="4">priority</text>
+<text top="148" left="628" width="22" height="19" font="3">}, {</text>
+<text top="153" left="649" width="72" height="12" font="4">location</text>
+<text top="152" left="721" width="4" height="14" font="3">,</text>
+<text top="153" left="728" width="45" height="12" font="4">usage</text>
+<text top="148" left="773" width="15" height="19" font="3">}}</text>
+<text top="184" left="475" width="67" height="13" font="2">is returned.</text>
+<text top="219" left="475" width="9" height="16" font="5"><b>5</b></text>
+<text top="219" left="502" width="193" height="16" font="5"><b>Experimental Evaluation</b></text>
+<text top="247" left="475" width="351" height="13" font="2">In this section, we present the results of an experimental</text>
+<text top="264" left="475" width="261" height="13" font="2">evaluation of the Data Morphing technique.</text>
+<text top="298" left="475" width="19" height="13" font="18"><b>5.1</b></text>
+<text top="298" left="509" width="127" height="13" font="18"><b>Experimental Setup</b></text>
+<text top="324" left="475" width="351" height="13" font="2">Data Morphing was implemented within an experimental</text>
+<text top="341" left="475" width="351" height="13" font="2">database system that we are developing, called Quickstep.</text>
+<text top="358" left="475" width="351" height="13" font="2">The Quickstep DBMS uses ﬁxed-size pages for storing and</text>
+<text top="375" left="475" width="351" height="13" font="2">retrieving data from the disk. The DBMS allocates mem-</text>
+<text top="392" left="475" width="351" height="13" font="2">ory in pages that can then be saved to disk, and uses a</text>
+<text top="409" left="475" width="351" height="13" font="2">buffer manager to manage page caching in main memory.</text>
+<text top="426" left="475" width="351" height="13" font="2">If the database size is less than the buffer pool size, then</text>
+<text top="443" left="475" width="351" height="13" font="2">the entire database image is mapped to a contiguous space</text>
+<text top="460" left="475" width="351" height="13" font="2">in memory. In this mode, all disk pointers are <i>swizzled </i>to</text>
+<text top="477" left="475" width="351" height="13" font="2">direct memory pointers. In the experiments presented in</text>
+<text top="494" left="475" width="351" height="13" font="2">this section, the entire data set is always pinned in main</text>
+<text top="511" left="475" width="351" height="13" font="2">memory, so there is no disk I/O from swapping pages out</text>
+<text top="528" left="475" width="351" height="13" font="2">of the buffer. We expect that the performance improvement</text>
+<text top="545" left="475" width="351" height="13" font="2">of the DM technique to decrease as the amount of disk I/O</text>
+<text top="562" left="475" width="351" height="13" font="2">increases, but the DM technique is still applicable for use</text>
+<text top="579" left="475" width="319" height="13" font="2">on datasets that primarily reside in the main-memory.</text>
+<text top="596" left="493" width="333" height="13" font="2">Currently, Quickstep only supports ﬁle-level locks, and</text>
+<text top="613" left="475" width="351" height="13" font="2">updates are not logged. The code path in Quickstep is op-</text>
+<text top="630" left="475" width="351" height="13" font="2">timized for high-performance when the database primarily</text>
+<text top="647" left="475" width="351" height="13" font="2">resides in the main-memory. Quickstep executes fewer in-</text>
+<text top="664" left="475" width="351" height="13" font="2">structions per query and incurs fewer L1 instruction-cache</text>
+<text top="681" left="475" width="351" height="13" font="2">misses than commercial databases are expected to experi-</text>
+<text top="698" left="475" width="351" height="13" font="2">ence [3]. Quickstep uses cache-conscious hash and B+tree</text>
+<text top="716" left="475" width="351" height="13" font="2">index structures. Joins are evaluated using either nested-</text>
+<text top="733" left="475" width="351" height="13" font="2">loops or hash-join algorithms, and aggregates are evaluated</text>
+<text top="750" left="475" width="240" height="13" font="2">using a hash-based aggregate algorithm.</text>
+<text top="767" left="493" width="333" height="13" font="2">The experiments were performed on a 600 MHz, Intel</text>
+<text top="784" left="475" width="351" height="13" font="2">Pentium III processor, with 768MB of main memory. This</text>
+<text top="801" left="475" width="351" height="13" font="2">processor includes a two level cache hierarchy. There are</text>
+<text top="818" left="475" width="351" height="13" font="2">two ﬁrst level caches, named L1-I and L1-D, that cache in-</text>
+<text top="835" left="475" width="351" height="13" font="2">structions and data respectively. There is also a single L2</text>
+<text top="852" left="475" width="351" height="13" font="2">cache that stores both instructions and data. The L1 caches</text>
+<text top="869" left="475" width="351" height="13" font="2">are 16KB, 4-way, set-associative caches with a 32 byte</text>
+<text top="886" left="475" width="351" height="13" font="2">line size. The L2 cache is a 512KB, 4-way, set-associative</text>
+<text top="903" left="475" width="351" height="13" font="2">cache, also with a 32 byte line size. The operating system</text>
+<text top="920" left="475" width="199" height="13" font="2">was Linux, kernel version 2.4.18.</text>
+<text top="937" left="493" width="333" height="13" font="2">The Pentium III processor includes two event counters</text>
+<text top="954" left="475" width="351" height="13" font="2">that are available for recording events, such as the number</text>
+<text top="971" left="475" width="351" height="13" font="2">of instructions executed. To access the event counters, the</text>
+<text top="988" left="475" width="351" height="13" font="2">PAPI library was used [8]. The events measured include:</text>
+<text top="1005" left="475" width="351" height="13" font="2">the number of cycles executed, the number of instructions</text>
+<text top="1022" left="475" width="351" height="13" font="2">executed, and the number of L2 cache misses incurred. In</text>
+<text top="1039" left="475" width="351" height="13" font="2">the experimental results that follow, only the execution time</text>
+<text top="1056" left="475" width="270" height="13" font="2">and the number of cache misses are reported.</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="20" size="10" family="Times" color="#000000"/>
+	<fontspec id="21" size="10" family="Times" color="#000000"/>
+	<fontspec id="22" size="14" family="Times" color="#000000"/>
+	<fontspec id="23" size="8" family="Times" color="#000000"/>
+<text top="244" left="174" width="109" height="11" font="20">Q1 Q2 </text>
+<text top="234" left="143" width="5" height="8" font="15">0</text>
+<text top="202" left="125" width="23" height="8" font="15">5e+07</text>
+<text top="170" left="125" width="23" height="8" font="15">1e+08</text>
+<text top="139" left="118" width="30" height="8" font="15">1.5e+08</text>
+<text top="107" left="125" width="23" height="8" font="15">2e+08</text>
+<text top="199" left="109" width="0" height="11" font="21"><b>Clock Cycles</b></text>
+<text top="109" left="180" width="28" height="11" font="20">N-ary</text>
+<text top="124" left="180" width="24" height="11" font="20">PAX</text>
+<text top="138" left="180" width="19" height="11" font="20">DM</text>
+<text top="252" left="197" width="26" height="15" font="22">(A) </text>
+<text top="244" left="344" width="109" height="11" font="20">Q1 Q2 </text>
+<text top="234" left="313" width="5" height="8" font="15">0</text>
+<text top="202" left="291" width="27" height="8" font="15">400000</text>
+<text top="170" left="291" width="27" height="8" font="15">800000</text>
+<text top="139" left="288" width="30" height="8" font="15">1.2e+06</text>
+<text top="107" left="288" width="30" height="8" font="15">1.6e+06</text>
+<text top="200" left="279" width="0" height="11" font="21"><b>Cache Misses</b></text>
+<text top="109" left="350" width="28" height="11" font="20">N-ary</text>
+<text top="124" left="350" width="24" height="11" font="20">PAX</text>
+<text top="138" left="350" width="19" height="11" font="20">DM</text>
+<text top="248" left="368" width="26" height="15" font="22">(B) </text>
+<text top="222" left="544" width="115" height="11" font="20">1 4 8 12 </text>
+<text top="238" left="542" width="96" height="9" font="23"><b>Number of Attributes</b></text>
+<text top="211" left="503" width="23" height="8" font="15">0e+00</text>
+<text top="168" left="503" width="23" height="8" font="15">5e+07</text>
+<text top="124" left="503" width="23" height="8" font="15">1e+08</text>
+<text top="81" left="503" width="23" height="8" font="15">2e+08</text>
+<text top="175" left="495" width="0" height="11" font="21"><b>Clock Cycles</b></text>
+<text top="83" left="549" width="29" height="11" font="20">N-ary</text>
+<text top="99" left="549" width="25" height="11" font="20">PAX</text>
+<text top="116" left="549" width="20" height="11" font="20">DM</text>
+<text top="251" left="577" width="27" height="15" font="22">(A) </text>
+<text top="222" left="719" width="115" height="11" font="20">1 4 8 12 </text>
+<text top="238" left="718" width="96" height="9" font="23"><b>Number of Attributes</b></text>
+<text top="211" left="678" width="23" height="8" font="15">0e+00</text>
+<text top="179" left="678" width="23" height="8" font="15">2e+05</text>
+<text top="146" left="678" width="23" height="8" font="15">5e+05</text>
+<text top="113" left="678" width="23" height="8" font="15">8e+05</text>
+<text top="81" left="678" width="23" height="8" font="15">1e+06</text>
+<text top="177" left="671" width="0" height="11" font="21"><b>Cache Misses</b></text>
+<text top="83" left="724" width="29" height="11" font="20">N-ary</text>
+<text top="99" left="724" width="25" height="11" font="20">PAX</text>
+<text top="114" left="724" width="20" height="11" font="20">DM</text>
+<text top="249" left="753" width="26" height="15" font="22">(B) </text>
+<text top="280" left="173" width="191" height="13" font="2">Figure 9: Baseline Performance</text>
+<text top="280" left="556" width="198" height="13" font="2">Figure 10: Q1: Attribute Scaleup</text>
+<text top="310" left="115" width="333" height="13" font="2">The PAX storage model was implemented using the</text>
+<text top="327" left="97" width="351" height="13" font="2">Data Morphing slotted-pages, where each attribute is as-</text>
+<text top="344" left="97" width="351" height="13" font="2">signed to a separate zone. We chose to replace variable-</text>
+<text top="361" left="97" width="351" height="13" font="2">length attributes with ﬁxed-length attributes, if the values</text>
+<text top="378" left="97" width="351" height="13" font="2">in the variable-length attribute are 32 bytes, or smaller, in</text>
+<text top="395" left="97" width="351" height="13" font="2">size. It is possible to concurrently prefetch cache-lines but</text>
+<text top="412" left="97" width="351" height="13" font="2">we do not implement this optimization. Adding cache-line</text>
+<text top="429" left="97" width="351" height="13" font="2">prefetching <i>may </i>improve the performance of both the PAX</text>
+<text top="446" left="97" width="351" height="13" font="2">storage model and the DM model, but prefetching cache</text>
+<text top="464" left="97" width="351" height="13" font="2">lines can hurt performance if done incorrectly [1]; there-</text>
+<text top="481" left="97" width="268" height="13" font="2">fore, this optimization is left for future work.</text>
+<text top="502" left="115" width="333" height="13" font="2">For all the experiments presented here, the Hill-Climb</text>
+<text top="519" left="97" width="351" height="13" font="2">algorithm produced the same partitions as the Naive algo-</text>
+<text top="536" left="97" width="36" height="13" font="2">rithm.</text>
+<text top="593" left="97" width="19" height="13" font="18"><b>5.2</b></text>
+<text top="593" left="131" width="50" height="13" font="18"><b>Queries</b></text>
+<text top="626" left="97" width="351" height="13" font="2">The following experiments used query Q1 and query Q2,</text>
+<text top="643" left="97" width="351" height="13" font="2">shown in Table 4. These queries select records from the</text>
+<text top="660" left="97" width="202" height="13" font="2">the Wisconsin Benchmark’s [14]</text>
+<text top="661" left="305" width="45" height="12" font="4">TENK1</text>
+<text top="660" left="355" width="93" height="13" font="2">relation, scaled</text>
+<text top="677" left="97" width="351" height="13" font="2">to one million records. A non-clustered, B+-tree index is</text>
+<text top="694" left="97" width="110" height="13" font="2">constructed on the</text>
+<text top="695" left="211" width="63" height="12" font="4">unique1</text>
+<text top="694" left="277" width="144" height="13" font="2">attribute of this relation.</text>
+<text top="715" left="115" width="333" height="13" font="2">To answer a given query, the database system’s query</text>
+<text top="732" left="97" width="351" height="13" font="2">optimizer selects an index scan operator over a sequen-</text>
+<text top="749" left="97" width="351" height="13" font="2">tial ﬁle scan operator if (1) there exists a predicate on the</text>
+<text top="767" left="97" width="63" height="12" font="4">unique1</text>
+<text top="766" left="165" width="284" height="13" font="2">attribute, and (2) the selectivity is estimated to</text>
+<text top="783" left="97" width="351" height="13" font="2">be 10%, or less. The index scan operator uses the B+-tree</text>
+<text top="800" left="97" width="149" height="13" font="2">that is constructed on the</text>
+<text top="801" left="250" width="63" height="12" font="4">unique1</text>
+<text top="800" left="317" width="53" height="13" font="2">attribute.</text>
+<text top="836" left="112" width="7" height="13" font="2">#</text>
+<text top="836" left="142" width="37" height="13" font="2">Query</text>
+<text top="836" left="351" width="73" height="13" font="2">Access Plan</text>
+<text top="856" left="106" width="18" height="13" font="2">Q1</text>
+<text top="856" left="142" width="190" height="13" font="2">SELECT [varies] FROM Tenk1</text>
+<text top="856" left="351" width="85" height="13" font="2">Non-clustered</text>
+<text top="873" left="142" width="53" height="13" font="2">WHERE</text>
+<text top="874" left="199" width="63" height="12" font="4">unique1</text>
+<text top="873" left="266" width="12" height="14" font="3">&lt;</text>
+<text top="869" left="282" width="133" height="19" font="3">100, 000 index scan</text>
+<text top="891" left="106" width="18" height="13" font="2">Q2</text>
+<text top="891" left="142" width="190" height="13" font="2">SELECT [varies] FROM Tenk1</text>
+<text top="891" left="351" width="63" height="13" font="2">Sequential</text>
+<text top="908" left="142" width="53" height="13" font="2">WHERE</text>
+<text top="909" left="199" width="63" height="12" font="4">unique1</text>
+<text top="908" left="266" width="12" height="14" font="3">&lt;</text>
+<text top="904" left="282" width="119" height="19" font="3">200, 000 ﬁle scan</text>
+<text top="934" left="223" width="99" height="13" font="2">Table 4: Queries</text>
+<text top="971" left="115" width="333" height="13" font="2">Query Q1 selects 10% of the records in the <i>TENK1 </i>rela-</text>
+<text top="988" left="97" width="351" height="13" font="2">tion and accesses a variable number of attributes from each</text>
+<text top="1005" left="97" width="351" height="13" font="2">selected record. Query Q2 selects 20% of the records in the</text>
+<text top="1023" left="97" width="45" height="12" font="4">TENK1</text>
+<text top="1022" left="146" width="302" height="13" font="2">relation. Using the criteria speciﬁed for the query</text>
+<text top="1039" left="97" width="351" height="13" font="2">optimizer, Q1 is executed using an index scan operator and</text>
+<text top="1056" left="97" width="256" height="13" font="2">Q2 is executed using a sequential ﬁle scan.</text>
+<text top="310" left="475" width="19" height="13" font="18"><b>5.3</b></text>
+<text top="310" left="509" width="235" height="13" font="18"><b>Experiment 1: Baseline Performance</b></text>
+<text top="338" left="475" width="351" height="13" font="2">In this experiment, we executed queries Q1 and Q2, shown</text>
+<text top="355" left="475" width="351" height="13" font="2">in Table 4. Query Q1 selects the ﬁrst twelve attributes from</text>
+<text top="372" left="475" width="68" height="13" font="2">the relation</text>
+<text top="372" left="547" width="45" height="12" font="4">TENK1</text>
+<text top="372" left="592" width="234" height="13" font="2">, and query Q2 selects only the ﬁrst at-</text>
+<text top="389" left="475" width="121" height="13" font="2">tribute from relation</text>
+<text top="389" left="600" width="45" height="12" font="4">TENK1</text>
+<text top="389" left="645" width="4" height="13" font="2">.</text>
+<text top="407" left="493" width="333" height="13" font="2">Figure 9 shows the execution time and cache misses</text>
+<text top="424" left="475" width="351" height="13" font="2">experienced for queries Q1 and Q2. Query Q1 typiﬁes a</text>
+<text top="441" left="475" width="351" height="13" font="2">query that can be most efﬁciently executed when the data</text>
+<text top="458" left="475" width="351" height="13" font="2">is stored in the N-ary storage model. Query Q1 is executed</text>
+<text top="475" left="475" width="351" height="13" font="2">36% faster with the N-ary model than with the PAX model.</text>
+<text top="492" left="475" width="351" height="13" font="2">In addition, the N-ary storage model incurred 59% fewer</text>
+<text top="509" left="475" width="351" height="13" font="2">cache misses than PAX. By allocating the attributes in a</text>
+<text top="526" left="475" width="351" height="13" font="2">single zone, the DM storage model is similar to the N-ary</text>
+<text top="543" left="475" width="351" height="13" font="2">storage model; therefore, the performance of the query on</text>
+<text top="560" left="475" width="351" height="13" font="2">DM was very close to the performance on the N-ary model.</text>
+<text top="578" left="493" width="333" height="13" font="2">The PAX storage model provides cache efﬁcient data</text>
+<text top="595" left="475" width="351" height="13" font="2">storage for plans that access a small number of attributes</text>
+<text top="612" left="475" width="351" height="13" font="2">from a high percentage of the records in a ﬁle. Query Q2</text>
+<text top="629" left="475" width="351" height="13" font="2">typiﬁes such a query. As shown in Figure 9, query Q2</text>
+<text top="646" left="475" width="351" height="13" font="2">was 50% faster using PAX versus the N-ary storage model.</text>
+<text top="664" left="475" width="351" height="13" font="2">In addition, with PAX, this query experienced 88% fewer</text>
+<text top="681" left="475" width="351" height="13" font="2">cache misses than when using the N-ary storage model. By</text>
+<text top="698" left="475" width="351" height="13" font="2">allocating each attribute in its own zone, the DM storage</text>
+<text top="715" left="475" width="351" height="13" font="2">model is identical to the PAX storage model and shows</text>
+<text top="732" left="475" width="124" height="13" font="2">similar performance.</text>
+<text top="771" left="475" width="19" height="13" font="18"><b>5.4</b></text>
+<text top="771" left="509" width="214" height="13" font="18"><b>Experiment 2: Attribute Scale-up</b></text>
+<text top="799" left="475" width="351" height="13" font="2">We now examine the performance sensitivity of each stor-</text>
+<text top="816" left="475" width="351" height="13" font="2">age model when accessing an increasing number of at-</text>
+<text top="833" left="475" width="351" height="13" font="2">tributes from each selected record. For this analysis, we</text>
+<text top="850" left="475" width="351" height="13" font="2">again used queries Q1 and Q2, and changed the project list</text>
+<text top="867" left="475" width="351" height="13" font="2">to include an increasing number of randomly chosen at-</text>
+<text top="884" left="475" width="48" height="13" font="2">tributes.</text>
+<text top="902" left="493" width="333" height="13" font="2">Figure 10 shows the execution time and cache misses for</text>
+<text top="919" left="475" width="351" height="13" font="2">query Q1, as the number of attributes accessed increased.</text>
+<text top="936" left="475" width="351" height="13" font="2">When projecting eight attributes, the DM storage model re-</text>
+<text top="953" left="475" width="351" height="13" font="2">sulted in 29% faster evaluation as compared to PAX, and</text>
+<text top="970" left="475" width="351" height="13" font="2">incurred 60% fewer cache misses. Compared to the N-ary</text>
+<text top="987" left="475" width="351" height="13" font="2">model, DM performed 9% faster, with 33% fewer cache</text>
+<text top="1004" left="475" width="44" height="13" font="2">misses.</text>
+<text top="1022" left="493" width="333" height="13" font="2">The results shown in Figure 10 demonstrate that, for</text>
+<text top="1039" left="475" width="351" height="13" font="2">an index scan operation, partitioning the attributes into se-</text>
+<text top="1056" left="475" width="351" height="13" font="2">quential groups is more efﬁcient than vertically decompos-</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="222" left="157" width="115" height="11" font="20">1 4 8 12 </text>
+<text top="238" left="155" width="96" height="9" font="23"><b>Number of Attributes</b></text>
+<text top="211" left="116" width="23" height="8" font="15">0e+00</text>
+<text top="179" left="116" width="23" height="8" font="15">7e+07</text>
+<text top="146" left="116" width="23" height="8" font="15">1e+08</text>
+<text top="113" left="116" width="23" height="8" font="15">2e+08</text>
+<text top="81" left="116" width="23" height="8" font="15">3e+08</text>
+<text top="175" left="109" width="0" height="11" font="21"><b>Clock Cycles</b></text>
+<text top="83" left="162" width="29" height="11" font="20">N-ary</text>
+<text top="98" left="162" width="25" height="11" font="20">PAX</text>
+<text top="113" left="162" width="20" height="11" font="20">DM</text>
+<text top="250" left="190" width="27" height="15" font="22">(A) </text>
+<text top="222" left="332" width="115" height="11" font="20">1 4 8 12 </text>
+<text top="238" left="331" width="96" height="9" font="23"><b>Number of Attributes</b></text>
+<text top="211" left="291" width="23" height="8" font="15">0e+00</text>
+<text top="179" left="291" width="23" height="8" font="15">4e+05</text>
+<text top="146" left="291" width="23" height="8" font="15">9e+05</text>
+<text top="113" left="291" width="23" height="8" font="15">1e+06</text>
+<text top="81" left="291" width="23" height="8" font="15">2e+06</text>
+<text top="177" left="284" width="0" height="11" font="21"><b>Cache Misses</b></text>
+<text top="83" left="338" width="29" height="11" font="20">N-ary</text>
+<text top="98" left="338" width="25" height="11" font="20">PAX</text>
+<text top="113" left="338" width="20" height="11" font="20">DM</text>
+<text top="250" left="366" width="26" height="15" font="22">(B) </text>
+<text top="240" left="537" width="105" height="9" font="13">(20-80) (50-50) (80-20)</text>
+<text top="229" left="502" width="23" height="8" font="15">0e+00</text>
+<text top="197" left="502" width="23" height="8" font="15">6e+07</text>
+<text top="165" left="502" width="23" height="8" font="15">1e+08</text>
+<text top="132" left="502" width="23" height="8" font="15">2e+08</text>
+<text top="100" left="502" width="23" height="8" font="15">2e+08</text>
+<text top="194" left="495" width="0" height="11" font="21"><b>Clock Cycles</b></text>
+<text top="102" left="552" width="26" height="10" font="12">N-ary</text>
+<text top="116" left="552" width="23" height="10" font="12">PAX</text>
+<text top="130" left="552" width="18" height="10" font="12">DM</text>
+<text top="252" left="578" width="24" height="13" font="2">(A) </text>
+<text top="240" left="711" width="105" height="9" font="13">(20-80) (50-50) (80-20)</text>
+<text top="229" left="676" width="23" height="8" font="15">0e+00</text>
+<text top="197" left="676" width="23" height="8" font="15">4e+05</text>
+<text top="165" left="676" width="23" height="8" font="15">7e+05</text>
+<text top="132" left="676" width="23" height="8" font="15">1e+06</text>
+<text top="100" left="676" width="23" height="8" font="15">1e+06</text>
+<text top="195" left="669" width="0" height="11" font="21"><b>Cache Misses</b></text>
+<text top="102" left="726" width="26" height="10" font="12">N-ary</text>
+<text top="116" left="726" width="23" height="10" font="12">PAX</text>
+<text top="130" left="726" width="18" height="10" font="12">DM</text>
+<text top="252" left="752" width="23" height="13" font="2">(B) </text>
+<text top="279" left="169" width="198" height="13" font="2">Figure 11: Q2: Attribute Scaleup</text>
+<text top="279" left="552" width="205" height="13" font="2">Figure 12: Workload Performance</text>
+<text top="309" left="97" width="351" height="13" font="2">ing each attribute into separate groups. The N-ary storage</text>
+<text top="326" left="97" width="351" height="13" font="2">model performs worse than the DM storage model because</text>
+<text top="343" left="97" width="351" height="13" font="2">non-sequential attributes have a higher probability of being</text>
+<text top="360" left="97" width="351" height="13" font="2">allocated to memory addresses that map to different cache</text>
+<text top="377" left="97" width="351" height="13" font="2">lines. The Data Morphing process improves the spatial lo-</text>
+<text top="394" left="97" width="351" height="13" font="2">cality of those non-sequential attributes by placing them in</text>
+<text top="411" left="97" width="351" height="13" font="2">a group where the attributes are stored in consecutive mem-</text>
+<text top="428" left="97" width="85" height="13" font="2">ory addresses.</text>
+<text top="446" left="115" width="333" height="13" font="2">Figure 11 shows the execution time and cache misses</text>
+<text top="463" left="97" width="351" height="13" font="2">for query Q2, as the number of attributes selected in-</text>
+<text top="480" left="97" width="351" height="13" font="2">creased. From the ﬁgure, when selecting eight attributes,</text>
+<text top="497" left="97" width="351" height="13" font="2">DM was 35% faster than N-ary and incurred 73% fewer</text>
+<text top="514" left="97" width="351" height="13" font="2">cache misses. DM was also faster than PAX by 28% and</text>
+<text top="531" left="97" width="203" height="13" font="2">incurred 61% fewer cache misses.</text>
+<text top="549" left="115" width="333" height="13" font="2">Figure 11 illustrates that vertically decomposing the at-</text>
+<text top="566" left="97" width="351" height="13" font="2">tributes into separate groups improves the data locality of</text>
+<text top="583" left="97" width="351" height="13" font="2">the attributes that are accessed during a sequential scan</text>
+<text top="600" left="97" width="351" height="13" font="2">of the ﬁle. But, as the number of projected attributes in-</text>
+<text top="617" left="97" width="351" height="13" font="2">creases, the vertical decomposition becomes less cache-</text>
+<text top="634" left="97" width="52" height="13" font="2">efﬁcient.</text>
+<text top="634" left="163" width="285" height="13" font="2">Data Morphing performs well as the number</text>
+<text top="651" left="97" width="351" height="13" font="2">of projected attributes increases because, unlike the PAX</text>
+<text top="668" left="97" width="351" height="13" font="2">model, the attributes can be stored in sequential memory,</text>
+<text top="685" left="97" width="351" height="13" font="2">and, unlike the N-ary model, the attributes can be grouped</text>
+<text top="702" left="97" width="141" height="13" font="2">into a single cache line.</text>
+<text top="740" left="97" width="19" height="13" font="18"><b>5.5</b></text>
+<text top="740" left="131" width="204" height="13" font="18"><b>Experiment 3: Query Workload</b></text>
+<text top="766" left="97" width="351" height="13" font="2">In this experiment, we examined the beneﬁts of using the</text>
+<text top="783" left="97" width="351" height="13" font="2">Data Morphing process for a workload of queries. Work-</text>
+<text top="800" left="97" width="351" height="13" font="2">load W1 consists of two queries, Q1 and Q2 (Table 4).</text>
+<text top="817" left="97" width="351" height="13" font="2">Each query in this workload was executed a number of</text>
+<text top="834" left="97" width="351" height="13" font="2">times that is determined by the ratio of Q1 to Q2. The</text>
+<text top="851" left="97" width="351" height="13" font="2">ratios used in this experiment are (Q1%-Q2%): 20%-80%,</text>
+<text top="868" left="97" width="351" height="13" font="2">50%-50%, and 80%-20%. These ratios describe the num-</text>
+<text top="885" left="97" width="351" height="13" font="2">ber of times query Q1 and query Q2 were executed as a</text>
+<text top="902" left="97" width="306" height="13" font="2">percentage of the total number of queries executed.</text>
+<text top="920" left="115" width="333" height="13" font="2">Figure 12 shows the execution time and cache misses</text>
+<text top="937" left="97" width="351" height="13" font="2">for the database system when executing these two queries.</text>
+<text top="954" left="97" width="351" height="13" font="2">From the ﬁgures, the workload performance when using</text>
+<text top="971" left="97" width="351" height="13" font="2">DM was 25% faster than PAX, with 46% fewer cache</text>
+<text top="988" left="97" width="351" height="13" font="2">misses. Compared to the N-ary storage model, the perfor-</text>
+<text top="1005" left="97" width="351" height="13" font="2">mance when using DM was 45% faster, with 82% fewer</text>
+<text top="1022" left="97" width="351" height="13" font="2">cache misses. This experiment demonstrates the DM stor-</text>
+<text top="1039" left="97" width="351" height="13" font="2">age technique’s ability to adapt to a dynamic query work-</text>
+<text top="1056" left="97" width="351" height="13" font="2">load. By analyzing the workload, the Data Morphing tech-</text>
+<text top="309" left="475" width="351" height="13" font="2">nique found attribute partitions that increased the overall</text>
+<text top="326" left="475" width="351" height="13" font="2">spatial locality of the data and, as a result, improved the</text>
+<text top="343" left="475" width="163" height="13" font="2">performance of the system.</text>
+<text top="379" left="475" width="19" height="13" font="18"><b>5.6</b></text>
+<text top="379" left="509" width="178" height="13" font="18"><b>TPC-H Benchmark Queries</b></text>
+<text top="405" left="475" width="351" height="13" font="2">To further substantiate the performance results, we exam-</text>
+<text top="422" left="475" width="351" height="13" font="2">ined two queries from the TPC-H benchmark: query 6 and</text>
+<text top="439" left="475" width="351" height="13" font="2">query 12. Both queries were evaluated using a sequential</text>
+<text top="456" left="475" width="351" height="13" font="2">ﬁle scan. Query 12 also required a join operation between</text>
+<text top="473" left="475" width="351" height="13" font="2">two tables. The join operation was executed using a hash</text>
+<text top="490" left="475" width="27" height="13" font="2">join.</text>
+<text top="507" left="493" width="333" height="13" font="2">Figure 13 shows the execution time and the number of</text>
+<text top="524" left="475" width="351" height="13" font="2">cache misses incurred during the evaluation of each query.</text>
+<text top="541" left="475" width="351" height="13" font="2">From the ﬁgure, for query 6, using DM was 9% faster than</text>
+<text top="558" left="475" width="351" height="13" font="2">PAX and incurred 18% fewer cache misses. Compared to</text>
+<text top="575" left="475" width="351" height="13" font="2">N-ary, the DM storage resulted in a 41% improvement in</text>
+<text top="592" left="475" width="351" height="13" font="2">query response time and incurred 80% fewer cache misses.</text>
+<text top="610" left="475" width="351" height="13" font="2">For query 12, the DM model resulted in a 6% improvement</text>
+<text top="627" left="475" width="351" height="13" font="2">in response time over PAX and incurred 5% fewer cache</text>
+<text top="644" left="475" width="351" height="13" font="2">misses. For this same query, DM was 29% faster than N-</text>
+<text top="661" left="475" width="252" height="13" font="2">ary and incurred 64% fewer cache misses.</text>
+<text top="678" left="493" width="333" height="13" font="2">The results of both query 6 and query 12 are similar to</text>
+<text top="695" left="475" width="351" height="13" font="2">the results of executing query Q2 in Experiment 2 (Fig-</text>
+<text top="712" left="475" width="351" height="13" font="2">ure 11). In Experiment 2, we show that PAX and Data</text>
+<text top="729" left="475" width="351" height="13" font="2">Morphing perform similarly when executing a sequential</text>
+<text top="746" left="475" width="351" height="13" font="2">ﬁle scan and projecting only a few attributes from every</text>
+<text top="763" left="475" width="94" height="13" font="2">selected record.</text>
+<text top="799" left="475" width="19" height="13" font="18"><b>5.7</b></text>
+<text top="799" left="509" width="95" height="13" font="18"><b>Bulkload Time</b></text>
+<text top="825" left="475" width="351" height="13" font="2">We also measured the effect of the various storage mod-</text>
+<text top="842" left="475" width="245" height="13" font="2">els on the time it takes to bulkload the</text>
+<text top="843" left="726" width="45" height="12" font="4">TENK1</text>
+<text top="842" left="777" width="49" height="13" font="2">relation.</text>
+<text top="859" left="475" width="351" height="13" font="2">The bulkloading time for DM pages never exceeded 10%</text>
+<text top="876" left="475" width="351" height="13" font="2">of the time to bulkload that same relation into the N-ary</text>
+<text top="893" left="475" width="351" height="13" font="2">format. As our page structure is very similar to the PAX</text>
+<text top="910" left="475" width="351" height="13" font="2">page structure, these results are similar to the bulkloading</text>
+<text top="927" left="475" width="351" height="13" font="2">performance of PAX [3]; in the interest of space, we omit</text>
+<text top="944" left="475" width="63" height="13" font="2">this graph.</text>
+<text top="979" left="475" width="19" height="13" font="18"><b>5.8</b></text>
+<text top="979" left="509" width="152" height="13" font="18"><b>Algorithm Performance</b></text>
+<text top="1005" left="475" width="351" height="13" font="2">We veriﬁed the execution time of the two partitioning al-</text>
+<text top="1022" left="475" width="351" height="13" font="2">gorithms by calculating an attribute partition for a relation,</text>
+<text top="1039" left="475" width="40" height="13" font="2">named</text>
+<text top="1040" left="521" width="45" height="12" font="4">TENKX</text>
+<text top="1039" left="565" width="135" height="13" font="2">, that is similar to the</text>
+<text top="1040" left="706" width="45" height="12" font="4">TENK1</text>
+<text top="1039" left="756" width="70" height="13" font="2">relation but</text>
+<text top="1057" left="475" width="351" height="13" font="2">contains an increasing number of attributes. For input to</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="24" size="9" family="Times" color="#000000"/>
+<text top="237" left="166" width="112" height="11" font="20">Q6 Q12 </text>
+<text top="226" left="116" width="23" height="8" font="15">0e+00</text>
+<text top="200" left="116" width="23" height="8" font="15">5e+07</text>
+<text top="174" left="116" width="23" height="8" font="15">1e+08</text>
+<text top="148" left="116" width="23" height="8" font="15">2e+08</text>
+<text top="121" left="116" width="23" height="8" font="15">2e+08</text>
+<text top="95" left="116" width="23" height="8" font="15">2e+08</text>
+<text top="190" left="109" width="0" height="11" font="21"><b>Clock Cycles</b></text>
+<text top="98" left="173" width="29" height="11" font="20">N-ary</text>
+<text top="113" left="173" width="25" height="11" font="20">PAX</text>
+<text top="128" left="173" width="20" height="11" font="20">DM</text>
+<text top="249" left="190" width="27" height="15" font="22">(A) </text>
+<text top="237" left="342" width="112" height="11" font="20">Q6 Q12 </text>
+<text top="226" left="291" width="23" height="8" font="15">0e+00</text>
+<text top="186" left="291" width="23" height="8" font="15">4e+05</text>
+<text top="146" left="291" width="23" height="8" font="15">8e+05</text>
+<text top="105" left="291" width="23" height="8" font="15">1e+06</text>
+<text top="191" left="284" width="0" height="11" font="21"><b>Cache Misses</b></text>
+<text top="98" left="348" width="29" height="11" font="20">N-ary</text>
+<text top="113" left="348" width="25" height="11" font="20">PAX</text>
+<text top="129" left="348" width="20" height="11" font="20">DM</text>
+<text top="245" left="366" width="26" height="15" font="22">(B) </text>
+<text top="231" left="550" width="6" height="10" font="12">0</text>
+<text top="231" left="606" width="6" height="10" font="12">5</text>
+<text top="231" left="659" width="11" height="10" font="12">10</text>
+<text top="231" left="715" width="11" height="10" font="12">15</text>
+<text top="231" left="770" width="11" height="10" font="12">20</text>
+<text top="253" left="606" width="161" height="10" font="24"><b>Number of Attributes in Relation </b></text>
+<text top="213" left="511" width="27" height="10" font="12">1E-04</text>
+<text top="193" left="513" width="25" height="10" font="12">0.001</text>
+<text top="173" left="518" width="20" height="10" font="12">0.01</text>
+<text top="153" left="524" width="14" height="10" font="12">0.1</text>
+<text top="134" left="532" width="6" height="10" font="12">1</text>
+<text top="114" left="527" width="11" height="10" font="12">10</text>
+<text top="94" left="521" width="17" height="10" font="12">100</text>
+<text top="168" left="496" width="0" height="10" font="24"><b>Time (sec.)</b></text>
+<text top="82" left="616" width="49" height="10" font="12">Hill-Climb</text>
+<text top="96" left="616" width="37" height="10" font="12">Optimal</text>
+<text top="278" left="173" width="190" height="13" font="2">Figure 13: TPC-H Performance</text>
+<text top="278" left="551" width="209" height="13" font="2">Figure 14: Algorithm Performance</text>
+<text top="308" left="97" width="351" height="13" font="2">the algorithms, we modeled queries Q1 and Q2 operating</text>
+<text top="325" left="97" width="39" height="13" font="2">on the</text>
+<text top="326" left="142" width="45" height="12" font="4">TENKX</text>
+<text top="325" left="192" width="256" height="13" font="2">relation. Query Q1 projects all attributes</text>
+<text top="342" left="97" width="158" height="13" font="2">from 10% of the records in</text>
+<text top="343" left="258" width="45" height="12" font="4">TENKX</text>
+<text top="342" left="303" width="145" height="13" font="2">. Query Q2 projects only</text>
+<text top="359" left="97" width="275" height="13" font="2">the ﬁrst attribute from 100% of the records in</text>
+<text top="360" left="376" width="45" height="12" font="4">TENKX</text>
+<text top="359" left="421" width="27" height="13" font="2">. We</text>
+<text top="376" left="97" width="250" height="13" font="2">varied the number of attributes in relation</text>
+<text top="377" left="351" width="45" height="12" font="4">TENKX</text>
+<text top="376" left="400" width="48" height="13" font="2">from 2–</text>
+<text top="393" left="97" width="351" height="13" font="2">22 attributes. Figure 14 shows the resulting execution time</text>
+<text top="410" left="97" width="351" height="13" font="2">for both algorithms on a logarithmic scale. As expected,</text>
+<text top="427" left="97" width="351" height="13" font="2">the Naive algorithm was much more expensive to compute</text>
+<text top="444" left="97" width="351" height="13" font="2">than the Hill-Climb algorithm. When the relation contained</text>
+<text top="461" left="97" width="351" height="13" font="2">more than 16 attributes, the Naive algorithm became pro-</text>
+<text top="479" left="97" width="351" height="13" font="2">hibitively expensive. While the Hill-Climb algorithm was</text>
+<text top="496" left="97" width="351" height="13" font="2">also exponential in time, the algorithm performed well for</text>
+<text top="513" left="97" width="162" height="13" font="2">a much larger relation size.</text>
+<text top="551" left="97" width="19" height="13" font="18"><b>5.9</b></text>
+<text top="551" left="131" width="63" height="13" font="18"><b>Summary</b></text>
+<text top="578" left="97" width="351" height="13" font="2">In this section, we have experimentally evaluated the ef-</text>
+<text top="595" left="97" width="351" height="13" font="2">fects of using the N-ary, PAX, and DM storage models.</text>
+<text top="612" left="97" width="351" height="13" font="2">We have demonstrated the effectiveness of the DM stor-</text>
+<text top="629" left="97" width="351" height="13" font="2">age model over the N-ary and the PAX storage models.</text>
+<text top="646" left="97" width="351" height="13" font="2">We have also shown that, for a heterogeneous workload of</text>
+<text top="663" left="97" width="351" height="13" font="2">queries, neither the PAX nor the N-ary storage models pro-</text>
+<text top="680" left="97" width="351" height="13" font="2">vide the most cache-efﬁcient storage model. The DM stor-</text>
+<text top="697" left="97" width="351" height="13" font="2">age model is more efﬁcient in such cases. Finally, we note</text>
+<text top="715" left="97" width="351" height="13" font="2">that the cache-miss latency is expected to increase over the</text>
+<text top="732" left="97" width="351" height="13" font="2">next several years, so the performance improvement from</text>
+<text top="749" left="97" width="351" height="13" font="2">using Data Morphing will increase relative to PAX and the</text>
+<text top="766" left="97" width="127" height="13" font="2">N-ary storage model.</text>
+<text top="805" left="97" width="9" height="16" font="5"><b>6</b></text>
+<text top="805" left="124" width="107" height="16" font="5"><b>Related Work</b></text>
+<text top="834" left="97" width="351" height="13" font="2">The Decomposition Storage Model (DSM) was proposed</text>
+<text top="851" left="97" width="351" height="13" font="2">as an alternative to the N-ary Storage Model in [12]. DSM</text>
+<text top="868" left="97" width="351" height="13" font="2">decomposes the attributes of a relation into sub-relations,</text>
+<text top="885" left="97" width="351" height="13" font="2">with one attribute per sub-relation. DSM requires expen-</text>
+<text top="902" left="97" width="351" height="13" font="2">sive sub-relation joins to access attributes that are con-</text>
+<text top="919" left="97" width="351" height="13" font="2">tained in different sub-relations. Monet is a main-memory</text>
+<text top="936" left="97" width="351" height="13" font="2">database system that utilizes DSM to reduce the need for</text>
+<text top="953" left="97" width="190" height="13" font="2">main-memory bandwidth [6, 7].</text>
+<text top="971" left="115" width="333" height="13" font="2">An alternative to the N-ary storage model and DSM</text>
+<text top="988" left="97" width="351" height="13" font="2">was introduced by Ailamaki, et al., called <i>PAX </i>for Parti-</text>
+<text top="1005" left="97" width="351" height="13" font="2">tion Attributes Across [2]. PAX is a page level decompo-</text>
+<text top="1022" left="97" width="351" height="13" font="2">sition model where each attribute is stored in sub-divided</text>
+<text top="1039" left="97" width="351" height="13" font="2">regions of a page, called <i>mini-pages</i>. Unlike DSM, PAX</text>
+<text top="1056" left="97" width="351" height="13" font="2">does not require expensive reconstruction joins to access</text>
+<text top="308" left="475" width="351" height="13" font="2">multiple attributes. The PAX storage model was found to</text>
+<text top="325" left="475" width="351" height="13" font="2">signiﬁcantly improve query execution time for sequential</text>
+<text top="342" left="475" width="351" height="13" font="2">ﬁle scans because of the improved data locality. Data Mor-</text>
+<text top="359" left="475" width="351" height="13" font="2">phing uses a page structure similar to PAX for decompos-</text>
+<text top="376" left="475" width="351" height="13" font="2">ing attributes, but Data Morphing provides a more general</text>
+<text top="393" left="475" width="351" height="13" font="2">storage model by allowing records to be decomposed into</text>
+<text top="410" left="475" width="120" height="13" font="2">groups of attributes.</text>
+<text top="429" left="493" width="333" height="13" font="2">Decomposing a single relation into multiple relations</text>
+<text top="446" left="475" width="351" height="13" font="2">to increase system performance has been studied in [18].</text>
+<text top="463" left="475" width="351" height="13" font="2">The proposed algorithm requires the computation of an at-</text>
+<text top="480" left="475" width="351" height="13" font="2">tribute afﬁnity matrix that records the pair-wise frequency</text>
+<text top="497" left="475" width="351" height="13" font="2">of accessing the attributes. After decomposing the relation</text>
+<text top="514" left="475" width="351" height="13" font="2">into multiple relations, an expensive join operation must be</text>
+<text top="531" left="475" width="351" height="13" font="2">used to retrieve the record. We are proposing a page-level</text>
+<text top="548" left="475" width="351" height="13" font="2">decomposition of a relation that does not require any addi-</text>
+<text top="565" left="475" width="351" height="13" font="2">tional join operation for retrieving the decomposed records.</text>
+<text top="584" left="493" width="333" height="13" font="2">Data locality techniques for improving cache utilization</text>
+<text top="601" left="475" width="351" height="13" font="2">has been studied in [9, 11, 22]. Data Morphing takes ad-</text>
+<text top="618" left="475" width="351" height="13" font="2">vantage of data locality by analyzing the access pattern of</text>
+<text top="635" left="475" width="351" height="13" font="2">the attributes in a relation and then grouping attributes with</text>
+<text top="652" left="475" width="351" height="13" font="2">similar access patterns. Data Morphing is the only system</text>
+<text top="669" left="475" width="351" height="13" font="2">that we are aware of that dynamically adjusts the storage</text>
+<text top="686" left="475" width="217" height="13" font="2">model to account for access locality.</text>
+<text top="735" left="475" width="9" height="16" font="5"><b>7</b></text>
+<text top="735" left="502" width="231" height="16" font="5"><b>Conclusions and Future Work</b></text>
+<text top="765" left="475" width="351" height="13" font="2">Processor cache performance is critical to DBMSs in which</text>
+<text top="782" left="475" width="351" height="13" font="2">the data is primarily main memory resident. In this paper,</text>
+<text top="799" left="475" width="351" height="13" font="2">we have presented a technique, called Data Morphing, for</text>
+<text top="816" left="475" width="351" height="13" font="2">improving the utilization of the processor cache by dynam-</text>
+<text top="834" left="475" width="351" height="13" font="2">ically reorganizing the attributes of a record in memory.</text>
+<text top="851" left="475" width="351" height="13" font="2">Through this reorganization, attributes that are accessed to-</text>
+<text top="868" left="475" width="351" height="13" font="2">gether are collocated in the same cache line, improving</text>
+<text top="885" left="475" width="351" height="13" font="2">performance through a reduction in the number of cache</text>
+<text top="902" left="475" width="44" height="13" font="2">misses.</text>
+<text top="920" left="493" width="333" height="13" font="2">Through experimental analysis, we have shown that the</text>
+<text top="937" left="475" width="351" height="13" font="2">Data Morphing technique reduces the number of cache</text>
+<text top="954" left="475" width="351" height="13" font="2">misses incurred during query execution; as a direct re-</text>
+<text top="971" left="475" width="351" height="13" font="2">sult, the database system experiences better overall per-</text>
+<text top="988" left="475" width="351" height="13" font="2">formance. We have also shown that the partitioning algo-</text>
+<text top="1005" left="475" width="351" height="13" font="2">rithms provide cache-efﬁcient organizations for the data,</text>
+<text top="1022" left="475" width="351" height="13" font="2">performing up to 45% faster than the N-ary storage model</text>
+<text top="1039" left="475" width="351" height="13" font="2">and up to 25% faster than the PAX storage model when</text>
+<text top="1056" left="475" width="195" height="13" font="2">executing a workload of queries.</text>
+</page>
+<page number="12" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="86" left="115" width="333" height="13" font="2">Our experimental analysis was based on querying</text>
+<text top="103" left="97" width="351" height="13" font="2">datasets that reside entirely in the main memory. In fu-</text>
+<text top="120" left="97" width="351" height="13" font="2">ture work, we will examine the system performance when</text>
+<text top="137" left="97" width="351" height="13" font="2">executing queries on much larger datasets. Increasing the</text>
+<text top="154" left="97" width="351" height="13" font="2">size of the dataset will increase the amount of disk accesses</text>
+<text top="171" left="97" width="351" height="13" font="2">required in executing the query workload. Similar to PAX,</text>
+<text top="188" left="97" width="351" height="13" font="2">we expect the performance beneﬁts of Data Morphing to</text>
+<text top="205" left="97" width="351" height="13" font="2">reduce as the cost of servicing disk I/O becomes the domi-</text>
+<text top="222" left="97" width="69" height="13" font="2">nating cost.</text>
+<text top="240" left="115" width="333" height="13" font="2">In addition, we have only examined Data Morphing as</text>
+<text top="257" left="97" width="351" height="13" font="2">applied to the traditional slotted page of records. One pos-</text>
+<text top="274" left="97" width="351" height="13" font="2">sible direction for this work is to incorporate it into native</text>
+<text top="291" left="97" width="351" height="13" font="2">XML databases, such as Natix [16]. In Natix, the trees that</text>
+<text top="308" left="97" width="351" height="13" font="2">represent XML documents are decomposed into clusters of</text>
+<text top="325" left="97" width="351" height="13" font="2">nodes, and each cluster is treated as a record. A decomposi-</text>
+<text top="342" left="97" width="351" height="13" font="2">tion algorithm is used to calculate the composition of each</text>
+<text top="359" left="97" width="351" height="13" font="2">cluster, as this composition is critical to the performance of</text>
+<text top="376" left="97" width="351" height="13" font="2">the query workload. Since accessing a node in a cluster is</text>
+<text top="393" left="97" width="351" height="13" font="2">analogous to accessing the attribute of a record, we expect</text>
+<text top="410" left="97" width="351" height="13" font="2">that the Data Morphing technique can be used to provide</text>
+<text top="427" left="97" width="328" height="13" font="2">cache-efﬁcient layouts for the storage of these clusters.</text>
+<text top="466" left="97" width="9" height="16" font="5"><b>8</b></text>
+<text top="466" left="124" width="148" height="16" font="5"><b>Acknowledgements</b></text>
+<text top="493" left="97" width="351" height="13" font="2">This research was supported by the National Science Foun-</text>
+<text top="509" left="97" width="351" height="13" font="2">dation under grant IIS-0093059. We would like to thank</text>
+<text top="524" left="97" width="351" height="13" font="2">Murali Annavaram and James Mickens for their valuable</text>
+<text top="540" left="97" width="241" height="13" font="2">comments on earlier drafts of this paper.</text>
+<text top="578" left="97" width="83" height="16" font="5"><b>References</b></text>
+<text top="606" left="104" width="344" height="12" font="9">[1] <i>The IA-32 Intel Architecture Software Developer’s Manual,</i></text>
+<text top="622" left="127" width="321" height="12" font="17"><i>Volume 3: System Programming Guide</i>. Intel Corporation,</text>
+<text top="638" left="127" width="30" height="12" font="9">2002.</text>
+<text top="661" left="104" width="344" height="12" font="9">[2] A. Ailamaki, D. J. DeWitt, M. D. Hill, and M. Skounakis.</text>
+<text top="676" left="127" width="243" height="12" font="9">Weaving Relations for Cache Performance.</text>
+<text top="676" left="382" width="66" height="12" font="9">In <i>Proceed-</i></text>
+<text top="692" left="127" width="321" height="12" font="17"><i>ings of the 27th International Conference on Very Large</i></text>
+<text top="708" left="127" width="258" height="12" font="17"><i>Databases (VLDB)</i>, pages 169–180, Sept. 2001.</text>
+<text top="731" left="104" width="344" height="12" font="9">[3] A. Ailamaki, D. J. DeWitt, M. D. Hill, and D. A. Wood.</text>
+<text top="746" left="127" width="321" height="12" font="9">DBMSs on a Modern Processor: Where Does Time Go? In</text>
+<text top="762" left="127" width="321" height="12" font="17"><i>Proceedings of the 25th International Conference on Very</i></text>
+<text top="778" left="127" width="293" height="12" font="17"><i>Large Databases (VLDB)</i>, pages 266–277, Sept. 1999.</text>
+<text top="801" left="104" width="344" height="12" font="9">[4] E. T. Bell. Exponential Numbers. <i>American Mathematical</i></text>
+<text top="816" left="127" width="237" height="12" font="17"><i>Monthly</i>, 41(7):411–419, Aug. - Sept. 1934.</text>
+<text top="839" left="104" width="344" height="12" font="9">[5] P. A. Bernstein, M. L. Brodie, S. Ceri, D. J. DeWitt, M. J.</text>
+<text top="855" left="127" width="321" height="12" font="9">Franklin, H. Garcia-Molina, J. Gray, G. Held, J. M. Heller-</text>
+<text top="871" left="127" width="321" height="12" font="9">stein, H. V. Jagadish, M. Lesk, D. Maier, J. F. Naughton,</text>
+<text top="886" left="127" width="283" height="12" font="9">H. Pirahesh, M. Stonebraker, and J. D. Ullman.</text>
+<text top="886" left="427" width="21" height="12" font="9">The</text>
+<text top="902" left="127" width="321" height="12" font="9">Asilomar Report on Database Research. <i>SIGMOD Record</i>,</text>
+<text top="918" left="127" width="132" height="12" font="9">27(4):74–80, Dec. 1998.</text>
+<text top="941" left="104" width="344" height="12" font="9">[6] P. Boncz and M. Kersten. Monet: An Impressionist Sketch</text>
+<text top="956" left="127" width="321" height="12" font="9">of an Advanced Database System. In <i>In Proceedings of</i></text>
+<text top="972" left="127" width="321" height="12" font="17"><i>Basque Int. Workshop on Information Technology (BIWIT),</i></text>
+<text top="988" left="127" width="176" height="12" font="17"><i>San Sebastian, Spain</i>, July 1995.</text>
+<text top="1011" left="104" width="344" height="12" font="9">[7] P. A. Boncz, S. Manegold, and M. L. Kersten. Database</text>
+<text top="1026" left="127" width="321" height="12" font="9">Architecture Optimized for the New Bottleneck: Memory</text>
+<text top="1042" left="127" width="321" height="12" font="9">Access. In <i>Proceedings of the 25th International Conference</i></text>
+<text top="1057" left="127" width="321" height="12" font="17"><i>on Very Large Databases (VLDB)</i>, pages 54–65, Sept. 1999.</text>
+<text top="87" left="482" width="344" height="12" font="9">[8] S. Browne, J. Dongarra, N. Garner, G. Ho, and P. Mucci.</text>
+<text top="103" left="505" width="321" height="12" font="9">A Portable Programming Interface for Performance Eval-</text>
+<text top="118" left="505" width="321" height="12" font="9">uation on Modern Processors. <i>The Int’l Journal of High</i></text>
+<text top="134" left="505" width="321" height="12" font="17"><i>Performance Computing Applications</i>, 14(3):189–204, Fall</text>
+<text top="149" left="505" width="30" height="12" font="9">2000.</text>
+<text top="171" left="482" width="293" height="12" font="9">[9] B. Calder, K. Chandra, S. John, and T. Austin.</text>
+<text top="171" left="788" width="38" height="12" font="9">Cache-</text>
+<text top="187" left="505" width="321" height="12" font="9">conscious data placement. In <i>Proceedings of the 8th Inter-</i></text>
+<text top="202" left="505" width="321" height="12" font="17"><i>national Conference on Architectural Support for Program-</i></text>
+<text top="218" left="505" width="321" height="12" font="17"><i>ming Languages and Operating Systems (ASPLOS)</i>, pages</text>
+<text top="233" left="505" width="110" height="12" font="9">139–149, Oct. 1998.</text>
+<text top="255" left="475" width="351" height="12" font="9">[10] A. Cardenas. Analysis and Performance of Inverted Data</text>
+<text top="271" left="505" width="321" height="12" font="9">Base Structures. <i>Communications of the ACM</i>, 18(5):253–</text>
+<text top="286" left="505" width="85" height="12" font="9">263, May 1975.</text>
+<text top="308" left="475" width="351" height="12" font="9">[11] T. Chilimbi, M. D. Hill, and J. R. Larus. Cache-Conscious</text>
+<text top="323" left="505" width="321" height="12" font="9">Structure Layout. In <i>ACM SIGPLAN Conference on Pro-</i></text>
+<text top="339" left="505" width="321" height="12" font="17"><i>gramming Language Design and Implementation (PLDI)</i>,</text>
+<text top="355" left="505" width="126" height="12" font="9">pages 1–12, May 1999.</text>
+<text top="376" left="475" width="351" height="12" font="9">[12] G. P. Copeland and S. F. Khoshaﬁan. A Decomposition Stor-</text>
+<text top="392" left="505" width="321" height="12" font="9">age Model. In <i>Proceedings of the ACM SIGMOD Interna-</i></text>
+<text top="408" left="505" width="321" height="12" font="17"><i>tional Conference on Management of Data</i>, pages 268–279,</text>
+<text top="423" left="505" width="58" height="12" font="9">May 1985.</text>
+<text top="445" left="475" width="351" height="12" font="9">[13] N. de Bruijn. <i>Asymptotic Methods in Analysis</i>. Dover, 1981.</text>
+<text top="466" left="475" width="351" height="12" font="9">[14] D. J. DeWitt. The Wisconsin Benchmark: Past, Present, and</text>
+<text top="482" left="505" width="321" height="12" font="9">Future. In J. Gray, editor, <i>The Benchmark Handbook for</i></text>
+<text top="498" left="505" width="321" height="12" font="17"><i>Database and Transaction Systems (2nd Edition)</i>. Morgan</text>
+<text top="513" left="505" width="94" height="12" font="9">Kaufmann, 1993.</text>
+<text top="535" left="475" width="351" height="12" font="9">[15] R. A. Hankins and J. M. Patel. Data Morphing: An Adap-</text>
+<text top="550" left="505" width="321" height="12" font="9">tive, Cache-Conscious Storage Technique. <i>Technical Re-</i></text>
+<text top="566" left="505" width="299" height="12" font="17"><i>port, http://www.eecs.umich.edu/quickstep/publ/dm.pdf</i>.</text>
+<text top="588" left="475" width="351" height="12" font="9">[16] C.-C. Kanne and G. Moerkotte. Efﬁcient storage of XML</text>
+<text top="603" left="505" width="321" height="12" font="9">data. In <i>Proceedings of the International Conference On</i></text>
+<text top="619" left="505" width="233" height="12" font="17"><i>Data Engineering (ICDE)</i>, page 198, 2000.</text>
+<text top="640" left="475" width="247" height="12" font="9">[17] S.-W. Kim, W. Choi, and B.-H. Kim.</text>
+<text top="640" left="737" width="89" height="12" font="9">Design and Im-</text>
+<text top="656" left="505" width="321" height="12" font="9">plementation of the Concurrency Control Manager in the</text>
+<text top="672" left="505" width="180" height="12" font="9">Main-Memory DBMS Tachyon.</text>
+<text top="672" left="701" width="125" height="12" font="9">In <i>26th Annual Inter-</i></text>
+<text top="687" left="505" width="321" height="12" font="17"><i>national Computer Software and Applications Conference</i>,</text>
+<text top="703" left="505" width="148" height="12" font="9">pages 635–644, Aug. 2002.</text>
+<text top="725" left="475" width="351" height="12" font="9">[18] S. B. Navathe, S. Ceri, G. Wiederhold, and J. Dou. Vertical</text>
+<text top="740" left="505" width="321" height="12" font="9">partitioning algorithms for database design. <i>ACM Transac-</i></text>
+<text top="756" left="505" width="306" height="12" font="17"><i>tions on Database Systems (TODS)</i>, 9(4):680–710, 1984.</text>
+<text top="777" left="475" width="120" height="12" font="9">[19] A. M. Odlyzko.</text>
+<text top="777" left="608" width="194" height="12" font="9">Asymptotic Enumeration Methods.</text>
+<text top="777" left="815" width="11" height="12" font="9">In</text>
+<text top="793" left="505" width="321" height="12" font="9">R. L. Graham, M. Gr¨otschel, and L. Lovsz, editors, <i>Hand-</i></text>
+<text top="809" left="505" width="321" height="12" font="17"><i>book of Combinatorics</i>, volume 2, pages 1063–1229. North-</text>
+<text top="824" left="505" width="150" height="12" font="9">Holland, Amsterdam, 1995.</text>
+<text top="846" left="475" width="351" height="12" font="9">[20] R. Ramakrishnan and J. Gehrke. <i>Database Management</i></text>
+<text top="861" left="505" width="280" height="12" font="17"><i>Systems</i>. WCB/McGraw-Hill, second edition, 2000.</text>
+<text top="883" left="475" width="351" height="12" font="9">[21] G.-C. Rota. The Number of Partitions of a Set. <i>American</i></text>
+<text top="899" left="505" width="275" height="12" font="17"><i>Mathematical Monthly</i>, 71(5):498–504, May 1964.</text>
+<text top="920" left="475" width="351" height="12" font="9">[22] A. Shatdal, C. Kant, and J. F. Naughton. Cache Conscious</text>
+<text top="936" left="505" width="321" height="12" font="9">Algorithms for Relational Query Processing. In <i>Proceed-</i></text>
+<text top="951" left="505" width="321" height="12" font="17"><i>ings of 20th International Conference on Very Large Data</i></text>
+<text top="967" left="505" width="233" height="12" font="17"><i>Bases (VLDB)</i>, pages 510–521, Sept. 1994.</text>
+<text top="989" left="475" width="351" height="12" font="9">[23] S. Yao. An Attribute Based Model for Database Access</text>
+<text top="1004" left="505" width="321" height="12" font="9">Cost Analysis. <i>Communications of the ACM</i>, 20(4):260–</text>
+<text top="1020" left="505" width="84" height="12" font="9">261, Apr. 1977.</text>
+</page>
+</pdf2xml>

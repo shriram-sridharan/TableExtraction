@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml>
+<page number="1" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="0" size="16" family="Times" color="#000000"/>
+	<fontspec id="1" size="22" family="Times" color="#000000"/>
+	<fontspec id="2" size="9" family="Times" color="#000000"/>
+	<fontspec id="3" size="16" family="Times" color="#000000"/>
+	<fontspec id="4" size="18" family="Times" color="#000000"/>
+<text top="58" left="135" width="648" height="16" font="0">SCA2007-45 1/7</text>
+<text top="79" left="135" width="5" height="16" font="0"> </text>
+<text top="1118" left="135" width="5" height="16" font="0"> </text>
+<text top="141" left="171" width="583" height="22" font="1"><b>THERMOGRAVIMETRIC ANALYSIS OF BARNETT </b></text>
+<text top="168" left="359" width="207" height="22" font="1"><b>SHALE SAMPLES </b></text>
+<text top="193" left="459" width="3" height="11" font="2"> </text>
+<text top="208" left="286" width="350" height="16" font="0">T. Greg Easley, Richard Sigal, and Chandra Rai </text>
+<text top="229" left="266" width="391" height="16" font="0">MPGE, University of Oklahoma, Norman, Oklahoma </text>
+<text top="248" left="459" width="3" height="11" font="2"> </text>
+<text top="263" left="171" width="585" height="16" font="3"><i>This paper was prepared for presentation at the International Symposium of the  </i></text>
+<text top="284" left="191" width="541" height="16" font="3"><i>Society of Core Analysts held in Calgary, Canada, 10-12 September, 2007 </i></text>
+<text top="315" left="135" width="119" height="19" font="4"><b>ABSTRACT </b></text>
+<text top="338" left="135" width="655" height="16" font="0">Standard core cleaning techniques do not function properly on samples from shale gas </text>
+<text top="359" left="135" width="653" height="16" font="0">reservoirs due to their very low permeability.  The current industry standard for cleaning </text>
+<text top="379" left="135" width="657" height="16" font="0">shale samples is drying fragmented samples at high temperature to remove volatile </text>
+<text top="400" left="135" width="653" height="16" font="0">liquids. To better quantify the effects of this cleaning process selected shale samples were </text>
+<text top="421" left="135" width="658" height="16" font="0">heated in a thermogravimetric analyzer where the weight change as a function of </text>
+<text top="441" left="135" width="657" height="16" font="0">temperature was recorded. The weight loss corresponded very well to the estimated </text>
+<text top="462" left="135" width="658" height="16" font="0">weight loss calculated from independently measured mineralogy and Total Organic </text>
+<text top="483" left="135" width="653" height="16" font="0">Carbon  TOC. Chemical identities of the vaporized materials were identified using a gas </text>
+<text top="503" left="135" width="345" height="16" font="0">chromatograph. During the heating below 400 </text>
+<text top="499" left="480" width="6" height="11" font="2">o</text>
+<text top="503" left="486" width="303" height="16" font="0">C, only water was mobilized.  At higher </text>
+<text top="524" left="135" width="653" height="16" font="0">temperatures kerogen, carbonate minerals, and clay bound water were liberated from the </text>
+<text top="545" left="135" width="653" height="16" font="0">samples. The methodology used in this study provides a blueprint for designing cleaning </text>
+<text top="566" left="135" width="661" height="16" font="0">procedures for shale reservoir rocks, and an additional tool in analyzing their </text>
+<text top="586" left="135" width="95" height="16" font="0">constituents. </text>
+<text top="584" left="230" width="5" height="19" font="4"><b> </b></text>
+<text top="617" left="135" width="173" height="19" font="4"><b>INTRODUCTION </b></text>
+<text top="640" left="135" width="655" height="16" font="0">The primary purpose of sample cleaning is to prepare the sample for measurement of </text>
+<text top="661" left="135" width="658" height="16" font="0">effective porosity and permeability.  To do this one removes from the rock those </text>
+<text top="682" left="135" width="658" height="16" font="0">components that can potentially be replaced by gas while not disturbing immobile </text>
+<text top="702" left="135" width="656" height="16" font="0">components. That is remove capillary bound water and volatile hydrocarbons without </text>
+<text top="723" left="135" width="654" height="16" font="0">removing clay bound water, kerogen or other immobile organic materials, and inorganic </text>
+<text top="744" left="135" width="75" height="16" font="0">minerals.  </text>
+<text top="773" left="135" width="654" height="16" font="0">For standard reservoir rocks a commonly used sample cleaning and preparation practice </text>
+<text top="794" left="135" width="659" height="16" font="0">is Soxhlet extraction of hydrocarbons and salt then drying the sample. However, </text>
+<text top="815" left="135" width="661" height="16" font="0">traditional cleaning practices do not work on shale samples, due to their low </text>
+<text top="835" left="135" width="654" height="16" font="0">permeability.  The University of Oklahoma’s  IC3 lab, following industry practice heats </text>
+<text top="856" left="135" width="185" height="16" font="0">samples overnight at 100 </text>
+<text top="852" left="320" width="6" height="11" font="2">o</text>
+<text top="856" left="326" width="279" height="16" font="0">C to remove any water or volatile oil.  </text>
+<text top="886" left="135" width="655" height="16" font="0">While this procedure has been found effective for Barnett shale samples, and results in </text>
+<text top="907" left="135" width="655" height="16" font="0">measured porosities that statistically agree with the results from other labs, this drying </text>
+<text top="927" left="135" width="653" height="16" font="0">procedure had not been adequately investigated. This study was designed to determine if </text>
+<text top="948" left="135" width="658" height="16" font="0">volatile hydrocarbons were being removed, and at what temperatures kerogen, the </text>
+<text top="969" left="135" width="653" height="16" font="0">mineral matrix and the clay bound water are mobilized. Secondary objectives of the study </text>
+<text top="989" left="135" width="654" height="16" font="0">were to determine to what extent thermogravimetric analysis could be used as a tool to </text>
+<text top="1010" left="135" width="655" height="16" font="0">determine the constituents of shale and to develop a methodology to be used to design </text>
+<text top="1031" left="135" width="374" height="16" font="0">cleaning processes in generic shale gas reservoirs.   </text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="58" left="135" width="648" height="16" font="0">SCA2007-45 2/7</text>
+<text top="79" left="135" width="5" height="16" font="0"> </text>
+<text top="1118" left="135" width="5" height="16" font="0"> </text>
+<text top="140" left="135" width="150" height="19" font="4"><b>PROCEDURES </b></text>
+<text top="163" left="135" width="658" height="16" font="0">This study examined three shale samples. The samples had been stored in a core </text>
+<text top="184" left="135" width="655" height="16" font="0">warehouse, so they were in a not well defined partially dry state. NMR measurements </text>
+<text top="205" left="135" width="312" height="16" font="0">have shown that they retained some brine.  </text>
+<text top="234" left="135" width="656" height="16" font="0">In this experiment a Thermogravimetric Analyzer (TGA) was filled with fragmented </text>
+<text top="255" left="135" width="401" height="16" font="0">samples of approximately 40mg mass and heated at 3 </text>
+<text top="251" left="536" width="6" height="11" font="2">o</text>
+<text top="255" left="542" width="247" height="16" font="0">C/min from room temperature to </text>
+<text top="276" left="135" width="83" height="16" font="0">about 900 </text>
+<text top="272" left="218" width="6" height="11" font="2">o</text>
+<text top="276" left="224" width="567" height="16" font="0">C.  During the heating cycle nitrogen gas is flowed across the sample to </text>
+<text top="297" left="135" width="654" height="16" font="0">sweep out the vaporized materials. As the temperature increases the TGA measures the </text>
+<text top="317" left="135" width="256" height="16" font="0">change in the mass of the sample.   </text>
+<text top="347" left="135" width="653" height="16" font="0">During the course of experimentation it was determined that organics, carbonates, and the </text>
+<text top="368" left="135" width="657" height="16" font="0">clay bound water were vaporizing in the same temperature range.  To separate the </text>
+<text top="388" left="135" width="655" height="16" font="0">organic vaporization from the carbonate, samples were cleaned with 13% hydrochloric </text>
+<text top="409" left="135" width="653" height="16" font="0">acid converting the Ca and Mg to temperature stable salts. The samples treated with HCL </text>
+<text top="430" left="135" width="240" height="16" font="0">are referred to as clean samples.  </text>
+<text top="459" left="135" width="655" height="16" font="0">Once the general decomposition profile was determined, the gases released during the </text>
+<text top="480" left="135" width="216" height="16" font="0">temperature increase to 100 </text>
+<text top="476" left="351" width="6" height="11" font="2">o</text>
+<text top="480" left="357" width="433" height="16" font="0">C were captured in sample bags and injected into a gas </text>
+<text top="501" left="135" width="655" height="16" font="0">chromatograph. This provided a measure of volatile hydrocarbons removed in the low </text>
+<text top="522" left="135" width="657" height="16" font="0">temperature heating stage, and a check that there was no kerogen vaporized during </text>
+<text top="542" left="135" width="107" height="16" font="0">heating to 100 </text>
+<text top="538" left="242" width="6" height="11" font="2">o</text>
+<text top="542" left="248" width="16" height="16" font="0">C </text>
+<text top="573" left="135" width="70" height="19" font="4"><b>DATA  </b></text>
+<text top="596" left="135" width="653" height="16" font="0">Three samples were used in the study. Companion plugs to these samples had previously </text>
+<text top="617" left="135" width="653" height="16" font="0">been analyzed for mineralogy (using the Fourier Transform Infer Red Spectroscopy FTIR </text>
+<text top="638" left="135" width="656" height="16" font="0">method) and TOC. The mineralogy compositions determined from FTIR are given in </text>
+<text top="658" left="135" width="659" height="16" font="0">Table 1. FTIR measurements as done in the IC3 lab provide mineral percentage </text>
+<text top="679" left="135" width="653" height="16" font="0">composition by weight for “dry” samples after organic materials have been removed. The </text>
+<text top="700" left="135" width="653" height="16" font="0">procedure used leaves much of the clay bound water in place. The composition in Table 1 </text>
+<text top="720" left="135" width="655" height="16" font="0">provides the weight percentage of minerals as a percentage of the total sample weight. </text>
+<text top="741" left="135" width="654" height="16" font="0">That is the FTIR values were adjusted to account for the TOC and the small amount of </text>
+<text top="762" left="135" width="286" height="16" font="0">water mass vaporized in heating to 100 </text>
+<text top="758" left="421" width="6" height="11" font="2">o</text>
+<text top="762" left="427" width="310" height="16" font="0">C.  Table 2 gives the TOC measurements.  </text>
+<text top="791" left="135" width="652" height="16" font="0">All the measurements were done at the same heating rate. Due to the levels of noise in the </text>
+<text top="812" left="135" width="653" height="16" font="0">Mass vs. Temperature plot output from the TGA, all plots are in Mass vs. Time.  Figure 1 </text>
+<text top="833" left="135" width="430" height="16" font="0">provides a correspondence between time and temperatures. </text>
+<text top="863" left="135" width="653" height="16" font="0">Figures 2, 3 and 4 show the mass loss as a function of heating time for the shale samples. </text>
+<text top="883" left="135" width="655" height="16" font="0">In each case the curve labeled clean represents the sample after reacting the carbonate </text>
+<text top="904" left="135" width="654" height="16" font="0">minerals with hydrochloric acid, and the curve labeled unclean the sample that had not </text>
+<text top="925" left="135" width="653" height="16" font="0">been washed with HCL. The percentage loss shown is of the starting sample mass (clean </text>
+<text top="945" left="135" width="654" height="16" font="0">or unclean), so in comparing the percentage weight losses between the two this needs to </text>
+<text top="966" left="135" width="654" height="16" font="0">be accounted for. Figure 5 shows the results of heating a pure calcite sample. Figure 6 </text>
+<text top="987" left="135" width="494" height="16" font="0">shows the GC analysis for vapor collected during the heating to 100 </text>
+<text top="982" left="629" width="6" height="11" font="2">o</text>
+<text top="987" left="635" width="136" height="16" font="0">C of sample _682. </text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="5" size="16" family="Times" color="#000000"/>
+<text top="58" left="135" width="648" height="16" font="0">SCA2007-45 3/7</text>
+<text top="79" left="135" width="5" height="16" font="0"> </text>
+<text top="1118" left="135" width="5" height="16" font="0"> </text>
+<text top="140" left="135" width="205" height="19" font="4"><b>ANALYSIS OF DATA</b></text>
+<text top="142" left="340" width="5" height="16" font="0"> </text>
+<text top="172" left="135" width="654" height="16" font="0">Figure 5 shows the decomposition of pure calcite. The calcite weight loss begins at 200 </text>
+<text top="193" left="135" width="256" height="16" font="0">minutes which corresponds to 580 </text>
+<text top="189" left="391" width="6" height="11" font="2">o</text>
+<text top="193" left="397" width="396" height="16" font="0">C. The weight loss was 44%. The chemical equation  </text>
+<text top="214" left="135" width="481" height="16" font="0">below predicts 44% of the carbonate mass will be converted to CO</text>
+<text top="220" left="616" width="6" height="11" font="2">2</text>
+<text top="214" left="622" width="18" height="16" font="5"><b>    </b></text>
+<text top="243" left="189" width="211" height="16" font="5"><b>                                     </b>CaCO</text>
+<text top="250" left="400" width="6" height="11" font="2">3</text>
+<text top="243" left="406" width="102" height="16" font="0"> -&gt; CaO + CO</text>
+<text top="250" left="509" width="249" height="11" font="2">2                                                                                 </text>
+<text top="243" left="758" width="26" height="16" font="0">(1) </text>
+<text top="273" left="135" width="658" height="16" font="0">Stoicometric analysis indicates that dolomite, the other significant carbonate in the </text>
+<text top="294" left="135" width="491" height="16" font="0">samples, will experience a similar mass loss of 48% by the reaction </text>
+<text top="324" left="135" width="292" height="16" font="0">                                                CaMg(CO</text>
+<text top="330" left="427" width="6" height="11" font="2">3</text>
+<text top="324" left="433" width="6" height="16" font="0">)</text>
+<text top="330" left="439" width="6" height="11" font="2">2</text>
+<text top="324" left="445" width="168" height="16" font="0"> -&gt; CaO + MgO + 2CO</text>
+<text top="330" left="613" width="9" height="11" font="2">2 </text>
+<text top="324" left="622" width="161" height="16" font="5"><b>                             </b> (2) </text>
+<text top="353" left="135" width="654" height="16" font="0">Looking first at the samples with no smectite, initially, about 1-2% of the mass is lost. </text>
+<text top="374" left="135" width="264" height="16" font="0">Once the temperature reaches ~400 </text>
+<text top="370" left="399" width="6" height="11" font="2">o</text>
+<text top="374" left="405" width="384" height="16" font="0">C a second larger vaporization begins.  This pattern </text>
+<text top="395" left="135" width="655" height="16" font="0">holds for samples that have been cleaned with HCl and those that have not been. The </text>
+<text top="415" left="135" width="653" height="16" font="0">cleaning process involves washing the sample with water, so the initial mass loss tends to </text>
+<text top="436" left="135" width="653" height="16" font="0">be higher for the cleaned samples. With the procedures used it is not possible to know if </text>
+<text top="457" left="135" width="655" height="16" font="0">all the Ca and Mg salts were washed away. The two extreme assumptions are all the </text>
+<text top="477" left="135" width="654" height="16" font="0">temperature stable salts were washed away or all the salts remained in the clean sample </text>
+<text top="498" left="135" width="657" height="16" font="0">and form part of its total weight. Analysis was done under both assumptions. The </text>
+<text top="519" left="135" width="529" height="16" font="0">assumption that the salts remain is in slightly better agreement with data. </text>
+<text top="549" left="135" width="654" height="16" font="0">The most direct way to analyze the data is to compare the observed weight loss of the </text>
+<text top="569" left="135" width="654" height="16" font="0">uncleaned sample to that predicted by FTIR mineralogy, and TOC. For sample _261 the </text>
+<text top="590" left="135" width="653" height="16" font="0">total weight loss from TGA was 10%, vs a predicted weight loss from dolomite and TOC </text>
+<text top="611" left="135" width="653" height="16" font="0">of 9%. For sample _282 the weight loss was 13% vs 12 % for the predicted weight loss. </text>
+<text top="631" left="135" width="549" height="16" font="0">The additional weight loss is probably due to clay bound water in the illite.  </text>
+<text top="661" left="135" width="655" height="16" font="0">Comparison of the weight losses for the clean and unclean samples provides a way to </text>
+<text top="682" left="135" width="654" height="16" font="0">separate out the carbonate reaction. For sample _261 (Figure 2) the uncleaned mass loss </text>
+<text top="702" left="135" width="654" height="16" font="0">is due to removal of TOC, Ca and Mg from the dolomite, and water from the illite. The </text>
+<text top="723" left="135" width="341" height="16" font="0">difference between the weight loss above 400 </text>
+<text top="719" left="476" width="6" height="11" font="2">o</text>
+<text top="723" left="482" width="306" height="16" font="0">C of the cleaned and un-cleaned samples </text>
+<text top="744" left="135" width="653" height="16" font="0">is the mass loss due to oxidizing dolomite. Since the weight losses are given in percent of </text>
+<text top="765" left="135" width="517" height="16" font="0">sample weight conversion must be made to the same reference weight.  </text>
+<text top="794" left="135" width="654" height="16" font="0">After doing this, the cleaned sample was 4.1 % TOC. It had a weight loss of 4.2%. The </text>
+<text top="815" left="135" width="653" height="16" font="0">weight loss and the weight % of TOC are in good agreement.  The measured weight loss </text>
+<text top="836" left="135" width="394" height="16" font="0">that occurs after the un-cleaned sample reaches 400 </text>
+<text top="832" left="529" width="6" height="11" font="2">o</text>
+<text top="836" left="535" width="255" height="16" font="0">C is 9.8% of the original weight. </text>
+<text top="856" left="135" width="654" height="16" font="0">The percentage of dolomite measured by the TGA follows from taking the difference in </text>
+<text top="877" left="135" width="654" height="16" font="0">weight loss and using Equation 2. The calculation gives dolomite as 11% of the original </text>
+<text top="898" left="135" width="587" height="16" font="0">sample weight. The FTIR measurement is 10%. Again there is good agreement.   </text>
+<text top="927" left="135" width="654" height="16" font="0">Proceeding through the same analysis on sample _862 (Figure 4), the weight loss of the </text>
+<text top="948" left="135" width="653" height="16" font="0">clean sample was 6.2% which equals the % TOC. The total weight loss of the uncleaned </text>
+<text top="969" left="135" width="644" height="16" font="0">sample was 13.3%. This gives 14% dolomite in the original sample vs 12 % from FTIR.  </text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="58" left="135" width="648" height="16" font="0">SCA2007-45 4/7</text>
+<text top="79" left="135" width="5" height="16" font="0"> </text>
+<text top="1118" left="135" width="5" height="16" font="0"> </text>
+<text top="139" left="135" width="655" height="16" font="0">The comparison analysis of the cleaned and uncleaned samples did not include CBW, </text>
+<text top="160" left="135" width="654" height="16" font="0">clay bound water, in the illite. The initial analysis of the mass balance for the uncleaned </text>
+<text top="181" left="135" width="467" height="16" font="0">samples is consistent with a small amount of CBW in the illite.   </text>
+<text top="210" left="135" width="655" height="16" font="0">Sample _695 has 15 % smectite. The sample (Figure 3) has 10.7% mass loss for the </text>
+<text top="231" left="135" width="654" height="16" font="0">unclean sample, and 6.8% for the clean sample. The clean sample had 1.1% TOC. The </text>
+<text top="252" left="135" width="223" height="16" font="0">additional 5.7% of post 400 </text>
+<text top="248" left="357" width="6" height="11" font="2">o</text>
+<text top="252" left="364" width="428" height="16" font="0">C mass loss is primarily CBW from the smectite. The </text>
+<text top="272" left="135" width="654" height="16" font="0">amount of clay bound water associated with smectite has considerable variation. Based </text>
+<text top="293" left="135" width="652" height="16" font="0">on hydration experiments (Chitale et al., 2000), or CEC values (Revil et al., 1998) and the </text>
+<text top="314" left="135" width="653" height="16" font="0">Hill Shirley Kline equation (Hill et al., 1979) typical amounts of CBW for smectite range </text>
+<text top="335" left="135" width="653" height="16" font="0">from 400 to 500 mg per gram of dry smectite, which converts to 19 % to 17% by weight </text>
+<text top="355" left="135" width="656" height="16" font="0">of hydrated smectite in the sample. FTIR mineralogy shows 16% hydrated smectite, </text>
+<text top="376" left="135" width="308" height="16" font="0">which agrees with the TGA measurement. </text>
+<text top="406" left="135" width="655" height="16" font="0">For the uncleaned sample (Figure 3) the percentage mass loss was 10.7%. The weight </text>
+<text top="426" left="135" width="654" height="16" font="0">loss attributable to TOC and CBW is 6.8 % of its weight. The additional weight loss is </text>
+<text top="447" left="135" width="654" height="16" font="0">due to oxidation of dolomite. From the stoicometric analysis this would calculate as 8.0 </text>
+<text top="468" left="135" width="404" height="16" font="0">% dolomite by weight. The FTIR analysis found 5.8%.  </text>
+<text top="497" left="135" width="658" height="16" font="0">Figure 6 shows the GC analysis for the vapor collected from sample _682 as the </text>
+<text top="518" left="135" width="213" height="16" font="0">temperature increased to 100 </text>
+<text top="514" left="348" width="6" height="11" font="2">o</text>
+<text top="518" left="354" width="433" height="16" font="0">C. The absence of peaks greater than 1 pA indicates that no </text>
+<text top="539" left="135" width="654" height="16" font="0">hydrocarbons were present. This implies that the samples contained no volatile oils and </text>
+<text top="560" left="135" width="398" height="16" font="0">no organic carbon was vaporized at low temperatures.  </text>
+<text top="590" left="135" width="159" height="19" font="4"><b>CONCLUSIONS </b></text>
+<text top="613" left="135" width="656" height="16" font="0">Table 3 summarizes the mass balance analysis of the unclean samples containing no </text>
+<text top="634" left="135" width="657" height="16" font="0">smectite. If there was no CBW in the illite the theoretical mass loss would slightly </text>
+<text top="655" left="135" width="653" height="16" font="0">underestimate the observed. There is about twice as much illite in the samples as smectite </text>
+<text top="675" left="135" width="653" height="16" font="0">in the third sample. Illite very roughly has 10% of the CBW contained in smectite (Ravile </text>
+<text top="696" left="135" width="657" height="16" font="0">et al.). Based on the weight loss of the third sample this suggests 1% weight loss </text>
+<text top="717" left="135" width="654" height="16" font="0">associated with the illite. Table 4 summarizes the analysis done based on comparison of </text>
+<text top="738" left="135" width="654" height="16" font="0">the mass loss before and after reaction with HCL. This method allows separation of the </text>
+<text top="758" left="135" width="655" height="16" font="0">dolomite  oxidization, but introduces complications that obscure the contribution from </text>
+<text top="779" left="135" width="654" height="16" font="0">CBW in illite. The mass balance is good ignoring illite. CBW in illite could account for </text>
+<text top="800" left="135" width="653" height="16" font="0">the slight TGA over estimation of smectite, but other uncertainties from: the variability of </text>
+<text top="820" left="135" width="659" height="16" font="0">CBW in smectite, the uncertain hydration state of the clays, the errors in FTIR </text>
+<text top="841" left="135" width="657" height="16" font="0">mineralogy, some of the analysis having been done on companion samples, and the </text>
+<text top="862" left="135" width="655" height="16" font="0">amount of salt left in the clean samples prevents this from being a firm conclusion.             </text>
+<text top="891" left="135" width="654" height="16" font="0">The detailed analysis of the experiments confirms that drying the Barnett shale reservoir </text>
+<text top="912" left="135" width="147" height="16" font="0">core samples at 100 </text>
+<text top="908" left="282" width="6" height="11" font="2">o</text>
+<text top="912" left="288" width="499" height="16" font="0">C does not mobilize any of the mineral constitutes of the sample, the </text>
+<text top="933" left="135" width="654" height="16" font="0">organic carbon, or the clay bound water. Further more no hydrocarbons were observed </text>
+<text top="953" left="135" width="159" height="16" font="0">during heating to 100 </text>
+<text top="949" left="294" width="6" height="11" font="2">o</text>
+<text top="953" left="300" width="439" height="16" font="0">C.  That is the porosity is a good effective porosity estimate. </text>
+<text top="983" left="135" width="657" height="16" font="0">The analysis of these experiments has demonstrated the utility of using TGA as a </text>
+<text top="1004" left="135" width="654" height="16" font="0">component in developing the cleaning methodology for shale gas reservoir samples, and </text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="6" size="9" family="Times" color="#000000"/>
+	<fontspec id="7" size="13" family="Helvetica" color="#000000"/>
+	<fontspec id="8" size="13" family="Times" color="#000000"/>
+<text top="58" left="135" width="648" height="16" font="0">SCA2007-45 5/7</text>
+<text top="79" left="135" width="5" height="16" font="0"> </text>
+<text top="1118" left="135" width="5" height="16" font="0"> </text>
+<text top="139" left="135" width="654" height="16" font="0">in analyzing the samples. The experiments also suggests that TGA combined with FTIR </text>
+<text top="160" left="135" width="613" height="16" font="0">could be an inexpensive and quick method to obtain CBW for a shale or shaly sand.  </text>
+<text top="191" left="135" width="146" height="19" font="4"><b>REFERENCES </b></text>
+<text top="214" left="135" width="635" height="16" font="0">Chitale, D. V., Gardner, J., and Sigal, R., (2000) Significance of NMR T2 Distributions </text>
+<text top="234" left="189" width="564" height="16" font="0">from Hydrated Montmorillonites, SPWLA 41st Annual Logging Symposium, </text>
+<text top="255" left="189" width="166" height="16" font="0">June 2000, Dallas, TX </text>
+<text top="276" left="135" width="602" height="16" font="0">Hill, H. J., Shirley, O. J., and Klein, G. E., (1979) Boundwater in Shaly Sands – Its </text>
+<text top="297" left="189" width="97" height="16" font="0">Relation to Q</text>
+<text top="303" left="286" width="6" height="11" font="2">v</text>
+<text top="297" left="292" width="469" height="16" font="0"> and Other Formation Properties, edited by Waxman, M. H., and </text>
+<text top="317" left="189" width="338" height="16" font="0">Thomas, E. C., The Log Analyst, vol xx, no 3  </text>
+<text top="347" left="135" width="652" height="16" font="0">Revile, A., Cathles III, L. M., and Losh, S., (1998) Electrical Conductivity in Shaly Sands </text>
+<text top="368" left="189" width="379" height="16" font="0">with Geophysical Applications, JGR, v103 No. B10 </text>
+<text top="396" left="135" width="3" height="11" font="6"><b> </b></text>
+<text top="412" left="135" width="179" height="19" font="4"><b>Acknowledgements </b></text>
+<text top="435" left="135" width="619" height="16" font="0">The authors would like to thank Devon Energy Corporation for support of this work.  </text>
+<text top="465" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="495" left="135" width="594" height="16" font="5"><b>Table 1.</b> FTIR Mineralogy of samples analyzed in TGA. % weight of dry sample  </text>
+<text top="493" left="729" width="5" height="19" font="4"><b> </b></text>
+<text top="540" left="142" width="244" height="14" font="7">Depth Quartz Calcite  Dolomite</text>
+<text top="540" left="402" width="51" height="14" font="7">Siderite</text>
+<text top="540" left="469" width="265" height="14" font="7">Illite Smectite Kaolinite Chlorite </text>
+<text top="523" left="732" width="38" height="14" font="7">Total </text>
+<text top="540" left="732" width="70" height="14" font="7">Feldspars </text>
+<text top="560" left="149" width="128" height="14" font="7">_261 34.3 </text>
+<text top="560" left="302" width="84" height="14" font="7">0  10.5</text>
+<text top="560" left="432" width="21" height="14" font="7">5.7</text>
+<text top="560" left="469" width="29" height="14" font="7">26.7</text>
+<text top="560" left="565" width="8" height="14" font="7">0</text>
+<text top="560" left="626" width="54" height="14" font="7">1.0 </text>
+<text top="560" left="694" width="54" height="14" font="7">5.7 </text>
+<text top="560" left="802" width="29" height="14" font="7">11.4</text>
+<text top="579" left="149" width="128" height="14" font="7">_682 35.5 </text>
+<text top="579" left="302" width="84" height="14" font="7">0  12.2</text>
+<text top="579" left="432" width="21" height="14" font="7">3.7</text>
+<text top="579" left="469" width="29" height="14" font="7">22.4</text>
+<text top="579" left="565" width="8" height="14" font="7">0</text>
+<text top="579" left="626" width="54" height="14" font="7">1.0 </text>
+<text top="579" left="694" width="54" height="14" font="7">3.7 </text>
+<text top="579" left="802" width="29" height="14" font="7">15.0</text>
+<text top="598" left="149" width="128" height="14" font="7">_695 15.8 </text>
+<text top="598" left="302" width="41" height="14" font="7">0 </text>
+<text top="598" left="365" width="21" height="14" font="7">5.9</text>
+<text top="598" left="432" width="21" height="14" font="7">4.0</text>
+<text top="598" left="469" width="29" height="14" font="7">33.6</text>
+<text top="598" left="544" width="29" height="14" font="7">14.8</text>
+<text top="598" left="639" width="41" height="14" font="7">0 </text>
+<text top="598" left="707" width="41" height="14" font="7">0 </text>
+<text top="598" left="802" width="29" height="14" font="7">20.8</text>
+<text top="616" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="637" left="135" width="425" height="16" font="5"><b>Table 2.</b> Independently Measured Total Organic Content.  </text>
+<text top="663" left="152" width="243" height="14" font="7">Depth Leco </text>
+<text top="663" left="433" width="129" height="14" font="7">Devon </text>
+<text top="686" left="163" width="243" height="14" font="7">(ft) TOC </text>
+<text top="686" left="439" width="128" height="14" font="7">TOC </text>
+<text top="710" left="156" width="243" height="14" font="7">_261 4.1 </text>
+<text top="710" left="445" width="115" height="14" font="7">4.2 </text>
+<text top="733" left="156" width="243" height="14" font="7">_682 6.3 </text>
+<text top="733" left="445" width="115" height="14" font="7">6.3 </text>
+<text top="757" left="156" width="243" height="14" font="7">_695 1.11 </text>
+<text top="757" left="443" width="115" height="14" font="7">N/A </text>
+<text top="777" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="809" left="135" width="611" height="16" font="5"><b>Table 3</b> Weight loss predicted from components of sample and observed weight loss</text>
+<text top="807" left="746" width="5" height="19" font="4"><b> </b></text>
+<text top="830" left="135" width="235" height="14" font="8">Depth Predicted </text>
+<text top="847" left="243" width="80" height="14" font="8">Weight Loss </text>
+<text top="864" left="243" width="38" height="14" font="8">TOC  </text>
+<text top="882" left="243" width="16" height="14" font="8">% </text>
+<text top="899" left="243" width="4" height="14" font="8"> </text>
+<text top="830" left="358" width="60" height="14" font="8">Predicted </text>
+<text top="847" left="358" width="80" height="14" font="8">Weight Loss </text>
+<text top="864" left="358" width="64" height="14" font="8">Dolomite  </text>
+<text top="882" left="358" width="16" height="14" font="8">% </text>
+<text top="899" left="358" width="4" height="14" font="8"> </text>
+<text top="830" left="474" width="60" height="14" font="8">Predicted </text>
+<text top="847" left="474" width="80" height="14" font="8">Weight Loss </text>
+<text top="864" left="474" width="42" height="14" font="8">CBW  </text>
+<text top="882" left="474" width="16" height="14" font="8">% </text>
+<text top="899" left="474" width="4" height="14" font="8"> </text>
+<text top="830" left="590" width="61" height="14" font="8">Observed </text>
+<text top="847" left="590" width="80" height="14" font="8">Weight Loss </text>
+<text top="864" left="590" width="38" height="14" font="8">TGA  </text>
+<text top="882" left="590" width="16" height="14" font="8">% </text>
+<text top="899" left="590" width="4" height="14" font="8"> </text>
+<text top="830" left="706" width="35" height="14" font="8">Total </text>
+<text top="847" left="706" width="60" height="14" font="8">Predicted </text>
+<text top="864" left="706" width="80" height="14" font="8">Weight Loss </text>
+<text top="882" left="706" width="16" height="14" font="8">% </text>
+<text top="926" left="135" width="204" height="14" font="8">_261 4.2 </text>
+<text top="926" left="358" width="96" height="14" font="8">5.0 </text>
+<text top="926" left="474" width="85" height="14" font="8">1 </text>
+<text top="926" left="590" width="96" height="14" font="8">9.8 </text>
+<text top="926" left="706" width="104" height="14" font="8">10.2 </text>
+<text top="953" left="135" width="204" height="14" font="8">_682 6.3 </text>
+<text top="953" left="358" width="96" height="14" font="8">5.9 </text>
+<text top="953" left="474" width="85" height="14" font="8">1 </text>
+<text top="953" left="590" width="220" height="14" font="8">13.3  13.2 </text>
+<text top="982" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="1015" left="135" width="5" height="19" font="4"><b> </b></text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="9" size="13" family="Helvetica" color="#000000"/>
+	<fontspec id="10" size="12" family="Helvetica" color="#000000"/>
+	<fontspec id="11" size="12" family="Helvetica" color="#000000"/>
+<text top="58" left="135" width="648" height="16" font="0">SCA2007-45 6/7</text>
+<text top="79" left="135" width="5" height="16" font="0"> </text>
+<text top="1118" left="135" width="5" height="16" font="0"> </text>
+<text top="140" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="173" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="207" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="240" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="273" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="306" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="339" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="372" left="135" width="5" height="19" font="4"><b> </b></text>
+<text top="404" left="558" width="14" height="16" font="0">.  </text>
+<text top="433" left="135" width="3" height="11" font="6"><b> </b></text>
+<text top="457" left="135" width="316" height="16" font="5"><b>Figure 1.</b> Time to temperature  correlation.<b> </b></text>
+<text top="487" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="517" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="546" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="576" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="606" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="635" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="665" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="695" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="724" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="745" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="766" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="787" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="807" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="828" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="849" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="869" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="890" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="911" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="931" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="952" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="973" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="992" left="135" width="3" height="11" font="6"><b> </b></text>
+<text top="1007" left="135" width="654" height="16" font="5"><b>Figures 2,3,4, and 5.</b>  These figures show the mass loss with time when samples were </text>
+<text top="1028" left="135" width="637" height="16" font="0">heated in the TGA. The clean sample was reacted with HCL to stabilize the Ca and Mg.<b> </b></text>
+<text top="156" left="328" width="221" height="14" font="9"><b>Time vs. Average Temperature</b></text>
+<text top="371" left="255" width="8" height="13" font="10">0</text>
+<text top="351" left="240" width="23" height="13" font="10">100</text>
+<text top="331" left="240" width="23" height="13" font="10">200</text>
+<text top="311" left="240" width="23" height="13" font="10">300</text>
+<text top="291" left="240" width="23" height="13" font="10">400</text>
+<text top="271" left="240" width="23" height="13" font="10">500</text>
+<text top="251" left="240" width="23" height="13" font="10">600</text>
+<text top="231" left="240" width="23" height="13" font="10">700</text>
+<text top="211" left="240" width="23" height="13" font="10">800</text>
+<text top="191" left="240" width="23" height="13" font="10">900</text>
+<text top="392" left="270" width="8" height="13" font="10">0</text>
+<text top="392" left="331" width="16" height="13" font="10">50</text>
+<text top="392" left="391" width="23" height="13" font="10">100</text>
+<text top="392" left="455" width="23" height="13" font="10">150</text>
+<text top="392" left="519" width="23" height="13" font="10">200</text>
+<text top="392" left="583" width="23" height="13" font="10">250</text>
+<text top="392" left="647" width="23" height="13" font="10">300</text>
+<text top="392" left="712" width="23" height="13" font="10">350</text>
+<text top="418" left="448" width="102" height="13" font="11"><b>Time (Minutes)</b></text>
+<text top="332" left="228" width="0" height="13" font="11"><b>Te</b></text>
+<text top="316" left="228" width="0" height="13" font="11"><b>m</b></text>
+<text top="303" left="228" width="0" height="13" font="11"><b>p</b></text>
+<text top="295" left="228" width="0" height="13" font="11"><b>e</b></text>
+<text top="287" left="228" width="0" height="13" font="11"><b>ra</b></text>
+<text top="274" left="228" width="0" height="13" font="11"><b>tur</b></text>
+<text top="255" left="228" width="0" height="13" font="11"><b>e</b></text>
+<text top="247" left="228" width="0" height="13" font="11"><b> (</b></text>
+<text top="238" left="228" width="0" height="13" font="11"><b>C</b></text>
+<text top="228" left="228" width="0" height="13" font="11"><b>)</b></text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="58" left="135" width="648" height="16" font="0">SCA2007-45 7/7</text>
+<text top="79" left="135" width="5" height="16" font="0"> </text>
+<text top="1118" left="135" width="5" height="16" font="0"> </text>
+<text top="139" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="160" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="181" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="202" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="222" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="243" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="273" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="302" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="332" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="362" left="135" width="5" height="16" font="5"><b> </b></text>
+<text top="391" left="135" width="532" height="16" font="5"><b>Figure 6.</b> GC of vapor collected from sample _682 during heating to 100 </text>
+<text top="387" left="667" width="6" height="11" font="2">o</text>
+<text top="391" left="673" width="16" height="16" font="0">C </text>
+</page>
+</pdf2xml>

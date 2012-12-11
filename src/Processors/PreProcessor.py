@@ -19,8 +19,8 @@ class PreProcessor:
         for line in f:
             if(line.strip() == ''):
                 continue
+            line.decode('ascii','ignore')
             f1.write(line.replace('<b>', '').replace('</b>', '').replace('<i>', '').replace('</i>', '').replace('</a>','').replace('<a','')) 
-            
         f.close()
         f1.close()
         

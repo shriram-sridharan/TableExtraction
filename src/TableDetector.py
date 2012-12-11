@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 from Utils.SparseType import SparseType
 from LR.LogisticRegressor import LogisticRegressor
 from SVM.SVMImpl import SVMImpl
+import sys
 
 def TrainUsingCRF(xmls, preprocessor, trainer):
     CRFImpl = CRF()
@@ -100,8 +101,11 @@ def TestUsingLR(predictxmlname, location):
             print row[1].text + " " + str(row[0])   
 def CreateHtmls(xmls, preprocessor, trainer):
     for xmlname in xmls:
-        preprocessedxml = preprocessor.preprocessxml("../TrainingData/xmls/" + xmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
-        trainer.train(preprocessedxml, xmlname)
+        try:
+            preprocessedxml = preprocessor.preprocessxml("../TrainingData/xmls/cs/" + xmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
+            trainer.train(preprocessedxml, xmlname)
+        except:
+            print "Problem with " + xmlname, sys.exc_info()[0]
 
 def TestUsingCRF(predictxmlname, location):
     CRF = getModelwithTrainedWeights()
@@ -159,7 +163,7 @@ def TestUsingSVM(svminstance, predictxmlname, location):
             print row[1].text + " " + str(row[0]) 
                         
 if __name__ == '__main__':
-    xmls = ["1","3","Test1","Test2","Test3","Test4","Test5"] #
+    xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14"]
     preprocessor = Processors.PreProcessor.PreProcessor()
     postprocessor = Processors.PostProcessor.PostProcessor()
     trainer = Utils.Trainer.Trainer()
@@ -167,13 +171,14 @@ if __name__ == '__main__':
     #CreateHtmls(xmls, preprocessor, trainer)
    
     predictxmlname = '4'
-    location = "../TrainingData/xmls/"
-    
-    svminstance = TrainUsingSVM(xmls, preprocessor, trainer)
-    TestUsingSVM(svminstance, predictxmlname, location)
-#    TrainUsingCRF(xmls, preprocessor, trainer)
-#    TestUsingCRF(predictxmlname, location)
+    location = "../TrainingData/xmls/cs/"
+ 
+    TrainUsingCRF(xmls, preprocessor, trainer)
+    TestUsingCRF(predictxmlname, location)
+       
+#    svminstance = TrainUsingSVM(xmls, preprocessor, trainer)
+#    TestUsingSVM(svminstance, predictxmlname, location)
 #  
-    #TrainUsingLR(xmls, preprocessor, trainer)
+#    TrainUsingLR(xmls, preprocessor, trainer)
 #    TestUsingLR(predictxmlname, location)
     

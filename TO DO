@@ -1,21 +1,12 @@
+Train on more pdf documents
 MORE GOOD FEATURES
 
-
-Perform Cross Validation for getting the approximate model (due to lack of training data)
+Perform Cross Validation (Stratified Sampling) for getting the approximate model (due to lack of training data)
 Or try bootstrap aggregation
-Stratified Sampling
 
-Try CRF with real valued features
-Train on more pdf documents
-Table feature with table text present below the table
-Change the Trainer code for Page Begin and Page End etc and for other sparse types
-Use Numpy for matrix multiplications etc
-Need a lot of training data (Atleast 100 pdf files)
-Implement CRF generically so that new features can be added later on
-Trying out Gibbs Sampling for training
-
-Handling Discrete and Continous Feature Parameter and Weights?????????????????????????????????????
+CRF with real valued features?? [How to Normalize]
 Should label other kind of sparse lines too?
-Should the training data contain the sparse lines detected by preprocessor?
 what is the gaussian prior and L1 regularization used for?
-Learning CRF other algorithms - LBFGS, Newton Method etc?
+Learning CRF other algorithms - LBFGS, Newton Method etc? Gibbs Sampling for approximate inference??
+
+Table text followed by A or I, II or Nothing: Outliers!

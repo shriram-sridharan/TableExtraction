@@ -1,0 +1,1173 @@
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="0" height="23" left="165" textpieces="0" top="172" width="588">Towards a Unied Architecture for in-RDBMS Analytics</text>
+2 <text font="1" height="16" left="174" textpieces="4" top="223" width="571">Xixuan Feng     Arun Kumar      Benjamin Recht     Christopher R e</text>
+2 <text font="1" height="16" left="327" textpieces="0" top="266" width="263">Department of Computer Sciences</text>
+2 <text font="1" height="16" left="332" textpieces="0" top="287" width="253">University of Wisconsin-Madison</text>
+2 <text font="1" height="17" left="298" textpieces="0" top="306" width="322">{xfeng, arun, brecht, chrisre}@cs.wisc.edu</text>
+2 <text font="2" height="13" left="426" textpieces="0" top="370" width="66">Abstract</text>
+2 <text font="2" height="13" left="171" textpieces="0" top="397" width="598">The increasing use of statistical data analysis in enterprise applications has created an arms</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="415" width="620">race among database vendors to oer ever more sophisticated in-database analytics. One chal-</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="433" width="620">lenge in this race is that each new statistical technique must be implemented from scratch in</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="451" width="620">the RDBMS, which leads to a lengthy and complex development process. We argue that the</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="469" width="620">root cause for this overhead is the lack of a unied architecture for in-database analytics. Our</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="487" width="620">main contribution in this work is to take a step towards such a unied architecture. A key</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="505" width="620">benet of our unied architecture is that performance optimizations for analytics techniques</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="523" width="620">can be studied generically instead of an ad hoc, per-technique fashion. In particular, our techni-</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="541" width="620">cal contributions are theoretical and empirical studies of two key factors that we found impact</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="559" width="620">performance: the order data is stored, and parallelization of computations on a single-node mul-</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="577" width="620">ticore RDBMS. We demonstrate the feasibility of our architecture by integrating several popular</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="595" width="620">analytics techniques into two commercial and one open-source RDBMS. Our architecture re-</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="613" width="620">quires changes to only a few dozen lines of code to integrate a new statistical technique. We</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="631" width="620">then compare our approach with the native analytics tools oered by the commercial RDBM-</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="648" width="620">Ses on various analytics tasks, and validate that our approach achieves competitive or higher</text>
+2 <text font="2" height="13" left="149" textpieces="0" top="666" width="335">performance, while still achieving the same quality.</text>
+2 <text font="3" height="19" left="108" textpieces="1" top="713" width="169">1  Introduction</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="753" width="702">There is an escalating arms race to bring sophisticated data analysis techniques into enterprise</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="774" width="702">applications. In the late 1990s and early 2000s, this brought a wave of data mining toolkits into</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="794" width="702">the RDBMS. Several major vendors are again making an eort toward sophisticated in-database</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="814" width="702">analytics with both open source eorts, e.g., the MADlib platform [17], and several projects at major</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="835" width="702">database vendors. In our conversations with engineers from Oracle [37] and EMC Greenplum [21],</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="855" width="702">we learned that a key bottleneck in this arms race is that each new data analytics technique</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="875" width="702">requires several ad hoc steps: a new solver is employed that has new memory requirements, new</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="896" width="702">data access methods, etc. As a result, there is little code reuse across dierent algorithms, slowing</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="916" width="702">the development eort. Thus, it would be a boon to the database industry if one could devise</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="936" width="702">a single architecture that was capable of processing many data analytics techniques. An ideal</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="957" width="702">architecture would leverage as many of the existing code paths in the database as possible as such</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="977" width="702">code paths are likely to be maintained and optimized as the RDBMS code evolves to new platforms.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="997" width="677">To nd this common architecture, we begin with an observation from the mathematical pro-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1018" width="702">gramming community that has been exploited in recent years by both the statistics and machine</text>
+2 <text font="4" height="15" left="455" textpieces="0" top="1069" width="8">1</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">learning communities: many common data analytics tasks can be framed as convex programming</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="133" width="702">problems [16, 25]. Examples of such convex programming problems include support vector ma-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="154" width="702">chines, least squares and logistic regression, conditional random elds, graphical models, control</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="702">theoretic models, and many more. It is hard to overstate the impact of this observation on data</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="194" width="702">analysis theory: rather than studying properties of each new model, researchers in this area are</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="215" width="702">able to unify their algorithmic and theoretical studies. In particular, convex programming problems</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="235" width="702">are attractive as local solutions are always globally optimal, and one can nd local solutions via a</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="255" width="702">standard suite of well-established and analyzed algorithms. Thus, convex programming is a natural</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="276" width="354">starting point for a unied analytics architecture.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="296" width="677">The mathematical programming literature is lled with algorithms to solve convex programming</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="316" width="702">problems. Our rst goal is to nd an algorithm in that literature whose data access properties are</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="337" width="702">amenable to implementation inside an RDBMS. We observe that a classical algorithm from the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="357" width="702">mathematical programming cannon, called incremental gradient descent (IGD), has a data-access</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="377" width="702">pattern that is essentially identical to the data access pattern of any SQL aggregation function,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="398" width="702">e.g., an SQL AVG. As we explain in Section 2, IGD can be viewed as examining the data one tuple</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="418" width="702">at time and then performing a (non-commutative) aggregation of the results. Our rst contribution</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="438" width="702">is an architecture that leverages this observation: we show that we can implement these methods</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="459" width="702">using the user-dened aggregate features that are available inside every major RDBMS. To support</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="479" width="702">our point, we implement our architecture over PostgreSQL and two commercial database systems.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="499" width="702">In turn, this allows us to implement all convex data analysis techniques that are available in current</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="520" width="702">RDBMSes  and many next generation techniques (see Figure 1). The code to add in a new model</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="540" width="471">can be as little as ten lines of C code, e.g., for logistic regression.1</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="560" width="677">As with any generic architectural abstraction, a key question is to understand how much perfor-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="581" width="702">mance overhead our approach would incur. In the two commercial systems that we investigate, we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="601" width="702">show that compared to a strawman user-dened aggregate that computes no value, our approach</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="621" width="702">has between 5% (for simple tasks like regression) to 100% overhead (for complex tasks like matrix</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="642" width="702">factorization). What is perhaps more surprising is that our approach is often much faster than</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="662" width="702">existing in-database analytic tools from commercial vendors: our prototype implementations are</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="682" width="702">in many cases 2  4x faster than existing approaches for simple tasks  and for some newly added</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="702" width="444">tasks such as matrix factorization, orders of magnitude faster.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="723" width="677">A second benet of a unied in-database architecture is that we can study the factors that</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="743" width="702">impact performance and optimize them in a way that applies across several analytics tasks. Our</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="763" width="702">preliminary investigation revealed many such optimization opportunities including data layout,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="784" width="702">compression, data ordering, and parallelism. Here, we focus on two such factors that we discovered</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="804" width="702">were important in our initial prototype: data clustering, i.e., how the data is ordered on-disk, and</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="824" width="329">parallelism on a single-node multicore system.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="845" width="677">Although IGD will converge to an optimal solution on convex programming problems no matter</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="865" width="702">how the underlying data is ordered, empirically some orders allow us to terminate more quickly</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="885" width="702">than others. We observe that inside an RDBMS, data is often clustered for reasons unrelated to</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="906" width="702">the analysis task (e.g., to support ecient query performance), and running IGD through the data</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="926" width="702">in the order that is stored on disk can lead to considerable degradation in performance. With</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="946" width="702">this in mind, we describe a theoretical example that characterizes some bad orders for IGDs</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="967" width="702">and shows that they are indeed likely inside an RDBMS. For example, if one clusters the data</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="987" width="702">for a classication task such that all of the positive examples come before the negative examples,</text>
+2 <text font="6" height="8" left="127" textpieces="0" top="1016" width="604">1Not all data analysis problems are convex. Notable exceptions are Apriori [9] and graph mining algorithms.</text>
+2 <text font="4" height="15" left="455" textpieces="0" top="1069" width="8">2</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="217" textpieces="1" top="494" width="373">Analytics Task                            Objective</text>
+2 <text font="4" height="15" left="217" textpieces="0" top="528" width="178">Logistic Regression (LR)</text>
+2 <text font="5" height="11" left="447" textpieces="0" top="536" width="4">i</text>
+2 <text font="4" height="15" left="454" textpieces="2" top="528" width="211">log(1 + exp(yiwTxi)) +  w</text>
+2 <text font="5" height="11" left="675" textpieces="0" top="533" width="6">1</text>
+2 <text font="4" height="15" left="217" textpieces="0" top="559" width="149">Classication (SVM)</text>
+2 <text font="5" height="11" left="479" textpieces="0" top="567" width="70">i(1  yiwT</text>
+2 <text font="4" height="15" left="553" textpieces="2" top="559" width="81">xi)++  w</text>
+2 <text font="5" height="11" left="643" textpieces="0" top="565" width="6">1</text>
+2 <text font="4" height="15" left="217" textpieces="0" top="590" width="178">Recommendation (LMF)</text>
+2 <text font="5" height="11" left="446" textpieces="1" top="598" width="64">(i,j)(LT i</text>
+2 <text font="4" height="15" left="516" textpieces="4" top="590" width="162">Rj Mij)2+  L, R 2</text>
+2 <text font="5" height="11" left="672" textpieces="0" top="598" width="8">F</text>
+2 <text font="4" height="15" left="217" textpieces="0" top="621" width="145">Labeling (CRF) [48]</text>
+2 <text font="5" height="11" left="451" textpieces="1" top="629" width="40">k      j</text>
+2 <text font="4" height="15" left="496" textpieces="2" top="621" width="173">wjFj(yk, xk)  log Z(xk)</text>
+2 <text font="4" height="15" left="217" textpieces="0" top="654" width="108">Kalman Filters</text>
+2 <text font="5" height="11" left="433" textpieces="0" top="649" width="7">T</text>
+2 <text font="5" height="11" left="433" textpieces="0" top="662" width="21">t=1</text>
+2 <text font="4" height="15" left="457" textpieces="1" top="653" width="110">||Cwt f (yt)||2</text>
+2 <text font="5" height="11" left="561" textpieces="0" top="661" width="6">2</text>
+2 <text font="4" height="15" left="572" textpieces="1" top="654" width="122">+ ||wt Awt1||2</text>
+2 <text font="5" height="11" left="689" textpieces="0" top="661" width="6">2</text>
+2 <text font="4" height="15" left="217" textpieces="3" top="685" width="431">Portfolio Optimization            pTw + wTw s.t. w  </text>
+2 <text font="4" height="17" left="108" textpieces="0" top="724" width="702">Figure 1: Bismarck in an RDBMS: (A) In contrast to existing in-RDBMS analytics tools that</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="744" width="702">have separate code paths for dierent analytics tasks, Bismarck provides a single framework</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="764" width="702">to implement them, while possibly retaining similar interfaces. (B) Example tasks handled by</text>
+2 <text font="4" height="14" left="108" textpieces="0" top="788" width="702">Bismarck. In Logistic Regression and Classication, we minimize the error of a predictor plus a</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="805" width="702">regularization term. In Recommendation, we nd a low-rank approximation to a matrix M which</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="825" width="702">is only observed on a sparse sampling of its entries. This problem is not convex, but it can still be</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="846" width="702">solved via IGD. In Labeling with Conditional Random Fields, we maximize the weights associated</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="866" width="701">with features (Fj) in the text to predict the labels. In Kalman Filters, we t noisy time series</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="886" width="702">data. In quantitative nance, portfolios are optimized balancing risk (pTw) with expected returns</text>
+2 <text font="4" height="15" left="108" textpieces="2" top="907" width="494">(wTw); the allocations must lie in a simplex, , i.e.,  = {w  Rn|</text>
+2 <text font="5" height="11" left="623" textpieces="0" top="902" width="8">n</text>
+2 <text font="5" height="11" left="623" textpieces="0" top="915" width="21">i=1</text>
+2 <text font="4" height="15" left="647" textpieces="2" top="907" width="163">wi= 1} and wi 0 for</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="927" width="86">i = 1, . . . , n.</text>
+2 <text font="4" height="15" left="455" textpieces="0" top="1069" width="8">3</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">the resulting convergence rate may be much slower than if the data were randomly ordered, i.e.,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="133" width="702">to reach the same distance to the optimal solution, more passes over the data are needed if the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="154" width="702">data is examined by IGD in the clustered order versus a random order. Our second technical</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="702">contribution is to describe the clustering phenomenon theoretically, and use this insight to develop</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="194" width="702">a simple approach to combat this. A common approach in machine learning randomly permutes</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="215" width="702">the data with each pass. However, such random shuing may incur substantial computational</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="235" width="702">overhead. Our method obviates this overhead by shuing the data only once before the rst pass.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="255" width="702">We implement and benchmark this approach on all three RDBMSes that we study: empirically, we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="276" width="702">nd that across a broad range of models, while shuing once has a slightly slower convergence rate</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="296" width="702">than shuing on each pass, the lack of expensive reshuing allows us to simply run more epochs</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="316" width="702">in the same amount of time. Thus, shuing once has better overall performance than shuing</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="337" width="51">always.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="357" width="677">We then study how to parallelize IGD in an RDBMS. We rst observe that recent work in the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="377" width="702">machine learning community allows us to parallelize IGD [52] in a way that leverages the standard</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="398" width="702">user-dened aggregation features available in every RDBMS to do shared-nothing parallelism. We</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="418" width="702">leverage this parallelization feature in a commercial database and show that we can get almost</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="438" width="702">linear speed-ups. However, recent results in the machine learning community have shown that</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="459" width="702">these approaches may yield suboptimal runtime performance compared to approaches that exploit</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="479" width="702">shared-memory parallelism [28, 36]. This motivates us to adapt approaches that exploit shared</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="499" width="702">memory for use inside an RDBMS. We focus on single-node multicore parallelism where shared</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="520" width="702">memory is available. Although not in the textbook description of an RDBMS, all three RDBMSes</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="540" width="702">we inspected allow us to allocate and manage some shared memory (even providing interfaces to</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="560" width="702">help manage the necessary data structures). We show that the shared-memory version converges</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="581" width="278">faster than the shared-nothing version.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="601" width="677">In some cases, a single shue of the data may be too expensive (e.g., for data sets that do not</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="621" width="702">t in available memory). To cope with such large data sets, users often perform a subsampling of</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="642" width="702">the data (e.g., using a reservoir sample [46]). Subsampling is not always desirable, as it introduces</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="662" width="702">an additional error (increasing the variance of the estimate). Thus, for such large data sets, we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="682" width="702">would like to avoid the costly shue of the data to achieve better performance than subsampling.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="702" width="702">Our nal technical contribution combines the parallelization scheme and reservoir sampling to get</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="723" width="702">our highest performance results for datasets that do not t in available RAM. On simple tasks like</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="743" width="702">logistic regression, we are 4X faster than state-of-the-art in-RDBMS tools. On more complex tasks</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="763" width="702">like matrix factorization, these approaches allow us to converge in a few hours, while existing tools</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="784" width="262">do not nish even after several days.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="804" width="410">In summary, our work makes the following contributions:</text>
+2 <text font="4" height="18" left="136" textpieces="0" top="832" width="674"> We describe a novel unied architecture, Bismarck, for integrating many data analytics</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="853" width="661">tasks formulated as Incremental Gradient Descent into an RDBMS using features available</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="873" width="661">in almost every commercial and open-source system. We give evidence that our architecture</text>
+2 <text font="4" height="17" left="149" textpieces="0" top="894" width="661">is widely applicable by implementing Bismarck in three RDBMS engines: PostgreSQL and</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="914" width="174">two commercial engines.</text>
+2 <text font="4" height="15" left="136" textpieces="0" top="937" width="674"> We study the eect of data clustering on performance. We identify a theoretical example that</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="959" width="661">shows that bad orderings not typically considered in machine learning do occur in databases</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="979" width="409">and we develop a novel strategy to improve performance.</text>
+2 <text font="4" height="18" left="136" textpieces="0" top="1003" width="674"> We study how to adapt existing approaches to make Bismarck run in parallel. We verify</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="1024" width="661">that this allows us to achieve large speed-ups on a wide range of tasks using features in</text>
+2 <text font="4" height="15" left="455" textpieces="0" top="1069" width="8">4</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="149" textpieces="0" top="113" width="661">existing RDBMSes. We combine our solution for clustering with the above parallelization</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="133" width="376">schemes to attack the problem of bad data ordering.</text>
+2 <text font="4" height="17" left="133" textpieces="0" top="167" width="677">We validate our work by implementing Bismarck on three RDBMS engines: PostgreSQL, and</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="188" width="702">two commercial engines, DBMS A and DBMS B. We perform an extensive experimental validation.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="208" width="702">We see that we are competitive, and often better than state-of-the-art in-database tools for standard</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="228" width="702">tasks like regression and classication. We also show that for next generation tasks like conditional</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="248" width="674">random elds, we have competitive performance against state-of-the-art special-purpose tools.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="292" width="702">Related Work  Every major database vendor has data mining tools associated with their RDBMS</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="312" width="702">oering.  Recently, there has been an escalating arms race to add sophisticated analytics into</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="332" width="702">the RDBMS with each iteration bringing more sophisticated tools into the RDBMS. So far, this</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="353" width="702">arms race has centered around bringing individual statistical data mining techniques into an</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="373" width="702">RDBMS, notably Support Vector Machines [34], Monte Carlo sampling [26, 51], Conditional Ran-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="393" width="702">dom Fields [24, 49], and Graphical Models [43, 50]. Our eort is inspired by these approaches, but</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="414" width="702">the goal of this work is to understand the extent to which we can handle these analytics tasks with</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="434" width="702">a single unied architecture. Ordonez [38] studies the integration of some data mining techniques</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="454" width="702">into an RDBMS using UDFs, and shows how sucient statistics that are common across those</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="475" width="702">techniques can be used to unify their implementations. In contrast, we consider convex optimiza-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="495" width="702">tion as a unifying theoretical framework for a range of data analytics techniques, and show how it</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="515" width="328">can be eciently integrated with an RDBMS.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="536" width="677">A related (but orthogonal issue) is how statistical models should be integrated into the RDBMS</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="556" width="702">to facilitate ease of use, notably model-based views pioneered in MauveDB [19]. The idea is to give</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="576" width="702">users a unied abstraction that hides from the user (but not the tool developer) the details of</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="597" width="702">statistical processing. In contrast, our goal is a lower level abstraction: we want to unify at the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="617" width="384">implementation of many dierent data analysis tasks.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="637" width="677">Using incremental gradient algorithms for convex programming problems is a classical idea,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="658" width="702">going back to the seminal work in the 1950s of Robbins and Monro [40]. Recent years have seen</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="678" width="702">a resurgence of interest in these algorithms due to their ability to tolerate noise, converge rapidly,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="698" width="702">and achieve high runtime performance. In fact, sometimes an IGD method can converge before</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="718" width="702">examining all of the data; in contrast, a traditional gradient method would need to touch all of</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="739" width="702">the data items to take even a single step. These properties have made IGD an algorithm of choice</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="759" width="702">in the Web community. Notable implementations include Vowpal Wabbit at Yahoo! [7], and in</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="779" width="702">large-scale learning [14]. IGD has also been employed for specic algorithms, notably Gemulla et al</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="800" width="702">recently used it for matrix factorization [22]. What distinguishes our work is that we have observed</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="820" width="702">that IGD forms the basis of a systems abstraction that is well suited for in-RDBMS processing. As</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="840" width="702">a result, our technical focus is on optimizations that are implementable in an RDBMS and span</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="861" width="163">many dierent models.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="881" width="677">Our techniques to study the impact of sorting is inspired by the work of Bottou and LeCun [15],</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="901" width="702">who empirically studied the related problem of dierent sampling strategies for stochastic gradient</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="922" width="702">algorithms. There has been a good deal of work in the machine learning community to create</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="942" width="702">several clever parallelization schemes for IGD [12, 18, 20, 28, 53]. Our work builds on this work to</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="962" width="702">study those methods that are ideally suited for an RDBMS. For convex programming problems, we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="983" width="702">nd that the model averaging techniques of Zinkevich et al [53] t well with user-dened aggregates.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1003" width="702">Recently, work on using shared memory without locking has been shown to converge more rapidly</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1023" width="402">in some settings [36]. We borrow from both approaches.</text>
+2 <text font="4" height="15" left="455" textpieces="0" top="1069" width="8">5</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="133" textpieces="0" top="113" width="677">Finally, the area of convex programming problems is a hot topic in data analysis [12,16], e.g., the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="133" width="702">support vector machine [31], Lasso [44], and logistic regression [47] were all designed and analyzed</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="154" width="702">in a convex programming framework. Convex analysis also plays a pivotal role in approximation</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="702">algorithms, e.g., the celebrated MAX-CUT relaxation [23] shows that the optimal approximation to</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="194" width="702">this classical NP-hard problem is achieved by solving a convex program. In fact a recent result in the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="215" width="702">Theory community shows that there is reason to believe that almost all combinatorial optimization</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="235" width="702">problems have optimal approximations given by solving convex programs [39]. Thus, we argue that</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="255" width="702">these techniques may enable a number of sophisticated data processing algorithms in the RDBMS.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="299" width="702">Outline  The rest of the paper is organized as follows: In Section 2, we explain how Bismarck</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="319" width="702">interacts with the RDBMS, and give the necessary mathematical programming background on</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="339" width="702">gradient methods. In Section 3, we discuss the architecture of Bismarck, and how data ordering</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="360" width="702">and parallelism impact performance. In Section 4, we validate that Bismarck is able to integrate</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="380" width="567">analytics techniques into an RDBMS with low overhead and high performance.</text>
+2 <text font="3" height="19" left="108" textpieces="1" top="428" width="176">2  Preliminaries</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="468" width="702">We start with a description of how Bismarck ts into an RDBMS, and then give a simple ex-</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="488" width="702">ample of how an end-user interacts with Bismarck in an RDBMS. We then discuss the necessary</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="509" width="444">mathematical programming background on gradient methods.</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="551" width="261">2.1  Bismarck in an RDBMS</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="583" width="702">We start by contrasting the high level architecture of most existing in-RDBMS analytics tools</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="604" width="702">with how Bismarck integrates analytics into an RDBMS, and explain how Bismarck is largely</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="624" width="702">orthogonal to the end-user interfaces. Existing tools like MADlib [17], Oracle Data Mining [4],</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="644" width="702">and Microsoft SQL Server Data Mining [1] provide SQL-like interfaces for the end-user to specify</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="665" width="702">tasks like Logistic Regression, Support Vector Machine, etc. Declarative interface-level abstractions</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="685" width="702">like model-based views [19] help in creating such user-friendly interfaces. However, the underlying</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="705" width="702">implementations of these tasks do not have a unied architecture, increasing the overhead for the</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="726" width="702">developer. In contrast, Bismarck provides a single architectural abstraction for the developer</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="746" width="702">to unify the in-RDBMS implementations of these analytics techniques, as illustrated in Figure</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="766" width="702">1. Thus, Bismarck is orthogonal to the end-user interface, and the developer has the freedom</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="787" width="702">to provide any existing or new interfaces. In fact, in our implementation of Bismarck in each</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="807" width="689">RDBMS, Bismarcks user-interface mimics the interface of that RDBMS native analytics tool.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="827" width="677">For example, consider the interface provided by the open-source MADlib [17] used over Post-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="848" width="702">greSQL and Greenplum databases. Consider the task of classifying papers using a support vector</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="868" width="702">machine (SVM). The data is in a table LabeledPapers(id, vec, label), where id is the key, vec</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="888" width="702">is the feature values (say as an array of oats) and label is the class label. In MADlib, the user</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="908" width="702">can train an SVM model by simply issuing a SQL query with some pre-dened functions that take</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="929" width="702">in the data table details, parameters for the model, etc. [17] In Bismarck, we mimic this familiar</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="949" width="702">interface for users to do in-RDBMS analytics. For example, the query (similar to MADlibs) to</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="969" width="194">train an SVM is as follows:</text>
+2 <text font="4" height="15" left="455" textpieces="0" top="1069" width="8">6</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="14" left="133" textpieces="0" top="114" width="524">SELECT SVMTrain (myModel, LabeledPapers, vec, label);</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="154" width="702">SVMTrain is a function that passes the user inputs to Bismarck, which then performs the gradient</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="702">computations for SVM and returns the model. The model, which is basically a vector of coecients</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="194" width="702">for an SVM, is then persisted as a user table myModel. The model can be applied to new unlabeled</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="215" width="397">data to make predictions by using a similar SQL query.</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="257" width="328">2.2  Background: Gradient Methods</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="289" width="702">We provide a brief introduction to gradient methods. For a thorough introduction to gradient</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="310" width="702">methods and their projected, incremental variants, we direct the interested reader to the many</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="330" width="702">surveys of the subject [13, 35].  We focus on a particular class of problems that have linearly</text>
+2 <text font="4" height="17" left="108" textpieces="1" top="350" width="702">separable objective functions. Formally, our goal is to nd a vector w  Rdfor some d  1 that</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="371" width="248">minimizes the following objective:2</text>
+2 <text font="4" height="15" left="367" textpieces="0" top="422" width="27">min</text>
+2 <text font="5" height="12" left="364" textpieces="0" top="438" width="33">wRd</text>
+2 <text font="5" height="11" left="422" textpieces="0" top="405" width="10">N</text>
+2 <text font="5" height="11" left="417" textpieces="0" top="445" width="21">i=1</text>
+2 <text font="4" height="15" left="442" textpieces="1" top="422" width="368">f (w, zi) + P (w)                                 (1)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="474" width="701">Here, the objective function decomposes into a sum of functions f (w, zi) for i = 1, . . . , N where each</text>
+2 <text font="4" height="15" left="108" textpieces="2" top="494" width="702">zi is an item of (training) data. In Bismarck, the zi are represented by tuples in the database,</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="514" width="702">e.g., a pair (paper,area) for paper classication. We abbreviate f (w, zi) = fi(w). For example,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="535" width="701">in SVM classication, the function fi(w) could be the hinge loss of the model w on the ith data</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="555" width="702">element and P (w) enforces the smoothness of the classier (preventing overtting). Eq. 1 is general:</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="575" width="606">Figure 1(B) gives an incomplete list of examples that can be handled by Bismarck.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="595" width="677">A gradient is a generalization of a derivative that tells us if the function is increasing or de-</text>
+2 <text font="4" height="17" left="108" textpieces="1" top="616" width="702">creasing as we move in a particular direction. Formally, a gradient of a function h : Rd R is a</text>
+2 <text font="4" height="15" left="108" textpieces="5" top="636" width="352">function  h : Rd Rdsuch that ( h(w))i=  </text>
+2 <text font="5" height="11" left="446" textpieces="0" top="645" width="21">wi</text>
+2 <text font="4" height="15" left="469" textpieces="0" top="636" width="341">h(w) [16]. Linearity of the gradient implies the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="656" width="66">equation:</text>
+2 <text font="5" height="11" left="388" textpieces="0" top="674" width="10">N</text>
+2 <text font="5" height="11" left="383" textpieces="0" top="714" width="21">i=1</text>
+2 <text font="4" height="15" left="408" textpieces="0" top="691" width="54">fi(w) =</text>
+2 <text font="5" height="11" left="474" textpieces="0" top="674" width="10">N</text>
+2 <text font="5" height="11" left="469" textpieces="0" top="714" width="21">i=1</text>
+2 <text font="4" height="15" left="508" textpieces="0" top="691" width="44">fi(w) .</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="735" width="702">For our purpose, the importance of this equation is that to compute the gradient of the objective</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="756" width="443">function, we can compute the gradient of each fiindividually.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="776" width="677">Gradient methods are algorithms that solve (1). These methods are dened by an iterative rule</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="796" width="702">that describes how one produces the (k + 1)-st iterate, w(k+1), given the previous iterate, w(k). For</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="817" width="581">simplicity, we assume that P = 0. Then, we are minimizing a function f (w) =</text>
+2 <text font="5" height="11" left="713" textpieces="0" top="812" width="10">N</text>
+2 <text font="5" height="11" left="713" textpieces="0" top="824" width="21">i=1</text>
+2 <text font="4" height="15" left="737" textpieces="0" top="817" width="72">fi(w), our</text>
+2 <text font="4" height="15" left="108" textpieces="2" top="837" width="701">goal is to produce a new point w(k+1) where f (w(k)) &gt; f (w(k+1)). In 1-D, we need to move in the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="857" width="617">direction opposite the derivative (gradient). A gradient method is dened by the rule:</text>
+2 <text font="4" height="15" left="358" textpieces="3" top="894" width="201">w(k+1)= w(k) k  f (w(k))</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="931" width="702">here k 0 is a positive parameter called step-size that determines how far to follow the current</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="951" width="332">search direction. Typically, k 0 as k  .</text>
+2 <text font="6" height="8" left="127" textpieces="0" top="980" width="682">2In Appendix A, we generalize to include constraints via proximal point methods. One can also generalize to both matrix</text>
+2 <text font="5" height="11" left="108" textpieces="0" top="998" width="257">valued w and non-dierentiable functions [42].</text>
+2 <text font="4" height="15" left="455" textpieces="0" top="1069" width="8">7</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="133" textpieces="0" top="113" width="677">The twist for incremental gradient methods is to approximate the full gradient using a single</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="133" width="702">terms of the sum. That is, let (k)  {1, . . . , N }, chosen at iteration k. Intuitively, we approximate</text>
+2 <text font="4" height="15" left="108" textpieces="3" top="154" width="315">the gradient  f (w) with  f(k)(w).3 Then,</text>
+2 <text font="4" height="15" left="347" textpieces="5" top="194" width="463">w(k+1)= w(k) k  f(k)(w(k))                               (2)</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="230" width="702">This is a key connection: each fi can be represented as a single tuple. We illustrate this rule with</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="251" width="128">a simple example:</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="285" width="702">Example 2.1. Consider a simple least-squares problem with 2n (n  1) data points (x1, y1), . . . ,</text>
+2 <text font="4" height="15" left="108" textpieces="3" top="305" width="702">(x2n, y2n). The feature values are xi= 1 for i = 1, . . . , 2n and the labels are yi = 1 for i  n, and</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="325" width="523">yi= 1, otherwise. The resulting mathematical programming problem is:</text>
+2 <text font="4" height="15" left="377" textpieces="0" top="376" width="27">min</text>
+2 <text font="5" height="11" left="386" textpieces="0" top="389" width="9">w</text>
+2 <text font="4" height="15" left="425" textpieces="0" top="365" width="8">1</text>
+2 <text font="4" height="15" left="425" textpieces="0" top="387" width="8">2</text>
+2 <text font="5" height="11" left="443" textpieces="0" top="359" width="14">2n</text>
+2 <text font="5" height="11" left="440" textpieces="0" top="399" width="53">i=1(wxi</text>
+2 <text font="4" height="15" left="498" textpieces="1" top="375" width="42"> yi)2</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="427" width="702">Since xi = 1 for all i, the optimal solution to the problem is the mean w = 0, but we choose this</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="447" width="702">to illustrate the mechanics of the method. We begin with some point w(0) chosen arbitrarily. We</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="467" width="702">choose i  {1, . . . , 2n} at random. Fix some   0 and for k  0, set k=  for simplicity. Then,</text>
+2 <text font="4" height="15" left="108" textpieces="3" top="488" width="618">our approximation to the gradient is  fi(w(0)) = (w(0) yi). And so, our rst step is:</text>
+2 <text font="4" height="15" left="366" textpieces="3" top="524" width="184">w(1)= w(0) (w(0) yi)</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="561" width="667">We then repeat the process with w(2), etc. One can check that after k + 1 steps, we will have:</text>
+2 <text font="4" height="15" left="297" textpieces="2" top="613" width="193">w(k+1)= (1  )k+1w0+ </text>
+2 <text font="5" height="11" left="501" textpieces="0" top="595" width="7">k</text>
+2 <text font="5" height="11" left="493" textpieces="0" top="635" width="73">j=0(1  )</text>
+2 <text font="5" height="11" left="568" textpieces="0" top="609" width="52">kiy(j)</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="666" width="702">Since the expectation of y(j)equals 0, we can see that we converge exponentially quickly to 0 under</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="686" width="702">this scheme  even before we see all 2n points. This serves to illustrate why an IGD scheme may</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="706" width="702">converge much faster than traditional gradient methods, where one must touch every data item at</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="727" width="285">least once just to compute the rst step.</text>
+2 <text font="4" height="15" left="133" textpieces="1" top="760" width="303">Remarkably, when both the functions   n</text>
+2 <text font="5" height="11" left="428" textpieces="0" top="768" width="21">i=1</text>
+2 <text font="4" height="15" left="452" textpieces="0" top="760" width="357">fi(w) and P (w) are both convex, the incremental</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="781" width="702">gradient method is guaranteed to converge to a globally optimal solution [35] at known rates.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="801" width="702">Also, IGD converges (perhaps at a slower rate) even if (k) is a sequence in a xed, arbitrary</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="821" width="546">order [11, 29, 30, 32, 45]. We explore this issue in more detail in Example 3.1.</text>
+2 <text font="3" height="19" left="108" textpieces="1" top="869" width="276">3  Bismarck Architecture</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="909" width="702">We rst describe the high-level architecture of Bismarck, and then explain how we implement IGD</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="930" width="702">in an RDBMS. Then, we drill down into two aspects of our architecture that impact performance</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="950" width="224">- data ordering and parallelism.</text>
+2 <text font="6" height="8" left="127" textpieces="1" top="979" width="250">3Observe that minimizing f and g(w) =   1</text>
+2 <text font="6" height="8" left="370" textpieces="0" top="989" width="9">N</text>
+2 <text font="5" height="11" left="381" textpieces="0" top="983" width="429">f (w), means correcting by the factor N is not necessary and not done by</text>
+2 <text font="5" height="11" left="108" textpieces="0" top="997" width="63">convention.</text>
+2 <text font="4" height="15" left="455" textpieces="0" top="1069" width="8">8</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="17" left="287" textpieces="0" top="343" width="344">Figure 2: High-level Architecture of Bismarck.</text>
+2 <text font="4" height="15" left="284" textpieces="0" top="433" width="351">Figure 3: The Standard Three Phases of a UDA.</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="484" width="260">3.1  High-Level Architecture</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="516" width="702">The high-level architecture of Bismarck is presented in Figure 2. Bismarck takes in the specica-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="537" width="702">tions for an analytics task (e.g., data details, parameters, etc.) and runs the task using Incremental</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="557" width="702">Gradient Descent (IGD). As explained before, IGD allows us to solve a number of analytics tasks in</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="577" width="702">one unied way. The main component of Bismarck is the in-RDBMS implementation of IGD with</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="598" width="702">a data access pattern similar to a SQL aggregate query. For this purpose, we leverage the mecha-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="618" width="702">nism of User-Dened Aggregate (UDA), a standard feature available in almost all RDBMSes [2,3,5].</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="638" width="702">The UDA mechanism is used to run the IGD computation, but also to test for convergence and</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="659" width="702">compute information, e.g., error rates. Bismarck also needs to provide a simple iteration to test</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="679" width="702">for convergence. We will explain more about these two aspects shortly, but rst we describe the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="699" width="509">architecture of a UDA, and how we can handle IGD in this framework.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="742" width="702">IGD as a User-Dened Aggregate  As shown in Figure 3, a developer implements a UDA by</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="763" width="765">writing three standard functions: initialize(state), transition(state, data) and terminate(state).</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="783" width="702">Almost all RDBMSes provide the abstraction of a UDA, albeit with dierent names or interfaces</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="803" width="630">for these three steps, e.g., PostgreSQL names them initcond, sfunc and nalfunc [5].</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="824" width="677">The state is basically the context of aggregation (e.g., the running total and count for an AVG</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="844" width="702">query). The data is a tuple in the table. In our case, the state is essentially the model (e.g.,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="864" width="702">the coecients of a logistic regressor) and perhaps some meta data (e.g., number of gradient steps</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="885" width="702">taken). In our current implementation, we assume that the state ts in memory (models are</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="905" width="702">typically orders of magnitude smaller than the data, which is not required to t in memory). The</text>
+2 <text font="4" height="14" left="108" textpieces="0" top="927" width="702">data is again an example from the data table, which includes the attribute values and the label</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="946" width="485">(for supervised schemes). We now explain the role of each function:</text>
+2 <text font="4" height="16" left="133" textpieces="0" top="983" width="677"> The initialize(state) function initializes the model with user-given values (e.g., a vector</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="1004" width="350">of zeros), or a model returned by a previous run.</text>
+2 <text font="4" height="15" left="455" textpieces="0" top="1069" width="8">9</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="16" left="133" textpieces="0" top="112" width="677"> In transition(state, data), we rst compute the (incremental) gradient value of the ob-</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="133" width="661">jective function on the given data example, and then update the current model (Equation</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="154" width="661">2 from Section 2.2). This function is where one puts the logic of the the various analytics</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="174" width="661">techniques  each technique has its own objective function and gradient (Figure 1(B)). Thus,</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="194" width="661">the main dierences in the implementations of the various analytics techniques occur mainly</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="215" width="661">in a few lines of code within this function, while the rest of our architecture is reused across</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="235" width="661">techniques. Figure 4 illustrates the claim with actual code snippets for two tasks (LR and</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="255" width="661">SVM). This simplies the development of sophisticated in-database analytics, in contrast to</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="276" width="661">existing systems that usually have dierent code paths for dierent techniques (Figure 1(A)).</text>
+2 <text font="4" height="16" left="133" textpieces="0" top="309" width="677"> In terminate(state), we nish the gradient computations and return the model, possibly</text>
+2 <text font="4" height="15" left="149" textpieces="0" top="330" width="90">persisting it.</text>
+2 <text font="7" height="11" left="133" textpieces="0" top="386" width="311">LR_Transition(ModelCoef *w, Example e) { ...</text>
+2 <text font="7" height="11" left="147" textpieces="0" top="403" width="177">wx = Dot_Product(w, e.x);</text>
+2 <text font="7" height="11" left="147" textpieces="0" top="419" width="177">sig = Sigmoid(-wx * e.y);</text>
+2 <text font="7" height="11" left="147" textpieces="0" top="436" width="177">c = stepsize * e.y * sig;</text>
+2 <text font="7" height="11" left="147" textpieces="0" top="452" width="219">Scale_And_Add(w, e.x, c); ... }</text>
+2 <text font="7" height="11" left="489" textpieces="0" top="386" width="318">SVM_Transition(ModelCoef *w, Example e) { ...</text>
+2 <text font="7" height="11" left="503" textpieces="0" top="403" width="177">wx = Dot_Product(w, e.x);</text>
+2 <text font="7" height="11" left="503" textpieces="0" top="419" width="134">c = stepsize * e.y;</text>
+2 <text font="7" height="11" left="503" textpieces="0" top="436" width="155">if(1 - wx * e.y &gt; 0) {</text>
+2 <text font="7" height="11" left="517" textpieces="0" top="452" width="233">Scale_And_Add(w, e.x, c); } ... }</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="485" width="702">Figure 4: Snippets of the C-code implementations of the transition step for Logistic Regression</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="505" width="702">(LR) and Support Vector Machine (SVM). Here, w is the coecient vector, and e is a training</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="526" width="702">example with feature vector x and label y. Scale And Add updates w by adding to it x multiplied</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="546" width="574">by the scalar c. Note the minimal dierences between the two implementations.</text>
+2 <text font="4" height="17" left="133" textpieces="0" top="587" width="677">A key implementation detail is that Bismarck may reorder the data to improve the convergence</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="608" width="702">rate of IGD or to sample from the data. This feature is supported in all major RDBMSes, e.g., in</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="628" width="385">PostgreSQL using the ORDER BY RANDOM() construct.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="671" width="702">Key Dierences: Epochs and Convergence  A key dierence from traditional aggregations,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="691" width="702">like SUM, AVG, or MAX, is that to reach the optimal objective function value, IGD may need to do</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="712" width="702">more than one pass over the dataset. Following the machine learning literature, we call each pass</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="732" width="702">an epoch [15]. Thus, the aggregate may need to be executed more than once, with the output model</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="752" width="702">of one run being input to the next (shown in Figure 2 as a loop). To determine how many epochs</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="773" width="702">to run, Bismarck supports an arbitrary Boolean function to be called (which may itself involve</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="793" width="702">aggregation). This supports both what we observed in practice as common heuristic convergence</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="813" width="702">tests, e.g., run for a xed number of iterations, and more rigorous conditions based on the norm of</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="834" width="334">the gradient common in machine learning [10].</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="854" width="677">A second dierence is that the we may need to compute the actual value of the objective function</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="874" width="702">(also known as the loss) using the model after each epoch. The loss value may be needed by the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="895" width="702">stopping condition, e.g., a common convergence test is based on the relative drop in the loss value.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="915" width="690">This loss computation can also be implemented as a UDA (or piggybacked onto the IGD UDA).</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="958" width="702">Technical Opportunities  A key conceptual benet of Bismarcks approach is that one can</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="979" width="702">study generic performance optimizations (i.e., optimizations that apply to many analytics tech-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="999" width="702">niques) rather than ad hoc, per-technique ones. The remainder of the technical sections are de-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1019" width="702">voted to examining two such generic optimizations. First, the conventional wisdom is that for IGD</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">10</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">to converge more rapidly, each data point should be sampled in random (without-replacement)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="133" width="702">order [15]. This can be achieved by randomly reordering, or shuing, the dataset before running</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="154" width="702">the aggregate for gradient computation at each epoch. The goal of course is to converge faster in</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="702">wall-clock time, not per epoch. Thus, we study when the increased speed in convergence rate per</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="194" width="702">epoch outweighs the additional cost of reordering the data at each epoch. The second optimization</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="215" width="698">we describe is how to leverage multicore parallelism to speed-up the IGD aggregate computation.</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="257" width="266">3.2  Impact of Data Ordering</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="289" width="702">On convex programming problems, IGD is known to converge to the optimal value irrespective of</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="309" width="702">how the underlying data is ordered. But empirically some data orderings allow us to converge in</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="330" width="702">fewer epochs than others. However, our experiments suggest that the sensitivity is not as great as</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="350" width="702">one might think. In other words, presenting the data in a random order gets essentially optimal run-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="370" width="702">time behavior. This begs the question as to whether we should even reorder the data randomly at</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="390" width="702">each epoch. In fact, some machine learning tools do not even bother to randomly reorder the data.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="411" width="702">However, we observe that inside an RDBMS, data is often clustered for reasons unrelated to the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="431" width="702">analysis task (e.g., for ecient join query performance). For example, the data for a classication</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="451" width="702">task might be clustered by the class label. We now analyze this issue by providing a theoretical</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="472" width="702">example that characterizes pathological orders for IGD. We chose this example to illustrate the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="492" width="615">important points with respect to clustering and be as theoretically simple as possible.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="523" width="702">Example 3.1 (1-D CA-TX). Suppose that our data is clustered geographically, e.g., sales data</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="543" width="702">from California, followed by Texas, and the attributes of the sales in the two states cause the data</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="564" width="702">to be in two dierent classes. With this in mind, recall Example 2.1. We are given a simple</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="584" width="701">least-squares problem with 2n (n  1) data points (x1, y1), . . . , (x2n, y2n). The feature values are</text>
+2 <text font="4" height="15" left="108" textpieces="3" top="604" width="702">xi= 1 for i = 1, . . . , 2n and the labels are yi= 1 for i  n, and yi= 1, otherwise. The resulting</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="625" width="277">mathematical programming problem is:</text>
+2 <text font="4" height="15" left="377" textpieces="0" top="672" width="27">min</text>
+2 <text font="5" height="11" left="386" textpieces="0" top="685" width="9">w</text>
+2 <text font="4" height="15" left="425" textpieces="0" top="661" width="8">1</text>
+2 <text font="4" height="15" left="425" textpieces="0" top="683" width="8">2</text>
+2 <text font="5" height="11" left="443" textpieces="0" top="655" width="14">2n</text>
+2 <text font="5" height="11" left="440" textpieces="0" top="695" width="53">i=1(wxi</text>
+2 <text font="4" height="15" left="498" textpieces="1" top="671" width="42"> yi)2</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="719" width="702">Since xi = 1 for all i, the optimal solution is the mean, w = 0. But our goal here is to analyze</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="739" width="702">the behavior of IGD on this problem under various orders. Due to this problems simplicity, we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="760" width="702">can solve the behavior of the resulting dynamical system in closed form under a variety of ordering</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="780" width="702">schemes. Consider two schemes to illustrate our point: (1) data points seen are randomly sampled</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="800" width="527">from the dataset, and (2) data points seen in ascending index order, (x1, y</text>
+2 <text font="5" height="11" left="637" textpieces="2" top="806" width="173">1), (x2, y2), . . . . Scheme</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="821" width="408">(2) simulates operating on data that is clustered by class.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="841" width="677">Figure 5 plots the value of w during the course of the IGD under the above two sampling schemes</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="861" width="702">(using diminishing step-size rule). We see that both approaches do indeed converge to the optimal</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="882" width="702">value, but approach (1), which uses random sampling, converges more rapidly. In contrast, in</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="902" width="702">approach (2), w oscillates between 1 and 1, until converging eventually. Intuitively, this is so</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="922" width="702">because the IGD initially takes steps inuenced by the positive examples, and is later inuenced</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="943" width="702">by the negative examples (within one epoch). In other words, convergence can be much slower on</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="963" width="702">clustered data. In Appendix C,  we present calculations to precisely explain this behavior. We</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="983" width="702">conclude the example by noting that almost all permutations of the data will behave similar to (1),</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1003" width="702">and not (2). In other words, (2) is a pathological ordering, but one which is indeed possible for data</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1024" width="156">stored in an RDBMS.</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">11</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="8" height="12" left="308" textpieces="1" top="255" width="153">                                      </text>
+2 <text font="9" height="14" left="322" textpieces="5" top="226" width="298">0       10000    20000    30000    40000    50000</text>
+2 <text font="9" height="14" left="309" textpieces="0" top="214" width="11">-1</text>
+2 <text font="9" height="14" left="313" textpieces="0" top="193" width="7">0</text>
+2 <text font="9" height="14" left="313" textpieces="0" top="172" width="7">1</text>
+2 <text font="9" height="14" left="322" textpieces="5" top="161" width="298">0       10000    20000    30000    40000    50000</text>
+2 <text font="9" height="14" left="309" textpieces="0" top="148" width="11">-1</text>
+2 <text font="9" height="14" left="313" textpieces="0" top="128" width="7">0</text>
+2 <text font="9" height="14" left="313" textpieces="0" top="107" width="7">1</text>
+2 <text font="10" height="16" left="295" textpieces="0" top="191" width="10">w</text>
+2 <text font="10" height="16" left="295" textpieces="0" top="126" width="10">w</text>
+2 <text font="9" height="14" left="340" textpieces="0" top="255" width="233">Number of Gradient Steps (No. of Epochs)</text>
+2 <text font="9" height="14" left="370" textpieces="4" top="239" width="240">(10)      (20)      (30)      (40)      (50)</text>
+2 <text font="10" height="16" left="510" textpieces="0" top="115" width="73">(1) Random</text>
+2 <text font="10" height="16" left="503" textpieces="0" top="179" width="80">(2) Clustered</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="288" width="702">Figure 5: 1-D CA-TX Example: Plot of w against number of gradient steps on (1) Random, and (2)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="308" width="702">Clustered data orderings for a dataset with 1000 examples (i.e., n = 500). The number of epochs</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="328" width="702">is shown in parentheses on the x-axis. Random takes 18 epochs to converge (convergence dened</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="349" width="381">here as w2&lt; 0.001), while Clustered takes 48 epochs.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="401" width="677">Shuing the data at each epoch is expensive and incurs a high overhead. In fact, for simple</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="422" width="702">tasks like LR and SVM, the shuing time dominates the gradient computation time by a factor of</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="442" width="702">5. To remove the overhead of shuing the data at every epoch, while still avoiding the pathological</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="462" width="702">ordering, we propose a simple solution  shue the data only once. By randomly reordering the data</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="482" width="702">once, we avoid the pathological ordering that might be present in data stored in a database. We</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="503" width="702">implemented and benchmarked this approach on all three RDBMSes that we study. As explained</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="523" width="702">later in Section 4.3, empirically, we nd that shuing once suces across a broad range of models.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="543" width="702">Shuing once does have a slightly lower convergence rate than shuing always. However, since we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="564" width="702">need not shue at every epoch, we signicantly reduce the runtime per epoch, which means we can</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="584" width="702">simply run more epochs within the same wall-clock time so as to reach the optimal value. As we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="604" width="702">show later in Section 4.3, this allows shue-once to converge faster than shue-always (between</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="625" width="276">2X-6X faster on the tasks we studied).</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="667" width="371">3.3  Parallelizing Gradient Computations</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="699" width="702">We now study how we can parallelize the IGD aggregate computation to achieve performance speed-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="720" width="702">ups on a single-node multicore system. We explain two mechanisms for achieving this parallelism </text>
+2 <text font="4" height="15" left="108" textpieces="0" top="740" width="702">one based on standard UDA features, and another based on shared-memory features. We emphasize</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="760" width="403">that both features are available in almost all RDBMSes.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="804" width="702">Pure UDA Version  The UDA infrastructure oered by most RDBMSes (including the com-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="824" width="702">mercial DBMS A and DBMS B) include an built-in mechanism for shared-nothing parallelism.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="844" width="702">The RDBMS requires that the developer provide a function merge(state, state), along with the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="865" width="702">3 functions discussed in Section 3.1. The merge function species how two aggregation contexts</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="885" width="702">that were computed independently in parallel can be combined. For example, for an AVG query, two</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="905" width="702">individual averages with sucient statistics (total count) can be combined to obtain a new average.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="926" width="702">Generally, only aggregates that are commutative and algebraic can be parallelized in the above</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="946" width="702">manner [8]. Although the IGD is not commutative, we observe that it is essentially commutative,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="966" width="702">in that it eventually converges to the optimal value regardless the data order (Section 3.2). And</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="987" width="702">although the IGD is not algebraic, recent results from the machine learning community suggest</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1007" width="702">that one can achieve rapid convergence by averaging models (trained on dierent portions of the</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">12</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">data) [53]. Thus, the IGD is essentially algebraic as well. In turn, this implies that we can use the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="133" width="667">parallel UDA approach to achieve near-linear speed-ups on the IGD aggregate computations.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="176" width="702">Shared-Memory UDA  Shared-memory management is provided by most RDBMSes [6], and it</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="196" width="702">enables us to implement the IGD aggregate completely in the user space with no changes needed to</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="216" width="702">the RDBMS code. This allows us to preserve the 3-function abstraction from Section 3.1, and also</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="237" width="702">reuse most of the code from the UDA-based implementation. The model to be learned is main-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="257" width="702">tained in shared memory and is concurrently updated by parallel threads operating on dierent</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="277" width="702">segments of the data. Concurrent updates suggest that we need locking on the shared model. Nev-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="298" width="702">ertheless, recent results from the machine learning community show that IGD can be parallelized</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="318" width="702">in a shared-memory environment with no locking at all [36]. We adopt this technique into Bis-</text>
+2 <text font="4" height="14" left="108" textpieces="0" top="341" width="702">marck. Light-weight locking schemes often have stronger theoretical properties for convergence,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="359" width="702">and so we consider one such scheme called Atomic Incremental Gradient (AIG) that uses only</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="379" width="612">CompareAndExchange instructions to eectively perform per-component locking [36].</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="399" width="677">As shown later in Section 4, we empirically observe that the model-averaging approach (pure</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="420" width="702">UDA) has a worse convergence rate than the shared-memory UDA, and so worse overall perfor-</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="440" width="518">mance. This led us to consider the shared-memory UDA for Bismarck.</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="482" width="299">3.4  Avoiding Shuing Overhead</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="514" width="702">From the CA-TX example in Section 3.2, we saw that bad data orderings can impact convergence,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="534" width="702">and that shuing once suces in some instances to achieve good convergence rate. However,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="555" width="702">shuing even once could be expensive for very large datasets. We veried this on a scalability</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="575" width="702">dataset, and it did not nish shuing even in one day.  Thus, we investigate if it is possible</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="595" width="702">to achieve good convergence rate even on bad data orderings without any shuing. A classical</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="616" width="702">technique to cope with this situation is to subsample the data using reservoir sampling (in fact,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="636" width="702">some vendors do implement subsampling); in this technique, given an in-memory buer size B,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="656" width="702">we can obtain a without-replacement sample of size B in just one pass over the dataset, without</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="677" width="702">shuing the dataset [46]. The main idea of reservoir sampling is straightforward: suppose that our</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="697" width="702">reservoir (array) can hold m items and our goal is to sample from N ( m) items. Read the rst</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="717" width="702">m items and ll the reservoir. Then, when we read the kth additional item (m + k overall), we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="738" width="702">randomly select an integer s in [0, m + k). If s &lt; m, then we put the item at slot s; otherwise we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="758" width="103">drop the item.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="778" width="677">Empirically, we observe that the subsampling may have slow convergence. Our intuition is that</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="798" width="702">the reservoir discards valuable data items that could be used to help the model converge faster.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="819" width="702">To address this issue, we propose a simple scheme that we call multiplexed reservoir sampling</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="839" width="702">(MRS), which combines the reservoir sampling idea with the concurrent model updates idea from</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="859" width="83">Section 3.3.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="902" width="702">Multiplexed Reservoir Sampling  The multiplexed reservoir sampling (MRS) idea is to com-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="922" width="702">bine, or multiplex, gradient steps over both the reservoir sample and the data that is not put</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="943" width="702">in the reservoir buer. By using the reservoir sample, which is a valuable without-replacement</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="963" width="702">sample, and the rest of the data in conjunction, our scheme can achieve faster convergence than</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="983" width="93">subsampling.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="1003" width="677">As Figure 6 illustrates, in MRS, there are two threads that update the shared model concur-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1024" width="702">rently, called the I/O Worker and the Memory Worker. The I/O Worker has two tasks: (1) it</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">13</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="272" width="702">Figure 6: Multiplexed Reservoir Sampling (MRS): The I/O Worker reads example tuple e from</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="292" width="702">the database, and uses buer A to do reservoir sampling. The dropped example d is used for the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="313" width="702">gradient step, with updates to a shared model. The Memory Worker iterates over buer B, and</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="333" width="438">performs gradient steps on each example b in B concurrently.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="385" width="702">performs a standard gradient step (exactly as the previous code), and (2) it places tuples into a</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="406" width="702">reservoir. Both of these functions are performed within the previously discussed UDA framework.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="426" width="702">The Memory Worker takes a buer as input, and it loops over that buer updating the model</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="446" width="702">using the gradient rule. After the I/O Worker nishes one pass over the data, the buers are</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="467" width="702">swapped. That is, the I/O Worker begins lling the buer that the Memory Worker is using, while</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="487" width="702">the Memory Worker works on the buer that has just been lled by the I/O Worker. The Memory</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="507" width="702">Worker is signaled by polling a common integer indicating which buer it should run over and</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="528" width="702">whether it should continue running. In Section 4, we show that even with a buer size that is an</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="548" width="702">order of magnitude smaller than the dataset, MRS can achieve better convergence rates than both</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="568" width="213">no-shuing and subsampling.</text>
+2 <text font="3" height="19" left="108" textpieces="1" top="616" width="169">4  Experiments</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="656" width="702">We rst show that our architecture, Bismarck, incurs little overhead, in terms of both development</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="677" width="702">eort to add new analytics tasks, and runtime overhead inside an RDBMS. We then validate that</text>
+2 <text font="4" height="14" left="108" textpieces="0" top="700" width="702">Bismarck, implemented over two commercial RDBMSes and PostgreSQL, provides competitive</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="717" width="702">or better performance than the native analytics tools oered by these RDBMSes on popular in-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="738" width="702">database analytics tasks. Finally, we evaluate how the generic optimizations that we described in</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="758" width="312">Section 3 impact Bismarcks performance.</text>
+1 <text font="7" height="12" left="319" textpieces="3" top="793" width="293">Dataset       Dimension    # Examples    Size</text>
+1 <text font="7" height="12" left="324" textpieces="3" top="813" width="288">Forest            54            581k       77M</text>
+1 <text font="7" height="12" left="321" textpieces="3" top="830" width="293">DBLife           41k            16k        2.7M</text>
+1 <text font="7" height="12" left="311" textpieces="3" top="847" width="301">MovieLens       6k x 4k          1M        24M</text>
+1 <text font="7" height="12" left="321" textpieces="3" top="864" width="291">CoNLL          7.4M            9K        20M</text>
+1 <text font="7" height="12" left="303" textpieces="3" top="884" width="313">Classify300M        50            300M       135G</text>
+1 <text font="7" height="12" left="314" textpieces="3" top="902" width="302">Matrix5B     706k x 706k        5B        190G</text>
+1 <text font="7" height="12" left="324" textpieces="3" top="919" width="290">DBLP          600M          2.3M       7.2G</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="951" width="702">Table 1: Dataset Statistics. DBLife, CoNLL and DBLP are in sparse-vector format. MovieLens</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="972" width="307">and Matrix5B are in sparse-matrix format.</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">14</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+1 <text font="7" height="12" left="196" textpieces="2" top="111" width="603">PostgreSQL                                 DBMS A                           DBMS B (8 segments)</text>
+1 <text font="7" height="12" left="129" textpieces="0" top="128" width="47">Dataset</text>
+1 <text font="7" height="12" left="205" textpieces="0" top="136" width="34">Tasks</text>
+1 <text font="7" height="12" left="261" textpieces="2" top="128" width="167">Run-    Over-      Dataset</text>
+1 <text font="7" height="12" left="458" textpieces="0" top="136" width="34">Tasks</text>
+1 <text font="7" height="12" left="510" textpieces="2" top="128" width="165">Run-   Over-      Dataset</text>
+1 <text font="7" height="12" left="704" textpieces="0" top="136" width="34">Tasks</text>
+1 <text font="7" height="12" left="760" textpieces="1" top="128" width="86">Run-    Over-</text>
+1 <text font="7" height="12" left="117" textpieces="8" top="144" width="729">(NULL time)             -time    -head    (NULL time)            -time   -head    (NULL time)             -time    -head</text>
+1 <text font="7" height="12" left="134" textpieces="11" top="164" width="713">Forest       LR     0.57s    90%       Forest       LR    24.1s   15.3%      Forest       LR     0.17s   21.4%</text>
+1 <text font="7" height="12" left="135" textpieces="11" top="181" width="712">(0.3s)      SVM    0.56s   83.3%      (20.9s)      SVM   22.0s   5.26%      (0.14s)      SVM    0.16s   14.3%</text>
+1 <text font="7" height="12" left="131" textpieces="11" top="198" width="716">DBLife       LR    0.035s   192%      DBLife       LR     1.1s    86.4%      DBLife       LR      0.1    17.6%</text>
+1 <text font="7" height="12" left="128" textpieces="11" top="214" width="719">(0.012s)     SVM    0.03s    150%       (0.59)      SVM    0.8s    35.6%     (0.085s)     SVM   0.096s   12.9%</text>
+1 <text font="7" height="12" left="120" textpieces="0" top="231" width="64">MovieLens</text>
+1 <text font="7" height="12" left="207" textpieces="2" top="239" width="139">LMF    0.86s    244%</text>
+1 <text font="7" height="12" left="372" textpieces="0" top="231" width="64">MovieLens</text>
+1 <text font="7" height="12" left="459" textpieces="2" top="239" width="136">LMF   45.8s   29.4%</text>
+1 <text font="7" height="12" left="619" textpieces="0" top="231" width="64">MovieLens</text>
+1 <text font="7" height="12" left="706" textpieces="2" top="239" width="139">LMF    0.32s    100%</text>
+1 <text font="7" height="12" left="132" textpieces="2" top="248" width="540">(0.25s)                                      (35.4s)                                     (0.16s)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="280" width="702">Table 2: Pure UDA implementation overheads: single-iteration runtime of each task implemented</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="301" width="702">in Bismarck against the strawman NULL aggregate. The parallel database DBMS B was run with</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="321" width="82">8 segments.</text>
+1 <text font="7" height="12" left="196" textpieces="2" top="359" width="602">PostgreSQL                                 DBMS A                           DBMS B (8 segments)</text>
+1 <text font="7" height="12" left="129" textpieces="0" top="376" width="47">Dataset</text>
+1 <text font="7" height="12" left="205" textpieces="0" top="384" width="34">Tasks</text>
+1 <text font="7" height="12" left="261" textpieces="2" top="376" width="167">Run-    Over-      Dataset</text>
+1 <text font="7" height="12" left="458" textpieces="0" top="384" width="34">Tasks</text>
+1 <text font="7" height="12" left="510" textpieces="2" top="376" width="165">Run-   Over-      Dataset</text>
+1 <text font="7" height="12" left="704" textpieces="0" top="384" width="34">Tasks</text>
+1 <text font="7" height="12" left="760" textpieces="1" top="376" width="85">Run-   Over-</text>
+1 <text font="7" height="12" left="117" textpieces="8" top="393" width="727">(NULL time)             -time    -head    (NULL time)            -time   -head    (NULL time)             -time   -head</text>
+1 <text font="7" height="12" left="134" textpieces="11" top="413" width="710">Forest       LR     0.56s   86.7%      Forest       LR     5.1s    54.5%      Forest       LR     0.25s    150%</text>
+1 <text font="7" height="12" left="135" textpieces="11" top="429" width="709">(0.3s)      SVM    0.55s   83.3%       (3.3s)      SVM    4.0s    21.2%       (0.1s)      SVM    0.21s    110%</text>
+1 <text font="7" height="12" left="131" textpieces="11" top="446" width="711">DBLife       LR    0.017s   41.7%      DBLife       LR     0.2s    81.8%      DBLife       LR    0.045s   4.6%</text>
+1 <text font="7" height="12" left="128" textpieces="11" top="462" width="714">(0.012s)     SVM   0.016s   33.3%      (0.11s)      SVM    0.3s    172%      (0.043s)     SVM   0.045s   4.6%</text>
+1 <text font="7" height="12" left="120" textpieces="0" top="479" width="64">MovieLens</text>
+1 <text font="7" height="12" left="207" textpieces="2" top="488" width="139">LMF    0.85s    193%</text>
+1 <text font="7" height="12" left="372" textpieces="0" top="479" width="64">MovieLens</text>
+1 <text font="7" height="12" left="459" textpieces="2" top="488" width="134">LMF   10.3s   102%</text>
+1 <text font="7" height="12" left="619" textpieces="0" top="479" width="64">MovieLens</text>
+1 <text font="7" height="12" left="706" textpieces="2" top="488" width="138">LMF    0.26s    160%</text>
+1 <text font="7" height="12" left="132" textpieces="2" top="496" width="536">(0.29s)                                      (5.1s)                                      (0.1s)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="529" width="702">Table 3: Shared-memory UDA implementation overheads: single-iteration runtime of each task</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="549" width="702">implemented in Bismarck against the strawman NULL aggregate. The parallel database DBMS B</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="569" width="181">was run with 8 segments.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="621" width="702">Tasks and Datasets  We study 4 popular analytics tasks: Logistic Regression (LR), Support</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="642" width="702">Vector Machine classication (SVM), Low-rank Matrix Factorization (LMF) and Conditional Ran-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="662" width="702">dom Fields labeling (CRF). We use 4 publicly available real-world datasets. For LR and SVM,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="682" width="702">we use two datasets  one dense (Forest, a standard benchmark dataset from the UCI repository)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="703" width="702">and one sparse (DBLife, which classies papers by research areas). We binarized these datasets for</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="723" width="702">the standard binary LR and SVM tasks. For LMF, we use MovieLens, which is a movie recom-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="743" width="702">mendation dataset, and for CRF, we use the CoNLL dataset, which is for text chunking. We also</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="764" width="702">perform a scalability study with much larger datasets  two synthetic datasets Classify300M (for</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="784" width="702">LR and SVM) and Matrix5B (for LMF), as well as DBLP (another real-world dataset) for CRF.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="804" width="453">The relevant statistics for all datasets are presented in Table 1.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="848" width="702">Experimental Setup  All experiments are run on an identical conguration: a dual Xeon X5650</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="868" width="702">CPUs (6 cores each x 2 hyper-threading) machine with 128GB of RAM and a 1TB dedicated disk.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="888" width="702">The kernel is Linux 2.6.32-131. Each reported runtime is the average of three warm-cache runs.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="909" width="702">Completion time for gradient schemes here means achieving 0.1% tolerance in the objective function</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="929" width="233">value, unless specied otherwise.</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="972" width="312">4.1  Overhead of Our Architecture</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="1003" width="702">We rst validate that Bismarck incurs little development overhead to add new analytics tasks.</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="1024" width="702">We then empirically verify that the runtime overhead of the tasks in Bismarck is low compared</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">15</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+1 <text font="7" height="12" left="182" textpieces="1" top="119" width="102">Dataset    Task</text>
+1 <text font="7" height="12" left="336" textpieces="2" top="111" width="400">PostgreSQL              DBMS A         DBMS B (8 segments)</text>
+1 <text font="7" height="12" left="307" textpieces="5" top="130" width="421">Bismarck   MADlib   Bismarck   Native   Bismarck    Native</text>
+1 <text font="7" height="12" left="187" textpieces="7" top="147" width="534">Forest      LR         8.0         43.5         40.2       489.0        3.7          17.0</text>
+1 <text font="7" height="12" left="182" textpieces="7" top="164" width="539">(Dense)    SVM        7.5        140.2        32.7        66.7         3.3          19.2</text>
+1 <text font="7" height="12" left="184" textpieces="7" top="181" width="538">DBLife      LR         0.8         N/A         9.8        20.6         2.3         N/A</text>
+1 <text font="7" height="12" left="180" textpieces="7" top="197" width="542">(Sparse)    SVM        1.2         N/A         11.6        4.8         4.1         N/A</text>
+1 <text font="7" height="12" left="173" textpieces="7" top="214" width="558">MovieLens   LMF       36.0       29325.7       394.7       N/A        11.9       17431.3</text>
+2 <text font="8" height="12" left="379" textpieces="1" top="370" width="80">                    </text>
+2 <text font="9" height="13" left="408" textpieces="2" top="356" width="129">10       100      1000</text>
+2 <text font="9" height="13" left="403" textpieces="0" top="344" width="7">0</text>
+2 <text font="9" height="13" left="396" textpieces="0" top="326" width="14">20</text>
+2 <text font="9" height="13" left="396" textpieces="0" top="308" width="14">40</text>
+2 <text font="9" height="13" left="396" textpieces="0" top="290" width="14">60</text>
+2 <text font="9" height="13" left="396" textpieces="0" top="272" width="14">80</text>
+2 <text font="9" height="13" left="390" textpieces="0" top="254" width="20">100</text>
+2 <text font="9" height="13" left="384" textpieces="0" top="355" width="0">Frac. of Opt. LogLik.</text>
+2 <text font="9" height="13" left="416" textpieces="0" top="321" width="49">Bismarck</text>
+2 <text font="9" height="13" left="426" textpieces="0" top="334" width="28">(399)</text>
+2 <text font="9" height="13" left="463" textpieces="0" top="267" width="39">CRF++</text>
+2 <text font="9" height="13" left="468" textpieces="0" top="280" width="28">(466)</text>
+2 <text font="9" height="13" left="441" textpieces="0" top="366" width="88">Time (sec)Mallet</text>
+2 <text font="9" height="13" left="497" textpieces="0" top="318" width="35">(1043)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="400" width="702">Figure 7: Benchmark Comparison: (A) Runtimes (in sec) for convergence (0.1% tolerance) or com-</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="420" width="702">pletion on 3 in-RDBMS analytics tasks. We compare Bismarck implemented over each RDBMS</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="441" width="702">against the analytics tool native to that RDBMS. N/A means the task is not supported on that</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="461" width="702">RDBMS native tool (B) For the CRF task, we compare Bismarck (over PostgreSQL) against</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="481" width="702">custom tools by plotting the objective function value against time. Completion times (in sec) are</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="502" width="156">shown in parentheses.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="554" width="182">to a strawman aggregate.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="597" width="702">Development Overhead  We implemented the 4 analytics tasks in Bismarck over three RDBM-</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="618" width="702">Ses (PostgreSQL, commercial DBMS A and DBMS B). Bismarck enables rapid addition of a new</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="638" width="702">analytics task since a large fraction of the code is shared across all the techniques implemented (on</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="658" width="702">a given RDBMS). For example, starting with an end-to-end implementation of LR in Bismarck</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="678" width="702">(in C, over PostgreSQL), we need to modify fewer than two dozen lines of code in order to add the</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="699" width="702">SVM module.4 Similarly, we can easily add in a more sophisticated task like LMF with only ve</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="719" width="702">dozen new lines of code. We believe that this is possible because our unied architecture based on</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="739" width="702">IGD abstracts out the logic of the various tasks into a small number of generic functions. This is</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="760" width="653">in contrast to existing systems, where there is usually a dedicated code stack for each task.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="803" width="702">Runtime Overhead  We next verify that the tasks implemented in Bismarck have low runtime</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="823" width="702">overhead. To do this, we compared our implementation to a strawman aggregate that sees the same</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="844" width="702">data, but computes no values. We call this a NULL aggregate. We run three tasks  LR, SVM</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="864" width="702">and LMF in Bismarck over all the 3 RDBMSes, using both the pure UDA infrastructure (shared-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="884" width="702">nothing) and the shared-memory variant described in Section 3. We compare the single-iteration</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="905" width="702">runtime of each task against the NULL aggregate for both implementations of Bismarck over the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="925" width="426">same datasets. The results are presented in Tables 2 and 3.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="945" width="677">We see that the overhead compared to the NULL aggregate can be as low as 4.6%, and is rarely</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="966" width="702">more than 2X runtime for simple tasks like LR and SVM. The overhead is higher for the more</text>
+2 <text font="6" height="8" left="127" textpieces="0" top="995" width="682">4Both our code and the data used in our experiments are available at: http://research.cs.wisc.edu/hazy/victor/bismarck-</text>
+2 <text font="5" height="11" left="108" textpieces="0" top="1012" width="59">download/</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">16</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">computation-intensive task LMF, but is still less than 2.5X runtime of the NULL aggregate. We</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="133" width="702">also see that the shared-memory variant is several times faster than the UDA implementation over</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="154" width="702">DBMS A, since DBMS A has extra overheads (e.g., model passing, serializations, etc.) to run the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="702">pure UDA. It was this observation that prompted us to use the shared-memory UDA to implement</text>
+2 <text font="4" height="14" left="108" textpieces="0" top="197" width="320">Bismarck even for a single-thread RDBMS.</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="237" width="258">4.2  Benchmark Comparison</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="269" width="702">We now validate that Bismarck implemented over two commercial RDBMSes and PostgreSQL</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="289" width="702">provides competitive or better performance than the native analytics tools oered by these RDBM-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="310" width="702">Ses on three existing in-database analytics tasks  LR, SVM and LMF. For the comparison, we</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="330" width="702">use the shared-memory UDA implementation of Bismarck along with the shue-once approach</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="350" width="702">described in Section 3.2. For the parallel version of Bismarck, we use the no-lock shared-memory</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="371" width="257">parallelism described in Section 3.3.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="414" width="702">Competitor Analytics Tools  We compare Bismarck against three existing in-RDBMS tools</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="434" width="702"> MADlib (an open-source collection of in-RDBMS statistical techniques [17]), which is run over</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="455" width="702">PostgreSQL (single-threaded), and the native analytics tools provided by the two commercial en-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="475" width="702">gines  DBMS A (single-threaded), and the parallel DBMS B (with 8 segments). We tuned the</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="495" width="702">parameters for each tool, including Bismarck, on each task based on an extensive search in the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="516" width="702">parameter space. The data was preprocessed appropriately for all tools. Some of the tasks we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="536" width="702">study are not currently supported in the above tools. In particular, the CRF task is not available</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="556" width="702">in any of the existing in-RDBMS analytics tools we considered, and so we compare Bismarck (over</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="577" width="488">PostgreSQL) against the custom tools CRF++ [27] and Mallet [33].</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="620" width="702">Existing In-RDBMS Analytics Tasks  We rst compare the end-to-end runtimes of the various</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="640" width="702">tools on LR, SVM and LMF. The results are summarized in Figure 7 (A). Overall, we see that</text>
+2 <text font="4" height="14" left="108" textpieces="0" top="663" width="702">Bismarck implemented over each RDBMS has competitive or faster performance on all these</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="681" width="702">tasks against the native tool of the respective RDBMS. On simple tasks like LR and SVM, we</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="701" width="702">see that Bismarck is often several times faster than existing tools. That is, on the dense LR</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="721" width="702">task, Bismarck is about 12X faster than DBMS As tool, and about 5X faster than MADlib</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="742" width="702">over both PostgreSQL and the native tool in DBMS B. In some cases, e.g., DBMS A for sparse</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="762" width="702">SVM, Bismarck is slightly slower due to the function call overheads in DBMS A. On a more</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="782" width="702">complex task like LMF, we see that Bismarck is about 3 orders-of-magnitude faster than MADlib</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="803" width="702">and DBMS Bs native tool. This validates that Bismarck is able to eciently handle several</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="823" width="702">in-RDBMS analytics tasks, while oering a unied architecture. We also veried that all the tools</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="843" width="702">compared achieved similar training quality on a given task and dataset (recall that IGD converges</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="864" width="702">to the optimal objective value on convex programs), but do not present details here due to space</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="884" width="82">constraints.</text>
+2 <text font="4" height="17" left="133" textpieces="0" top="904" width="677">To understand why Bismarck performs faster, we looked into the MADlib source code. While</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="925" width="702">the reasons vary across tasks, Bismarck is faster generally because IGD has lower time complexity</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="945" width="702">than the algorithms in MADlib. IGD, across all tasks, is linear in the number of examples (xing</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="965" width="702">the dimension) and linear in the dimension of the model (xing the number of examples). But the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="986" width="702">algorithms in MADlib for LR, for instance, are super-linear in the dimension, while that for LMF</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1006" width="301">is super-linear in the number of examples.</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">17</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="133" textpieces="0" top="113" width="677">To get a sense of the performance compared to other tools, a comparison with the popular</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="133" width="702">in-memory tool Weka shows that Bismarck (over PostgreSQL) is faster on all these tasks  from</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="154" width="702">4X faster on dense LR to over 4000X faster on dense SVM. We also validated that our runtimes</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="702">on SVM are within a factor of 3X to the special-purpose SVM in-memory tool, SVMPerf. This is</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="194" width="702">not surprising as SVMPerf is highly optimized for the SVM computation, but presents an avenue</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="215" width="113">for future work.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="258" width="702">Next Generation Tasks  Existing in-RDBMS analytics tools do not support emerging advanced</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="278" width="702">analytics tasks like CRF. But Bismarck is able to eciently support even such next generation</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="299" width="702">tasks within the same architecture. To validate this, we plot the convergence over time for Bis-</text>
+2 <text font="4" height="14" left="108" textpieces="0" top="322" width="702">marck (over PostgreSQL) against in-memory tools. The results are shown in Figure 7(B). We</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="339" width="702">see that Bismarck is able to achieve similar convergence, and runtime as the hand-coded and</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="360" width="621">optimized in-memory tools, even though Bismarck is a more generic in-RDBMS tool.</text>
+2 <text font="4" height="15" left="259" textpieces="0" top="406" width="34">Task</text>
+1 <text font="4" height="14" left="319" textpieces="3" top="398" width="329">Bismarck   DBMS A  DBMS B    Others</text>
+1 <text font="4" height="15" left="315" textpieces="3" top="416" width="345">PostgreSQL   (Native)   (Native)  (In-mem.)</text>
+1 <text font="4" height="15" left="265" textpieces="0" top="440" width="22">LR</text>
+1 <text font="4" height="15" left="351" textpieces="2" top="427" width="194">                     </text>
+1 <text font="4" height="15" left="618" textpieces="0" top="440" width="12">X</text>
+1 <text font="4" height="15" left="257" textpieces="0" top="461" width="36">SVM</text>
+1 <text font="4" height="15" left="351" textpieces="1" top="448" width="110">           </text>
+1 <text font="4" height="15" left="532" textpieces="1" top="461" width="98">X          X</text>
+1 <text font="4" height="15" left="258" textpieces="0" top="482" width="36">LMF</text>
+1 <text font="4" height="15" left="351" textpieces="0" top="469" width="14"></text>
+1 <text font="4" height="15" left="438" textpieces="2" top="482" width="192">N/A        X          X</text>
+1 <text font="4" height="15" left="258" textpieces="0" top="502" width="35">CRF</text>
+1 <text font="4" height="15" left="351" textpieces="0" top="490" width="14"></text>
+1 <text font="4" height="15" left="438" textpieces="2" top="502" width="192">N/A       N/A         X</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="538" width="150">Table 4: Scalability :</text>
+2 <text font="4" height="15" left="265" textpieces="0" top="526" width="14"></text>
+2 <text font="4" height="15" left="284" textpieces="0" top="538" width="526">means the task completes, and X means that the approach either crashes</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="559" width="702">or takes longer than 48 hours. N/A means the task is not supported. The in-memory tools (Weka,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="579" width="434">SVMPerf, CRF++, Mallet) all either crash or take too long.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="643" width="702">Scalability  We now study the scalability of the various tools to much larger datasets (Clas-</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="663" width="702">sify300M, Matrix5B and DBLP). Since Bismarck is not tied to any RDBMS, we run it over</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="684" width="702">PostgreSQL for this study. We compare against the native analytics tools of both commercial</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="704" width="702">engines, DBMS A and DBMS B, as well as the task-specic in-memory tools mentioned before.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="724" width="702">The results are summarized in Table 4. We see that almost all of the in-RDBMS tools scale on the</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="745" width="702">simple tasks LR and SVM (less than an hour per epoch for Bismarck), except DBMS B on SVM,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="765" width="702">which did not terminate even after 48 hours. Again, on the more complex tasks LMF and CRF,</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="785" width="702">only Bismarck scales to the large datasets. We also tried several custom in-memory tools  all</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="806" width="702">crashed either due to insucient memory (Weka, SVMPerf, CRF++) or did not terminate even</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="826" width="168">after 48 hours (Mallet).</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="869" width="266">4.3  Impact of Data Ordering</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="901" width="702">We now empirically verify how the order the data is stored aects the performance of our IGD</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="921" width="702">schemes. We rst study the objective function value against epochs for data being shued before</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="941" width="702">each epoch (ShueAlways). We repeat the study for data seen in clustered order (Clustered),</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="962" width="702">without any shuing. Finally, we shue the data only once, before the rst epoch (ShueOnce).</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="982" width="702">We present the results for the LR task on DBLife in Figure 8. We observed similar results on other</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1002" width="460">datasets and tasks, but skip them here due to space constraints.</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">18</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="11" height="13" left="299" textpieces="1" top="218" width="162">                                    </text>
+2 <text font="11" height="13" left="320" textpieces="2" top="206" width="135">0    50   100 150 200</text>
+2 <text font="11" height="13" left="296" textpieces="0" top="193" width="21">0E0</text>
+2 <text font="11" height="13" left="296" textpieces="0" top="177" width="21">2E3</text>
+2 <text font="11" height="13" left="296" textpieces="0" top="160" width="21">4E3</text>
+2 <text font="11" height="13" left="296" textpieces="0" top="144" width="21">6E3</text>
+2 <text font="11" height="13" left="296" textpieces="0" top="127" width="21">8E3</text>
+2 <text font="11" height="13" left="296" textpieces="0" top="110" width="21">1E4</text>
+2 <text font="10" height="15" left="360" textpieces="0" top="215" width="37">Epoch</text>
+2 <text font="10" height="15" left="293" textpieces="0" top="189" width="0">-Log Likelihood</text>
+2 <text font="11" height="13" left="343" textpieces="0" top="183" width="93">ShuffleAlways(35)</text>
+2 <text font="11" height="13" left="335" textpieces="0" top="120" width="77">Clustered(185)</text>
+2 <text font="11" height="13" left="356" textpieces="0" top="136" width="84">ShuffleOnce(47)</text>
+2 <text font="11" height="13" left="499" textpieces="5" top="206" width="135">0    2    4    6    8   10</text>
+2 <text font="11" height="13" left="475" textpieces="0" top="193" width="21">0E0</text>
+2 <text font="11" height="13" left="475" textpieces="0" top="177" width="21">2E3</text>
+2 <text font="11" height="13" left="475" textpieces="0" top="160" width="21">4E3</text>
+2 <text font="11" height="13" left="475" textpieces="0" top="144" width="21">6E3</text>
+2 <text font="11" height="13" left="475" textpieces="0" top="127" width="21">8E3</text>
+2 <text font="11" height="13" left="475" textpieces="0" top="110" width="21">1E4</text>
+2 <text font="10" height="15" left="538" textpieces="0" top="215" width="48">Time (s)</text>
+2 <text font="10" height="15" left="470" textpieces="0" top="189" width="0">-Log Likelihood</text>
+2 <text font="11" height="13" left="529" textpieces="0" top="183" width="96">ShuffleAlways(5.9)</text>
+2 <text font="11" height="13" left="515" textpieces="0" top="120" width="73">Clustered(9.3)</text>
+2 <text font="11" height="13" left="535" textpieces="0" top="136" width="87">ShuffleOnce(2.4)</text>
+2 <text font="11" height="13" left="308" textpieces="1" top="194" width="184">0                                      0</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="247" width="702">Figure 8: Impact of Data Ordering on Sparse LR over DBLife: (A) Objective value over epochs,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="267" width="702">till convergence. The number of epochs for convergence are shown in parentheses. (B) Objective</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="288" width="641">value over time, till convergence. The time to converge (in sec) are shown in parentheses.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="340" width="677">Figure 8(A) shows that ShueAlways converges in the fewest epochs, as is expected for IGD.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="360" width="702">Clustered yields the poorest convergence rate, as explained in Section 3.2.  In fact, Clustered</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="381" width="702">takes over 1000 epochs to reach the same objective value as ShueAlways. However, we see that</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="401" width="702">ShueOnce achieves very similar convergence rate to ShueAlways, and reaches the same objective</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="421" width="702">value as ShueAlways in 12 extra epochs. Figure 8(B) shows why the extra epochs are acceptable</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="442" width="702"> ShueAlways takes several times longer to nish than ShueOnce. This is because the shuing</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="462" width="702">overhead is signicantly high. In fact, for simple tasks like LR, shuing dominates the runtime</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="482" width="702"> e.g., for LR on DBLife, shuing takes nearly 5X the time for gradient computation per epoch.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="503" width="702">Even on more complex tasks, the overhead is signicant, e.g., it is 3X for LMF on MovieLens. By</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="523" width="702">avoiding this overhead, ShueOnce nishes much faster than ShueAlways, while still achieving</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="543" width="122">the same quality.</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="586" width="333">4.4  Parallelizing IGD in an RDBMS</text>
+2 <text font="11" height="13" left="299" textpieces="1" top="739" width="162">                                    </text>
+2 <text font="10" height="15" left="292" textpieces="5" top="720" width="178">-Log Likelihood      0    5    10   15   20</text>
+2 <text font="10" height="15" left="299" textpieces="0" top="710" width="23">0E0</text>
+2 <text font="10" height="15" left="299" textpieces="0" top="677" width="23">2E4</text>
+2 <text font="10" height="15" left="299" textpieces="0" top="644" width="23">4E4</text>
+2 <text font="10" height="15" left="360" textpieces="0" top="734" width="37">Epoch</text>
+2 <text font="10" height="15" left="311" textpieces="0" top="710" width="7">0</text>
+2 <text font="11" height="13" left="353" textpieces="0" top="636" width="52">Pure UDA</text>
+2 <text font="11" height="13" left="384" textpieces="0" top="686" width="39">NoLock</text>
+2 <text font="11" height="13" left="371" textpieces="0" top="653" width="24">Lock</text>
+2 <text font="11" height="13" left="380" textpieces="0" top="670" width="20">AIG</text>
+2 <text font="10" height="15" left="299" textpieces="0" top="693" width="23">1E4</text>
+2 <text font="10" height="15" left="299" textpieces="0" top="661" width="23">3E4</text>
+2 <text font="10" height="15" left="299" textpieces="0" top="629" width="23">5E4</text>
+2 <text font="10" height="15" left="501" textpieces="4" top="724" width="122">0    2    4   6    8</text>
+2 <text font="10" height="15" left="492" textpieces="0" top="711" width="7">0</text>
+2 <text font="10" height="15" left="492" textpieces="0" top="690" width="7">2</text>
+2 <text font="10" height="15" left="492" textpieces="0" top="670" width="7">4</text>
+2 <text font="10" height="15" left="492" textpieces="0" top="650" width="7">6</text>
+2 <text font="10" height="15" left="492" textpieces="0" top="630" width="7">8</text>
+2 <text font="10" height="15" left="507" textpieces="0" top="734" width="113">Number of Threads</text>
+2 <text font="10" height="15" left="486" textpieces="0" top="696" width="0">Speed-up</text>
+2 <text font="11" height="13" left="512" textpieces="0" top="661" width="52">Pure UDA</text>
+2 <text font="11" height="13" left="541" textpieces="0" top="642" width="39">NoLock</text>
+2 <text font="11" height="13" left="510" textpieces="0" top="678" width="24">Lock</text>
+2 <text font="11" height="13" left="609" textpieces="0" top="671" width="20">AIG</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="767" width="702">Figure 9: Parallelizing IGD: (A) Plot of objective value over epochs for the pure UDA version</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="788" width="702">and the shared-memory UDA variants (Lock, AIG, NoLock) for CRF over CoNLL on 8 threads</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="808" width="702">(segments). (B) Speed-up of the per-epoch gradient computation times against the number of</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="828" width="458">threads. The per-epoch time of the single-threaded run is 20.6s.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="869" width="677">We now verify that both the parallelism schemes (pure UDA and shared-memory UDA) are</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="889" width="702">able to achieve near-linear speed-ups but the pure UDA has a worse convergence rate than the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="910" width="702">shared-memory UDA. We rst study the objective value over epochs for both the implementations.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="930" width="702">We use the three concurrency schemes for the shared-memory UDA  lock the model (Lock), AIG,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="950" width="702">and no locking (NoLock). We present the results for CRF on CoNLL in Figure 9(A) (similar results</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="971" width="289">on other tasks skipped here for brevity).</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="991" width="677">Figure 9(A) shows that the pure UDA implementation has poorer convergence rate compared</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1011" width="702">to the shared-memory UDA with Lock, since the model averaging in the former yields poorer</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">19</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">quality [52]. The gure also shows that AIG and NoLock have similar convergence rate to the Lock</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="133" width="702">approach. This is in line with recent results from the machine learning literature [36]. By adopting</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="154" width="702">the NoLock shared-memory UDA parallelism into Bismarck, we achieve signicant speed-ups in</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="702">a generic way across all the analytics tasks we handle. Figure 9(B) shows the speed-ups (over</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="194" width="702">a single-threaded run) achieved by the four parallelism schemes in DBMS B. As expected, the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="215" width="702">Lock approach has no speed-up, while the speed-up of the pure UDA approach is sub-optimal due</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="235" width="702">to model passing overheads. NoLock and AIG achieve linear speed-ups, with NoLock having the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="255" width="131">highest speed-ups.</text>
+2 <text font="1" height="16" left="108" textpieces="1" top="298" width="331">4.5  Multiplexed Reservoir Sampling</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="330" width="702">We verify that our Multiplexed Reservoir Sampling (MRS) scheme has faster convergence rate</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="350" width="562">compared to both Subsampling and operating over clustered data (Clustered).</text>
+2 <text font="11" height="13" left="275" textpieces="1" top="480" width="75">                 </text>
+2 <text font="11" height="13" left="306" textpieces="0" top="465" width="119">0 10 20 30 40 50</text>
+2 <text font="11" height="13" left="282" textpieces="0" top="453" width="22">0E0</text>
+2 <text font="11" height="13" left="282" textpieces="0" top="432" width="22">4E3</text>
+2 <text font="11" height="13" left="282" textpieces="0" top="411" width="22">8E3</text>
+2 <text font="11" height="13" left="282" textpieces="0" top="389" width="22">1E4</text>
+2 <text font="11" height="13" left="342" textpieces="0" top="475" width="33">Epoch</text>
+2 <text font="11" height="13" left="277" textpieces="0" top="458" width="0">-Log Likelihood</text>
+2 <text font="10" height="15" left="336" textpieces="0" top="398" width="77">Subsampling</text>
+2 <text font="10" height="15" left="361" textpieces="1" top="442" width="-19">Clustered                   MRS</text>
+2 <text font="11" height="13" left="292" textpieces="0" top="453" width="7">0</text>
+2 <text font="11" height="13" left="278" textpieces="0" top="390" width="27">12E3</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="397" width="12">B</text>
+2 <text font="4" height="15" left="511" textpieces="0" top="387" width="33">Sub-</text>
+2 <text font="4" height="15" left="592" textpieces="0" top="397" width="36">MRS</text>
+2 <text font="4" height="15" left="494" textpieces="0" top="408" width="66">Sampling</text>
+2 <text font="4" height="15" left="444" textpieces="2" top="431" width="198">800   2.50 (48)  0.60 (10)</text>
+2 <text font="4" height="15" left="440" textpieces="2" top="452" width="197">1600   1.37 (26)   0.36 (6)</text>
+2 <text font="4" height="15" left="440" textpieces="2" top="473" width="197">3200   0.69 (13)   0.12 (2)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="509" width="702">Figure 10: Multiplexed Reservoir Sampling: (A) Objective value against epochs for LR on DBLife.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="529" width="702">The buer size for Subsampling and MRS is 1600 tuples (10% of the dataset). (B) Runtime (in sec)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="550" width="702">to reach 2X the optimal objective value for dierent buer sizes, B. The numbers in parentheses</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="570" width="628">indicate the respective number of epochs. The same values for Clustered are 1.03s (19).</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="610" width="677">Figure 10(A) plots the objective value against epochs for the three schemes. For Subsampling</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="631" width="702">and MRS, we choose a buer size that is about 10% the dataset size (for LR on DBLife). We see</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="651" width="702">from the gure that MRS has faster convergence rate than both Subsampling and Clustered, and</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="671" width="702">reaches an objective value that is 20% lower than both. Figure 10(B) shows the sensitivity to the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="692" width="702">buer size for the Subsampling and MRS schemes. We see that the runtime to reach 2X of the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="712" width="702">optimal objective value is lower for MRS. This is as expected since MRS has faster convergence</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="732" width="702">rate than Subsampling. Finally, we verify that Bismarck with the MRS scheme provides better</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="753" width="702">performance than existing in-RDBMS tools on large datasets (that do not t in available RAM).</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="773" width="702">For a simple task like LR on the Classify300M dataset over PostgreSQL, with a buer that is</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="793" width="702">just 1% of the dataset size, Bismarck with the MRS scheme achieves the same objective value as</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="814" width="702">MADlib in 45 minutes, while MADlib takes over 3 hours. On a more complex task like LMF on</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="834" width="702">the Matrix5B dataset, Bismarck with MRS scheme nishes in a few hours, while MADlib did not</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="854" width="220">terminate even after one week.</text>
+2 <text font="3" height="19" left="108" textpieces="1" top="902" width="352">5  Conclusions and Future Work</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="942" width="702">We present Bismarck, a novel architecture that takes a step towards unifying in-RDBMS analytics.</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="963" width="702">Using insights from the mathematical programming literature, Bismarck provides a single systems-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="983" width="702">level abstraction to implement a large class of existing and next-generation analytics techniques. In</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="1003" width="702">providing a unied architecture, we argue that Bismarck may reduce the development overhead for</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="1024" width="702">introducing and maintaining sophisticated analytics code in an RDBMS. Bismarck also achieves</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">20</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">high performance on these techniques by eectively utilizing standard features available inside</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="133" width="702">every RDBMS. We implemented Bismarck over two commercial RDBMSes and PostgreSQL, and</text>
+2 <text font="4" height="17" left="108" textpieces="0" top="154" width="702">veried that Bismarck achieves competitive, and often superior, performance than the state-of-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="422">the-art analytics tools natively oered by these RDBMSes.</text>
+2 <text font="4" height="17" left="133" textpieces="0" top="194" width="677">While Bismarck can handle many analytics techniques in the current framework, it is in-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="215" width="702">teresting future work to integrate more sophisticated models, e.g., simulation models, into our</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="235" width="702">architecture. Another direction is to handle large-scale combinatorial optimization problems in-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="255" width="702">side the RDBMS, including tasks like linear programming and fundamental NP-hard problems like</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="276" width="85">MAX-CUT.</text>
+2 <text font="4" height="17" left="133" textpieces="0" top="296" width="677">One area to improve Bismarck is to match the performance of some specialized tools for tasks</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="316" width="702">like support vector machines by using more optimizations, e.g. model or feature compression.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="337" width="702">There are also possibilities to improve performance by modifying the DBMS engine, e.g., exploiting</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="357" width="702">better mechanisms for model passing and storage, concurrency control, etc. Another direction is</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="377" width="613">to examine more fully how to utilize features that are available in parallel RDBMSes.</text>
+2 <text font="3" height="19" left="108" textpieces="1" top="425" width="226">6  Acknowledgments</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="465" width="702">This research has been supported by the ONR grant N00014-12-1-0041, the NSF CAREER award</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="485" width="702">IIS-1054009, and gifts from EMC Greenplum and Oracle to Christopher R e, and by the ONR grant</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="506" width="702">N00014-11-1-0723 to Benjamin Recht. We also thank Joseph Hellerstein, and the analytics teams</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="526" width="435">from EMC Greenplum and Oracle for invaluable discussions.</text>
+2 <text font="3" height="19" left="108" textpieces="0" top="573" width="113">References</text>
+2 <text font="4" height="15" left="116" textpieces="0" top="614" width="345">[1] Microsoft SQL Server 2008 R2 Data Mining.</text>
+2 <text font="4" height="15" left="116" textpieces="0" top="646" width="287">[2] Microsoft SQL Server Books Online.</text>
+2 <text font="4" height="15" left="116" textpieces="0" top="679" width="357">[3] Oracle Data Cartridge Developers Guide 11g.</text>
+2 <text font="4" height="15" left="116" textpieces="0" top="712" width="173">[4] Oracle Data Mining.</text>
+2 <text font="4" height="15" left="116" textpieces="0" top="745" width="257">[5] PostgreSQL 9.0 Documentation.</text>
+2 <text font="4" height="15" left="116" textpieces="0" top="778" width="357">[6] Shared Memory and LWLocks in PostgreSQL.</text>
+2 <text font="4" height="18" left="116" textpieces="0" top="811" width="333">[7] Vowpal Wabbit. http://hunch.net/~vw/.</text>
+2 <text font="4" height="15" left="116" textpieces="0" top="844" width="694">[8] Serge Abiteboul, Richard Hull, and Victor Vianu. Foundations of Databases. Addison-Wesley,</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="864" width="37">1995.</text>
+2 <text font="4" height="15" left="116" textpieces="0" top="897" width="694">[9] Rakesh Agrawal and Ramakrishnan Srikant. Fast Algorithms for Mining Association Rules in</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="917" width="356">Large Databases. In VLDB, pages 487499, 1994.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="950" width="702">[10] Kurt M. Anstreicher and Laurence A. Wolsey. Two Well-known Properties of Subgradient</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="971" width="384">Optimization. Math. Program., 120(1):213220, 2009.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1003" width="702">[11] Dimitri P. Bertsekas. A Hybrid Incremental Gradient Method for Least Squares. SIAM Journal</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="1024" width="182">on Optimization, 7, 1997.</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">21</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">[12] Dimitri P. Bertsekas. Nonlinear Programming. Athena Scientic, Belmont, MA, 2nd edition,</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="133" width="37">1999.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="167" width="702">[13] Dimitri P. Bertsekas. Incremental Gradient, Subgradient, and Proximal Methods for Convex</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="187" width="668">Optimization: A Survey. Technical report, Laboratory for Information and Decision Systems,</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="207" width="37">2010.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="241" width="686">[14] L eon Bottou and Olivier Bousquet. The Tradeos of Large Scale Learning. In NIPS, 2007.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="274" width="585">[15] L eon Bottou and Yann LeCun. Large Scale Online Learning. In NIPS, 2003.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="307" width="702">[16] Stephen Boyd and Lieven Vandenberghe. Convex Optimization. Cambridge University Press,</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="327" width="196">New York, NY, USA, 2004.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="361" width="702">[17] Jerey Cohen, Brian Dolan, Mark Dunlap, Joseph M. Hellerstein, and Caleb Welton. MAD</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="381" width="546">Skills: New Analysis Practices for Big Data. PVLDB, 2(2):14811492, 2009.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="414" width="702">[18] Ofer Dekel, Ran Gilad-Bachrach, Ohad Shamir, and Lin Xiao. Optimal Distributed Online</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="435" width="308">Prediction. In ICML, pages 713720, 2011.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="468" width="702">[19] Amol Deshpande and Samuel Madden. MauveDB: Supporting Model-based User Views in</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="488" width="372">Database Systems. In SIGMOD, pages 7384, 2006.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="521" width="702">[20] John Duchi, Alekh Agarwal, and Martin J. Wainwright. Distributed Dual Averaging in Net-</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="542" width="159">works. In NIPS, 2010.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="575" width="352">[21] EMC Greenplum. Personal Communication.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="608" width="702">[22] Rainer Gemulla, Erik Nijkamp, Peter J. Haas, and Yannis Sismanis. Large-scale Matrix Fac-</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="628" width="614">torization with Distributed Stochastic Gradient Descent. In KDD, pages 6977, 2011.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="662" width="702">[23] Michel X. Goemans and David P. Williamson. Approximation Algorithms for MAX-3-CUT</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="682" width="668">and Other Problems via Complex Semidenite Programming. J. Comput. Syst. Sci., 68(2),</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="702" width="37">2004.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="736" width="702">[24] Rahul Gupta and Sunita Sarawagi. Creating Probabilistic Databases from Information Ex-</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="756" width="351">traction Models. In VLDB, pages 965976, 2006.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="789" width="702">[25] Trevor Hastie, Robert Tibshirani, and J. H. Friedman. The Elements of Statistical Learning:</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="810" width="535">Data Mining, Inference, and Prediction. New York: Springer-Verlag, 2001.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="843" width="702">[26] Ravi Jampani, Fei Xu, Mingxi Wu, Luis Leopoldo Perez, Christopher M. Jermaine, and Peter J.</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="863" width="668">Haas. MCDB: A Monte Carlo Approach to Managing Uncertain Data. In SIGMOD, pages</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="883" width="105">687698, 2008.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="917" width="388">[27] Taku Kudo. CRF++: Yet Another CRF Toolkit.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="950" width="702">[28] John Langford, Lihong Li, and Tong Zhang. Sparse Online Learning via Truncated Gradient.</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="970" width="181">JMLR, 10:777801, 2009.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1003" width="702">[29] Z. Q. Luo and Paul Tseng. Analysis of an Approximate Gradient Projection Method with</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="1024" width="668">Applications to the Backpropagation Algorithm. Optimization Methods and Software, 4, 1994.</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">22</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">[30] ZQ Luo. On the Convergence of the LMS Algorithm with Adaptive Learning Rate for Linear</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="133" width="465">Feedforward Networks. Neural Computation, 3(2):226245, 1991.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="167" width="702">[31] Olvi L. Mangasarian. Linear and Nonlinear Separation of Patterns by Linear Programming.</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="188" width="219">Operations Research, 13, 1965.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="221" width="702">[32] Olvi L. Mangasarian and M. V. Solodov. Serial and Parallel Backpropagation Convergence</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="242" width="637">via Nonmonotone Perturbed Minimization. Optimization Methods and Software, 4, 1994.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="275" width="611">[33] Andrew McCallum. MALLET: A Machine Learning for Language Toolkit, 2002.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="309" width="702">[34] Boriana L. Milenova, Joseph Yarmus, and Marcos M. Campos. SVM in Oracle Database 10g:</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="329" width="668">Removing the Barriers to Widespread Adoption of Support Vector Machines. In VLDB, pages</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="350" width="121">11521163, 2005.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="384" width="702">[35] A Nemirovski, A Juditsky, G Lan, and A Shapiro. Robust Stochastic Approximation Approach</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="404" width="527">to Stochastic Programming. SIAM Journal on Optimization, 19(4), 2009.</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="438" width="702">[36] Feng Niu, Benjamin Recht, Christopher R e, and Stephen Wright. Hogwild: A Lock-Free</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="458" width="509">Approach to Parallelizing Stochastic Gradient Descent. In NIPS, 2011.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="492" width="628">[37] Oracle Advanced Analytics, Oracle R Enterprise Group. Personal Communication.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="526" width="702">[38] Carlos Ordonez. Building statistical models and scoring with UDFs. In SIGMOD, pages</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="546" width="121">10051016, 2007.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="580" width="702">[39] Prasad Raghavendra. Optimal Algorithms and Inapproximability Results for Every CSP? In</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="600" width="204">STOC, pages 245254, 2008.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="634" width="702">[40] Herbert Robbins and Sutton Monro. A Stochastic Approximation Method. Ann. Math. Statis-</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="654" width="181">tics, 22(3):400407, 1951.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="688" width="702">[41] R. Tyrrell Rockafellar. Monotone Operators and the Proximal Point Algorithm. SIAM J. on</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="708" width="278">Control and Optimization, 14(5), 1976.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="742" width="702">[42] R. Tyrrell Rockafellar. Convex Analysis (Princeton Landmarks in Mathematics and Physics).</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="762" width="239">Princeton University Press, 1996.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="796" width="702">[43] Prithviraj Sen, Amol Deshpande, and Lise Getoor. Exploiting Shared Correlations in Proba-</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="816" width="343">bilistic Databases. PVLDB, 1(1):809820, 2008.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="850" width="702">[44] R. Tibshirani. Regression Shrinkage and Selection via the Lasso. Journal of the Royal Statistical</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="870" width="167">Society, B, 58(1), 1996.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="904" width="702">[45] P. Tseng. An Incremental Gradient(-Projection) Method with Momentum Term and Adaptive</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="925" width="409">Stepsize Rule. SIAM Joural on Optimization, 8(2), 1998.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="958" width="702">[46] Jerey Scott Vitter. Random Sampling with a Reservoir. ACM Trans. Math. Softw., 11(1):37</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="979" width="64">57, 1985.</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">23</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">[47] Grace Wahba, C. Gu, Y. Wang, and R. Chappell. Soft Classication, a.k.a. Risk Estimation,</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="133" width="668">via Penalized Log Likelihood and Smoothing Spline Analysis of Variance. In The Mathematics</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="154" width="668">of Generalization., Santa Fe Institute Studies in the Sciences of Complexity. Addison-Wesley,</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="174" width="37">1995.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="207" width="702">[48] Hanna M. Wallach. Conditional Random Fields: An Introduction. Technical report, Dept. of</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="228" width="241">CIS, Univ. of Pennsylvania, 2004.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="261" width="702">[49] Daisy Zhe Wang, Michael J. Franklin, Minos N. Garofalakis, and Joseph M. Hellerstein. Query-</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="281" width="523">ing Probabilistic Information Extraction. PVLDB, 3(1):10571067, 2010.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="315" width="702">[50] Daisy Zhe Wang, Eirinaios Michelakis, Minos Garofalakis, and Joseph M. Hellerstein.</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="335" width="668">BayesStore: Managing Large, Uncertain Data Repositories with Probabilistic Graphical Mod-</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="356" width="236">els. PVLDB, 1(1):340351, 2008.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="389" width="702">[51] Michael Wick, Andrew McCallum, and Gerome Miklau. Scalable Probabilistic Databases with</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="409" width="412">Factor Graphs and MCMC. PVLDB, 3(1):794804, 2010.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="443" width="702">[52] Zeyuan Allen Zhu, Weizhu Chen, Gang Wang, Chenguang Zhu, and Zheng Chen. P-packSVM:</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="463" width="570">Parallel Primal grAdient desCent Kernel SVM. In ICDM, pages 677686, 2009.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="496" width="702">[53] M Zinkevich, M Weimer, A Smola, and L Li. Parallelized Stochastic Gradient Descent. In</text>
+2 <text font="4" height="15" left="142" textpieces="0" top="517" width="86">NIPS, 2010.</text>
+2 <text font="3" height="19" left="108" textpieces="1" top="564" width="304">A  Proximal Point Methods</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="605" width="702">To handle regularization and constraints, we need an additional concept called proximal point</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="625" width="702">methods. These do not change the data access patterns, but do enable us to handle constraints.</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="645" width="656">We state the complete step rule including a projection that allows us to handle constraints:</text>
+2 <text font="4" height="15" left="320" textpieces="6" top="686" width="490">w(k+1)= P  w(k) k  f(k)(w(k))                            (3)</text>
+2 <text font="4" height="15" left="133" textpieces="1" top="718" width="668">Where the function P is called a proximal point operator and is dened by the expression:</text>
+2 <text font="4" height="15" left="314" textpieces="1" top="754" width="128">P(x) = arg min</text>
+2 <text font="5" height="11" left="423" textpieces="0" top="767" width="9">w</text>
+2 <text font="5" height="11" left="463" textpieces="0" top="751" width="6">1</text>
+2 <text font="5" height="11" left="463" textpieces="0" top="763" width="6">2</text>
+2 <text font="4" height="15" left="479" textpieces="1" top="754" width="56">x  w 2</text>
+2 <text font="5" height="11" left="529" textpieces="0" top="761" width="6">2</text>
+2 <text font="4" height="15" left="539" textpieces="0" top="754" width="65">+ P (w)</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="794" width="702">In the case where P is the indicator function of a set C, P is simply the Euclidean projection</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="814" width="702">onto C [41]. Thus, these constraints can be used to ensure that the model stays in some convex</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="834" width="702">set of constraints. An example proximal-point operator ensures that the model has unit Euclidean</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="855" width="702">norm by projecting the model on to the the unit ball. P (w) might also be a regularization penalty</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="875" width="702">such as total-variation or negative entropy. These are very commonly used in statistics to improve</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="895" width="702">the generalization of the model or to take advantage of properties that are known about the model</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="916" width="338">to reduce the number of needed measurements.</text>
+2 <text font="3" height="19" left="108" textpieces="1" top="963" width="540">B  Background: Step-size and Stopping Condition</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1003" width="702">The step-size and stopping condition are the two important rules for gradient methods. In real-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1024" width="702">world systems, constant step-sizes and xed number of epochs are usually chosen by an optimization</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">24</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="108" textpieces="0" top="113" width="702">expert and set in the software for simplicity. In some cases, number of epochs or tolerance rate are</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="133" width="258">exposed to end users as parameters.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="154" width="677">Theoretically, to prove that gradient methods converge to the optimal value, it requires step-</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="174" width="574">sizes to satisfy some properties. For example, the proof for divergent series rule:</text>
+2 <text font="4" height="15" left="386" textpieces="1" top="222" width="57">k 0,</text>
+2 <text font="5" height="11" left="450" textpieces="0" top="204" width="13"></text>
+2 <text font="5" height="11" left="445" textpieces="0" top="245" width="23">k=1</text>
+2 <text font="4" height="15" left="471" textpieces="1" top="222" width="61">k= ,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="273" width="138">and geometric rule:</text>
+2 <text font="4" height="15" left="355" textpieces="3" top="294" width="208">k= 0k, 0 &lt;  &lt; 1, 0&gt; 0,</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="324" width="702">are given in Anstreicher [10]. For strongly convex objective functions, the distance between a point</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="344" width="702">x and the optimal value x can be bound by || f (x)|| which provides a more rigorous stopping</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="364" width="492">condition. In our architecture, we can support all of the above rules.</text>
+2 <text font="3" height="19" left="108" textpieces="1" top="412" width="396">C  Calculations for CA-TX Example</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="452" width="702">Suppose we start from w0 and we run for m iterations. Then the behavior of any IGD algorithm</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="473" width="702">can be modeled as a function  : m  n, i.e., (i) = j says that at step i we picked example j. Let</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="493" width="640">us assume a constant step-size   0. Then, the IGD dynamic system for the example is:</text>
+2 <text font="4" height="15" left="360" textpieces="4" top="530" width="198">wk+1= wk (wk y(k))</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="567" width="279">We can unfold this in a closed form to:</text>
+2 <text font="4" height="15" left="301" textpieces="2" top="615" width="182">wk+1= (1  )k+1w0+ </text>
+2 <text font="5" height="11" left="494" textpieces="0" top="598" width="7">k</text>
+2 <text font="5" height="11" left="487" textpieces="0" top="638" width="95">j=0(1  )kj</text>
+2 <text font="4" height="15" left="585" textpieces="0" top="615" width="31">y(j)</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="668" width="702">From this, we can see that the graphs shown in the example are not random chance. Specically, we</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="688" width="702">can view (i) for i = 1, . . . , m as a random variable. For example, suppose that  models selecting</text>
+2 <text font="4" height="15" left="108" textpieces="2" top="708" width="702">without replacement then observe that, Pr[y(i)= 1] = Pr[y(i)= 1] = 1/2. Said another way,</text>
+2 <text font="4" height="17" left="108" textpieces="1" top="729" width="702">this sampling scheme is unbiased. We denote by Ewothe expectation with respect to a without</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="749" width="702">replacement sample (assume m  2n for simplicity). From here, one can see that in expectation</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="769" width="672">wk+1goes to 0 as expected. One can see that the convergence holds for any unbiased scheme.</text>
+2 <text font="4" height="15" left="133" textpieces="0" top="790" width="677">For the deterministic order in the CA-TX example, we have (i) = i. And recall, that we</text>
+2 <text font="4" height="15" left="108" textpieces="1" top="810" width="373">intuitively converge to 1 (since yi= 1 for i  n):</text>
+2 <text font="4" height="15" left="273" textpieces="2" top="857" width="264">w2n= (1  )2nw0 (1  (1  )n)</text>
+2 <text font="4" height="15" left="539" textpieces="0" top="846" width="104">1  (1  )n+1</text>
+2 <text font="4" height="15" left="572" textpieces="0" top="868" width="39">1  </text>
+2 <text font="4" height="15" left="304" textpieces="2" top="890" width="320">= (1  )2nw0 (1  (1  )n)2 (1  )n</text>
+2 <text font="4" height="15" left="133" textpieces="1" top="927" width="676">Indeed if  is large so that (1  )n 0, then we converge to roughly 1. If however, (1  )n</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="947" width="702">is very close to 1 then the initial condition matters quite a bit. Of course, as  decays it passes</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="967" width="702">through a sweet spot where it eventually converges to 1 after a few epochs. It is not hard to see</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="988" width="702">the stronger statement that the deterministic example is a worst case ordering for convergence (the</text>
+2 <text font="4" height="15" left="108" textpieces="0" top="1008" width="164">other is (i) = 2n  i).</text>
+2 <text font="4" height="15" left="451" textpieces="0" top="1069" width="16">25</text>

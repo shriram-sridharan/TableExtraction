@@ -1,0 +1,712 @@
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="0" height="19" left="221" textpieces="0" top="175" width="481">Socioscope: Spatio-Temporal Signal Recovery</text>
+2 <text font="0" height="19" left="365" textpieces="0" top="202" width="194">from Social Media</text>
+2 <text font="1" height="13" left="219" textpieces="1" top="259" width="485">Jun-Ming Xu, Aniruddha Bhargava, Robert Nowak, and Xiaojin Zhu</text>
+2 <text font="3" height="8" left="355" textpieces="0" top="288" width="212">Department of Computer Sciences</text>
+2 <text font="3" height="8" left="299" textpieces="0" top="304" width="324">Department of Electrical and Computer Engineering</text>
+2 <text font="4" height="12" left="282" textpieces="0" top="324" width="359">University of Wisconsin-Madison, Madison WI 53706, USA</text>
+2 <text font="4" height="11" left="260" textpieces="0" top="341" width="402">xujm@cs.wisc.edu, aniruddha@wisc.edu, nowak@ece.wisc.edu,</text>
+2 <text font="4" height="11" left="391" textpieces="0" top="358" width="141">jerryzhu@cs.wisc.edu</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="413" width="434">Abstract. Many real-world phenomena can be represented by a spatio-</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="429" width="434">temporal signal: where, when, and how much. Social media is a tantaliz-</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="446" width="434">ing data source for those who wish to monitor such signals. Unlike most</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="462" width="434">prior work, we assume that the target phenomenon is known and we are</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="479" width="434">given a method to count its occurrences in social media. However, count-</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="495" width="434">ing is plagued by sample bias, incomplete data, and, paradoxically, data</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="512" width="434">scarcity  issues inadequately addressed by prior work. We formulate sig-</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="528" width="434">nal recovery as a Poisson point process estimation problem. We explicitly</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="545" width="434">incorporate human population bias, time delays and spatial distortions,</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="561" width="434">and spatio-temporal regularization into the model to address the noisy</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="577" width="434">count issues. We present an ecient optimization algorithm and discuss</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="594" width="434">its theoretical properties. We show that our model is more accurate than</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="610" width="434">commonly-used baselines. Finally, we present a case study on wildlife</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="627" width="434">roadkill monitoring, where our model produces qualitatively convincing</text>
+2 <text font="4" height="12" left="245" textpieces="0" top="643" width="43">results.</text>
+2 <text font="5" height="16" left="202" textpieces="1" top="689" width="141">1  Introduction</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="725" width="519">Many real-world phenomena of interest to science are spatio-temporal in nature.</text>
+2 <text font="1" height="16" left="202" textpieces="1" top="743" width="519">They can be characterized by a real-valued intensity function f  R0, where</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="761" width="519">the value fs,tquanties the prevalence of the phenomenon at location s and time</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="779" width="519">t. Examples include wildlife mortality, algal blooms, hail damage, and seismic</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="796" width="519">intensity. Direct instrumental sensing of f is often dicult and expensive. So-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="814" width="519">cial media oers a unique sensing opportunity for such spatio-temporal signals,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="832" width="519">where users serve the role of sensors by posting their experiences of a target</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="850" width="519">phenomenon. For instance, social media users readily post their encounters with</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="868" width="475">dead animals: I saw a dead crow on its back in the middle of the road.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="886" width="496">There are at least three challenges faced when using human social media</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="904" width="106">users as sensors:</text>
+2 <text font="1" height="13" left="208" textpieces="0" top="932" width="512">1. Social media sources are not always reliable and consistent, due to factors</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="950" width="493">including the vagaries of language and the psychology of users. This makes</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="968" width="493">identifying topics of interest and labeling social media posts extremely chal-</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="986" width="51">lenging.</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="202" textpieces="1" top="142" width="328">2       Xu, J., Bhargava, A., Nowak, R., and Zhu, X.</text>
+2 <text font="1" height="13" left="208" textpieces="0" top="180" width="512">2. Social media users are not under our control. In most cases, users cannot be</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="198" width="493">directed or focused or maneuvered as we wish. The distribution of human</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="216" width="493">users (our sensors) depends on many factors unrelated to the sensing task</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="234" width="55">at hand.</text>
+2 <text font="1" height="13" left="208" textpieces="0" top="252" width="512">3. Location and time stamps associated with social media posts may be er-</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="270" width="493">roneous or missing. Most posts do not include GPS coordinates, and self-</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="288" width="493">reported locations can be inaccurate or false. Furthermore, there can be</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="306" width="493">random delays between an event of interest and the time of the social media</text>
+2 <text font="1" height="13" left="228" textpieces="0" top="324" width="165">post related to the event.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="355" width="519">Most prior work in social media event analysis has focused on the rst challenge.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="373" width="519">Sophisticated natural language processing techniques have been used to identify</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="391" width="519">social media posts relevant to a topic of interest [21, 2, 16] and advanced machine</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="409" width="519">learning tools have been proposed to discover popular or emerging topics in social</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="427" width="440">media [1, 12, 22]. We discuss the related work in detail in Section 3.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="445" width="496">Our work in this paper focuses on the latter two challenges. We are interested</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="463" width="519">in a specic topic or target phenomenon of interest that is given and xed be-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="481" width="519">forehand, and we assume that we are also given a (perhaps imperfect) method,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="499" width="519">such as a trained text classier, to identify target posts. The rst challenge is</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="517" width="519">relevant here, but is not the focus of our work. The main concerns of this paper</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="535" width="519">are to deal with the highly non-uniform distribution of human users (sensors),</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="553" width="519">which profoundly aects our capabilities for sensing natural phenomena such as</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="571" width="519">wildlife mortality, and to cope with the uncertainties in the location and time</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="589" width="519">stamps associated with related social media posts. The main contribution of the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="607" width="519">paper is robust methodology for deriving accurate spatiotemporal maps of the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="625" width="336">target phenomenon in light of these two challenges.</text>
+2 <text font="5" height="16" left="202" textpieces="1" top="673" width="166">2  The Socioscope</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="713" width="519">We propose Socioscope, a probabilistic model that robustly recovers spatiotem-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="731" width="519">poral signals from social media data. Formally, consider f dened on discrete</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="749" width="519">spatiotemporal bins. For example, a bin (s, t) could be a U.S. state s on day t,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="767" width="518">or a county s in hour t. From the rst stage we obtain xs,t, the count of tar-</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="785" width="518">get social media posts within that bin. The task is to estimate fs,t from xs,t.</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="806" width="519">A commonly-used estimate is fs,t = xs,t itself. This estimate can be justied</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="824" width="519">as the maximum likelihood estimate of a Poisson model x  Poisson(f ). This</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="842" width="519">idea underlines several emerging systems such as earthquake damage monitoring</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="859" width="518">from Twitter [8]. However, this estimate is unsatisfactory since the counts xs,t</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="877" width="519">can be noisy: as mentioned before, the estimate ignores population bias  more</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="895" width="519">target posts are generated when and where there are more social media users; the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="913" width="519">location of a target post is frequently inaccurate or missing, making it dicult</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="931" width="519">to assign to the correct bin; and target posts can be quite sparse even though</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="949" width="489">the total volume of social media is huge. Socioscope addresses these issues.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="968" width="496">For notational simplicity, we often denote our signal of interest by a vector</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="986" width="147">f = (f1, . . . , fn)   Rn</text>
+2 <text font="2" height="10" left="342" textpieces="0" top="992" width="77">0, where fj</text>
+2 <text font="1" height="13" left="425" textpieces="0" top="986" width="296">is a non-negative target phenomenon intensity</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="282" textpieces="1" top="142" width="439">Socioscope: Spatio-Temporal Signal Recovery from Social Media       3</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="180" width="519">in source bin j = 1 . . . n. We will use a wildlife example throughout the section.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="198" width="519">In this example, a source bin is a spatiotemporal unit such as California, day</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="216" width="518">1, and fjis the squirrel activity level in that unit. The mapping between index</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="234" width="478">j and the aforementioned (s, t) is one-one and will be clear from context.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="279" width="306">2.1  Correcting Human Population Bias</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="310" width="519">For now, assume each target post comes with precise location and time meta</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="328" width="518">data. This allows us to count xj, the number of target posts in bin j. Given xj,</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="349" width="519">it is tempting to use the maximum likelihood estimate fj= xj which assumes a</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="367" width="519">simple Poisson model xj Poisson(fj). However, this model is too naive: Even</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="385" width="517">if fj = fk, e.g., the level of squirrel activities is the same in two bins, we would</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="403" width="519">expect xj &gt; xk if there are more people in bin j than in bin k, simply because</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="421" width="290">more people see the same group of squirrels.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="439" width="496">To account for this population bias, we dene an active social media user</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="457" width="544">population intensity (loosely called human population below) g = (g1, . . . , gn)  </text>
+2 <text font="1" height="12" left="202" textpieces="2" top="478" width="519">Rn 0. Let zj be the count of all social media posts in bin j, the vast majority of</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="492" width="518">which are not about the target phenomenon. We assume zj  Poisson(gj). Since</text>
+2 <text font="1" height="13" left="202" textpieces="3" top="510" width="476">typically zj    0, the maximum likelihood estimate gj= zj is reasonable.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="529" width="299">Importantly, we then posit the Poisson model</text>
+2 <text font="1" height="13" left="385" textpieces="3" top="562" width="336">xj Poisson((fj, gj)).                           (1)</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="595" width="518">The intensity is dened by a link function (fj, gj). In this paper, we simply</text>
+2 <text font="1" height="13" left="202" textpieces="3" top="613" width="519">dene (fj, gj) = fj  gj but note that other more sophisticated link functions</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="631" width="519">can be learned from data. Given xj and zj, one can then easily estimate fj with</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="651" width="204">the plug-in estimator fj = xj/z</text>
+2 <text font="2" height="9" left="408" textpieces="0" top="657" width="9">j.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="697" width="321">2.2  Handling Noisy and Incomplete Data</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="728" width="519">This would have been the end of the story if we could reliably assign each post</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="746" width="519">to a source bin. Unfortunately, this is often not the case for social media. In this</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="764" width="519">paper, we focus on the problem of spatial uncertainty due to noisy or incomplete</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="782" width="519">social media data. A prime example of spatial uncertainty is the lack of location</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="800" width="519">meta data in posts from Twitter (called tweets).1 In recent data we collected,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="818" width="519">only 3% of tweets contain the latitude and longitude at which they were created.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="836" width="519">Another 47% contain a valid user self-declared location in his or her prole (e.g.,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="854" width="519">New York, NY). However, such location does not automatically change while</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="872" width="519">the user travels and thus may not be the true location at which a tweet is posted.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="890" width="519">The remaining 50% do not contain location at all. Clearly, we cannot reliably</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="908" width="456">assign the latter two kinds of tweets to a spatiotemporal source bin.2</text>
+2 <text font="3" height="8" left="206" textpieces="1" top="935" width="515">1  It may be possible to recover occasional location information from the tweet text</text>
+2 <text font="4" height="12" left="217" textpieces="0" top="954" width="358">itself instead of the meta data, but the problem still exists.</text>
+2 <text font="3" height="8" left="206" textpieces="1" top="968" width="515">2  Another kind of spatiotemporal uncertainty exists in social media even when the local</text>
+2 <text font="4" height="12" left="217" textpieces="0" top="987" width="504">and time meta data of every post is known: social media users may not immediately</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="202" textpieces="1" top="142" width="328">4       Xu, J., Bhargava, A., Nowak, R., and Zhu, X.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="180" width="496">To address this issue, we borrow an idea from Positron Emission Tomogra-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="198" width="519">phy [19]. In particular, we dene m detector bins which are conceptually distinct</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="216" width="519">from the n source bins. The idea is that an event originating in some source bin</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="234" width="519">goes through a transition process and ends up in one of the detector bins, where</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="252" width="515">it is detected. This transition is modeled by an m  n matrix P = {Pij} where</text>
+2 <text font="1" height="13" left="362" textpieces="2" top="289" width="359">Pij= Pr(detector i | source j).                       (2)</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="327" width="151">P is column stochastic:</text>
+2 <text font="2" height="9" left="374" textpieces="0" top="322" width="11">m</text>
+2 <text font="2" height="9" left="374" textpieces="0" top="334" width="19">i=1</text>
+2 <text font="1" height="13" left="396" textpieces="1" top="327" width="324">Pij= 1, j. We defer the discussion of our specic</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="345" width="519">P to a case study, but we mention that it is possible to reliably estimate P</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="362" width="519">directly from social media data (more on this later). Recall the target post</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="380" width="518">intensity at source bin j is (fj, gj). We use the transition matrix to dene the</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="398" width="518">target post intensity hi (note that hi can itself be viewed as a link function</text>
+2 <text font="1" height="13" left="203" textpieces="1" top="416" width="163"> (f , g)) at detector bin i:</text>
+2 <text font="1" height="13" left="394" textpieces="1" top="466" width="30">hi=</text>
+2 <text font="2" height="9" left="435" textpieces="0" top="450" width="7">n</text>
+2 <text font="2" height="9" left="428" textpieces="0" top="486" width="21">j=1</text>
+2 <text font="1" height="13" left="452" textpieces="2" top="466" width="269">Pij(fj, gj).                             (3)</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="521" width="496">For the spatial uncertainty that we consider, we create three kinds of detector</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="539" width="519">bins. For a source bin j such as California, day 1, the rst kind collects target</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="557" width="519">posts on day 1 whose latitude and longitude meta data is in California. The</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="574" width="519">second kind collects target posts on day 1 without latitude and longitude meta</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="592" width="519">data, but whose user self-declared prole location is in California. The third kind</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="610" width="519">collects target posts on day 1 without any location information. Note the third</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="628" width="519">kind of detector bin is shared by all other source bins for day 1, such as Nevada,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="646" width="519">day 1, too. Consequently, if we had n = 50T source bins corresponding to the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="664" width="491">50 US states over T days, there would be m = (2  50 + 1)T detector bins.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="684" width="496">Critically, our observed target counts x are now with respect to the m de-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="702" width="518">tector bins instead of the n source bins: x = (x1, . . . , xm) . We will also denote</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="720" width="518">the count sub-vector for the rst kind of detector bins by x(1), the second kind</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="738" width="518">x(2), and the third kind x(3). The same is true for the overall counts z. A trivial</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="756" width="480">approach is to only utilize x(1) and z(1)to arrive at the plug-in estimator</text>
+2 <text font="1" height="13" left="415" textpieces="1" top="796" width="57">fj = x(1)</text>
+2 <text font="2" height="9" left="457" textpieces="0" top="803" width="5">j</text>
+2 <text font="1" height="13" left="473" textpieces="0" top="796" width="29">/z(1)</text>
+2 <text font="2" height="9" left="487" textpieces="0" top="803" width="5">j</text>
+2 <text font="1" height="13" left="504" textpieces="1" top="796" width="217">.                                (4)</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="833" width="519">As we will show, we can obtain a better estimator by incorporating noisy data</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="851" width="519">x(2) and incomplete data x(3). z(1) is suciently large and we will simply ignore</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="869" width="85">z(2) and z(3).</text>
+2 <text font="4" height="12" left="217" textpieces="0" top="904" width="504">post right at the spot where a target phenomenon happens. Instead, there usually</text>
+2 <text font="4" height="12" left="217" textpieces="0" top="921" width="504">is an unknown time delay and spatial shift between the phenomenon and the post</text>
+2 <text font="4" height="12" left="217" textpieces="0" top="937" width="504">generation. For example, one may not post a squirrel encounter on the road until she</text>
+2 <text font="4" height="12" left="217" textpieces="0" top="954" width="504">arrives at home later; the local and time meta data only reects tweet-generation</text>
+2 <text font="4" height="12" left="217" textpieces="0" top="970" width="504">at home. This type of spatiotemporal uncertainty can be addressed by the same</text>
+2 <text font="4" height="12" left="217" textpieces="0" top="987" width="200">source-detector transition model.</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="282" textpieces="1" top="142" width="439">Socioscope: Spatio-Temporal Signal Recovery from Social Media       5</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="180" width="401">2.3  Socioscope: Penalized Poisson Likelihood Model</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="218" width="518">We observe target post counts x = (x1, . . . , xm) in the detector bins. These are</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="236" width="421">modeled as independently Poisson distributed random variables:</text>
+2 <text font="1" height="13" left="355" textpieces="3" top="272" width="366">xi Poisson(hi), for i = 1 . . . m.                      (5)</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="308" width="185">The log likelihood factors as</text>
+2 <text font="1" height="13" left="313" textpieces="0" top="356" width="58">(f ) = log</text>
+2 <text font="2" height="9" left="378" textpieces="0" top="340" width="11">m</text>
+2 <text font="2" height="9" left="373" textpieces="0" top="376" width="19">i=1</text>
+2 <text font="1" height="13" left="397" textpieces="0" top="346" width="20">hxi</text>
+2 <text font="2" height="9" left="406" textpieces="0" top="353" width="4">i</text>
+2 <text font="1" height="13" left="418" textpieces="0" top="346" width="27">ehi</text>
+2 <text font="1" height="13" left="413" textpieces="0" top="366" width="17">xi!</text>
+2 <text font="1" height="13" left="453" textpieces="0" top="356" width="12">=</text>
+2 <text font="2" height="9" left="474" textpieces="0" top="340" width="11">m</text>
+2 <text font="2" height="9" left="469" textpieces="0" top="376" width="19">i=1</text>
+2 <text font="1" height="13" left="492" textpieces="3" top="356" width="229">(xilog hi hi) + c,              (6)</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="406" width="317">where c is a constant. In (6) we treat g as given.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="425" width="496">Target posts may be scarce in some detector bins. Indeed, we often have zero</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="443" width="519">target posts for the wildlife case study to be discussed later. This problem can</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="461" width="519">be mitigated by the fact that many real-world phenomena are spatiotemporally</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="479" width="519">smooth, i.e., neighboring source bins in space or time tend to have similar</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="497" width="519">intensity. We therefore adopt a penalized likelihood approach by constructing a</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="515" width="519">graph-based regularizer. The undirected graph is constructed so that the nodes</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="533" width="519">are the source bins. Let W be the n  n symmetric non-negative weight matrix.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="551" width="519">The edge weights are such that Wjkis large if j and k correspond to neighboring</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="569" width="519">bins in space and time. Since W is domain specic, we defer its construction to</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="587" width="96">the case study.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="606" width="496">Before discussing the regularizer, we need to perform a change of variables.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="624" width="519">Poisson intensity f is non-negative, necessitating a constrained optimization</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="642" width="519">problem. It is more convenient to work with an unconstrained problem. To this</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="660" width="519">end, we work with the exponential family natural parameters of Poisson. Specif-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="678" width="59">ically, let</text>
+2 <text font="1" height="13" left="382" textpieces="3" top="701" width="339">j = log fj, j = log gj.                           (7)</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="733" width="272">Our specic link function becomes (j, </text>
+2 <text font="2" height="9" left="476" textpieces="0" top="738" width="48">j) = ej</text>
+2 <text font="2" height="9" left="526" textpieces="1" top="731" width="194">+j. The detector bin intensi-</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="751" width="111">ties become hi=</text>
+2 <text font="2" height="9" left="332" textpieces="0" top="746" width="7">n</text>
+2 <text font="2" height="9" left="332" textpieces="0" top="758" width="21">j=1</text>
+2 <text font="1" height="13" left="356" textpieces="1" top="751" width="79">Pij(j, j).</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="770" width="323">Our graph-based regularizer applies to  directly:</text>
+2 <text font="1" height="13" left="411" textpieces="0" top="813" width="47">() =</text>
+2 <text font="1" height="13" left="464" textpieces="0" top="803" width="7">1</text>
+2 <text font="1" height="13" left="464" textpieces="0" top="823" width="7">2</text>
+2 <text font="1" height="13" left="473" textpieces="1" top="813" width="248"> L,                               (8)</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="854" width="519">where L is the combinatorial graph Laplacian [5]: L = D  W, and D is the</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="872" width="229">diagonal degree matrix with Djj=</text>
+2 <text font="2" height="9" left="451" textpieces="0" top="867" width="7">n</text>
+2 <text font="2" height="9" left="451" textpieces="0" top="879" width="22">k=1</text>
+2 <text font="1" height="13" left="476" textpieces="0" top="872" width="30">Wjk.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="891" width="496">Finally, Socioscope is the following penalized likelihood optimization prob-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="909" width="27">lem:</text>
+2 <text font="1" height="13" left="350" textpieces="0" top="941" width="25">min</text>
+2 <text font="2" height="11" left="348" textpieces="0" top="953" width="29">Rn</text>
+2 <text font="1" height="14" left="379" textpieces="0" top="940" width="12"></text>
+2 <text font="2" height="9" left="399" textpieces="0" top="925" width="11">m</text>
+2 <text font="2" height="9" left="395" textpieces="0" top="961" width="19">i=1</text>
+2 <text font="1" height="13" left="418" textpieces="3" top="941" width="303">(xilog hi hi) + (),                     (9)</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="986" width="281">where  is a positive regularization weight.</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="202" textpieces="1" top="142" width="328">6       Xu, J., Bhargava, A., Nowak, R., and Zhu, X.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="180" width="138">2.4  Optimization</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="207" width="519">We solve the Socioscope optimization problem (9) with BFGS, a quasi-Newton</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="225" width="347">method [14]. The gradient can be easily computed as</text>
+2 <text font="1" height="13" left="398" textpieces="1" top="255" width="323">= L  HP (r  1),                         (10)</text>
+2 <text font="1" height="13" left="202" textpieces="3" top="285" width="519">where r = (r1. . . rm) is a ratio vector with ri = xi/hi, and H is a diagonal</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="303" width="187">matrix with Hjj= (j, j).</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="320" width="496">We initialize  with the following heuristic. Given counts x and the transition</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="338" width="518">matrix P , we compute the least-squared projection 0 to x  P0 2. This pro-</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="356" width="519">jection is easy to compute. However, 0 may contain negative components not</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="374" width="518">suitable for Poisson intensity. We force positivity by setting 0 max(104, 0)</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="392" width="519">element-wise, where the oor 104 ensures that log 0 &gt; . From the deni-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="410" width="412">tion (, ) = exp( + ), we then obtain the initial parameter</text>
+2 <text font="1" height="13" left="410" textpieces="3" top="440" width="311">0= log 0 .                              (11)</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="470" width="496">Our optimization is ecient: problems with more than one thousand variables</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="487" width="401">(n) are solved in about 15 seconds with fminunc() in Matlab.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="530" width="176">2.5  Parameter Tuning</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="557" width="519">The choice of the regularization parameter  has a profound eect on the smooth-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="575" width="519">ness of the estimates. It may be possible to select these parameters based on prior</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="593" width="519">knowledge in certain problems, but for our experiments we select these param-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="611" width="519">eters using a cross-validation (CV) procedure, which gives us a fully data-based</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="629" width="269">and objective approach to regularization.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="647" width="496">CV is quite simple to implement in the Poisson setting. A hold-out set of data</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="665" width="519">can be constructed by simply sub-sampling events from the total observation</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="683" width="519">uniformly at random. This produces a partial data set of a subset of the counts</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="701" width="519">that follows precisely the same distribution as the whole set, modulo a decrease</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="719" width="519">in the total intensity per the level of subsampling. The complement of the hold-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="736" width="519">out set is what remains of the full dataset, and we will call this the training set.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="754" width="519">The hold-out set is taken to be a specic fraction of the total. For theoretical</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="772" width="519">reasons beyond the scope of this paper, we do not recommend leave-one-out</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="790" width="69">CV [18, 6].</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="808" width="496">CV is implemented by generating a number of random splits of this type (we</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="826" width="519">can generate as many as we wish), and for each split we run the optimization</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="844" width="519">algorithm above on the training set for a range of values of . Then compute the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="862" width="519">(unregularized) value of the log-likelihood on the hold-out set. This provides us</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="880" width="519">with an estimate of the log-likelihood for each setting of . We simply select the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="898" width="339">setting that maximizes the estimated log-likelihood.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="940" width="241">2.6  Theoretical Considerations</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="968" width="519">The natural measure of signal-to-noise in this problem is the number of counts in</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="986" width="519">each bin. The higher the counts, the more stable and less noisy our estimators</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="282" textpieces="1" top="142" width="439">Socioscope: Spatio-Temporal Signal Recovery from Social Media       7</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="180" width="517">will be. Indeed, if we directly observe xi Poisson(hi), then the normalized error</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="198" width="54">E[(xihi</text>
+2 <text font="2" height="9" left="236" textpieces="0" top="206" width="11">hi</text>
+2 <text font="1" height="13" left="260" textpieces="0" top="198" width="60">)2] = h1</text>
+2 <text font="2" height="9" left="305" textpieces="0" top="205" width="4">i</text>
+2 <text font="1" height="14" left="325" textpieces="0" top="197" width="39"> x1</text>
+2 <text font="2" height="9" left="349" textpieces="0" top="205" width="4">i</text>
+2 <text font="1" height="13" left="365" textpieces="0" top="198" width="356">. So larger counts, due to larger underlying intensities,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="216" width="519">lead to small errors on a relative scale. However, the accuracy of our recovery</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="234" width="519">also depends on the regularity of the underlying function f . If it is very smooth,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="252" width="519">for example a constant function, then the error would be inversely proportional</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="269" width="519">to the total number of counts, not the number in each individual bin. This is</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="287" width="485">because in the extreme smooth case, f is determined by a single constant.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="305" width="496">To give some insight into dependence of the estimate on the total number of</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="323" width="519">counts, suppose that f is the underlying continuous intensity function of interest.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="341" width="519">Furthermore, let f be a H older -smooth function. The parameter  is related</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="359" width="519">to the number of continuous derivatives f has. Larger values of  correspond</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="377" width="519">to smoother functions. Such a model is reasonable for the application at hand,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="395" width="519">as discussed in our motivation for regularization above. We recall the following</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="413" width="411">minimax lower bound, which follows from the results in [7, 20].</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="441" width="519">Theorem 1. Let f be a H older -smooth d-dimensional intensity function and</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="459" width="519">suppose we observe N events from the distribution Poisson(f ). Then there exists</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="477" width="184">a constant C&gt; 0 such that</text>
+2 <text font="1" height="13" left="347" textpieces="0" top="520" width="17">inf</text>
+2 <text font="2" height="5" left="355" textpieces="1" top="539" width="4">b  f</text>
+2 <text font="1" height="13" left="368" textpieces="0" top="520" width="23">sup</text>
+2 <text font="2" height="9" left="375" textpieces="0" top="535" width="6">f</text>
+2 <text font="1" height="13" left="394" textpieces="1" top="509" width="73">E[ f  f 2</text>
+2 <text font="2" height="9" left="461" textpieces="0" top="516" width="10">1]</text>
+2 <text font="1" height="13" left="425" textpieces="1" top="530" width="23">f 2</text>
+2 <text font="2" height="9" left="442" textpieces="0" top="537" width="6">1</text>
+2 <text font="1" height="14" left="483" textpieces="0" top="519" width="52"> CN</text>
+2 <text font="6" height="7" left="541" textpieces="0" top="513" width="20">2</text>
+2 <text font="6" height="7" left="539" textpieces="1" top="522" width="37">2+d   ,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="562" width="519">where the inmum is over all possible estimators. The error is measured with the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="580" width="519">1-norm, rather than two norm, which is a more appropriate and natural norm</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="598" width="519">in density and intensity estimation. The theorem tells us that no estimator can</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="616" width="519">achieve a faster rate of error decay than the bound above. There exist many</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="634" width="519">types of estimators that nearly achieve this bound (e.g., to within a log factor),</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="652" width="519">and with more work it is possible to show that our regularized estimators, with</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="670" width="519">adaptively chosen bin sizes and appropriate regularization parameter settings,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="688" width="519">could also nearly achieve this rate. For the purposes of this discussion, the lower</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="706" width="388">bound, which certainly applies to our situation, will suce.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="724" width="496">For example, consider just two spatial dimensions (d = 2) and  = 1 which</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="741" width="519">corresponds to Lipschitz smooth functions, a very mild regularity assumption.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="759" width="519">Then the bound says that the error is proportional to N1/2. This gives useful</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="777" width="519">insight into the minimal data requirements of our methods. It tells us, for exam-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="795" width="519">ple, that if we want to reduce the error of the estimator by a factor of say 2, then</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="813" width="519">the total number of counts must be increased by a factor of 4. If the smoothness</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="831" width="519"> is very large, then doubling the counts can halve the error. The message is</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="849" width="500">simple. More events and higher counts will provide more accurate estimates.</text>
+2 <text font="5" height="16" left="202" textpieces="1" top="894" width="153">3  Related Work</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="932" width="519">To our knowledge, there is no comparable prior work that focuses on robust</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="950" width="519">single recovery from social media (i.e., the second stage as we mentioned in</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="968" width="519">the introduction). However, there has been considerable related work on the rst</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="986" width="224">stage, which we summarize below.</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="202" textpieces="1" top="142" width="328">8       Xu, J., Bhargava, A., Nowak, R., and Zhu, X.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="180" width="496">Topic detection and tracking (TDT) aims at identifying emerging topics from</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="198" width="519">text stream and grouping documents based on their topics. The early work in</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="216" width="519">this direction began with news text streamed from newswire and transcribed</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="234" width="519">from other media [1]. Recent research focused on user-generated content on</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="252" width="519">the web and on the spatio-temporal variation of topics. Latent Dirichlet Al-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="269" width="519">location (LDA) [3] is a popular unsupervised method to detect topics. Mei</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="287" width="519">et al. [12] extended LDA by taking spatio-temporal context into account to iden-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="305" width="519">tify subtopics from weblogs. They analyzed the spatio-temporal pattern of topic</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="323" width="519"> by Pr(time|, location) and Pr(location|, time), and showed that documents</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="341" width="519">created from the same spatio-temporal context tend to share topics. In the same</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="359" width="519">spirit, Yin et al. [22] studied GPS-associated documents, whose coordinates are</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="377" width="519">generated by Gaussian Mixture Model in their generative framework. Cataldi</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="395" width="519">et al. [4] proposed a feature-pivot method. They rst identied keywords whose</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="413" width="519">occurrences dramatically increase in a specied time interval and then connected</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="431" width="519">the keywords to detect emerging topics. Besides text, social network structure</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="449" width="519">also provides important information for detecting community-based topics and</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="467" width="90">user interests.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="486" width="496">Event detection is highly related to TDT. Yang et al. [21] uses clustering</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="504" width="519">algorithm to identify events from news streams. Others tried to distinguish posts</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="522" width="519">related to real world events from posts about non-events, such as describing</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="540" width="519">daily life or emotions [2]. Real world events were also detected in Flickr photos</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="558" width="519">with meta information and Twitter. Other researchers were interested in events</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="576" width="519">with special characteristics, such as controversial events and local events. Sakaki</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="594" width="519">et al. [16] monitored Twitter to detect real-time events such as earthquakes and</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="612" width="71">hurricanes.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="632" width="496">Another line of related work uses social media as a data source to answer</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="650" width="519">scientic questions [11]. Most previous work studied questions in linguistic, so-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="667" width="519">ciology and human interactions. For example, Eisenstein et al. [9] studied the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="685" width="519">geographic linguistic variation with geotagged social media. Gupte et al. [10]</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="703" width="435">studied social hierarchy and stratication in online social network.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="723" width="496">As stated earlier, Socioscope diers from past work in its focus on robust</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="741" width="519">signal recovery on predened target phenomena. The target posts may be gen-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="759" width="519">erated at a very low, though sustained, rate, and are corrupted by noise. The</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="777" width="509">above approaches are unlikely to estimate the underlying intensity accurately.</text>
+2 <text font="5" height="16" left="202" textpieces="1" top="831" width="245">4  A Synthetic Experiment</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="878" width="519">We start with a synthetic experiment whose known ground-truth intensity f al-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="896" width="519">lows us to quantitatively evaluate the eectiveness of Socioscope. The synthetic</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="914" width="519">experiment matches the case study in the next section. There are 48 US con-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="932" width="519">tinental states plus Washington DC, and T = 24 hours. This leads to a total</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="950" width="519">of n = 1176 source bins, and m = (2  49 + 1)T = 2376 detector bins. The</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="968" width="519">transition matrix P is the same as in the case study, to be discussed later. The</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="986" width="447">overall counts z are obtained from actual Twitter data and g = z(1).</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="282" textpieces="1" top="142" width="439">Socioscope: Spatio-Temporal Signal Recovery from Social Media       9</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="180" width="496">We design the ground-truth target signal f to be temporally constant but</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="198" width="519">spatially varying. Figure 1(a) shows the ground-truth f spatially. It is a mixture</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="216" width="519">of two Gaussian distributions discretized at the state level. The modes are in</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="234" width="519">Washington and New York, respectively. From P, f and g, we generate the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="252" width="519">observed target post counts for each detector bin by a Poisson random number</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="269" width="161">generator: xi  Poisson(</text>
+2 <text font="2" height="9" left="379" textpieces="0" top="265" width="7">n</text>
+2 <text font="2" height="9" left="379" textpieces="0" top="277" width="21">j=1</text>
+2 <text font="1" height="13" left="403" textpieces="2" top="269" width="317">Pi,jfjgj), i = 1 . . . m. The sum of counts in x(1)</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="291" width="236">is 56, in x(2) 1106, and in x(3)1030.</text>
+1 <text font="4" height="12" left="329" textpieces="1" top="358" width="264">(i) scaled x(1)                           14.11</text>
+1 <text font="4" height="12" left="329" textpieces="1" top="376" width="264">(ii) scaled x(1)/z(1)                     46.73</text>
+1 <text font="4" height="12" left="329" textpieces="1" top="393" width="265">(iii) Socioscope with x(1)                0.17</text>
+1 <text font="4" height="12" left="329" textpieces="2" top="410" width="265">(iv) Socioscope with x(1)+ x(2)         1.83</text>
+1 <text font="4" height="12" left="329" textpieces="1" top="428" width="265">(v) Socioscope with x(1), x(2)           0.16</text>
+1 <text font="4" height="12" left="329" textpieces="2" top="445" width="264">(vi) Socioscope with x(1), x(2), x(3) 0.12</text>
+2 <text font="4" height="12" left="321" textpieces="0" top="461" width="281">Table 1. Relative error of dierent estimators</text>
+2 <text font="1" height="13" left="225" textpieces="4" top="529" width="496">Given x, P, g, We compare the relative error f   f 2/ f 2 of several estima-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="547" width="100">tors in Table 1:</text>
+2 <text font="1" height="13" left="225" textpieces="1" top="573" width="90">(i)  f = x(1)/(</text>
+2 <text font="2" height="9" left="322" textpieces="0" top="579" width="6">1</text>
+2 <text font="1" height="13" left="350" textpieces="0" top="573" width="77">z(1)), where</text>
+2 <text font="2" height="9" left="440" textpieces="0" top="579" width="6">1</text>
+2 <text font="1" height="13" left="453" textpieces="0" top="573" width="268">is the fraction of tweets with precise lo-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="591" width="519">cation stamp (discussed later in case study). Scaling matches it to the other</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="609" width="519">estimators. Figure 1(b) shows this simple estimator, aggregated spatially. It is</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="627" width="519">a poor estimator: besides being non-smooth, it contains 32 holes (states with</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="648" width="419">zero intensity, colored in blue) due to data scarcity. (ii)  f = x(1)</text>
+2 <text font="2" height="9" left="606" textpieces="0" top="655" width="5">j</text>
+2 <text font="1" height="13" left="622" textpieces="0" top="648" width="13">/(</text>
+2 <text font="2" height="9" left="642" textpieces="2" top="653" width="79">1z(1)   j  ) which</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="666" width="519">naively corrects the population bias as discussed in (4). It is even worse than</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="684" width="519">the simple estimator, because naive bin-wise correction magnies the variance</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="702" width="91">in sparse x(1).</text>
+2 <text font="1" height="13" left="225" textpieces="1" top="728" width="495">(iii) Socioscope with x(1)only. This simulates the practice of discarding noisy</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="746" width="519">or incomplete data, but regularizing for smoothness. The relative error was re-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="764" width="128">duced dramatically.</text>
+2 <text font="1" height="13" left="225" textpieces="2" top="790" width="495">(iv) Same as (iii) but replace the values of x(1)with x(1)+x(2). This simulates</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="808" width="519">the practice of ignoring the noise in x(2) and pretending it is precise. The result</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="826" width="519">is worse than (iii), indicating that simply including noisy data may hurt the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="844" width="72">estimation.</text>
+2 <text font="1" height="13" left="225" textpieces="3" top="870" width="496">(v) Socioscope with x(1)and x(2)separately, where x(2) is treated as noisy by</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="888" width="519">P. It reduces the relative error further, and demonstrates the benets of treating</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="906" width="131">noisy data specially.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="932" width="496">(vi) Socioscope with the full x. It achieves the lowest relative error among</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="950" width="519">all methods, and is the closest to the ground truth (Figure 1(c)). Compared to</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="968" width="518">(v), this demonstrates that even counts x(3) without location can also help us</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="986" width="125">to recover f better.</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="202" textpieces="1" top="142" width="328">10      Xu, J., Bhargava, A., Nowak, R., and Zhu, X.</text>
+2 <text font="4" height="12" left="246" textpieces="2" top="300" width="418">(a) ground-truth f           (b) scaled x(1)             (c) Socioscope</text>
+2 <text font="4" height="12" left="361" textpieces="0" top="331" width="201">Fig. 1. The synthetic experiment</text>
+2 <text font="5" height="16" left="202" textpieces="1" top="379" width="216">5  Case Study: Roadkill</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="417" width="519">We were unaware of public benchmark data sets to test robust signal recovery</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="435" width="519">from social media (the second stage). Several social media datasets were re-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="453" width="519">leased recently, such as the ICWSM data challenges and the TREC microblog</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="471" width="519">track. These datasets were intended to study trending hot topics such as the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="489" width="519">Arabic Spring, Olympic Games, or presidential elections. They are not suitable</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="507" width="519">for low intensity sustained target phenomena which is the focus of our approach.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="525" width="519">In particular, these datasets do not contain ground-truth spatio-temporal in-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="543" width="519">tensities and are thus not appropriate testbeds for the problems we are trying</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="561" width="519">to address. Instead, we report a real-world case study on the spatio-temporal</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="579" width="494">intensity of roadkill for several common wildlife species from Twitter posts.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="597" width="496">The study of roadkill has values in ecology, conservation, and transportation</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="615" width="519">safety. The target phenomenon consists of roadkill events for a specic species</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="632" width="519">within the continental United States during September 22November 30, 2011.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="650" width="519">Our spatio-temporal source bins are statehour-of-day. Let s index the 48 con-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="668" width="519">tinental US states plus District of Columbia. We aggregate the 10-week study</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="686" width="519">period into 24 hours of a day. The target counts x are still sparse even with</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="704" width="519">aggregation: for example, most state-hour combination have zero counts for ar-</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="722" width="519">madillo and the largest count in x(1) and x(2) is 3. Therefore, recovering the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="740" width="519">underlying signal f remains a challenge. Let t index the hours from 1 to 24. This</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="758" width="519">results in |s| = 49, |t| = 24, n = |s||t| = 1176, m = (2|s| + 1)|t| = 2376. We will</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="776" width="519">often index source or detector bins by the subscript (s, t), in addition to i or j,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="794" width="274">below. The translation should be obvious.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="839" width="171">5.1  Data Preparation</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="869" width="519">We chose Twitter as our data source because public tweets can be easily collected</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="887" width="519">through its APIs. All tweets include time meta data. However, most tweets do</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="905" width="340">not contain location meta data, as discussed earlier.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="950" width="519">Overall Counts z(1) and Human Population Intensity g. To obtain the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="968" width="519">overall counts z, we collected tweets through the Twitter stream API using</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="986" width="519">bounding boxes covering continental US. The API supplied a subsample of all</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="282" textpieces="1" top="142" width="439">Socioscope: Spatio-Temporal Signal Recovery from Social Media      11</text>
+2 <text font="4" height="12" left="286" textpieces="0" top="299" width="18">(a)</text>
+2 <text font="4" height="6" left="309" textpieces="0" top="308" width="8">b</text>
+2 <text font="4" height="12" left="309" textpieces="2" top="299" width="350">g                    (b) spatial                (c) temporal</text>
+2 <text font="4" height="12" left="345" textpieces="0" top="330" width="217">Fig. 2. Human population intensity</text>
+2 <text font="4" height="6" left="566" textpieces="0" top="339" width="8">b</text>
+2 <text font="4" height="12" left="566" textpieces="0" top="330" width="12">g.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="381" width="519">tweets (not just target posts) with geo-tag. Therefore, all these tweets include</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="399" width="519">precise latitude and longitude on where they were created. Through a reverse</text>
+2 <text font="1" height="14" left="202" textpieces="0" top="417" width="519">geocoding database (http://www.datasciencetoolkit.org), we mapped the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="435" width="519">coordinates to a US state. There are a large number of such tweets. Counting the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="453" width="518">number of tweets in each state-hour bin gave us z(1), from which g is estimated.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="471" width="496">Figure 2 shows the estimated g. The x-axis is hour of day and y-axis is</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="489" width="519">the states, ordered by longitude from east (top) to west (bottom). Although</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="507" width="519">g in this matrix form contains full information, it can be hard to interpret.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="525" width="519">Therefore, we visualize aggregated results as well: First, we aggregate out time</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="543" width="231">in g: for each state s, we compute</text>
+2 <text font="2" height="9" left="455" textpieces="0" top="539" width="12">24</text>
+2 <text font="2" height="9" left="455" textpieces="0" top="551" width="20">t=1</text>
+2 <text font="1" height="13" left="478" textpieces="1" top="543" width="243">gs,t and show the resulting intensity</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="561" width="519">maps in Figure 2(b). Second, we aggregate out state in g: for each hour of day</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="580" width="94">t, we compute</text>
+2 <text font="2" height="9" left="318" textpieces="0" top="576" width="12">49</text>
+2 <text font="2" height="9" left="318" textpieces="0" top="588" width="21">s=1</text>
+2 <text font="1" height="13" left="342" textpieces="1" top="580" width="379">gs,t and show the daily curve in Figure 2(c). From these</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="598" width="519">two plots, we clearly see that human population intensity varies greatly both</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="616" width="163">spatially and temporally.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="662" width="519">Identifying Target Posts to Obtain Counts x. To produce the target counts</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="680" width="519">x, we need to rst identify target posts describing roadkill events. Although not</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="698" width="500">part of Socioscope, we detail this preprocessing step here for reproducibility.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="716" width="496">In step 1, we collected tweets using a keyword API. Each tweet must contain</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="734" width="519">the wildlife name (e.g., squirrel(s)) and the phrase ran over. We obtained</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="752" width="519">5857 squirrel tweets, 325 chipmunk tweets, 180 opossum tweets and 159 armadillo</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="770" width="519">tweets during the study period. However, many such tweets did not actually</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="788" width="519">describe roadkill events. For example, I almost ran over an armadillo on my</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="806" width="519">longboard, luckily my cat-like reexes saved me. Clearly, the author did not kill</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="824" width="91">the armadillo.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="842" width="496">In step 2, we built a binary text classier to identify target posts among them.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="860" width="519">Following [17], the tweets were case-folded without any stemming or stopword</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="878" width="519">removal. Any user mentions preceded by a @ were replaced by the anonymized</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="896" width="519">user name @USERNAME. Any URLs staring with http were replaced by</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="914" width="519">the token HTTPLINK. Hashtags (compound words following #) were not</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="932" width="519">split and were treated as a single token. Emoticons, such as :) or :D, were</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="950" width="519">also included as tokens. Each tweet is then represented by a feature vector con-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="968" width="519">sisting of unigram and bigram counts. If any unigram or bigram included animal</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="986" width="519">names, we added an additional feature by replacing the animal name with the</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="202" textpieces="1" top="142" width="328">12      Xu, J., Bhargava, A., Nowak, R., and Zhu, X.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="180" width="519">generic token ANIMAL. For example, we would created an extra feature over</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="198" width="519">ANIMAL for the bigram over raccoon. The training data consists of 1,450</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="216" width="519">manually labeled tweets in August 2011 (i.e., outside our study period). These</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="234" width="519">training tweets contain hundreds of animal species, not just the target species.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="252" width="519">The binary label is whether the tweet is a true rst-hand roadkill experience.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="269" width="519">We trained a linear Support Vector Machine (SVM). The CV accuracy is nearly</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="287" width="519">90%. We then applied this SVM to classify tweets surviving step 1. Those tweets</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="305" width="353">receiving a positive label were treated as target posts.</text>
+2 <text font="1" height="13" left="225" textpieces="1" top="324" width="496">In step 3, we produce x(1), x(2), x(3) counts. Because these target tweets were</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="342" width="519">collected by the keyword API, the nature of the Twitter API means that most</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="360" width="519">do not contain precise location information. As mentioned earlier, only 3% of</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="378" width="519">them contain coordinates. We processed this 3% by the same reverse geocoding</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="398" width="452">database to map them to a US state s, and place them in the x(1)</text>
+2 <text font="2" height="9" left="639" textpieces="0" top="405" width="14">s,t</text>
+2 <text font="1" height="13" left="661" textpieces="0" top="398" width="60">detection</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="416" width="519">bins. 47% of the target posts do not contain coordinates but can be mapped to</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="436" width="518">a US state from user self-declared prole location. These are placed in the x(2)</text>
+2 <text font="2" height="9" left="705" textpieces="0" top="443" width="14">s,t</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="454" width="519">detection bins. The remaining 50% contained no location meta data, and were</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="474" width="113">placed in the x(3)</text>
+2 <text font="2" height="9" left="300" textpieces="0" top="481" width="5">t</text>
+2 <text font="1" height="13" left="321" textpieces="1" top="474" width="107">detection bins.3</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="524" width="519">Constructing the Transition Matrix P. In this study, P characterizes the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="541" width="519">fraction of tweets which were actually generated in source bin (s, t) end up in</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="559" width="519">the three detector bins: precise location st(1), potentially noisy location st(2),</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="577" width="321">and missing location t(3). We dene P as follows:</text>
+2 <text font="1" height="13" left="225" textpieces="2" top="596" width="496">P(s,t)(1),(s,t) = 0.03, and P(r,t)(1),(s,t) = 0 for r = s to reect the fact that</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="616" width="333">we know precisely 3% of the target posts location.</text>
+2 <text font="1" height="13" left="225" textpieces="2" top="635" width="496">P(r,t)(2),(s,t)= 0.47Mr,s for all r, s. M is a 49  49 mis-self-declare matrix.</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="653" width="519">Mr,s is the probability that a user self-declares in her prole that she is in state r,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="671" width="519">but her post is in fact generated in state s. We estimated M from a separate large</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="689" width="519">set of tweets with both coordinates and self-declared prole locations. The M</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="707" width="519">matrix is asymmetric and interesting in its own right: many posts self-declared</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="725" width="519">in California or New York were actually produced all over the country; many</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="743" width="519">self-declared in Washington DC were actually produced in Maryland or Virgina;</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="761" width="519">more posts self-declare Wisconsin but were actually in Illinois than the other</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="778" width="80">way around.</text>
+2 <text font="1" height="13" left="225" textpieces="1" top="797" width="496">Pt(3),(s,t) = 0.50. This aggregates tweets with missing information into the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="815" width="177">third kind of detector bins.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="865" width="519">Specifying the Graph Regularizer. Our graph has two kinds of edges. Tem-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="883" width="519">poral edges connect source bins with the same state and adjacent hours by weight</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="901" width="519">wt. Spatial edges connect source bins with the same hour and adjacent states by</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="919" width="519">weight ws. The regularization weight  was absorbed into wtand ws. We tuned</text>
+2 <text font="1" height="13" left="202" textpieces="3" top="937" width="471">the weights wtand wswith CV on the 2D grid {103, 102.5, . . . , 103}2.</text>
+2 <text font="3" height="8" left="206" textpieces="1" top="968" width="515">3  There were actually only a fraction of all tweets without location which came from</text>
+2 <text font="4" height="12" left="217" textpieces="0" top="987" width="393">all over the world. We estimated this US/World fraction using z.</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="282" textpieces="1" top="142" width="439">Socioscope: Spatio-Temporal Signal Recovery from Social Media      13</text>
+2 <text font="1" height="13" left="202" textpieces="1" top="180" width="94">5.2  Results</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="206" width="519">We present results on four animals: armadillos, chipmunks, squirrels, opossums.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="224" width="519">Perhaps surprisingly, precise roadkill intensities for these animals are apparently</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="242" width="519">unknown to science (This serves as a good example of the value Socioscope may</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="260" width="519">provide to wildlife scientists). Instead, domain experts were only able to provide</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="278" width="519">a range map of each animal, see the left column in Figure 3. These maps indicate</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="296" width="519">presence/absence only, and were extracted from NatureServe [15]. In addition,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="314" width="519">the experts dened armadillo and opossum as nocturnal, chipmunk as diurnal,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="331" width="519">and squirrels as both crepuscular (active primarily during twilight) and diurnal.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="349" width="519">Due to the lack of quantitative ground-truth, our comparison will necessarily be</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="367" width="138">qualitative in nature.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="385" width="496">Socioscope provides sensible estimates on these animals. For example, Fig-</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="403" width="519">ure 4(a) shows counts x(1)+ x(2)for chipmunks which is very sparse (the largest</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="423" width="519">count in any bin is 3), and Figure 4(b) the Socioscope estimate f . The axes are</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="441" width="519">the same as in Figure 2(a). In addition, we present the state-by-state intensity</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="461" width="519">maps in the middle column of Figure 3 by aggregating f spatially. The Socio-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="479" width="519">scope results match the range maps well for all animals. The right column in</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="497" width="519">Figure 3 shows the daily animal activities by aggregating f temporally. These</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="515" width="346">curves match the animals diurnal patterns well, too.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="533" width="496">The Socioscope estimates are superior to the baseline methods in Table 1.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="551" width="519">Due to space limit we only present two examples on chipmunks, but note that</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="569" width="519">similar observations exist for all animals. The baseline estimator of simply scal-</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="587" width="519">ing x(1)+ x(2) produced the temporal and spatial aggregates in Figure 5(a,b).</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="605" width="519">Compared to Figure 3(b, right), the temporal curve has a spurious peak around</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="622" width="519">4-5pm. The spatial map contains spurious intensity in California and Texas,</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="640" width="519">states outside the chipmunk range as shown in Figure 3(b, left). Both are pro-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="658" width="519">duced by population bias when and where there were strong background social</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="676" width="519">media activities (see Figure 2(b,c)). In addition, the spatial map contains 27</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="694" width="519">holes (states with zero intensity, colored in blue) due to data scarcity. In con-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="712" width="519">trast, Socioscopes estimates in Figure 3 avoid this problem by regularization.</text>
+2 <text font="1" height="13" left="202" textpieces="2" top="730" width="519">Another baseline estimator (x(1)+ x(2))/z(1) is shown in Figure 5(c). Although</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="748" width="519">corrected for population bias, this estimator lacks the transition model and reg-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="766" width="339">ularization. It does not address data scarcity either.</text>
+2 <text font="5" height="16" left="202" textpieces="1" top="808" width="144">6  Future Work</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="842" width="519">Using social media as a data source for spatio-temporal signal recovery is an</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="860" width="519">emerging area. Socioscope represents a rst step toward this goal. There are</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="878" width="141">many open questions:</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="896" width="496">1. We treated target posts as certain. In reality, a natural language processing</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="914" width="519">system can often supply a condence. For example, a tweet might be deemed to</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="932" width="519">be a target post only with probability 0.8. It will be interesting to study ways</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="950" width="333">to incorporate such condence into our framework.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="968" width="496">2. The temporal delay and spatial displacement between the target event and</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="986" width="519">the generation of a post is commonplace, as discussed in footnote 2. Estimating</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="202" textpieces="1" top="142" width="328">14      Xu, J., Bhargava, A., Nowak, R., and Zhu, X.</text>
+2 <text font="4" height="12" left="346" textpieces="0" top="311" width="231">(a) armadillo (Dasypus novemcinctus)</text>
+2 <text font="4" height="12" left="366" textpieces="0" top="449" width="191">(b) chipmunk (Tamias striatus)</text>
+2 <text font="4" height="12" left="305" textpieces="0" top="588" width="314">(c) squirrel (Sciurus carolinensis and several others)</text>
+2 <text font="4" height="12" left="356" textpieces="0" top="726" width="212">(d) opossum (Didelphis virginiana)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="757" width="519">Fig. 3. Socioscope estimates match animal habits well. (Left) range map from Nature-</text>
+2 <text font="4" height="12" left="202" textpieces="2" top="775" width="505">Serve, (Middle) Socioscope b f aggregated spatially, (Right) b f aggregated temporally.</text>
+2 <text font="4" height="12" left="339" textpieces="3" top="937" width="250">(a) x(1)+ x(2)            (b) Socioscope b f</text>
+2 <text font="4" height="12" left="305" textpieces="1" top="972" width="313">Fig. 4. Raw counts and Socioscope b f for chipmunks</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="282" textpieces="1" top="142" width="439">Socioscope: Spatio-Temporal Signal Recovery from Social Media      15</text>
+2 <text font="4" height="12" left="259" textpieces="6" top="300" width="424">(a) x(1)+ x(2)             (b) x(1)+ x(2)          (c) (x(1)+ x(2))/z(1)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="331" width="519">Fig. 5. Examples of inferior baseline estimators. In all plots, states with zero counts</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="347" width="116">are colored in blue.</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="396" width="519">an appropriate transition matrix P from social media data so that Socioscope</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="414" width="411">can handle such point spread functions remains future work.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="433" width="496">3. It might be necessary to include psychology factors to better model the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="450" width="519">human sensors. For instance, a person may not bother to tweet about a chip-</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="468" width="470">munk roadkill, but may be eager to do so upon seeing a moose roadkill.</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="487" width="496">4. Instead of discretizing space and time into bins, one may adopt a spatial</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="505" width="477">point process model to learn a continuous intensity function instead [13].</text>
+2 <text font="1" height="13" left="225" textpieces="0" top="523" width="422">Addressing these considerations will further improve Socioscope.</text>
+2 <text font="5" height="16" left="202" textpieces="0" top="572" width="158">Acknowledgments</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="612" width="519">We thank Megan K. Hines from Wildlife Data Integration Network for providing</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="630" width="519">range maps and guidance on wildlife. This work is supported in part by the</text>
+2 <text font="1" height="13" left="202" textpieces="0" top="648" width="421">Global Health Institute at the University of Wisconsin-Madison.</text>
+2 <text font="5" height="16" left="202" textpieces="0" top="697" width="94">References</text>
+2 <text font="4" height="12" left="209" textpieces="0" top="737" width="512">1. Allan, J.: Topic Detection and Tracking: Event-Based Information Organization.</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="753" width="303">Kluwer Academic Publishers, Norwell, MA (2002)</text>
+2 <text font="4" height="12" left="209" textpieces="0" top="770" width="512">2. Becker, H., Mor, N., Gravano, L.: Beyond trending topics: Real-world event iden-</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="787" width="494">tication on twitter. In: Proceedings of the 15th International AAAI Conference</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="803" width="302">on Weblogs and Social Media. pp. 438441 (2011)</text>
+2 <text font="4" height="12" left="209" textpieces="0" top="820" width="512">3. Blei, D.M., Ng, A.Y., Jordan, M.I.: Latent dirichlet allocation. The Journal of</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="836" width="285">Machine Learning Research 3, 9931022 (2003)</text>
+2 <text font="4" height="12" left="209" textpieces="0" top="853" width="512">4. Cataldi, M., Di Caro, L., Schifanella, C.: Emerging topic detection on twitter based</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="870" width="494">on temporal and social terms evaluation. In: Proceedings of the 10th International</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="886" width="360">Workshop on Multimedia Data Mining. pp. 4:14:10 (2010)</text>
+2 <text font="4" height="12" left="209" textpieces="0" top="903" width="512">5. Chung, F.R.K.: Spectral graph theory. Regional Conference Series in Mathematics,</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="920" width="334">American Mathematical Society, Providence, RI (1997)</text>
+2 <text font="4" height="12" left="209" textpieces="0" top="937" width="512">6. Cornec, M.: Concentration inequalities of the cross-validation estimate for stable</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="953" width="301">predictors. Arxiv preprint arXiv:1011.5133 (2010)</text>
+2 <text font="4" height="12" left="209" textpieces="0" top="970" width="512">7. Donoho, D., Johnstone, I., Kerkyacharian, G., Picard, D.: Density estimation by</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="987" width="397">wavelet thresholding. The Annals of Statistics 24, 508539 (1996)</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="12" left="202" textpieces="1" top="142" width="328">16      Xu, J., Bhargava, A., Nowak, R., and Zhu, X.</text>
+2 <text font="4" height="12" left="209" textpieces="0" top="181" width="512">8. Earle, P., Guy, M., Buckmaster, R., Ostrum, C., Horvath, S., Vaughan, A.: OMG</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="197" width="494">earthquake! Can Twitter improve earthquake response? Seismological Research</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="214" width="178">Letters 81(2), 246251 (2010)</text>
+2 <text font="4" height="12" left="209" textpieces="0" top="230" width="512">9. Eisenstein, J., OConnor, B., Smith, N.A., Xing, E.P.: A latent variable model for</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="247" width="494">geographic lexical variation. In: Proceedings of the 2010 Conference on Empirical</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="263" width="388">Methods in Natural Language Processing. pp. 12771287 (2010)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="279" width="519">10. Gupte, M., Shankar, P., Li, J., Muthukrishnan, S., Iftode, L.: Finding hierarchy in</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="296" width="494">directed online social networks. In: Proceedings of the 20th International Confer-</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="312" width="278">ence on World Wide Web. pp. 557566 (2011)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="329" width="519">11. Lazer, D., Pentland, A.S., Adamic, L., Aral, S., Barabasi, A.L., Brewer, D., Chris-</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="345" width="494">takis, N., Contractor, N., Fowler, J., Gutmann, M., Jebara, T., King, G., Macy,</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="362" width="494">M., Roy, D., Alstyne, M.V.: Life in the network: the coming age of computational</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="378" width="295">social science. Science 323(5915), 721723 (2009)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="395" width="519">12. Mei, Q., Liu, C., Su, H., Zhai, C.: A probabilistic approach to spatiotemporal theme</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="411" width="494">pattern mining on weblogs. In: Proceedings of the 15th International Conference</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="427" width="248">on World Wide Web. pp. 533542 (2006)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="444" width="519">13. Mller, J., Waagepetersen, R.: Statistical inference and simulation for spatial</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="460" width="494">point processes. Monographs on statistics and applied probability, Chapman &amp;</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="477" width="211">Hall/CRC, Boca Raton, FL (2004)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="493" width="519">14. Nocedal, J., Wright, S.: Numerical optimization. Springer series in operations re-</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="510" width="237">search, Springer, New York, NY (1999)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="526" width="519">15. Patterson, B.D., Ceballos, G., Sechrest, W., Tognelli, M.F., Brooks, T., Luna, L.,</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="543" width="494">Ortega, P., Salazar, I., Young, B.E.: Digital distribution maps of the mammals</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="559" width="494">of the western hemisphere, version 3.0. Tech. rep., NatureServe, Arlington, VA</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="575" width="237">(2007), http://www.natureserve.org/</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="592" width="519">16. Sakaki, T., Okazaki, M., Matsuo, Y.: Earthquake shakes twitter users: real-time</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="608" width="494">event detection by social sensors. In: Proceedings of the 19th International Con-</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="625" width="368">ference on World Wide Web. pp. 851860. WWW 10 (2010)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="641" width="519">17. Settles, B.: Closing the Loop: Fast, Interactive Semi-Supervised Annotation With</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="658" width="494">Queries on Features and Instances. In: Proceedings of the Conference on Empirical</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="674" width="489">Methods in Natural Language Processing. pp. 14671478. Edinburgh, UK (2011)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="690" width="519">18. Van Der Laan, M., Dudoit, S.: Unied cross-validation methodology for selection</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="707" width="494">among estimators and a general cross-validated adaptive epsilon-net estimator:</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="723" width="494">Finite sample oracle inequalities and examples. U.C. Berkeley Division of Bio-</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="740" width="308">statistics Working Paper Series pp. 130236 (2003)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="756" width="519">19. Vardi, Y., Shepp, L.A., Kaufman, L.: A statistical model for positron emission</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="773" width="494">tomography. Journal of the American Statistical Association 80(389), 837 (1985)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="789" width="519">20. Willett, R., Nowak, R.: Multiscale poisson intensity and density estimation. IEEE</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="806" width="370">Transactions on Information Theory 53(9), 31713187 (2007)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="822" width="519">21. Yang, Y., Pierce, T., Carbonell, J.: A study of retrospective and on-line event</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="838" width="494">detection. In: Proceedings of the 21st Annual International ACM SIGIR Conference</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="855" width="444">on Research and Development in Information Retrieval. pp. 2836 (1998)</text>
+2 <text font="4" height="12" left="202" textpieces="0" top="871" width="519">22. Yin, Z., Cao, L., Han, J., Zhai, C., Huang, T.: Geographical topic discovery and</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="888" width="494">comparison. In: Proceedings of the 20th International Conference on World Wide</text>
+2 <text font="4" height="12" left="227" textpieces="0" top="904" width="151">Web. pp. 247256 (2011)</text>

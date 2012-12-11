@@ -90,7 +90,6 @@
 2 <text font="12" height="12" left="518" textpieces="0" top="1029" width="297">Figure 1. An example of table with complex header </text>
 =============================== COL ===================================
 2 <text font="13" height="16" left="275" textpieces="0" top="52" width="367">Proceedings of the Twenty-Sixth AAAI Conference on Artificial Intelligence</text>
-2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">599</text>
 =============================== PAGE ===================================
 =============================== COL ===================================
 2 <text font="5" height="14" left="96" textpieces="0" top="83" width="361">We then propose and evaluate algorithms that </text>
@@ -299,7 +298,6 @@
 2 <text font="12" height="12" left="236" textpieces="0" top="585" width="73">Header type </text>
 2 <text font="11" height="11" left="312" textpieces="0" top="458" width="45">Sample1 </text>
 2 <text font="11" height="11" left="312" textpieces="0" top="472" width="45">Sample2 </text>
-2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">601</text>
 =============================== PAGE ===================================
 =============================== COL ===================================
 2 <text font="5" height="14" left="81" textpieces="0" top="83" width="365">horizontally. The top row cell is denoted as CT, and the cell </text>
@@ -682,4 +680,3 @@
 2 <text font="4" height="12" left="477" textpieces="0" top="523" width="364">learning tools and techniques. Morgan Kaufmann, San Francisco, </text>
 2 <text font="4" height="12" left="477" textpieces="0" top="538" width="67">2nd edition. </text>
 2 <text font="2" height="10" left="81" textpieces="0" top="569" width="3"> </text>
-2 <text font="14" height="18" left="449" textpieces="0" top="1110" width="19">605</text>

@@ -1,3 +1,6 @@
+TRAINING SET:
+62 tables in 14 pdf files in CS folder
+
 Steps:
 Pre Processing of pdf to xml output
 	Columns - A column will not end in Table
@@ -20,3 +23,4 @@ Confusion Matrix
 Future Work:
 Highly dependent on Table keyword location Eg: 7.pdf
 Table Keyword presence Eg: 8.pdf
+SVM Parameters finding -> Grid Search

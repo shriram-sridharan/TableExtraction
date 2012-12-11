@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf2xml SYSTEM "pdf2xml.dtd">
+
+<pdf2xml>
+<page number="1" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="0" size="19" family="Times" color="#000000"/>
+	<fontspec id="1" size="15" family="Times" color="#000000"/>
+	<fontspec id="2" size="15" family="Times" color="#000000"/>
+	<fontspec id="3" size="15" family="Times" color="#000000"/>
+	<fontspec id="4" size="15" family="Courier" color="#000000"/>
+	<fontspec id="5" size="12" family="Times" color="#000000"/>
+	<fontspec id="6" size="14" family="Times" color="#000000"/>
+<text top="122" left="243" width="432" height="19" font="0"><b>Learning from Bullying Traces in Social Media</b></text>
+<text top="194" left="133" width="347" height="16" font="1"><b>Jun-Ming Xu, Kwang-Sung Jun, Xiaojin Zhu</b></text>
+<text top="215" left="182" width="248" height="16" font="2">Department of Computer Sciences</text>
+<text top="236" left="185" width="243" height="16" font="2">University of Wisconsin-Madison</text>
+<text top="257" left="212" width="189" height="16" font="2">Madison, WI 53706, USA</text>
+<text top="276" left="114" width="9" height="17" font="3">{</text>
+<text top="279" left="123" width="237" height="14" font="4">xujm,deltakam,jerryzhu</text>
+<text top="276" left="360" width="9" height="17" font="3">}</text>
+<text top="279" left="369" width="129" height="14" font="4">@cs.wisc.edu</text>
+<text top="194" left="557" width="111" height="16" font="1"><b>Amy Bellmore</b></text>
+<text top="215" left="471" width="282" height="16" font="2">Department of Educational Psychology</text>
+<text top="236" left="491" width="243" height="16" font="2">University of Wisconsin-Madison</text>
+<text top="257" left="518" width="189" height="16" font="2">Madison, WI 53706, USA</text>
+<text top="279" left="515" width="194" height="14" font="4">abellmore@wisc.edu</text>
+<text top="389" left="245" width="67" height="16" font="1"><b>Abstract</b></text>
+<text top="428" left="141" width="275" height="13" font="5">We introduce the social study of bullying to</text>
+<text top="446" left="141" width="275" height="13" font="5">the NLP community. Bullying, in both physi-</text>
+<text top="464" left="141" width="275" height="13" font="5">cal and cyber worlds (the latter known as cy-</text>
+<text top="482" left="141" width="275" height="13" font="5">berbullying), has been recognized as a seri-</text>
+<text top="500" left="141" width="275" height="13" font="5">ous national health issue among adolescents.</text>
+<text top="518" left="141" width="275" height="13" font="5">However, previous social studies of bully-</text>
+<text top="536" left="141" width="275" height="13" font="5">ing are handicapped by data scarcity, while</text>
+<text top="554" left="141" width="275" height="13" font="5">the few computational studies narrowly re-</text>
+<text top="572" left="141" width="275" height="13" font="5">strict themselves to cyberbullying which ac-</text>
+<text top="590" left="141" width="275" height="13" font="5">counts for only a small fraction of all bullying</text>
+<text top="608" left="141" width="275" height="13" font="5">episodes. Our main contribution is to present</text>
+<text top="626" left="141" width="275" height="13" font="5">evidence that social media, with appropriate</text>
+<text top="644" left="141" width="275" height="13" font="5">natural language processing techniques, can</text>
+<text top="661" left="141" width="275" height="13" font="5">be a valuable and abundant data source for the</text>
+<text top="679" left="141" width="275" height="13" font="5">study of bullying in both worlds. We iden-</text>
+<text top="697" left="141" width="275" height="13" font="5">tify several key problems in using such data</text>
+<text top="715" left="141" width="275" height="13" font="5">sources and formulate them as NLP tasks, in-</text>
+<text top="733" left="141" width="275" height="13" font="5">cluding text classiﬁcation, role labeling, senti-</text>
+<text top="751" left="141" width="275" height="13" font="5">ment analysis, and topic modeling. Since this</text>
+<text top="769" left="141" width="275" height="13" font="5">is an introductory paper, we present baseline</text>
+<text top="787" left="141" width="275" height="13" font="5">results on these tasks using off-the-shelf NLP</text>
+<text top="805" left="141" width="275" height="13" font="5">solutions, and encourage the NLP community</text>
+<text top="823" left="141" width="241" height="13" font="5">to contribute better models in the future.</text>
+<text top="873" left="108" width="9" height="16" font="1"><b>1</b></text>
+<text top="873" left="135" width="186" height="16" font="1"><b>Introduction to Bullying</b></text>
+<text top="906" left="108" width="340" height="15" font="6">Bullying, also called peer victimization, has been</text>
+<text top="927" left="108" width="340" height="15" font="6">recognized as a serious national health issue by</text>
+<text top="947" left="108" width="340" height="15" font="6">the White House <a href="6.html#11">(The White House, 2011), </a>the</text>
+<text top="967" left="108" width="340" height="15" font="6">American Academy of Pediatrics <a href="6.html#11">(The American</a></text>
+<text top="988" left="108" width="340" height="15" font="6"><a href="6.html#11">Academy of Pediatrics, 2009), </a>and the American</text>
+<text top="1008" left="108" width="340" height="15" font="6">Psychological Association <a href="6.html#9">(American Psychological</a></text>
+<text top="1028" left="108" width="340" height="15" font="6"><a href="6.html#9">Association, 2004). </a>One is being bullied or victim-</text>
+<text top="1048" left="108" width="340" height="15" font="6">ized when he or she is exposed repeatedly over time</text>
+<text top="1069" left="108" width="340" height="15" font="6">to negative actions on the part of others <a href="6.html#10">(Olweus,</a></text>
+<text top="390" left="470" width="340" height="15" font="6"><a href="6.html#10">1993). </a>Far-reaching and insidious sequelae of bul-</text>
+<text top="410" left="470" width="340" height="15" font="6">lying include intrapersonal problems <a href="6.html#10">(Juvonen and</a></text>
+<text top="430" left="470" width="340" height="15" font="6"><a href="6.html#10">Graham, 2001; Jimerson, Swearer, and Espelage,</a></text>
+<text top="451" left="470" width="340" height="15" font="6"><a href="6.html#10">2010) </a>and lethal school violence in the most extreme</text>
+<text top="471" left="470" width="340" height="15" font="6">cases <a href="6.html#10">(Moore et al., 2003). </a>Youth who experience</text>
+<text top="491" left="470" width="340" height="15" font="6">peer victimization report more symptoms of depres-</text>
+<text top="512" left="470" width="340" height="15" font="6">sion, anxiety, loneliness, and low self-worth com-</text>
+<text top="532" left="470" width="340" height="15" font="6">pared to their nonvictimized counterparts <a href="6.html#9">(Bellmore</a></text>
+<text top="552" left="470" width="340" height="15" font="6"><a href="6.html#9">et al., 2004; Biggs, Nelson, and Sampilo, 2010; Gra-</a></text>
+<text top="573" left="470" width="340" height="15" font="6"><a href="6.html#9">ham, Bellmore, and Juvonen, 2007; </a><a href="6.html#10">Hawker and</a></text>
+<text top="593" left="470" width="340" height="15" font="6"><a href="6.html#10">Boulton, 2000). </a>Other research suggests that victim-</text>
+<text top="613" left="470" width="340" height="15" font="6">ized youth have more physical complaints <a href="6.html#9">(Fekkes</a></text>
+<text top="634" left="470" width="340" height="15" font="6"><a href="6.html#9">et al., 2006; </a><a href="6.html#10">Nishina and Juvonen, 2005; </a><a href="6.html#9">Gini and</a></text>
+<text top="654" left="470" width="340" height="15" font="6"><a href="6.html#9">Pozzoli, 2009). </a>Victimized youth are absent from</text>
+<text top="674" left="470" width="340" height="15" font="6">school more often and get lower grades than nonvic-</text>
+<text top="694" left="470" width="340" height="15" font="6">timized youth <a href="6.html#10">(Ladd, Kochenderfer, and Coleman,</a></text>
+<text top="715" left="470" width="340" height="15" font="6"><a href="6.html#10">1997; </a><a href="6.html#11">Schwartz et al., 2005; </a><a href="6.html#10">Juvonen and Gross,</a></text>
+<text top="735" left="470" width="42" height="15" font="6"><a href="6.html#10">2008).</a></text>
+<text top="825" left="486" width="324" height="15" font="6">Bullying happens traditionally in the physical</text>
+<text top="845" left="470" width="340" height="15" font="6">world and, recently, online as well; the latter is</text>
+<text top="866" left="470" width="340" height="15" font="6">known as cyberbullying <a href="6.html#9">(Cassidy, Jackson, and</a></text>
+<text top="886" left="470" width="340" height="15" font="6"><a href="6.html#9">Brown, 2009; Fredstrom, Adams, and Gilman,</a></text>
+<text top="906" left="470" width="340" height="15" font="6"><a href="6.html#9">2011; </a><a href="6.html#11">Wang, Iannotti, and Nansel, 2009; Vande-</a></text>
+<text top="927" left="470" width="340" height="15" font="6"><a href="6.html#11">bosch and Cleemput, 2009). </a>Bullying usually starts</text>
+<text top="947" left="470" width="340" height="15" font="6">in primary school, peaks in middle school, and lasts</text>
+<text top="967" left="470" width="340" height="15" font="6">well into high school and beyond <a href="6.html#10">(Nansel et al.,</a></text>
+<text top="988" left="470" width="340" height="15" font="6"><a href="6.html#10">2001; </a><a href="6.html#11">Smith, Madsen, and Moody, 1999; </a><a href="6.html#9">Cook et</a></text>
+<text top="1008" left="470" width="340" height="15" font="6"><a href="6.html#9">al., 2010). </a>Across a national sample of students in</text>
+<text top="1028" left="470" width="340" height="15" font="6">grades 4 through 12, 38% of students reported be-</text>
+<text top="1048" left="470" width="340" height="15" font="6">ing bullied by others and 32% reported bullying oth-</text>
+<text top="1069" left="470" width="195" height="15" font="6">ers <a href="6.html#11">(Vaillancourt et al., 2010).</a></text>
+</page>
+<page number="2" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="7" size="8" family="Times" color="#000000"/>
+	<fontspec id="8" size="11" family="Times" color="#000000"/>
+	<fontspec id="9" size="14" family="Times" color="#000000"/>
+	<fontspec id="10" size="14" family="Times" color="#000000"/>
+<text top="211" left="134" width="42" height="10" font="7">reinforcer</text>
+<text top="132" left="134" width="41" height="10" font="7">bystander</text>
+<text top="209" left="222" width="27" height="12" font="8">bully</text>
+<text top="209" left="288" width="34" height="12" font="8">victim</text>
+<text top="132" left="217" width="36" height="10" font="7">assistant</text>
+<text top="132" left="288" width="37" height="10" font="7">defender</text>
+<text top="130" left="380" width="42" height="12" font="8">reporter</text>
+<text top="209" left="385" width="40" height="12" font="8">accuser</text>
+<text top="297" left="108" width="340" height="13" font="5">Figure 1: The roles in a bullying episode. Solid circles</text>
+<text top="315" left="108" width="340" height="13" font="5">represent traditional roles in social science, while dotted</text>
+<text top="333" left="108" width="340" height="13" font="5">circles are new roles we augmented for social media. The</text>
+<text top="351" left="108" width="298" height="13" font="5">width of the edges represents interaction strength.</text>
+<text top="402" left="108" width="20" height="15" font="9"><b>1.1</b></text>
+<text top="402" left="145" width="251" height="15" font="9"><b>The Structure of a Bullying Episode</b></text>
+<text top="431" left="108" width="340" height="15" font="6">Bullying takes multiple <i>forms</i>, most noticeably face-</text>
+<text top="451" left="108" width="340" height="15" font="6">to-face physical (e.g., hitting), verbal (e.g., name-</text>
+<text top="471" left="108" width="340" height="15" font="6">calling), and relational (e.g., exclusion) <a href="6.html#9">(Archer and</a></text>
+<text top="492" left="108" width="340" height="15" font="6"><a href="6.html#9">Coyne, 2005; </a><a href="6.html#10">Little et al., 2003; Nylund et al.,</a></text>
+<text top="512" left="108" width="340" height="15" font="6"><a href="6.html#10">2007). </a>Cyberbullying reﬂects a venue (other than</text>
+<text top="532" left="108" width="340" height="15" font="6">face to face contact) through which verbal and rela-</text>
+<text top="553" left="108" width="150" height="15" font="6">tional forms can occur.</text>
+<text top="574" left="124" width="324" height="15" font="6">A main reason individuals are targeted with bul-</text>
+<text top="595" left="108" width="340" height="15" font="6">lying is <i>perceived differences</i>, i.e., any characteristic</text>
+<text top="615" left="108" width="340" height="15" font="6">that makes an individual stand out differently from</text>
+<text top="635" left="108" width="340" height="15" font="6">his or her peers. These include race, socio-economic</text>
+<text top="656" left="108" width="340" height="15" font="6">status, gender, sexuality, physical appearance, and</text>
+<text top="676" left="108" width="67" height="15" font="6">behaviors.</text>
+<text top="697" left="124" width="324" height="15" font="6">Participants in a bullying episode take well-</text>
+<text top="718" left="108" width="340" height="15" font="6">deﬁned <i>roles </i>(see Figure <a href="6.html#2">1). </a>More than one person</text>
+<text top="738" left="108" width="340" height="15" font="6">can have the same role in a bullying episode. Roles</text>
+<text top="758" left="108" width="340" height="15" font="6">include the bully (or bullies), the victims, bystanders</text>
+<text top="779" left="108" width="340" height="15" font="6">(who saw the event but did not intervene), defend-</text>
+<text top="799" left="108" width="340" height="15" font="6">ers of the victim, assistants to the bully (who did</text>
+<text top="819" left="108" width="340" height="15" font="6">not initiate but went along with the bully), and rein-</text>
+<text top="840" left="108" width="340" height="15" font="6">forcers (who did not directly join in with the bully</text>
+<text top="860" left="108" width="340" height="15" font="6">but encouraged the bully by laughing, for exam-</text>
+<text top="880" left="108" width="340" height="15" font="6">ple) <a href="6.html#11">(Salmivalli, 1999). </a>This recognition that bully-</text>
+<text top="901" left="108" width="340" height="15" font="6">ing involves multiple roles makes evident the broad-</text>
+<text top="921" left="108" width="340" height="15" font="6">ranging impact of bullying; any child or adolescent</text>
+<text top="941" left="108" width="340" height="15" font="6">is susceptible to participation in bullying, even those</text>
+<text top="962" left="108" width="340" height="15" font="6">who are not directly involved <a href="6.html#10">(Janosz et al., 2008;</a></text>
+<text top="982" left="108" width="128" height="15" font="6"><a href="6.html#11">Rivers et al., 2009).</a></text>
+<text top="1020" left="108" width="20" height="15" font="9"><b>1.2</b></text>
+<text top="1020" left="145" width="302" height="15" font="9"><b>Some Scientiﬁc Questions NLP can Answer</b></text>
+<text top="1048" left="108" width="340" height="15" font="6">Like many complex social issues, effective solutions</text>
+<text top="1069" left="108" width="340" height="15" font="6">to bullying go beyond technology alone and require</text>
+<text top="113" left="470" width="340" height="15" font="6">the concerted efforts of parents, educators, and law</text>
+<text top="134" left="470" width="340" height="15" font="6">enforcement. To guide these efforts it is paramount</text>
+<text top="154" left="470" width="340" height="15" font="6">to study the dynamics of bullying. Such study criti-</text>
+<text top="174" left="470" width="340" height="15" font="6">cally depends on text in the form of self-report social</text>
+<text top="195" left="470" width="340" height="15" font="6">study surveys and electronic communication among</text>
+<text top="215" left="470" width="340" height="15" font="6">participants. Such text is often fragmental, noisy,</text>
+<text top="235" left="470" width="340" height="15" font="6">and covers only part of a bullying episode from a</text>
+<text top="256" left="470" width="340" height="15" font="6">speciﬁc role’s perspective. As such, the NLP com-</text>
+<text top="276" left="470" width="340" height="15" font="6">munity can help answer a host of scientiﬁc ques-</text>
+<text top="296" left="470" width="340" height="15" font="6">tions: Which pieces of text refer to the same under-</text>
+<text top="316" left="470" width="340" height="15" font="6">lying bullying episode? What is the form, reason,</text>
+<text top="337" left="470" width="340" height="15" font="6">location, time, etc. of a bullying episode? Who are</text>
+<text top="357" left="470" width="340" height="15" font="6">the participants of each episode, and what are their</text>
+<text top="377" left="470" width="340" height="15" font="6">roles? How does a person’s role evolve over time?</text>
+<text top="398" left="470" width="340" height="15" font="6">This paper presents our initial investigation on some</text>
+<text top="418" left="470" width="340" height="15" font="6">of these questions, while leaving others to future re-</text>
+<text top="438" left="470" width="203" height="15" font="6">search by the NLP community.</text>
+<text top="477" left="470" width="20" height="15" font="9"><b>1.3</b></text>
+<text top="477" left="507" width="240" height="15" font="9"><b>Limitations of the State-of-the-Art</b></text>
+<text top="506" left="470" width="340" height="15" font="6">The social science study of bullying has a long his-</text>
+<text top="526" left="470" width="340" height="15" font="6">tory. However, a fundamental problem there is data</text>
+<text top="546" left="470" width="340" height="15" font="6">acquisition. The standard approach is to conduct</text>
+<text top="567" left="470" width="340" height="15" font="6">time-consuming personal surveys in schools. The</text>
+<text top="587" left="470" width="340" height="15" font="6">sample size is typically in the hundreds, and partici-</text>
+<text top="607" left="470" width="340" height="15" font="6">pants typically write 3 to 4 sentences about each bul-</text>
+<text top="628" left="470" width="340" height="15" font="6">lying episode <a href="6.html#10">(Nishina and Bellmore, 2010). </a>Such a</text>
+<text top="648" left="470" width="340" height="15" font="6">small corpus fails to assess the true frequency of bul-</text>
+<text top="668" left="470" width="340" height="15" font="6">lying over the population, and cannot determine the</text>
+<text top="689" left="470" width="340" height="15" font="6">evolution of roles. The computational study of bul-</text>
+<text top="709" left="470" width="340" height="15" font="6">lying is largely unexplored, with the exception of a</text>
+<text top="729" left="470" width="340" height="15" font="6">few studies on cyberbullying <a href="6.html#10">(Lieberman, Dinakar,</a></text>
+<text top="750" left="470" width="340" height="15" font="6"><a href="6.html#10">and Jones, 2011; </a><a href="6.html#9">Dinakar, Reichart, and Lieber-</a></text>
+<text top="770" left="470" width="340" height="15" font="6"><a href="6.html#9">man, 2011; </a><a href="6.html#10">Ptaszynski et al., 2010; Kontostathis,</a></text>
+<text top="790" left="470" width="340" height="15" font="6"><a href="6.html#10">Edwards, and Leatherman, 2010; </a><a href="6.html#9">Bosse and Stam,</a></text>
+<text top="811" left="470" width="340" height="15" font="6"><a href="6.html#9">2011; </a><a href="6.html#10">Latham, Crockett, and Bandar, 2010). </a>These</text>
+<text top="831" left="470" width="340" height="15" font="6">studies did not consider the much more frequent bul-</text>
+<text top="851" left="470" width="240" height="15" font="6">lying episodes in the physical world.</text>
+<text top="891" left="470" width="9" height="16" font="1"><b>2</b></text>
+<text top="891" left="497" width="243" height="16" font="1"><b>Bullying Traces in Social Media</b></text>
+<text top="927" left="470" width="340" height="15" font="6">The main contribution of the present paper is not</text>
+<text top="947" left="470" width="340" height="15" font="6">on novel algorithms, but rather on presenting evi-</text>
+<text top="967" left="470" width="340" height="15" font="6">dence that social media data and off-the-shelf NLP</text>
+<text top="988" left="470" width="340" height="15" font="6">tools can be an effective combination for the study</text>
+<text top="1008" left="470" width="340" height="15" font="6">of bullying. Participants of a bullying episode (in ei-</text>
+<text top="1028" left="470" width="340" height="15" font="6">ther physical or cyber venues) often post social me-</text>
+<text top="1048" left="470" width="340" height="15" font="6">dia text about the experience. We collectively call</text>
+<text top="1069" left="470" width="340" height="15" font="6">such social media posts <b>bullying traces</b>. Bullying</text>
+</page>
+<page number="3" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="11" size="14" family="Times" color="#000000"/>
+<text top="113" left="108" width="340" height="15" font="6">traces include but far exceed incidences of cyberbul-</text>
+<text top="134" left="108" width="340" height="15" font="6">lying. Most of them are in fact <i>responses </i>to a bul-</text>
+<text top="154" left="108" width="340" height="15" font="6">lying experience – the actual attack is hidden from</text>
+<text top="174" left="108" width="340" height="15" font="6">view. Bullying traces are valuable, albeit fragmental</text>
+<text top="195" left="108" width="340" height="15" font="6">and noisy, data which we can use to piece together</text>
+<text top="215" left="108" width="160" height="15" font="6">the underlying episodes.</text>
+<text top="235" left="124" width="324" height="15" font="9"><b>In the rest of the paper, we focus on publicly</b></text>
+<text top="256" left="108" width="340" height="15" font="9"><b>available Twitter “tweets,” though our methods</b></text>
+<text top="276" left="108" width="340" height="15" font="9"><b>apply readily to other social media services, too.</b></text>
+<text top="296" left="108" width="283" height="15" font="6">Here are some examples of bullying traces:</text>
+<text top="327" left="125" width="323" height="16" font="11">• Reporting a bullying episode: <i>“some tweens</i></text>
+<text top="348" left="141" width="307" height="15" font="10"><i>got violent on the n train, the one boy got off</i></text>
+<text top="369" left="141" width="307" height="15" font="10"><i>after blows 2 the chest... Saw him cryin as he</i></text>
+<text top="389" left="141" width="216" height="15" font="10"><i>walkd away :( bullying not cool”</i></text>
+<text top="421" left="125" width="323" height="16" font="11">• Accusing someone as a bully: <i>“@USERNAME</i></text>
+<text top="442" left="141" width="307" height="15" font="10"><i>i didnt jump around and act like a monkey T T</i></text>
+<text top="463" left="141" width="307" height="15" font="10"><i>which of your eye saw that i acted like a monkey</i></text>
+<text top="483" left="141" width="115" height="15" font="10"><i>:( you’re a bully”</i></text>
+<text top="515" left="125" width="323" height="16" font="11">• Revealing self as a victim: <i>“People bullied me</i></text>
+<text top="536" left="141" width="307" height="15" font="10"><i>for being fat. 7 years later, I was diagnosed</i></text>
+<text top="557" left="141" width="235" height="15" font="10"><i>with bulimia. Are you happy now?”</i></text>
+<text top="589" left="125" width="323" height="16" font="11">• Cyber-bullying direct attack: <i>“Lauren is a fat</i></text>
+<text top="610" left="141" width="128" height="15" font="10"><i>cow MOO BITCH”</i></text>
+<text top="642" left="124" width="324" height="15" font="6">Bullying traces are abundant. From the publicly</text>
+<text top="662" left="108" width="340" height="15" font="6">available 2011 TREC Microblog track corpus (16</text>
+<text top="683" left="108" width="340" height="15" font="6">million tweets sampled between January 23rd and</text>
+<text top="703" left="108" width="340" height="15" font="6">February 8th, 2011), we uniformly sampled 990</text>
+<text top="723" left="108" width="340" height="15" font="6">tweets for manual inspection by ﬁve experienced an-</text>
+<text top="744" left="108" width="340" height="15" font="6">notators (not the authors of the present paper). Of</text>
+<text top="764" left="108" width="340" height="15" font="6">the 990 tweets, the annotators labeled 617 as non-</text>
+<text top="784" left="108" width="340" height="15" font="6">English, 371 as English but not bullying traces, and</text>
+<text top="805" left="108" width="340" height="15" font="6">2 as English bullying traces. The Maximum Likeli-</text>
+<text top="825" left="108" width="340" height="15" font="6">hood Estimate of the frequency of English bullying</text>
+<text top="845" left="108" width="340" height="15" font="6">traces, out of all tweets, is 2/990 ≈ 0.002. The</text>
+<text top="866" left="108" width="340" height="15" font="6">exact Binomial 95% conﬁdence interval is (0.0002,</text>
+<text top="886" left="108" width="340" height="15" font="6">0.0073). This is a tiny fraction. Nonetheless, it rep-</text>
+<text top="906" left="108" width="340" height="15" font="6">resents an abundance of tweets: by some estimates,</text>
+<text top="927" left="108" width="340" height="15" font="6">Twitter produces 250 million tweets per day in late</text>
+<text top="947" left="108" width="340" height="15" font="6">2011. Even with the lower bound in the conﬁdence</text>
+<text top="967" left="108" width="340" height="15" font="6">interval, it translates into 50,000 English bullying</text>
+<text top="988" left="108" width="340" height="15" font="6">traces per day. The actual number can be much</text>
+<text top="1008" left="108" width="45" height="15" font="6">higher.</text>
+<text top="1028" left="124" width="324" height="15" font="6">Bullying traces contain valuable information. For</text>
+<text top="1048" left="108" width="340" height="15" font="6">example, Figure <a href="6.html#3">2 </a>shows the daily number of bully-</text>
+<text top="1069" left="108" width="340" height="15" font="6">ing traces identiﬁed by our classiﬁer, to be discussed</text>
+<text top="370" left="500" width="281" height="13" font="5">Figure 2: Temporal variation of bullying traces</text>
+<text top="422" left="470" width="340" height="15" font="6">in section <a href="6.html#3">3. </a>A weekly pattern was obvious in late</text>
+<text top="442" left="470" width="340" height="15" font="6">August. A small peak was caused by 14-year-old</text>
+<text top="463" left="470" width="340" height="15" font="6">bullying victim Jamey Rodemeyer’s suicide on Sept.</text>
+<text top="483" left="470" width="340" height="15" font="6">18. This was followed by a large peak after Lady</text>
+<text top="503" left="470" width="277" height="15" font="6">Gaga dedicated a song to him on Sept. 24.</text>
+<text top="525" left="486" width="324" height="15" font="6">In the following sections, we identify several key</text>
+<text top="545" left="470" width="340" height="15" font="6">problems in using social media for the study of bul-</text>
+<text top="566" left="470" width="340" height="15" font="6">lying. We formulate each key problem as an NLP</text>
+<text top="586" left="470" width="340" height="15" font="6">task. We then present standard off-the-shelf NLP ap-</text>
+<text top="606" left="470" width="340" height="15" font="6">proaches to establish baseline performances. Since</text>
+<text top="627" left="470" width="340" height="15" font="6">bullying traces account for only a tiny fraction of all</text>
+<text top="647" left="470" width="340" height="15" font="6">tweets, it posed a signiﬁcant challenge for our an-</text>
+<text top="667" left="470" width="340" height="15" font="6">notators to ﬁnd enough bullying traces without la-</text>
+<text top="688" left="470" width="340" height="15" font="6">beling an unreasonable amount of tweets. For this</text>
+<text top="708" left="470" width="340" height="15" font="6">reason, in the rest of the paper we restrict ourselves</text>
+<text top="728" left="470" width="340" height="15" font="6">to an “enriched dataset.” This enriched dataset is ob-</text>
+<text top="749" left="470" width="340" height="15" font="6">tained by collecting tweets using the public Twitter</text>
+<text top="769" left="470" width="340" height="15" font="6">streaming API, such that each tweet contains at least</text>
+<text top="789" left="470" width="340" height="15" font="6">one of the following keywords: “bully, bullied, bul-</text>
+<text top="810" left="470" width="340" height="15" font="6">lying.” We further removed re-tweets (the analogue</text>
+<text top="830" left="470" width="340" height="15" font="6">of forwarded emails) by excluding tweets containing</text>
+<text top="850" left="470" width="340" height="15" font="6">the acronym “RT.” The enrichment process is meant</text>
+<text top="871" left="470" width="340" height="15" font="6">to retain many ﬁrst-hand bullying traces at the cost</text>
+<text top="891" left="470" width="122" height="15" font="6">of a selection bias.</text>
+<text top="931" left="470" width="9" height="16" font="1"><b>3</b></text>
+<text top="931" left="497" width="256" height="16" font="1"><b>NLP Task A: Text Categorization</b></text>
+<text top="967" left="470" width="340" height="15" font="6">One important task is to distinguish bullying traces</text>
+<text top="988" left="470" width="340" height="15" font="6">from other social media posts. Our enriched dataset,</text>
+<text top="1008" left="470" width="340" height="15" font="6">generated by simple keyword ﬁltering, still contains</text>
+<text top="1028" left="470" width="340" height="15" font="6">many irrelevant tweets. For example, <i>“Forced veg-</i></text>
+<text top="1048" left="470" width="340" height="15" font="10"><i>anism by removing a persons choice is just another</i></text>
+<text top="1069" left="470" width="340" height="15" font="10"><i>form of bullying” </i>is not a bullying trace, since it does</text>
+</page>
+<page number="4" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="12" size="9" family="Times" color="#000000"/>
+<text top="113" left="108" width="340" height="15" font="6">not describe a bullying episode. Our task is to dis-</text>
+<text top="134" left="108" width="340" height="15" font="6">tinguish posts like this from true bullying traces such</text>
+<text top="154" left="108" width="340" height="15" font="6">as those mentioned in the previous section. We for-</text>
+<text top="174" left="108" width="292" height="15" font="6">mulate it as a binary text categorization task.</text>
+<text top="195" left="124" width="324" height="15" font="9"><b>Methods. </b>The same annotators who labeled the</text>
+<text top="215" left="108" width="340" height="15" font="6">TREC corpus labeled 1762 tweets sampled uni-</text>
+<text top="235" left="108" width="340" height="15" font="6">formly from the enriched dataset on August 6, 2011.</text>
+<text top="256" left="108" width="340" height="15" font="6">Among them, 684 (39%) were labeled as bullying</text>
+<text top="276" left="108" width="42" height="15" font="6">traces.</text>
+<text top="296" left="124" width="324" height="15" font="6">Following <a href="6.html#11">(Settles, 2011), </a>these 1762 tweets were</text>
+<text top="317" left="108" width="340" height="15" font="6">case-folded but without any stemming or stop-</text>
+<text top="337" left="108" width="340" height="15" font="6">word removal. Any user mentions preceded by a</text>
+<text top="357" left="108" width="340" height="15" font="6">“@” were replaced by the anonymized user name</text>
+<text top="378" left="108" width="340" height="15" font="6">“@USERNAME”. Any URLs starting with “http”</text>
+<text top="398" left="108" width="340" height="15" font="6">were replaced by the token “HTTPLINK”. Hashtags</text>
+<text top="418" left="108" width="340" height="15" font="6">(compound words following “#”) were not split and</text>
+<text top="439" left="108" width="340" height="15" font="6">were treated as a single token. Emoticons, such as</text>
+<text top="459" left="108" width="278" height="15" font="6">“:)” or “:D”, were also included as tokens.</text>
+<text top="479" left="124" width="324" height="15" font="6">After these preprocessing procedures, we created</text>
+<text top="500" left="108" width="340" height="15" font="6">three different sets of feature representations: un-</text>
+<text top="520" left="108" width="340" height="15" font="6">igrams (1g), unigrams+bigrams (1g2g), and POS-</text>
+<text top="540" left="108" width="262" height="15" font="6">colored unigrams+bigrams (1g2gPOS).</text>
+<text top="540" left="385" width="63" height="15" font="6">POS tag-</text>
+<text top="561" left="108" width="340" height="15" font="6">ging was done with the Stanford CoreNLP pack-</text>
+<text top="581" left="108" width="202" height="15" font="6">age <a href="6.html#11">(Toutanova et al., 2003).</a></text>
+<text top="581" left="325" width="123" height="15" font="6">POS-coloring was</text>
+<text top="601" left="108" width="307" height="15" font="6">done by expanding each token into token:POS.</text>
+<text top="622" left="124" width="324" height="15" font="6">We chose four commonly used text classiﬁers,</text>
+<text top="642" left="108" width="340" height="15" font="6">namely, Naive Bayes, SVM with linear kernel</text>
+<text top="662" left="108" width="340" height="15" font="6">(SVM(linear)), SVM with RBF kernel (SVM(RBF))</text>
+<text top="683" left="108" width="340" height="15" font="6">and Logistic Regression (equivalent to MaxEnt). We</text>
+<text top="703" left="108" width="340" height="15" font="6">used the WEKA <a href="6.html#10">(Hall et al., 2009) </a>implementation</text>
+<text top="723" left="108" width="340" height="15" font="6">for the ﬁrst three (calling LibSVM <a href="6.html#9">(Chang and Lin,</a></text>
+<text top="744" left="108" width="340" height="15" font="6"><a href="6.html#9">2011) </a>with WEKA’s interfaces for SVMs), and the</text>
+<text top="764" left="108" width="340" height="15" font="6">L1General package <a href="6.html#11">(Schmidt, Fung, and Rosales,</a></text>
+<text top="784" left="108" width="134" height="15" font="6"><a href="6.html#11">2007) </a>for the fourth.</text>
+<text top="805" left="124" width="324" height="15" font="6">We held out 262 tweets for test, and systemat-</text>
+<text top="825" left="108" width="340" height="15" font="6">ically varied training set size among the remain-</text>
+<text top="845" left="108" width="340" height="15" font="6">ing tweets, from 100 to 1500 with the step-size</text>
+<text top="866" left="108" width="29" height="15" font="6">100.</text>
+<text top="866" left="154" width="294" height="15" font="6">We tuned all parameters jointly by 5-fold</text>
+<text top="886" left="108" width="340" height="15" font="6">cross validation on the training set with the grid</text>
+<text top="905" left="108" width="16" height="15" font="11">{2</text>
+<text top="902" left="124" width="16" height="11" font="12">−8</text>
+<text top="906" left="141" width="15" height="15" font="11">, 2</text>
+<text top="902" left="157" width="16" height="11" font="12">−6</text>
+<text top="906" left="174" width="45" height="15" font="11">, . . . , 2</text>
+<text top="903" left="218" width="6" height="11" font="12">8</text>
+<text top="905" left="225" width="223" height="16" font="11">}. All the four text classiﬁers were</text>
+<text top="926" left="108" width="340" height="15" font="6">trained on the training sets and tested on the test set.</text>
+<text top="947" left="108" width="340" height="15" font="6">The whole procedure was repeated 30 times for each</text>
+<text top="967" left="108" width="146" height="15" font="6">feature representation.</text>
+<text top="988" left="124" width="324" height="15" font="9"><b>Results. </b>Figure <a href="6.html#5">3 </a>reports the held-out set accu-</text>
+<text top="1008" left="108" width="340" height="15" font="6">racy as the training set size increases. The error bars</text>
+<text top="1028" left="108" width="340" height="15" font="6">are ±1 standard error. With the largest training set</text>
+<text top="1048" left="108" width="340" height="15" font="6">size (1500), the combination of SVM(linear) + 1g</text>
+<text top="1069" left="108" width="340" height="15" font="6">achieves an average accuracy 79.7%. SVM(linear)</text>
+<text top="113" left="470" width="340" height="15" font="6">+ 1g2g achieves 81.3%, which is signiﬁcantly bet-</text>
+<text top="134" left="470" width="177" height="15" font="6">ter (t-test, p = 4 × 10</text>
+<text top="130" left="646" width="16" height="11" font="12">−6</text>
+<text top="134" left="663" width="10" height="15" font="6">).</text>
+<text top="134" left="691" width="119" height="15" font="6">It shows that in-</text>
+<text top="154" left="470" width="340" height="15" font="6">cluding bigrams can signiﬁcantly improve the clas-</text>
+<text top="174" left="470" width="340" height="15" font="6">siﬁcation performance. SVM(linear) + 1g2gPOS</text>
+<text top="195" left="470" width="340" height="15" font="6">achieves 81.6%, though the improvement is not sta-</text>
+<text top="215" left="470" width="340" height="15" font="6">tistically signiﬁcant (p = 0.088), which indicates</text>
+<text top="235" left="470" width="340" height="15" font="6">that POS coloring does not help too much on this</text>
+<text top="256" left="470" width="340" height="15" font="6">task. SVM(RBF) gives similar performance, Logis-</text>
+<text top="276" left="470" width="340" height="15" font="6">tic Regression is slightly worse and Naive Bayes is</text>
+<text top="296" left="470" width="340" height="15" font="6">much worse, for a large range of training set sizes.</text>
+<text top="316" left="470" width="340" height="15" font="6">In summary, SVM(linear) + 1g2g is the preferred</text>
+<text top="337" left="470" width="340" height="15" font="6">model because of its accuracy and simplicity. We</text>
+<text top="357" left="470" width="340" height="15" font="6">also note that these accuracies are much better than</text>
+<text top="377" left="470" width="340" height="15" font="6">the majority class baseline of 61%. On the held-</text>
+<text top="398" left="470" width="340" height="15" font="6">out set, SVM(linear) + 1g2g achieves precision</text>
+<text top="418" left="470" width="286" height="15" font="6">P=0.76, recall R=0.79, and F-measure 0.77.</text>
+<text top="440" left="486" width="324" height="15" font="9"><b>Discussions. </b>Note that the learning curves are</text>
+<text top="461" left="470" width="340" height="15" font="6">still increasing, suggesting that better accuracy can</text>
+<text top="481" left="470" width="340" height="15" font="6">be obtained if we annotate more training data. As to</text>
+<text top="501" left="470" width="340" height="15" font="6">why the best accuracy is not close to 1, one hypoth-</text>
+<text top="522" left="470" width="340" height="15" font="6">esis is noisy labels caused by intrinsic disagreement</text>
+<text top="542" left="470" width="340" height="15" font="6">among labelers. Tweets are short and some are am-</text>
+<text top="562" left="470" width="340" height="15" font="6">biguous. Without prior knowledge about the users</text>
+<text top="583" left="470" width="340" height="15" font="6">and their other tweets, labelers interpret the tweets</text>
+<text top="603" left="470" width="340" height="15" font="6">in their own ways. For example, for the very short</text>
+<text top="623" left="470" width="340" height="15" font="6">tweet <i>feels like a bully..... </i>our annotators disagreed</text>
+<text top="644" left="470" width="340" height="15" font="6">on whether it is a bullying trace. Labelers may have</text>
+<text top="664" left="470" width="340" height="15" font="6">different views on these ambiguous tweets and cre-</text>
+<text top="684" left="470" width="207" height="15" font="6">ated noisy bullying trace labels.</text>
+<text top="706" left="486" width="324" height="15" font="6">A future direction is to categorize bullying traces</text>
+<text top="727" left="470" width="340" height="15" font="6">at a ﬁner granularity, e.g., by forms, reasons, etc.</text>
+<text top="747" left="470" width="340" height="15" font="6">This can be solved by multi-class classiﬁcation</text>
+<text top="767" left="470" width="340" height="15" font="6">methods. Another direction is to extend the clas-</text>
+<text top="788" left="470" width="340" height="15" font="6">siﬁers from the “enriched data” to the full range of</text>
+<text top="808" left="470" width="340" height="15" font="6">tweets. Recall that the difference is whether we pre-</text>
+<text top="828" left="470" width="340" height="15" font="6">ﬁlter the tweets by keywords. Clearly, they have</text>
+<text top="849" left="470" width="340" height="15" font="6">different tweet distributions. Techniques used for</text>
+<text top="869" left="470" width="340" height="15" font="10"><i>covariate shift </i>may be adapted to solve this prob-</text>
+<text top="889" left="470" width="128" height="15" font="6">lem <a href="6.html#9">(Blitzer, 2008).</a></text>
+<text top="930" left="470" width="9" height="16" font="1"><b>4</b></text>
+<text top="930" left="497" width="211" height="16" font="1"><b>NLP Task B: Role Labeling</b></text>
+<text top="967" left="470" width="340" height="15" font="6">Identifying participants’ bullying roles (Figure <a href="6.html#2">1) </a>is</text>
+<text top="988" left="470" width="340" height="15" font="6">another important task, which is also a prerequi-</text>
+<text top="1008" left="470" width="340" height="15" font="6">site of studying how a person’s role evolves over</text>
+<text top="1028" left="470" width="340" height="15" font="6">time. For bullying traces in social media, we aug-</text>
+<text top="1048" left="470" width="340" height="15" font="6">ment the traditional role system with two new roles:</text>
+<text top="1069" left="470" width="340" height="15" font="6">reporter (may not be present during the episode, un-</text>
+</page>
+<page number="5" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="13" size="14" family="Times" color="#0000ff"/>
+	<fontspec id="14" size="9" family="Times" color="#0000ff"/>
+	<fontspec id="15" size="14" family="Times" color="#0000ff"/>
+	<fontspec id="16" size="9" family="Times" color="#0000ff"/>
+	<fontspec id="17" size="14" family="Times" color="#009900"/>
+	<fontspec id="18" size="9" family="Times" color="#009900"/>
+	<fontspec id="19" size="14" family="Times" color="#ff0000"/>
+	<fontspec id="20" size="9" family="Times" color="#ff0000"/>
+<text top="279" left="205" width="39" height="15" font="6">(a) 1g</text>
+<text top="279" left="430" width="58" height="15" font="6">(b) 1g2g</text>
+<text top="279" left="652" width="82" height="15" font="6">(c) 1g2gPOS</text>
+<text top="320" left="219" width="481" height="13" font="5">Figure 3: Learning Curves for different feature sets and classiﬁcation algorithms</text>
+<text top="369" left="108" width="340" height="15" font="6">like a bystander) and accuser (accusing someone as</text>
+<text top="389" left="108" width="340" height="15" font="6">the bully). Both roles can be a victim, a defender,</text>
+<text top="410" left="108" width="340" height="15" font="6">or a bystander in the traditional sense – there is just</text>
+<text top="430" left="108" width="340" height="15" font="6">not enough information in the tweet. Accuser (A),</text>
+<text top="450" left="108" width="340" height="15" font="6">bully (B), reporter (R) and victim (V) are the four</text>
+<text top="471" left="108" width="340" height="15" font="6">most frequent roles observed in social media. We</text>
+<text top="491" left="108" width="340" height="15" font="6">merged all remaining roles into a generic category</text>
+<text top="511" left="108" width="340" height="15" font="6">“other” (O) in the following study. Our task is to</text>
+<text top="531" left="108" width="340" height="15" font="6">classify the role (A, B, R, V, O) of the tweet author</text>
+<text top="552" left="108" width="340" height="15" font="6">and any person-mentions in a tweet. For example,</text>
+<text top="572" left="108" width="67" height="15" font="13">AUTHOR</text>
+<text top="569" left="175" width="16" height="11" font="14">(R)</text>
+<text top="572" left="192" width="23" height="15" font="6">: <i>“</i></text>
+<text top="572" left="215" width="19" height="15" font="15"><i>We</i></text>
+<text top="569" left="234" width="15" height="11" font="16"><i>(R)</i></text>
+<text top="572" left="257" width="43" height="15" font="10"><i>visited</i></text>
+<text top="572" left="306" width="19" height="15" font="17"><i>my</i></text>
+<text top="569" left="325" width="15" height="11" font="18"><i>(V)</i></text>
+<text top="572" left="347" width="43" height="15" font="17"><i>cousin</i></text>
+<text top="569" left="390" width="15" height="11" font="18"><i>(V)</i></text>
+<text top="572" left="412" width="36" height="15" font="10"><i>today</i></text>
+<text top="592" left="108" width="194" height="15" font="10"><i>&amp; #Itreallymakesmemad that</i></text>
+<text top="592" left="308" width="15" height="15" font="17"><i>he</i></text>
+<text top="590" left="324" width="15" height="11" font="18"><i>(V)</i></text>
+<text top="592" left="346" width="102" height="15" font="10"><i>barely eats bec</i></text>
+<text top="613" left="108" width="15" height="15" font="17"><i>he</i></text>
+<text top="610" left="123" width="15" height="11" font="18"><i>(V)</i></text>
+<text top="613" left="145" width="107" height="15" font="10"><i>was bullied . :(</i></text>
+<text top="613" left="258" width="5" height="15" font="15"><i>I</i></text>
+<text top="610" left="263" width="15" height="11" font="16"><i>(R)</i></text>
+<text top="613" left="285" width="163" height="15" font="10"><i>wanna kick the crap out</i></text>
+<text top="633" left="108" width="53" height="15" font="10"><i>of those</i></text>
+<text top="633" left="166" width="35" height="15" font="19"><i>mean</i></text>
+<text top="630" left="202" width="15" height="11" font="20"><i>(B)</i></text>
+<text top="633" left="223" width="26" height="15" font="19"><i>kids</i></text>
+<text top="630" left="250" width="15" height="11" font="20"><i>(B)</i></text>
+<text top="633" left="266" width="182" height="15" font="10"><i>.” </i>Note that the special to-</text>
+<text top="653" left="108" width="340" height="15" font="6">ken “AUTHOR” is introduced to hold the label of</text>
+<text top="674" left="108" width="110" height="15" font="6">the author’s role.</text>
+<text top="695" left="124" width="324" height="15" font="6">Labeling author’s role and other person-mention’s</text>
+<text top="716" left="108" width="340" height="15" font="6">role are two different sub-tasks. The former can be</text>
+<text top="736" left="108" width="340" height="15" font="6">formulated as a multi-class text classiﬁcation task;</text>
+<text top="756" left="108" width="340" height="15" font="6">the latter is better formulated as a sequential tagging</text>
+<text top="777" left="108" width="292" height="15" font="6">task. We will discuss them separately below.</text>
+<text top="815" left="108" width="20" height="15" font="9"><b>4.1</b></text>
+<text top="815" left="145" width="104" height="15" font="9"><b>Author’s Roles</b></text>
+<text top="844" left="108" width="340" height="15" font="9"><b>Methods. </b>Our annotators labeled the author’s role</text>
+<text top="864" left="108" width="340" height="15" font="6">for each of the 684 positive bullying traces in Task A</text>
+<text top="885" left="108" width="340" height="15" font="6">(296 R, 162 V, 98 B, 86 A, 42 O). We used the same</text>
+<text top="905" left="108" width="340" height="15" font="6">classiﬁers and features in Section <a href="6.html#3">3. </a>We conducted</text>
+<text top="925" left="108" width="340" height="15" font="6">10-fold cross validation to evaluate all combinations</text>
+<text top="946" left="108" width="340" height="15" font="6">of classiﬁers and feature sets. Like before, we tuned</text>
+<text top="966" left="108" width="340" height="15" font="6">all parameters jointly by 5-fold cross validation on</text>
+<text top="986" left="108" width="205" height="15" font="6">the training set with the grid {2</text>
+<text top="982" left="313" width="16" height="11" font="12">−8</text>
+<text top="986" left="330" width="15" height="15" font="11">, 2</text>
+<text top="982" left="346" width="16" height="11" font="12">−6</text>
+<text top="986" left="363" width="45" height="15" font="11">, . . . , 2</text>
+<text top="983" left="407" width="6" height="11" font="12">8</text>
+<text top="985" left="414" width="12" height="16" font="11">}.</text>
+<text top="1008" left="124" width="324" height="15" font="9"><b>Results. </b>The best combination is SVM(linear)</text>
+<text top="1028" left="108" width="340" height="15" font="6">+ 1g2g with cross validation accuracy 61%. Even</text>
+<text top="1048" left="108" width="340" height="15" font="6">though it is far from perfect, it is signiﬁcantly better</text>
+<text top="1069" left="108" width="340" height="15" font="6">than the majority class (R) baseline of 43%. It shows</text>
+<text top="367" left="616" width="72" height="13" font="5">predicted as</text>
+<text top="385" left="578" width="11" height="13" font="5">A</text>
+<text top="385" left="612" width="10" height="13" font="5">B</text>
+<text top="385" left="652" width="10" height="13" font="5">R</text>
+<text top="385" left="692" width="11" height="13" font="5">V</text>
+<text top="385" left="720" width="11" height="13" font="5">O</text>
+<text top="403" left="545" width="11" height="13" font="5">A</text>
+<text top="403" left="574" width="15" height="13" font="5">33</text>
+<text top="403" left="614" width="7" height="13" font="5">3</text>
+<text top="403" left="647" width="15" height="13" font="5">39</text>
+<text top="403" left="687" width="15" height="13" font="5">10</text>
+<text top="403" left="724" width="7" height="13" font="5">1</text>
+<text top="421" left="545" width="10" height="13" font="5">B</text>
+<text top="421" left="581" width="7" height="13" font="5">5</text>
+<text top="421" left="607" width="15" height="13" font="5">25</text>
+<text top="421" left="647" width="15" height="13" font="5">57</text>
+<text top="421" left="687" width="15" height="13" font="5">11</text>
+<text top="421" left="724" width="7" height="13" font="5">0</text>
+<text top="439" left="545" width="10" height="13" font="5">R</text>
+<text top="439" left="574" width="15" height="13" font="5">15</text>
+<text top="439" left="614" width="7" height="13" font="5">5</text>
+<text top="439" left="640" width="22" height="13" font="5">249</text>
+<text top="439" left="687" width="15" height="13" font="5">27</text>
+<text top="439" left="724" width="7" height="13" font="5">0</text>
+<text top="457" left="545" width="11" height="13" font="5">V</text>
+<text top="457" left="581" width="7" height="13" font="5">1</text>
+<text top="457" left="614" width="7" height="13" font="5">4</text>
+<text top="457" left="647" width="15" height="13" font="5">48</text>
+<text top="457" left="680" width="22" height="13" font="5">109</text>
+<text top="457" left="724" width="7" height="13" font="5">0</text>
+<text top="475" left="545" width="11" height="13" font="5">O</text>
+<text top="475" left="581" width="7" height="13" font="5">1</text>
+<text top="475" left="614" width="7" height="13" font="5">1</text>
+<text top="475" left="647" width="15" height="13" font="5">37</text>
+<text top="475" left="695" width="7" height="13" font="5">3</text>
+<text top="475" left="724" width="7" height="13" font="5">0</text>
+<text top="507" left="470" width="339" height="13" font="5">Table 1: Confusion Matrix of Author Role Classiﬁcation</text>
+<text top="561" left="470" width="340" height="15" font="6">that there is signal in the text to infer the authors’</text>
+<text top="581" left="470" width="36" height="15" font="6">roles.</text>
+<text top="602" left="486" width="324" height="15" font="6">Table <a href="6.html#5">1 </a>shows the confusion matrix of the best</text>
+<text top="622" left="470" width="340" height="15" font="6">model. Most R and V authors are correctly rec-</text>
+<text top="642" left="470" width="340" height="15" font="6">ognized, but not B and A. The model misclassiﬁed</text>
+<text top="663" left="470" width="340" height="15" font="6">many authors as R. It is possible that the tweets au-</text>
+<text top="683" left="470" width="340" height="15" font="6">thored by reporters are diverse in topic and style, and</text>
+<text top="703" left="470" width="304" height="15" font="6">overlap with other classes in the feature space.</text>
+<text top="724" left="486" width="324" height="15" font="9"><b>Discussions. </b>As tweets are short, our feature rep-</text>
+<text top="744" left="470" width="340" height="15" font="6">resentation may not be the best for predicting au-</text>
+<text top="764" left="470" width="74" height="15" font="6">thor’s role.</text>
+<text top="764" left="560" width="250" height="15" font="6">Many authors mentioned themselves</text>
+<text top="785" left="470" width="340" height="15" font="6">in the tweets with ﬁrst-person pronouns, making</text>
+<text top="805" left="470" width="340" height="15" font="6">it advantageous to consider joint classiﬁcation by</text>
+<text top="825" left="470" width="340" height="15" font="6">merging sections <a href="6.html#5">4.1 </a>and <a href="6.html#5">4.2. </a>Furthermore, assum-</text>
+<text top="846" left="470" width="340" height="15" font="6">ing roles change infrequently, it may be helpful to</text>
+<text top="866" left="470" width="340" height="15" font="6">jointly classify many tweets authored by the same</text>
+<text top="886" left="470" width="48" height="15" font="6">person.</text>
+<text top="920" left="470" width="20" height="15" font="9"><b>4.2</b></text>
+<text top="920" left="507" width="166" height="15" font="9"><b>Person-Mention’s Roles</b></text>
+<text top="947" left="470" width="340" height="15" font="6">This sub-task labels each person-mention with a</text>
+<text top="967" left="470" width="340" height="15" font="6">bullying role. It uses Named Entity Recognition</text>
+<text top="988" left="470" width="340" height="15" font="6">(NER) <a href="6.html#9">(Finkel, Grenager, and Manning, 2005; </a><a href="6.html#11">Rati-</a></text>
+<text top="1008" left="470" width="340" height="15" font="6"><a href="6.html#11">nov and Roth, 2009; Ritter et al., 2011) </a>as a sub-</text>
+<text top="1028" left="470" width="340" height="15" font="6">routine to identify named person entities, though we</text>
+<text top="1048" left="470" width="340" height="15" font="6">are also interested in unnamed persons such as “my</text>
+<text top="1069" left="470" width="340" height="15" font="6">teacher” and pronouns. It is related to Semantic Role</text>
+</page>
+<page number="6" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="21" size="6" family="Times" color="#000000"/>
+<text top="113" left="108" width="340" height="15" font="6">Labeling (SRL) <a href="6.html#9">(Gildea and Jurafsky, 2002; </a><a href="6.html#11">Pun-</a></text>
+<text top="134" left="108" width="340" height="15" font="6"><a href="6.html#11">yakanok, Roth, and Yih, 2008) </a>but differs critically</text>
+<text top="154" left="108" width="340" height="15" font="6">in that our roles are not tied to speciﬁc verb predi-</text>
+<text top="174" left="108" width="37" height="15" font="6">cates.</text>
+<text top="195" left="124" width="65" height="15" font="9"><b>Methods.</b></text>
+<text top="195" left="207" width="241" height="15" font="6">Our annotators labeled each token</text>
+<text top="215" left="108" width="340" height="15" font="6">in the 684 bullying traces with the tags A, B,</text>
+<text top="235" left="108" width="246" height="15" font="6">R, V, O and N for not-a-person.</text>
+<text top="235" left="379" width="69" height="15" font="6">There are</text>
+<text top="256" left="108" width="161" height="15" font="6">11,751 tokens in total.</text>
+<text top="256" left="289" width="159" height="15" font="6">Similar to the sequen-</text>
+<text top="276" left="108" width="340" height="15" font="6">tial tagging formulation <a href="6.html#10">(M`arquez et al., 2005; Liu</a></text>
+<text top="296" left="108" width="340" height="15" font="6"><a href="6.html#10">et al., 2010), </a>we trained a linear CRF to label</text>
+<text top="317" left="108" width="340" height="15" font="6">each token in the tweet with the CRF++ package</text>
+<text top="337" left="108" width="198" height="15" font="6">(http://crfpp.sourceforge.net/).</text>
+<text top="357" left="124" width="324" height="15" font="6">As standard in linear CRFs, we used pairwise la-</text>
+<text top="378" left="108" width="105" height="15" font="6">bel features f (y</text>
+<text top="383" left="213" width="21" height="11" font="12">i−1</text>
+<text top="377" left="234" width="15" height="15" font="11">, y</text>
+<text top="383" left="249" width="4" height="11" font="12">i</text>
+<text top="377" left="254" width="157" height="15" font="11">) and input features f (y</text>
+<text top="383" left="412" width="4" height="11" font="12">i</text>
+<text top="377" left="417" width="32" height="15" font="11">, w),</text>
+<text top="398" left="108" width="340" height="15" font="6">where f ’s are binary indicator functions on the val-</text>
+<text top="418" left="108" width="340" height="15" font="6">ues of their arguments and w is the text. In the fol-</text>
+<text top="439" left="108" width="340" height="15" font="6">lowing, we introduce our input features using the ex-</text>
+<text top="459" left="108" width="340" height="15" font="6">ample tweet <i>“@USERNAME i’ll tell vinny you bul-</i></text>
+<text top="479" left="108" width="223" height="15" font="10"><i>lied me.” </i>with the current token w</text>
+<text top="485" left="331" width="4" height="11" font="12">i</text>
+<text top="479" left="341" width="69" height="15" font="11">=“vinny”:</text>
+<text top="500" left="124" width="324" height="15" font="6">(i) The token, lemma, and POS tag of the</text>
+<text top="520" left="108" width="220" height="15" font="6">ﬁve tokens around position i.</text>
+<text top="520" left="355" width="93" height="15" font="6">For example,</text>
+<text top="540" left="108" width="8" height="15" font="11">f</text>
+<text top="546" left="116" width="40" height="11" font="12">bully,w</text>
+<text top="550" left="156" width="18" height="8" font="21">i−1</text>
+<text top="546" left="175" width="28" height="11" font="12">=tell</text>
+<text top="540" left="204" width="14" height="15" font="11">(y</text>
+<text top="546" left="218" width="4" height="11" font="12">i</text>
+<text top="540" left="223" width="225" height="15" font="11">, w) will be 1 if the current to-</text>
+<text top="560" left="108" width="106" height="15" font="6">ken has label y</text>
+<text top="566" left="214" width="4" height="11" font="12">i</text>
+<text top="560" left="228" width="65" height="15" font="11">= “bully</text>
+<text top="560" left="309" width="42" height="15" font="6">and w</text>
+<text top="566" left="351" width="21" height="11" font="12">i−1</text>
+<text top="560" left="382" width="66" height="15" font="11">= “tell .</text>
+<text top="581" left="108" width="79" height="15" font="6">Similarly, f</text>
+<text top="586" left="187" width="68" height="11" font="12">victim,P OS</text>
+<text top="590" left="255" width="18" height="8" font="21">i+2</text>
+<text top="586" left="274" width="41" height="11" font="12">=V BD</text>
+<text top="581" left="315" width="14" height="15" font="11">(y</text>
+<text top="586" left="330" width="4" height="11" font="12">i</text>
+<text top="581" left="335" width="113" height="15" font="11">, w) will be 1 if</text>
+<text top="601" left="108" width="8" height="15" font="11">y</text>
+<text top="606" left="116" width="4" height="11" font="12">i</text>
+<text top="601" left="126" width="200" height="15" font="11">= “victim and the POS of w</text>
+<text top="606" left="325" width="21" height="11" font="12">i+2</text>
+<text top="601" left="351" width="54" height="15" font="6">is VBD.</text>
+<text top="622" left="124" width="144" height="15" font="6">(ii) The NER tag of w</text>
+<text top="627" left="268" width="4" height="11" font="12">i</text>
+<text top="622" left="273" width="4" height="15" font="6">.</text>
+<text top="642" left="124" width="105" height="15" font="6">(iii) Whether w</text>
+<text top="647" left="229" width="4" height="11" font="12">i</text>
+<text top="642" left="240" width="208" height="15" font="6">is a person mention. This is a</text>
+<text top="662" left="108" width="218" height="15" font="6">Boolean feature which is true if w</text>
+<text top="668" left="326" width="4" height="11" font="12">i</text>
+<text top="662" left="335" width="114" height="15" font="6">is tagged as PER-</text>
+<text top="683" left="108" width="172" height="15" font="6">SON by NER, or if P OS</text>
+<text top="688" left="280" width="4" height="11" font="12">i</text>
+<text top="682" left="292" width="156" height="15" font="11">= pronoun (excluding</text>
+<text top="703" left="108" width="84" height="15" font="6">“it”), or if w</text>
+<text top="708" left="192" width="4" height="11" font="12">i</text>
+<text top="703" left="202" width="246" height="15" font="6">is @USERNAME. For example, this</text>
+<text top="723" left="108" width="340" height="15" font="6">feature is true on “vinny” because it is tagged as</text>
+<text top="743" left="108" width="124" height="15" font="6">PERSON by NER.</text>
+<text top="764" left="124" width="155" height="15" font="6">(iv) The relevant verb v</text>
+<text top="769" left="280" width="4" height="11" font="12">i</text>
+<text top="764" left="289" width="30" height="15" font="6">of w</text>
+<text top="769" left="319" width="4" height="11" font="12">i</text>
+<text top="764" left="324" width="17" height="15" font="6">, v</text>
+<text top="769" left="340" width="4" height="11" font="12">i</text>
+<text top="764" left="346" width="103" height="15" font="6">’s lemma, POS,</text>
+<text top="784" left="108" width="170" height="15" font="6">and the combination of v</text>
+<text top="790" left="278" width="4" height="11" font="12">i</text>
+<text top="784" left="289" width="159" height="15" font="6">with the lemma/POS of</text>
+<text top="804" left="108" width="12" height="15" font="11">w</text>
+<text top="810" left="120" width="4" height="11" font="12">i</text>
+<text top="804" left="125" width="152" height="15" font="6">. The relevant verb v</text>
+<text top="810" left="277" width="4" height="11" font="12">i</text>
+<text top="804" left="288" width="32" height="15" font="6">of w</text>
+<text top="810" left="321" width="4" height="11" font="12">i</text>
+<text top="804" left="332" width="116" height="15" font="6">is deﬁned by the</text>
+<text top="825" left="108" width="222" height="15" font="6">semantic dependency between w</text>
+<text top="830" left="330" width="4" height="11" font="12">i</text>
+<text top="825" left="341" width="107" height="15" font="6">and the verb, if</text>
+<text top="845" left="108" width="164" height="15" font="6">one exists. Otherwise, v</text>
+<text top="850" left="272" width="4" height="11" font="12">i</text>
+<text top="845" left="283" width="156" height="15" font="6">is the closest verb to w</text>
+<text top="850" left="439" width="4" height="11" font="12">i</text>
+<text top="845" left="444" width="4" height="15" font="6">.</text>
+<text top="865" left="108" width="237" height="15" font="6">For example, the relevant verb of w</text>
+<text top="871" left="345" width="4" height="11" font="12">i</text>
+<text top="865" left="356" width="93" height="15" font="11">= “vinny is</text>
+<text top="886" left="108" width="8" height="15" font="11">v</text>
+<text top="891" left="116" width="4" height="11" font="12">i</text>
+<text top="886" left="127" width="321" height="15" font="11">= “tell because “vinny” is found as the object</text>
+<text top="906" left="108" width="212" height="15" font="6">of “tell” by dependency parsing.</text>
+<text top="926" left="124" width="324" height="15" font="6">(v) The distance, relative position (left or right)</text>
+<text top="947" left="108" width="217" height="15" font="6">and dependency type between v</text>
+<text top="952" left="325" width="4" height="11" font="12">i</text>
+<text top="947" left="337" width="42" height="15" font="6">and w</text>
+<text top="952" left="378" width="4" height="11" font="12">i</text>
+<text top="947" left="383" width="65" height="15" font="6">. For ex-</text>
+<text top="967" left="108" width="340" height="15" font="6">ample, the distance between “vinny” and its relevant</text>
+<text top="987" left="108" width="340" height="15" font="6">verb “tell” is 1. “vinny” is on the right and is the</text>
+<text top="1008" left="108" width="101" height="15" font="6">object of “tell”.</text>
+<text top="1028" left="124" width="324" height="15" font="6">The lemma, POS tags, NER tags and dependency</text>
+<text top="1048" left="108" width="340" height="15" font="6">relationship were obtained using Stanford CoreNLP.</text>
+<text top="1069" left="124" width="324" height="15" font="6">As a baseline, we trained SVM(linear) with the</text>
+<text top="111" left="548" width="57" height="13" font="5">Accuracy</text>
+<text top="111" left="623" width="56" height="13" font="5">Precision</text>
+<text top="111" left="696" width="38" height="13" font="5">Recall</text>
+<text top="111" left="758" width="21" height="13" font="5">F-1</text>
+<text top="129" left="500" width="28" height="13" font="5">CRF</text>
+<text top="129" left="579" width="26" height="13" font="5">0.87</text>
+<text top="129" left="652" width="26" height="13" font="5">0.53</text>
+<text top="129" left="708" width="26" height="13" font="5">0.42</text>
+<text top="129" left="752" width="26" height="13" font="5">0.47</text>
+<text top="147" left="497" width="32" height="13" font="5">SVM</text>
+<text top="147" left="579" width="26" height="13" font="5">0.85</text>
+<text top="147" left="652" width="26" height="13" font="5">0.42</text>
+<text top="147" left="708" width="26" height="13" font="5">0.31</text>
+<text top="147" left="752" width="26" height="13" font="5">0.36</text>
+<text top="180" left="470" width="340" height="13" font="5">Table 2: Cross Validation Result of Person-Mention</text>
+<text top="198" left="470" width="34" height="13" font="5">Roles</text>
+<text top="261" left="470" width="340" height="15" font="6">same input features as CRF. Classiﬁcation is done</text>
+<text top="281" left="470" width="340" height="15" font="6">individually on each token. We randomly split the</text>
+<text top="302" left="470" width="340" height="15" font="6">684 tweets into 10 folds and conducted cross vali-</text>
+<text top="322" left="470" width="340" height="15" font="6">dation based on this split. For CRF, we trained on</text>
+<text top="342" left="470" width="340" height="15" font="6">the tweets in the training set with their labels, and</text>
+<text top="363" left="470" width="340" height="15" font="6">tested the model on those in the test set. For SVM,</text>
+<text top="383" left="470" width="340" height="15" font="6">we trained and tested at the token level in the corre-</text>
+<text top="403" left="470" width="93" height="15" font="6">sponding sets.</text>
+<text top="429" left="486" width="324" height="15" font="9"><b>Results. </b>Table <a href="6.html#6">2 </a>reports the cross validation ac-</text>
+<text top="449" left="470" width="340" height="15" font="6">curacy, precision, recall and F-1 measure. <i>Accu-</i></text>
+<text top="469" left="470" width="340" height="15" font="10"><i>racy </i>measures the percentage of tokens correctly</text>
+<text top="490" left="470" width="340" height="15" font="6">assigned the groundtruth labels, including N (not-</text>
+<text top="510" left="470" width="340" height="15" font="6">a-person) tokens. <i>Precision </i>measures the fraction</text>
+<text top="530" left="470" width="340" height="15" font="6">of correctly labeled person-mention tokens over all</text>
+<text top="551" left="470" width="340" height="15" font="6">tokens that are not N according to the algorithm.</text>
+<text top="571" left="470" width="340" height="15" font="10"><i>Recall </i>measures the fraction of correctly labeled</text>
+<text top="591" left="470" width="340" height="15" font="6">person-mention tokens over all tokens that are not</text>
+<text top="612" left="470" width="221" height="15" font="6">N according to the groundtruth.</text>
+<text top="612" left="707" width="103" height="15" font="10"><i>F-1 </i>is the har-</text>
+<text top="632" left="470" width="340" height="15" font="6">monic mean of precision and recall. Linear CRF</text>
+<text top="652" left="470" width="340" height="15" font="6">achieved an accuracy 0.87, which is higher than the</text>
+<text top="673" left="470" width="340" height="15" font="6">baseline of majority class predictor (N, 0.80) (t-</text>
+<text top="693" left="470" width="87" height="15" font="6">test, p = 10</text>
+<text top="689" left="557" width="23" height="11" font="12">−10</text>
+<text top="693" left="580" width="230" height="15" font="6">). However, the precision and re-</text>
+<text top="713" left="470" width="340" height="15" font="6">call is low potentially because the tweets are short</text>
+<text top="734" left="470" width="340" height="15" font="6">and noisy. CRF outperforms SVM in all measures,</text>
+<text top="754" left="470" width="264" height="15" font="6">showing the value of joint classiﬁcation.</text>
+<text top="779" left="486" width="324" height="15" font="9"><b>Discussions. </b>Table <a href="6.html#7">3 </a>shows the confusion ma-</text>
+<text top="800" left="470" width="340" height="15" font="6">trix of person-mention role labeling by linear CRF.</text>
+<text top="820" left="470" width="340" height="15" font="6">There are several reasons for these mistakes. First,</text>
+<text top="840" left="470" width="340" height="15" font="6">words like “teacher”, “sister”, or “girl” were missed</text>
+<text top="861" left="470" width="340" height="15" font="6">by our person mention feature (iii). Second, the</text>
+<text top="881" left="470" width="340" height="15" font="6">NER tagger was trained on formal English which is</text>
+<text top="901" left="470" width="340" height="15" font="6">a mismatch for the informal tweets, leading to NER</text>
+<text top="922" left="470" width="340" height="15" font="6">errors. Third, noisy labeling continues to affect ac-</text>
+<text top="942" left="470" width="340" height="15" font="6">curacy. For example, some annotators considered</text>
+<text top="962" left="470" width="340" height="15" font="6">“other people” as an entity and labeled both tokens</text>
+<text top="982" left="470" width="324" height="15" font="6">as person mentions; others labeled “people” only.</text>
+<text top="1008" left="486" width="324" height="15" font="6">In general, bullying role labeling may be im-</text>
+<text top="1028" left="470" width="340" height="15" font="6">proved by jointly considering multiple tweets at the</text>
+<text top="1048" left="470" width="340" height="15" font="6">episode level. Co-reference resolution should im-</text>
+<text top="1069" left="470" width="202" height="15" font="6">prove the performance as well.</text>
+</page>
+<page number="7" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="111" left="255" width="72" height="13" font="5">predicted as</text>
+<text top="129" left="184" width="11" height="13" font="5">A</text>
+<text top="129" left="225" width="10" height="13" font="5">B</text>
+<text top="129" left="258" width="10" height="13" font="5">R</text>
+<text top="129" left="298" width="11" height="13" font="5">V</text>
+<text top="129" left="338" width="11" height="13" font="5">O</text>
+<text top="129" left="386" width="11" height="13" font="5">N</text>
+<text top="147" left="156" width="11" height="13" font="5">A</text>
+<text top="147" left="188" width="7" height="13" font="5">0</text>
+<text top="147" left="228" width="7" height="13" font="5">4</text>
+<text top="147" left="261" width="7" height="13" font="5">5</text>
+<text top="147" left="294" width="15" height="13" font="5">10</text>
+<text top="147" left="342" width="7" height="13" font="5">0</text>
+<text top="147" left="389" width="7" height="13" font="5">4</text>
+<text top="165" left="156" width="10" height="13" font="5">B</text>
+<text top="165" left="188" width="7" height="13" font="5">0</text>
+<text top="165" left="213" width="22" height="13" font="5">406</text>
+<text top="165" left="253" width="15" height="13" font="5">13</text>
+<text top="165" left="286" width="22" height="13" font="5">125</text>
+<text top="165" left="327" width="22" height="13" font="5">103</text>
+<text top="165" left="374" width="22" height="13" font="5">302</text>
+<text top="183" left="156" width="10" height="13" font="5">R</text>
+<text top="183" left="188" width="7" height="13" font="5">0</text>
+<text top="183" left="221" width="15" height="13" font="5">28</text>
+<text top="183" left="253" width="15" height="13" font="5">31</text>
+<text top="183" left="294" width="15" height="13" font="5">67</text>
+<text top="183" left="342" width="7" height="13" font="5">0</text>
+<text top="183" left="382" width="15" height="13" font="5">13</text>
+<text top="201" left="156" width="11" height="13" font="5">V</text>
+<text top="201" left="188" width="7" height="13" font="5">0</text>
+<text top="201" left="213" width="22" height="13" font="5">142</text>
+<text top="201" left="253" width="15" height="13" font="5">28</text>
+<text top="201" left="286" width="22" height="13" font="5">380</text>
+<text top="201" left="334" width="15" height="13" font="5">43</text>
+<text top="201" left="374" width="22" height="13" font="5">202</text>
+<text top="219" left="156" width="11" height="13" font="5">O</text>
+<text top="219" left="188" width="7" height="13" font="5">0</text>
+<text top="219" left="213" width="22" height="13" font="5">112</text>
+<text top="219" left="261" width="7" height="13" font="5">4</text>
+<text top="219" left="294" width="15" height="13" font="5">42</text>
+<text top="219" left="327" width="22" height="13" font="5">156</text>
+<text top="219" left="382" width="15" height="13" font="5">86</text>
+<text top="237" left="156" width="11" height="13" font="5">N</text>
+<text top="237" left="188" width="7" height="13" font="5">0</text>
+<text top="237" left="221" width="15" height="13" font="5">78</text>
+<text top="237" left="261" width="7" height="13" font="5">4</text>
+<text top="237" left="294" width="15" height="13" font="5">41</text>
+<text top="237" left="334" width="15" height="13" font="5">16</text>
+<text top="237" left="367" width="30" height="13" font="5">9306</text>
+<text top="270" left="108" width="340" height="13" font="5">Table 3: Confusion Matrix of Person-Mention Roles by</text>
+<text top="288" left="108" width="28" height="13" font="5">CRF</text>
+<text top="341" left="108" width="9" height="16" font="1"><b>5</b></text>
+<text top="341" left="135" width="251" height="16" font="1"><b>NLP Task C: Sentiment Analysis</b></text>
+<text top="375" left="108" width="340" height="15" font="6">Sentiment analysis on participants involved in a bul-</text>
+<text top="396" left="108" width="340" height="15" font="6">lying episode is of signiﬁcant importance. As Fig-</text>
+<text top="416" left="108" width="340" height="15" font="6">ure <a href="6.html#8">4 </a>suggests, there are a wide range of emotions in</text>
+<text top="436" left="108" width="340" height="15" font="6">bullying traces. For example, victims usually expe-</text>
+<text top="457" left="108" width="340" height="15" font="6">rience negative emotions such as depression, anxiety</text>
+<text top="477" left="108" width="340" height="15" font="6">and loneliness; Some emotions are more violent or</text>
+<text top="497" left="108" width="340" height="15" font="6">even suicidal. Detecting at-risk individuals via sen-</text>
+<text top="518" left="108" width="340" height="15" font="6">timent analysis enables potential interventions. In</text>
+<text top="538" left="108" width="340" height="15" font="6">addition, social scientists are interested in sentiment</text>
+<text top="558" left="108" width="340" height="15" font="6">analysis of bullying participants to understand their</text>
+<text top="579" left="108" width="81" height="15" font="6">motivations.</text>
+<text top="600" left="124" width="324" height="15" font="6">In the present paper we investigate a special form</text>
+<text top="620" left="108" width="340" height="15" font="6">of sentiment in bullying traces, namely teasing. We</text>
+<text top="640" left="108" width="340" height="15" font="6">observed that many bullying traces were written jok-</text>
+<text top="661" left="108" width="340" height="15" font="6">ingly. One example of a teasing post is <i>“@USER-</i></text>
+<text top="681" left="108" width="340" height="15" font="10"><i>NAME lol stop being a cyber bully lol :p.” </i>Teas-</text>
+<text top="701" left="108" width="340" height="15" font="6">ing may indicate the lack of severity of a bullying</text>
+<text top="722" left="108" width="340" height="15" font="6">episode; It may also be a manifest of coping strate-</text>
+<text top="742" left="108" width="340" height="15" font="6">gies in bullying victims. Therefore, there is consid-</text>
+<text top="762" left="108" width="340" height="15" font="6">erable interest among social scientists to understand</text>
+<text top="783" left="108" width="168" height="15" font="6">teasing in bullying traces.</text>
+<text top="804" left="124" width="324" height="15" font="9"><b>Methods. </b>One ﬁrst task is to identify teasing bul-</text>
+<text top="824" left="108" width="340" height="15" font="6">lying traces. We formulated it as a binary classiﬁ-</text>
+<text top="844" left="108" width="340" height="15" font="6">cation problem, similar to classic positive/negative</text>
+<text top="865" left="108" width="340" height="15" font="6">sentiment classiﬁcation <a href="6.html#10">(Pang and Lee, 2004). </a>Our</text>
+<text top="885" left="108" width="340" height="15" font="6">annotators labeled each of the 684 bullying traces in</text>
+<text top="905" left="108" width="340" height="15" font="6">Task A as teasing (99) or not (585). We used the</text>
+<text top="926" left="108" width="340" height="15" font="6">same feature representations, classiﬁers and param-</text>
+<text top="946" left="108" width="340" height="15" font="6">eter tuning as in Section <a href="6.html#3">3 </a>and 10-fold cross valida-</text>
+<text top="966" left="108" width="99" height="15" font="6">tion procedure.</text>
+<text top="988" left="124" width="324" height="15" font="9"><b>Results. </b>The best cross validation accuracy of</text>
+<text top="1008" left="108" width="296" height="15" font="6">89% is obtained by SVM(linear) + 1g2g.</text>
+<text top="1008" left="419" width="29" height="15" font="6">This</text>
+<text top="1028" left="108" width="340" height="15" font="6">is signiﬁcantly better than the majority class (not-</text>
+<text top="1048" left="108" width="284" height="15" font="6">teasing) baseline of 86% (t-test, p = 10</text>
+<text top="1045" left="392" width="23" height="11" font="12">−33</text>
+<text top="1048" left="415" width="33" height="15" font="6">). It</text>
+<text top="1069" left="108" width="340" height="15" font="6">shows that even simple features and off-the-shelf</text>
+<text top="111" left="628" width="72" height="13" font="5">predicted as</text>
+<text top="129" left="627" width="34" height="13" font="5">Tease</text>
+<text top="129" left="679" width="22" height="13" font="5">Not</text>
+<text top="147" left="575" width="34" height="13" font="5">Tease</text>
+<text top="147" left="646" width="15" height="13" font="5">52</text>
+<text top="147" left="686" width="15" height="13" font="5">47</text>
+<text top="165" left="581" width="22" height="13" font="5">Not</text>
+<text top="165" left="646" width="15" height="13" font="5">26</text>
+<text top="165" left="679" width="22" height="13" font="5">559</text>
+<text top="198" left="484" width="311" height="13" font="5">Table 4: Confusion Matrix of Teasing Classiﬁcation</text>
+<text top="247" left="470" width="340" height="15" font="6">classiﬁer can detect some signal in the text. How-</text>
+<text top="268" left="470" width="340" height="15" font="6">ever, the accuracy is not high. Table <a href="6.html#7">4 </a>shows the</text>
+<text top="288" left="470" width="340" height="15" font="6">confusion matrix. About half of the tease examples</text>
+<text top="308" left="470" width="340" height="15" font="6">were misclassiﬁed. We found several possible ex-</text>
+<text top="328" left="470" width="340" height="15" font="6">planations. First, teasing is not always accompanied</text>
+<text top="349" left="470" width="340" height="15" font="6">by joking emoticons or tokens like “LOL,” “lmao,”</text>
+<text top="369" left="470" width="340" height="15" font="6">“haha.” For example, <i>“I may bully you but I love</i></text>
+<text top="389" left="470" width="340" height="15" font="10"><i>you lots. Just like jelly tots!” </i>and <i>“Been bullied into</i></text>
+<text top="410" left="470" width="340" height="15" font="10"><i>watching a scary ﬁlm, I love my friends!” </i>Such teas-</text>
+<text top="430" left="470" width="340" height="15" font="6">ing sentiment requires deeper NLP or much larger</text>
+<text top="450" left="470" width="340" height="15" font="6">training sets. Second, tweets containing those jok-</text>
+<text top="471" left="470" width="340" height="15" font="6">ing emoticons and tokens are not necessarily teas-</text>
+<text top="491" left="470" width="340" height="15" font="6">ing. For example, <i>“This Year I’m Standing Up For</i></text>
+<text top="511" left="470" width="340" height="15" font="10"><i>The Kids That Are Being Bullied All Over The Na-</i></text>
+<text top="532" left="470" width="66" height="15" font="10"><i>tion :) .”</i></text>
+<text top="532" left="551" width="259" height="15" font="6">Third, the joking tokens have diverse</text>
+<text top="552" left="470" width="340" height="15" font="6">spellings. For example, “lol” was spelled as “loll,”</text>
+<text top="572" left="470" width="340" height="15" font="6">“lolol,” “lollll,” “loool,” “LOOOOOOOOOOOL”;</text>
+<text top="593" left="470" width="340" height="15" font="6">“haha” was spelled as “HAHAHAHA,” “Hahaha,”</text>
+<text top="613" left="470" width="238" height="15" font="6">“Bwahahaha,” “ahahahah,” “hahah.”</text>
+<text top="634" left="486" width="324" height="15" font="9"><b>Discussions. </b>Specialized word normalization for</text>
+<text top="654" left="470" width="340" height="15" font="6">social media text may signiﬁcantly improve perfor-</text>
+<text top="674" left="470" width="340" height="15" font="6">mance. For example, word lengthening can be iden-</text>
+<text top="695" left="470" width="340" height="15" font="6">tiﬁed and used as cues for teasing <a href="6.html#9">(Brody and Di-</a></text>
+<text top="715" left="470" width="340" height="15" font="6"><a href="6.html#9">akopoulos, 2011). </a>Teasing is diverse in its form</text>
+<text top="735" left="470" width="340" height="15" font="6">and content. Our training set is perhaps too small.</text>
+<text top="756" left="470" width="340" height="15" font="6">Borrowing training data from other corpora, such as</text>
+<text top="776" left="470" width="340" height="15" font="6">one-liner jokes <a href="6.html#10">(Mihalcea and Strapparava, 2005),</a></text>
+<text top="796" left="470" width="102" height="15" font="6">may be helpful.</text>
+<text top="832" left="470" width="9" height="16" font="1"><b>6</b></text>
+<text top="832" left="497" width="279" height="16" font="1"><b>NLP Task D: Latent Topic Modeling</b></text>
+<text top="865" left="470" width="340" height="15" font="9"><b>Methods. </b>Given the large volume of bullying traces,</text>
+<text top="886" left="470" width="340" height="15" font="6">methods for automatically analyzing what people</text>
+<text top="906" left="470" width="340" height="15" font="6">are talking about are needed. Latent topic models</text>
+<text top="926" left="470" width="340" height="15" font="6">allow us to extract the main topics in bullying traces</text>
+<text top="947" left="470" width="340" height="15" font="6">to facilitate understanding. We used latent Dirich-</text>
+<text top="967" left="470" width="340" height="15" font="6">let allocation (LDA) <a href="6.html#9">(Blei, Ng, and Jordan, 2003) </a>as</text>
+<text top="987" left="470" width="340" height="15" font="6">our exploratory tool. Speciﬁcally, we ran a collapsed</text>
+<text top="1008" left="470" width="340" height="15" font="6">Gibbs sampling implementation of LDA <a href="6.html#10">(Grifﬁths</a></text>
+<text top="1028" left="470" width="134" height="15" font="6"><a href="6.html#10">and Steyvers, 2004).</a></text>
+<text top="1048" left="486" width="324" height="15" font="6">The corpus consists of 188K enriched tweets from</text>
+<text top="1069" left="470" width="340" height="15" font="6">Aug. 21 to Sept. 17, 2011 that are classiﬁed as</text>
+</page>
+<page number="8" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="113" left="108" width="340" height="15" font="6">bullying traces by our classiﬁer in Task A. We per-</text>
+<text top="134" left="108" width="340" height="15" font="6">formed stopword removal and further removed word</text>
+<text top="154" left="108" width="340" height="15" font="6">types occurring less than 7 times, resulting in a vo-</text>
+<text top="174" left="108" width="340" height="15" font="6">cabulary of size 12K. We set the number of topics</text>
+<text top="195" left="108" width="340" height="15" font="6">to 50, Dirichlet parameter for word multinomials to</text>
+<text top="215" left="108" width="340" height="15" font="11">β = 0.01, Dirichlet parameter for document topic</text>
+<text top="235" left="108" width="340" height="15" font="6">multinomial to α = 1, and ran Gibbs sampling for</text>
+<text top="256" left="108" width="97" height="15" font="6">10K iterations.</text>
+<text top="277" left="124" width="324" height="15" font="9"><b>Results. </b>Space precludes a complete list of top-</text>
+<text top="298" left="108" width="340" height="15" font="6">ics. Figure <a href="6.html#8">4 </a>shows six selected topics discovered by</text>
+<text top="318" left="108" width="340" height="15" font="6">LDA. Recall that each topic in LDA is a multinomial</text>
+<text top="338" left="108" width="340" height="15" font="6">distribution over the vocabulary. The ﬁgure shows</text>
+<text top="359" left="108" width="340" height="15" font="6">each topic’s top 20 words with size proportional to</text>
+<text top="379" left="108" width="340" height="15" font="11">p(word | topic). The topic names are manually as-</text>
+<text top="399" left="108" width="47" height="15" font="6">signed.</text>
+<text top="421" left="124" width="324" height="15" font="6">These topics contain semantically coherent words</text>
+<text top="441" left="108" width="340" height="15" font="6">relevant to bullying: (feelings) how people feel</text>
+<text top="462" left="108" width="340" height="15" font="6">about bullying; (suicide) discussions of suicide</text>
+<text top="482" left="108" width="340" height="15" font="6">events; (family) sibling names probably used in a</text>
+<text top="502" left="108" width="340" height="15" font="6">good buddy sense; (school) the school environment</text>
+<text top="523" left="108" width="340" height="15" font="6">where bullying commonly occurs; (verbal bullying)</text>
+<text top="543" left="108" width="340" height="15" font="6">derogatory words such as fat and ugly; (physical bul-</text>
+<text top="563" left="108" width="282" height="15" font="6">lying) actions such as kicking and pushing.</text>
+<text top="585" left="124" width="324" height="15" font="6">We also ran a variational inference implementa-</text>
+<text top="605" left="108" width="340" height="15" font="6">tion of LDA <a href="6.html#9">(Blei, Ng, and Jordan, 2003). </a>The re-</text>
+<text top="626" left="108" width="338" height="15" font="6">sults were similar, thus we omit discussion of them.</text>
+<text top="648" left="124" width="324" height="15" font="9"><b>Discussions. </b>Some recovered topics, including</text>
+<text top="668" left="108" width="340" height="15" font="6">the ones shown here, provide valuable insight into</text>
+<text top="688" left="108" width="340" height="15" font="6">bullying traces. However, not all topics are inter-</text>
+<text top="709" left="108" width="340" height="15" font="6">pretable to social scientists. It may be helpful to al-</text>
+<text top="729" left="108" width="340" height="15" font="6">low scientists the ability to combine their domain</text>
+<text top="749" left="108" width="340" height="15" font="6">knowledge with latent topic modeling, thus arriv-</text>
+<text top="770" left="108" width="340" height="15" font="6">ing at more useful topics. For example, the scien-</text>
+<text top="790" left="108" width="340" height="15" font="6">tists can formulate their knowledge in First-Order</text>
+<text top="810" left="108" width="340" height="15" font="6">Logic, which can then be combined with LDA with</text>
+<text top="830" left="108" width="338" height="15" font="6">stochastic optimization <a href="6.html#9">(Andrzejewski et al., 2011).</a></text>
+<text top="870" left="108" width="9" height="16" font="1"><b>7</b></text>
+<text top="870" left="135" width="224" height="16" font="1"><b>Conclusion and Future Work</b></text>
+<text top="906" left="108" width="340" height="15" font="6">We introduced social media as a large-scale, near</text>
+<text top="927" left="108" width="340" height="15" font="6">real-time, dynamic data source for the study of bul-</text>
+<text top="947" left="108" width="340" height="15" font="6">lying. Social media offers a broad range of bully-</text>
+<text top="967" left="108" width="340" height="15" font="6">ing traces that include but go beyond cyberbullying.</text>
+<text top="988" left="108" width="340" height="15" font="6">In the present paper, we have identiﬁed several key</text>
+<text top="1008" left="108" width="340" height="15" font="6">problems in using social media to study bullying and</text>
+<text top="1028" left="108" width="340" height="15" font="6">formulated them as familiar NLP tasks. Our baseline</text>
+<text top="1048" left="108" width="340" height="15" font="6">performance with standard off-the-shelf approaches</text>
+<text top="1069" left="108" width="340" height="15" font="6">shows that it is feasible to learn from bullying traces.</text>
+<text top="230" left="522" width="66" height="15" font="6">“feelings”</text>
+<text top="230" left="694" width="61" height="15" font="6">“suicide”</text>
+<text top="358" left="527" width="57" height="15" font="6">“family”</text>
+<text top="358" left="696" width="57" height="15" font="6">“school”</text>
+<text top="487" left="499" width="113" height="15" font="6">“verbal bullying”</text>
+<text top="487" left="661" width="127" height="15" font="6">“physical bullying”</text>
+<text top="521" left="470" width="340" height="13" font="5">Figure 4: Selected topics discovered by latent Dirichlet</text>
+<text top="539" left="470" width="63" height="13" font="5">allocation.</text>
+<text top="594" left="486" width="324" height="15" font="6">Much work remains in this new research direc-</text>
+<text top="614" left="470" width="340" height="15" font="6">tion. In the short term, we need to develop spe-</text>
+<text top="634" left="470" width="340" height="15" font="6">cialized NLP tools for processing bullying traces in</text>
+<text top="655" left="470" width="340" height="15" font="6">social media, similar to <a href="6.html#11">(Ritter et al., 2011; </a><a href="6.html#10">Liu et</a></text>
+<text top="675" left="470" width="340" height="15" font="6"><a href="6.html#10">al., 2010), </a>to achieve better performance than mod-</text>
+<text top="695" left="470" width="340" height="15" font="6">els trained on formal English. In the long term, we</text>
+<text top="716" left="470" width="340" height="15" font="6">need to tackle the problem of piecing together the</text>
+<text top="736" left="470" width="340" height="15" font="6">underlying bullying episodes from fragmental bully-</text>
+<text top="756" left="470" width="340" height="15" font="6">ing traces. Consider two separate bullying episodes</text>
+<text top="777" left="470" width="269" height="15" font="6">with the following participants and roles:</text>
+<text top="798" left="486" width="298" height="15" font="9"><b>E1</b>: B: Buffy, V: Vivian &amp; Virginia, O: Debra</text>
+<text top="819" left="486" width="220" height="15" font="9"><b>E2</b>: B: Burton, V: Buffy, O: Irene</text>
+<text top="841" left="470" width="340" height="15" font="6">The corresponding bullying traces can be three posts</text>
+<text top="861" left="470" width="84" height="15" font="6">in this order:</text>
+<text top="882" left="486" width="14" height="15" font="11">w</text>
+<text top="888" left="500" width="6" height="11" font="12">1</text>
+<text top="883" left="513" width="297" height="15" font="6">Debra: <i>Virginia, I heard Buffy call you and</i></text>
+<text top="903" left="470" width="145" height="15" font="10"><i>Vivian fat–ignore her!</i></text>
+<text top="924" left="486" width="14" height="15" font="11">w</text>
+<text top="930" left="500" width="6" height="11" font="12">2</text>
+<text top="924" left="513" width="297" height="15" font="6">Buffy to Irene: <i>Burton picked on me again</i></text>
+<text top="945" left="470" width="138" height="15" font="10"><i>because I’m only 5’1</i></text>
+<text top="966" left="486" width="14" height="15" font="11">w</text>
+<text top="971" left="500" width="6" height="11" font="12">3</text>
+<text top="966" left="510" width="300" height="15" font="6">Vivian: <i>Buffy I’m not fat! Stop calling me that.</i></text>
+<text top="988" left="470" width="199" height="15" font="6">Reconstructing E1, E2 from w</text>
+<text top="993" left="668" width="6" height="11" font="12">1</text>
+<text top="987" left="676" width="21" height="15" font="11">, w</text>
+<text top="993" left="696" width="6" height="11" font="12">2</text>
+<text top="987" left="703" width="21" height="15" font="11">, w</text>
+<text top="993" left="724" width="6" height="11" font="12">3</text>
+<text top="988" left="735" width="75" height="15" font="6">is challeng-</text>
+<text top="1008" left="470" width="340" height="15" font="6">ing for a number of reasons: (1) There is no explicit</text>
+<text top="1028" left="470" width="340" height="15" font="6">episode index in the posts. (2) Posts from a single</text>
+<text top="1048" left="470" width="279" height="15" font="6">episode may be dispersed in time (e.g., w</text>
+<text top="1054" left="749" width="6" height="11" font="12">1</text>
+<text top="1048" left="756" width="21" height="15" font="11">, w</text>
+<text top="1054" left="777" width="6" height="11" font="12">3</text>
+<text top="1048" left="789" width="21" height="15" font="6">be-</text>
+<text top="1069" left="470" width="147" height="15" font="6">long to E1, but not w</text>
+<text top="1074" left="617" width="6" height="11" font="12">2</text>
+<text top="1069" left="624" width="186" height="15" font="6">), each containing only part</text>
+</page>
+<page number="9" position="absolute" top="0" left="0" height="1188" width="918">
+	<fontspec id="22" size="14" family="Courier" color="#000000"/>
+	<fontspec id="23" size="12" family="Courier" color="#000000"/>
+	<fontspec id="24" size="12" family="Times" color="#000000"/>
+<text top="113" left="108" width="340" height="15" font="6">of an episode. (3) The number of episodes and peo-</text>
+<text top="134" left="108" width="340" height="15" font="6">ple can grow indeﬁnitely as more posts arrive. (4)</text>
+<text top="154" left="108" width="340" height="15" font="6">People may switch roles in different episodes (e.g.,</text>
+<text top="174" left="108" width="340" height="15" font="6">Buffy was the bully in E1 but the victim in E2). Joint</text>
+<text top="195" left="108" width="340" height="15" font="6">probabilistic modeling over multiple posts using so-</text>
+<text top="215" left="108" width="340" height="15" font="6">cial network structures hold great promise in solving</text>
+<text top="235" left="108" width="86" height="15" font="6">this problem.</text>
+<text top="257" left="124" width="324" height="15" font="6">To facilitate bullying research in the NLP com-</text>
+<text top="277" left="108" width="340" height="15" font="6">munity, we make our annotations and software</text>
+<text top="298" left="108" width="144" height="15" font="6">publicly available at</text>
+<text top="299" left="262" width="187" height="13" font="22"><a href="http://research.cs.wisc.edu/bullying">http://research.cs.</a></text>
+<text top="319" left="108" width="167" height="13" font="22"><a href="http://research.cs.wisc.edu/bullying">wisc.edu/bullying</a></text>
+<text top="318" left="275" width="4" height="15" font="6"><a href="http://research.cs.wisc.edu/bullying">.</a></text>
+<text top="358" left="108" width="140" height="16" font="1"><b>Acknowledgments</b></text>
+<text top="394" left="108" width="340" height="15" font="6">We thank Wei-Ting Chen, Rachael Hansen, Ting-</text>
+<text top="414" left="108" width="340" height="15" font="6">Lan Ma, Ji-in You and Bryan Gibson for their help</text>
+<text top="435" left="108" width="167" height="15" font="6">on the data and the paper.</text>
+<text top="491" left="108" width="83" height="16" font="1"><b>References</b></text>
+<text top="525" left="101" width="327" height="13" font="5">[American Psychological Association2004] American</text>
+<text top="543" left="124" width="168" height="13" font="5">Psychological Association.</text>
+<text top="543" left="319" width="34" height="13" font="5">2004.</text>
+<text top="543" left="379" width="69" height="13" font="5">APA reso-</text>
+<text top="561" left="124" width="324" height="13" font="5">lution on bullying among children and youth.</text>
+<text top="579" left="124" width="323" height="12" font="23"><a href="http://www.apa.org/about/governance/council/policy/bullying.pdf">http://www.apa.org/about/governance/</a></text>
+<text top="597" left="124" width="242" height="12" font="23"><a href="http://www.apa.org/about/governance/council/policy/bullying.pdf">council/policy/bullying.pdf</a></text>
+<text top="596" left="366" width="4" height="13" font="5"><a href="http://www.apa.org/about/governance/council/policy/bullying.pdf">.</a></text>
+<text top="618" left="101" width="348" height="13" font="5">[Andrzejewski et al.2011] Andrzejewski, David, Xiaojin</text>
+<text top="636" left="124" width="324" height="13" font="5">Zhu, Mark Craven, and Ben Recht. 2011. A frame-</text>
+<text top="654" left="124" width="324" height="13" font="5">work for incorporating general domain knowledge into</text>
+<text top="672" left="124" width="324" height="13" font="5">Latent Dirichlet Allocation using First-Order Logic.</text>
+<text top="690" left="124" width="224" height="13" font="5">In <i>the 22nd IJCAI</i>, pages 1171–1177.</text>
+<text top="712" left="101" width="348" height="13" font="5">[Archer and Coyne2005] Archer, John and Sarah M.</text>
+<text top="730" left="124" width="324" height="13" font="5">Coyne. 2005. An integrated review of indirect, re-</text>
+<text top="748" left="124" width="324" height="13" font="5">lational, and social aggression. <i>Personality and Social</i></text>
+<text top="766" left="124" width="190" height="13" font="24"><i>Psychology Review</i>, 9:212–230.</text>
+<text top="788" left="101" width="348" height="13" font="5">[Bellmore et al.2004] Bellmore, Amy D., Melissa R.</text>
+<text top="806" left="124" width="324" height="13" font="5">Witkow, Sandra Graham, and Jaana Juvonen. 2004.</text>
+<text top="824" left="124" width="324" height="13" font="5">Beyond the individual: The impact of ethnic context</text>
+<text top="842" left="124" width="324" height="13" font="5">and classroom behavioral norms on victims’ adjust-</text>
+<text top="860" left="124" width="299" height="13" font="5">ment. <i>Developmental Psychology</i>, 40:1159–1172.</text>
+<text top="882" left="101" width="253" height="13" font="5">[Biggs, Nelson, and Sampilo2010] Biggs,</text>
+<text top="882" left="371" width="45" height="13" font="5">Bridget</text>
+<text top="882" left="430" width="18" height="13" font="5">K.,</text>
+<text top="900" left="124" width="324" height="13" font="5">Jennifer Mize Nelson, and Marilyn L. Sampilo. 2010.</text>
+<text top="918" left="124" width="324" height="13" font="5">Peer relations in the anxiety-depression link: Test</text>
+<text top="936" left="124" width="142" height="13" font="5">of a mediation model.</text>
+<text top="936" left="283" width="165" height="13" font="24"><i>Anxiety, Stress &amp; Coping</i>,</text>
+<text top="954" left="124" width="93" height="13" font="5">23(4):431–447.</text>
+<text top="976" left="101" width="348" height="13" font="5">[Blei, Ng, and Jordan2003] Blei, David M., Andrew Y.</text>
+<text top="994" left="124" width="324" height="13" font="5">Ng, and Michael I. Jordan. 2003. Latent dirichlet al-</text>
+<text top="1012" left="124" width="176" height="13" font="5">location. <i>JMLR</i>, 3:993–1022.</text>
+<text top="1034" left="101" width="348" height="13" font="5">[Blitzer2008] Blitzer, John. 2008. <i>Domain Adaptation of</i></text>
+<text top="1052" left="124" width="324" height="13" font="24"><i>Natural Language Processing Systems</i>. Ph.D. thesis,</text>
+<text top="1070" left="124" width="165" height="13" font="5">University of Pennsylvania.</text>
+<text top="114" left="462" width="348" height="13" font="5">[Bosse and Stam2011] Bosse, Tibor and Sven Stam.</text>
+<text top="132" left="486" width="324" height="13" font="5">2011. A normative agent system to prevent cyberbul-</text>
+<text top="150" left="486" width="235" height="13" font="5">lying. In <i>WI-IAT 2011</i>, pages 425–430.</text>
+<text top="170" left="462" width="230" height="13" font="5">[Brody and Diakopoulos2011] Brody,</text>
+<text top="170" left="720" width="45" height="13" font="5">Samuel</text>
+<text top="170" left="788" width="22" height="13" font="5">and</text>
+<text top="188" left="486" width="324" height="13" font="5">Nicholas Diakopoulos. 2011. Cooooooooooooooolll-</text>
+<text top="206" left="486" width="324" height="13" font="5">lllllllllll!!!!!!!!!!!!!! using word lengthening to detect</text>
+<text top="224" left="486" width="155" height="13" font="5">sentiment in microblogs.</text>
+<text top="224" left="658" width="152" height="13" font="5">In <i>EMNLP 2011</i>, pages</text>
+<text top="242" left="486" width="56" height="13" font="5">562–570.</text>
+<text top="262" left="462" width="272" height="13" font="5">[Cassidy, Jackson, and Brown2009] Cassidy,</text>
+<text top="262" left="765" width="45" height="13" font="5">Wanda,</text>
+<text top="280" left="486" width="324" height="13" font="5">Margaret Jackson, and Karen N. Brown. 2009. Sticks</text>
+<text top="298" left="486" width="324" height="13" font="5">and stones can break my bones, but how can pixels</text>
+<text top="316" left="486" width="324" height="13" font="5">hurt me? students’ experiences with cyber-bullying.</text>
+<text top="334" left="486" width="242" height="13" font="24"><i>School Psychology Int’l</i>, 30(4):383–402.</text>
+<text top="354" left="462" width="348" height="13" font="5">[Chang and Lin2011] Chang, Chih-Chung and Chih-Jen</text>
+<text top="372" left="486" width="324" height="13" font="5">Lin. 2011. LIBSVM: A library for support vector ma-</text>
+<text top="390" left="486" width="324" height="13" font="5">chines. <i>ACM Trans. on Intelligent Systems and Tech-</i></text>
+<text top="407" left="486" width="131" height="13" font="24"><i>nology</i>, 2:27:1–27:27.</text>
+<text top="427" left="462" width="348" height="13" font="5">[Cook et al.2010] Cook, Clayton R., Kirk R. Williams,</text>
+<text top="445" left="486" width="324" height="13" font="5">Nancy G. Guerra, Tia E. Kim, and Shelly Sadek.</text>
+<text top="463" left="486" width="34" height="13" font="5">2010.</text>
+<text top="463" left="537" width="273" height="13" font="5">Predictors of bullying and victimization in</text>
+<text top="481" left="486" width="324" height="13" font="5">childhood and adolescence: A meta-analytic investi-</text>
+<text top="499" left="486" width="307" height="13" font="5">gation. <i>School Psychology Quarterly</i>, 25(2):65–83.</text>
+<text top="519" left="462" width="302" height="13" font="5">[Dinakar, Reichart, and Lieberman2011] Dinakar,</text>
+<text top="519" left="792" width="18" height="13" font="5">K.,</text>
+<text top="537" left="486" width="324" height="13" font="5">R. Reichart, and H. Lieberman. 2011. Modeling the</text>
+<text top="555" left="486" width="213" height="13" font="5">detection of textual cyberbullying.</text>
+<text top="555" left="712" width="98" height="13" font="5">In <i>International</i></text>
+<text top="573" left="486" width="324" height="13" font="24"><i>Conference on Weblog and Social Media - Social</i></text>
+<text top="591" left="486" width="248" height="13" font="24"><i>Mobile Web Workshop</i>, Barcelona, Spain.</text>
+<text top="611" left="462" width="348" height="13" font="5">[Fekkes et al.2006] Fekkes, Minne, Frans I.M. Pijpers,</text>
+<text top="629" left="486" width="324" height="13" font="5">A. Miranda Fredriks, Ton Vogels, and S. Pauline</text>
+<text top="647" left="486" width="324" height="13" font="5">Verloove-Vanhorick. 2006. Do bullied children get</text>
+<text top="665" left="486" width="324" height="13" font="5">ill, or do ill children get bullied? a prospective cohort</text>
+<text top="683" left="486" width="324" height="13" font="5">study on the relationship between bullying and health-</text>
+<text top="701" left="486" width="280" height="13" font="5">related symptoms. <i>Pediatrics</i>, 117:1568–1574.</text>
+<text top="721" left="462" width="348" height="13" font="5">[Finkel, Grenager, and Manning2005] Finkel, Jenny R.,</text>
+<text top="739" left="486" width="324" height="13" font="5">Trond Grenager, and Christopher Manning. 2005. In-</text>
+<text top="757" left="486" width="324" height="13" font="5">corporating non-local information into information ex-</text>
+<text top="774" left="486" width="324" height="13" font="5">traction systems by Gibbs sampling. In <i>the 43rd ACL</i>,</text>
+<text top="792" left="486" width="94" height="13" font="5">pages 363–370.</text>
+<text top="812" left="462" width="301" height="13" font="5">[Fredstrom, Adams, and Gilman2011] Fredstrom,</text>
+<text top="812" left="778" width="32" height="13" font="5">Brid-</text>
+<text top="830" left="486" width="324" height="13" font="5">get K., Ryan E. Adams, and Rich Gilman. 2011. Elec-</text>
+<text top="848" left="486" width="324" height="13" font="5">tronic and school-based victimization: Unique con-</text>
+<text top="866" left="486" width="324" height="13" font="5">texts for adjustment difﬁculties during adolescence. <i>J.</i></text>
+<text top="884" left="486" width="238" height="13" font="24"><i>Youth and Adolescence</i>, 40(4):405–415.</text>
+<text top="904" left="462" width="348" height="13" font="5">[Gildea and Jurafsky2002] Gildea, Daniel and Daniel Ju-</text>
+<text top="922" left="486" width="324" height="13" font="5">rafsky. 2002. Automatic labeling of semantic roles.</text>
+<text top="940" left="486" width="208" height="13" font="24"><i>Comput. Linguist.</i>, 28(3):245–288.</text>
+<text top="960" left="462" width="348" height="13" font="5">[Gini and Pozzoli2009] Gini, Gianluca and Tiziana Poz-</text>
+<text top="978" left="486" width="324" height="13" font="5">zoli. 2009. Association between bullying and psy-</text>
+<text top="996" left="486" width="245" height="13" font="5">chosomatic problems: a meta-analysis.</text>
+<text top="996" left="746" width="64" height="13" font="24"><i>Pediatrics</i>,</text>
+<text top="1014" left="486" width="115" height="13" font="5">123(3):1059–1065.</text>
+<text top="1034" left="462" width="348" height="13" font="5">[Graham, Bellmore, and Juvonen2007] Graham, Sandra,</text>
+<text top="1052" left="486" width="324" height="13" font="5">Amy Bellmore, and Jaana Juvonen. 2007. Peer vic-</text>
+<text top="1070" left="486" width="324" height="13" font="5">timization in middle school: When self- and peer</text>
+</page>
+<page number="10" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="114" left="124" width="324" height="13" font="5">views diverge. In Joseph E. Zins, Maurice J. Elias, and</text>
+<text top="132" left="124" width="324" height="13" font="5">Charles A. Maher, editors, <i>Bullying, victimization, and</i></text>
+<text top="150" left="124" width="324" height="13" font="24"><i>peer harassment: A handbook of prevention and inter-</i></text>
+<text top="168" left="124" width="324" height="13" font="24"><i>vention</i>. Haworth Press, New York, NY, pages 121–</text>
+<text top="186" left="124" width="26" height="13" font="5">141.</text>
+<text top="206" left="101" width="348" height="13" font="5">[Grifﬁths and Steyvers2004] Grifﬁths, Thomas L. and</text>
+<text top="224" left="124" width="95" height="13" font="5">Mark Steyvers.</text>
+<text top="224" left="239" width="34" height="13" font="5">2004.</text>
+<text top="224" left="292" width="156" height="13" font="5">Finding scientiﬁc topics.</text>
+<text top="242" left="124" width="198" height="13" font="24"><i>PNAS</i>, 101(suppl. 1):5228–5235.</text>
+<text top="262" left="101" width="135" height="13" font="5">[Hall et al.2009] Hall,</text>
+<text top="262" left="251" width="36" height="13" font="5">Mark,</text>
+<text top="262" left="302" width="79" height="13" font="5">Eibe Frank,</text>
+<text top="262" left="395" width="53" height="13" font="5">Geoffrey</text>
+<text top="280" left="124" width="324" height="13" font="5">Holmes, Bernhard Pfahringer, Peter Reutemann, and</text>
+<text top="298" left="124" width="324" height="13" font="5">Ian H. Witten. 2009. The weka data mining software:</text>
+<text top="316" left="124" width="324" height="13" font="5">an update. <i>ACM SIGKDD Explorations Newsletter</i>,</text>
+<text top="334" left="124" width="60" height="13" font="5">11:10–18.</text>
+<text top="354" left="101" width="348" height="13" font="5">[Hawker and Boulton2000] Hawker, David S. J. and</text>
+<text top="372" left="124" width="324" height="13" font="5">Michael J. Boulton. 2000. Twenty years’ research on</text>
+<text top="390" left="124" width="324" height="13" font="5">peer victimization and psychosocial maladjustment: A</text>
+<text top="408" left="124" width="324" height="13" font="5">meta-analytic review of cross-sectional studies. <i>J. of</i></text>
+<text top="426" left="124" width="301" height="13" font="24"><i>Child Psychology And Psychiatry</i>, 41(4):441–455.</text>
+<text top="446" left="101" width="348" height="13" font="5">[Janosz et al.2008] Janosz, Michel, Isabelle Archambault,</text>
+<text top="464" left="124" width="324" height="13" font="5">Linda S. Pagani, Sophie Pascal, Alexandre J.S. Morin,</text>
+<text top="482" left="124" width="324" height="13" font="5">and Franc¸ois Bowen. 2008. Are there detrimental</text>
+<text top="500" left="124" width="324" height="13" font="5">effects of witnessing school violence in early adoles-</text>
+<text top="518" left="124" width="286" height="13" font="5">cence? <i>J. of Adolescent Health</i>, 43(6):600–608.</text>
+<text top="538" left="101" width="302" height="13" font="5">[Jimerson, Swearer, and Espelage2010] Jimerson,</text>
+<text top="556" left="124" width="324" height="13" font="5">Shane R., Susan M. Swearer, and Dorothy L.</text>
+<text top="574" left="124" width="324" height="13" font="5">Espelage. 2010. <i>Handbook of Bullying in Schools:</i></text>
+<text top="592" left="124" width="182" height="13" font="24"><i>An international perspective</i>.</text>
+<text top="592" left="325" width="124" height="13" font="5">Routledge/Taylor &amp;</text>
+<text top="610" left="124" width="185" height="13" font="5">Francis Group, New York, NY.</text>
+<text top="630" left="101" width="348" height="13" font="5">[Juvonen and Graham2001] Juvonen, Jaana and Sandra</text>
+<text top="648" left="124" width="324" height="13" font="5">Graham. 2001. <i>Peer harassment in school: The plight</i></text>
+<text top="666" left="124" width="324" height="13" font="24"><i>of the vulnerable and victimized</i>. Guilford Press, New</text>
+<text top="684" left="124" width="60" height="13" font="5">York, NY.</text>
+<text top="704" left="101" width="348" height="13" font="5">[Juvonen and Gross2008] Juvonen, Jaana and Elisheva F.</text>
+<text top="722" left="124" width="324" height="13" font="5">Gross. 2008. Extending the school grounds? – Bul-</text>
+<text top="740" left="124" width="324" height="13" font="5">lying experiences in cyberspace. <i>J. of School Health</i>,</text>
+<text top="758" left="124" width="75" height="13" font="5">78:496–505.</text>
+<text top="778" left="101" width="279" height="13" font="5">[Kontostathis, Edwards, and Leatherman2010]</text>
+<text top="796" left="124" width="324" height="13" font="5">Kontostathis, April, Lynne Edwards, and Amanda</text>
+<text top="814" left="124" width="75" height="13" font="5">Leatherman.</text>
+<text top="814" left="216" width="34" height="13" font="5">2010.</text>
+<text top="814" left="266" width="182" height="13" font="5">Text mining and cybercrime.</text>
+<text top="832" left="124" width="324" height="13" font="5">In Michael W. Berry and Jacob Kogan, editors, <i>Text</i></text>
+<text top="850" left="124" width="48" height="13" font="24"><i>Mining:</i></text>
+<text top="850" left="187" width="262" height="13" font="24"><i>Applications and Theory</i>. John Wiley &amp;</text>
+<text top="868" left="124" width="161" height="13" font="5">Sons, Ltd, Chichester, UK.</text>
+<text top="888" left="101" width="348" height="13" font="5">[Ladd, Kochenderfer, and Coleman1997] Ladd, Gary W.,</text>
+<text top="906" left="124" width="324" height="13" font="5">Becky J. Kochenderfer, and Cynthia C. Coleman.</text>
+<text top="924" left="124" width="324" height="13" font="5">1997. Classroom peer acceptance, friendship, and vic-</text>
+<text top="942" left="124" width="324" height="13" font="5">timization: Distinct relational systems that contribute</text>
+<text top="960" left="124" width="324" height="13" font="5">uniquely to children’s school adjustment? <i>Child De-</i></text>
+<text top="978" left="124" width="159" height="13" font="24"><i>velopment</i>, 68:1181–1197.</text>
+<text top="998" left="101" width="277" height="13" font="5">[Latham, Crockett, and Bandar2010] Latham,</text>
+<text top="998" left="394" width="54" height="13" font="5">Annabel,</text>
+<text top="1016" left="124" width="239" height="13" font="5">Keeley Crockett, and Zuhair Bandar.</text>
+<text top="1016" left="384" width="34" height="13" font="5">2010.</text>
+<text top="1016" left="437" width="11" height="13" font="5">A</text>
+<text top="1034" left="124" width="324" height="13" font="5">conversational expert system supporting bullying</text>
+<text top="1052" left="124" width="324" height="13" font="5">and harassment policies. In <i>the 2nd ICAART</i>, pages</text>
+<text top="1070" left="124" width="56" height="13" font="5">163–168.</text>
+<text top="114" left="462" width="348" height="13" font="5">[Lieberman, Dinakar, and Jones2011] Lieberman, Henry,</text>
+<text top="132" left="486" width="324" height="13" font="5">Karthik Dinakar, and Birago Jones. 2011. Let’s gang</text>
+<text top="150" left="486" width="256" height="13" font="5">up on cyberbullying. <i>Computer</i>, 44:93–96.</text>
+<text top="171" left="462" width="348" height="13" font="5">[Little et al.2003] Little, Todd D., Christopher C. Hen-</text>
+<text top="189" left="486" width="324" height="13" font="5">rich, Stephanie M. Jones, and Patricia H. Hawley.</text>
+<text top="207" left="486" width="324" height="13" font="5">2003. Disentangling the “whys” from the “whats” of</text>
+<text top="225" left="486" width="324" height="13" font="5">aggressive behavior. <i>Int’l J. of Behavioral Develop-</i></text>
+<text top="243" left="486" width="112" height="13" font="24"><i>ment</i>, 27:122–133.</text>
+<text top="265" left="462" width="348" height="13" font="5">[Liu et al.2010] Liu, Xiaohua, Kuan Li, Bo Han, Ming</text>
+<text top="282" left="486" width="324" height="13" font="5">Zhou, Long Jiang, Zhongyang Xiong, and Changning</text>
+<text top="300" left="486" width="324" height="13" font="5">Huang. 2010. Semantic role labeling for news tweets.</text>
+<text top="318" left="486" width="226" height="13" font="5">In <i>the 23rd COLING</i>, pages 698–706.</text>
+<text top="340" left="462" width="348" height="13" font="5">[M`arquez et al.2005] M`arquez, Llu´ıs, Pere Comas, Jes´us</text>
+<text top="358" left="486" width="324" height="13" font="5">Gim´enez, and Neus Catal`a. 2005. Semantic role la-</text>
+<text top="376" left="486" width="324" height="13" font="5">beling as sequential tagging. In <i>the 9th CoNLL</i>, pages</text>
+<text top="393" left="486" width="56" height="13" font="5">193–196.</text>
+<text top="415" left="462" width="262" height="13" font="5">[Mihalcea and Strapparava2005] Mihalcea,</text>
+<text top="415" left="742" width="31" height="13" font="5">Rada</text>
+<text top="415" left="788" width="22" height="13" font="5">and</text>
+<text top="433" left="486" width="324" height="13" font="5">Carlo Strapparava. 2005. Making computers laugh:</text>
+<text top="451" left="486" width="294" height="13" font="5">Investigations in automatic humor recognition.</text>
+<text top="451" left="798" width="12" height="13" font="5">In</text>
+<text top="469" left="486" width="184" height="13" font="24"><i>EMNLP 2005</i>, pages 531–538.</text>
+<text top="490" left="462" width="348" height="13" font="5">[Moore et al.2003] Moore, Mark H., Carol V. Petrie, An-</text>
+<text top="508" left="486" width="324" height="13" font="5">thony A. Braga, and Brenda L. McLaughlin. 2003.</text>
+<text top="526" left="486" width="324" height="13" font="24"><i>Deadly lessons: Understanding lethal school violence</i>.</text>
+<text top="544" left="486" width="294" height="13" font="5">The National Academies Press, Washington, DC.</text>
+<text top="565" left="462" width="348" height="13" font="5">[Nansel et al.2001] Nansel, Tonja R., Mary Overpeck,</text>
+<text top="583" left="486" width="324" height="13" font="5">Ramani S. Pilla, W. June Ruan, Bruce Simons-</text>
+<text top="601" left="486" width="324" height="13" font="5">Morton, and Peter Scheidt. 2001. Bullying behav-</text>
+<text top="619" left="486" width="324" height="13" font="5">iors among US youth: prevalence and association with</text>
+<text top="637" left="486" width="153" height="13" font="5">psychosocial adjustment.</text>
+<text top="637" left="654" width="156" height="13" font="24"><i>J. Amer. Medical Assoc.</i>,</text>
+<text top="655" left="486" width="122" height="13" font="5">285(16):2094–2100.</text>
+<text top="676" left="462" width="229" height="13" font="5">[Nishina and Bellmore2010] Nishina,</text>
+<text top="676" left="714" width="56" height="13" font="5">Adrienne</text>
+<text top="676" left="788" width="22" height="13" font="5">and</text>
+<text top="694" left="486" width="324" height="13" font="5">Amy D. Bellmore. 2010. When might aggression,</text>
+<text top="712" left="486" width="324" height="13" font="5">victimization, and conﬂict matter most?: Contextual</text>
+<text top="730" left="486" width="315" height="13" font="5">considerations. <i>J. of Early Adolescence</i>, pages 5–26.</text>
+<text top="751" left="462" width="348" height="13" font="5">[Nishina and Juvonen2005] Nishina, Adrienne and Jaana</text>
+<text top="769" left="486" width="324" height="13" font="5">Juvonen. 2005. Daily reports of witnessing and ex-</text>
+<text top="787" left="486" width="324" height="13" font="5">periencing peer harassment in middle school. <i>Child</i></text>
+<text top="805" left="486" width="161" height="13" font="24"><i>Development</i>, 76:435–450.</text>
+<text top="826" left="462" width="348" height="13" font="5">[Nylund et al.2007] Nylund, Karen, Amy Bellmore, Adri-</text>
+<text top="844" left="486" width="324" height="13" font="5">enne Nishina, and Sandra Graham. 2007. Subtypes,</text>
+<text top="862" left="486" width="324" height="13" font="5">severity, and structural stability of peer victimization:</text>
+<text top="880" left="486" width="324" height="13" font="5">What does latent class analysis say? <i>Child Develop-</i></text>
+<text top="898" left="486" width="127" height="13" font="24"><i>ment</i>, 78:1706–1722.</text>
+<text top="919" left="462" width="348" height="13" font="5">[Olweus1993] Olweus, Dan. 1993. <i>Bullying at school:</i></text>
+<text top="937" left="486" width="324" height="13" font="24"><i>What we know and what we can do</i>. Blackwell, Ox-</text>
+<text top="955" left="486" width="58" height="13" font="5">ford, UK.</text>
+<text top="977" left="462" width="348" height="13" font="5">[Pang and Lee2004] Pang, Bo and Lillian Lee. 2004. A</text>
+<text top="995" left="486" width="324" height="13" font="5">sentimental education: Sentiment analysis using sub-</text>
+<text top="1013" left="486" width="324" height="13" font="5">jectivity summarization based on minimum cuts. In</text>
+<text top="1031" left="486" width="184" height="13" font="24"><i>the 42nd ACL</i>, pages 271–278.</text>
+<text top="1052" left="462" width="348" height="13" font="5">[Ptaszynski et al.2010] Ptaszynski, Michal, Pawel Dy-</text>
+<text top="1070" left="486" width="324" height="13" font="5">bala, Tatsuaki Matsuba, Fumito Masui, Rafal Rzepka,</text>
+</page>
+<page number="11" position="absolute" top="0" left="0" height="1188" width="918">
+<text top="114" left="124" width="105" height="13" font="5">and Kenji Araki.</text>
+<text top="114" left="243" width="34" height="13" font="5">2010.</text>
+<text top="114" left="290" width="158" height="13" font="5">Machine learning and af-</text>
+<text top="132" left="124" width="324" height="13" font="5">fect analysis against cyber-bullying. In <i>the 36th AISB</i>,</text>
+<text top="150" left="124" width="71" height="13" font="5">pages 7–16.</text>
+<text top="171" left="101" width="289" height="13" font="5">[Punyakanok, Roth, and Yih2008] Punyakanok,</text>
+<text top="171" left="411" width="37" height="13" font="5">Vasin,</text>
+<text top="189" left="124" width="324" height="13" font="5">Dan Roth, and Wen-tau Yih. 2008. The importance</text>
+<text top="207" left="124" width="324" height="13" font="5">of syntactic parsing and inference in semantic role</text>
+<text top="225" left="124" width="265" height="13" font="5">labeling. <i>Comput. Linguist.</i>, 34(2):257–287.</text>
+<text top="247" left="101" width="348" height="13" font="5">[Ratinov and Roth2009] Ratinov, Lev and Dan Roth.</text>
+<text top="265" left="124" width="34" height="13" font="5">2009.</text>
+<text top="265" left="180" width="268" height="13" font="5">Design challenges and misconceptions in</text>
+<text top="282" left="124" width="324" height="13" font="5">named entity recognition. In <i>the 13th CoNLL</i>, pages</text>
+<text top="300" left="124" width="56" height="13" font="5">147–155.</text>
+<text top="322" left="101" width="348" height="13" font="5">[Ritter et al.2011] Ritter, Alan, Sam Clark, Mausam, and</text>
+<text top="340" left="124" width="83" height="13" font="5">Oren Etzioni.</text>
+<text top="340" left="223" width="34" height="13" font="5">2011.</text>
+<text top="340" left="271" width="177" height="13" font="5">Named entity recognition in</text>
+<text top="358" left="124" width="199" height="13" font="5">tweets: An experimental study.</text>
+<text top="358" left="339" width="109" height="13" font="5">In <i>EMNLP 2011</i>,</text>
+<text top="376" left="124" width="109" height="13" font="5">pages 1524–1534.</text>
+<text top="397" left="101" width="348" height="13" font="5">[Rivers et al.2009] Rivers, Ian, V. Paul Poteat, Nathalie</text>
+<text top="415" left="124" width="324" height="13" font="5">Noret, and Nigel Ashurst. 2009. Observing bullying</text>
+<text top="433" left="124" width="324" height="13" font="5">at school: The mental health implications of witness</text>
+<text top="451" left="124" width="319" height="13" font="5">status. <i>School Psychology Quarterly</i>, 24(4):211–223.</text>
+<text top="472" left="101" width="348" height="13" font="5">[Salmivalli1999] Salmivalli, Christina. 1999. Participant</text>
+<text top="490" left="124" width="324" height="13" font="5">role approach to school bullying: Implications for in-</text>
+<text top="508" left="124" width="273" height="13" font="5">tervention. <i>J. of Adolescence</i>, 22(4):453–459.</text>
+<text top="529" left="101" width="268" height="13" font="5">[Schmidt, Fung, and Rosales2007] Schmidt,</text>
+<text top="529" left="383" width="65" height="13" font="5">Mark W.,</text>
+<text top="547" left="124" width="324" height="13" font="5">Glenn Fung, and R´omer Rosales. 2007. Fast opti-</text>
+<text top="565" left="124" width="324" height="13" font="5">mization methods for l1 regularization: A comparative</text>
+<text top="583" left="124" width="324" height="13" font="5">study and two new approaches. In <i>the 18th ECML</i>,</text>
+<text top="601" left="124" width="94" height="13" font="5">pages 286–297.</text>
+<text top="622" left="101" width="348" height="13" font="5">[Schwartz et al.2005] Schwartz, David, Andrea Hop-</text>
+<text top="640" left="124" width="324" height="13" font="5">meyer Gorman, Jonathan Nakamoto, and Robin L. To-</text>
+<text top="658" left="124" width="324" height="13" font="5">blin. 2005. Victimization in the peer group and chil-</text>
+<text top="676" left="124" width="324" height="13" font="5">dren’s academic functioning. <i>J. of Educational Psy-</i></text>
+<text top="694" left="124" width="130" height="13" font="24"><i>chology</i>, 87:425–435.</text>
+<text top="715" left="101" width="348" height="13" font="5">[Settles2011] Settles, Burr. 2011. Closing the loop: Fast,</text>
+<text top="733" left="124" width="324" height="13" font="5">interactive semi-supervised annotation with queries on</text>
+<text top="751" left="124" width="324" height="13" font="5">features and instances. In <i>the EMNLP 2011</i>, pages</text>
+<text top="769" left="124" width="71" height="13" font="5">1467–1478.</text>
+<text top="791" left="101" width="253" height="13" font="5">[Smith, Madsen, and Moody1999] Smith,</text>
+<text top="791" left="379" width="31" height="13" font="5">Peter</text>
+<text top="791" left="430" width="18" height="13" font="5">K.,</text>
+<text top="808" left="124" width="324" height="13" font="5">Kirsten C. Madsen, and Janet C. Moody. 1999. What</text>
+<text top="826" left="124" width="324" height="13" font="5">causes the age decline in reports of being bullied at</text>
+<text top="844" left="124" width="324" height="13" font="5">school? Towards a developmental analysis of risks of</text>
+<text top="862" left="124" width="319" height="13" font="5">being bullied. <i>Educational Research</i>, 41(3):267–285.</text>
+<text top="884" left="101" width="348" height="13" font="5">[The American Academy of Pediatrics2009] The Ameri-</text>
+<text top="902" left="124" width="324" height="13" font="5">can Academy of Pediatrics. 2009. Policy statement–</text>
+<text top="919" left="124" width="324" height="13" font="5">role of the pediatrician in youth violence prevention.</text>
+<text top="937" left="124" width="168" height="13" font="24"><i>Pediatrics</i>, 124(1):393–402.</text>
+<text top="959" left="101" width="280" height="13" font="5">[The White House2011] The White House.</text>
+<text top="959" left="415" width="34" height="13" font="5">2011.</text>
+<text top="977" left="124" width="324" height="13" font="5">Background on White House conference on bul-</text>
+<text top="995" left="124" width="107" height="13" font="5">lying prevention.</text>
+<text top="995" left="256" width="192" height="13" font="5">http://www.whitehouse.gov/the-</text>
+<text top="1013" left="124" width="299" height="13" font="5">press-ofﬁce/2011/03/10/background-white-house-</text>
+<text top="1031" left="124" width="192" height="13" font="5">conference-bullying-prevention.</text>
+<text top="1052" left="101" width="348" height="13" font="5">[Toutanova et al.2003] Toutanova, Kristina, Dan Klein,</text>
+<text top="1070" left="124" width="324" height="13" font="5">Christopher D. Manning, and Yoram Singer. 2003.</text>
+<text top="114" left="486" width="324" height="13" font="5">Feature-rich part-of-speech tagging with a cyclic de-</text>
+<text top="132" left="486" width="324" height="13" font="5">pendency network. In <i>NAACL-HLT 2003</i>, pages 173–</text>
+<text top="150" left="486" width="26" height="13" font="5">180.</text>
+<text top="169" left="462" width="348" height="13" font="5">[Vaillancourt et al.2010] Vaillancourt, Tracy, Vi Trinh,</text>
+<text top="187" left="486" width="324" height="13" font="5">Patricia McDougall, Eric Duku, Lesley Cunning-</text>
+<text top="205" left="486" width="324" height="13" font="5">ham, Charles Cunningham, Shelley Hymel, and Kathy</text>
+<text top="223" left="486" width="324" height="13" font="5">Short. 2010. Optimizing population screening of bul-</text>
+<text top="241" left="486" width="324" height="13" font="5">lying in school-aged children. <i>J. of School Violence</i>,</text>
+<text top="259" left="486" width="68" height="13" font="5">9:233–250.</text>
+<text top="278" left="462" width="348" height="13" font="5">[Vandebosch and Cleemput2009] Vandebosch, Heidi and</text>
+<text top="296" left="486" width="324" height="13" font="5">Katrien Van Cleemput. 2009. Cyberbullying among</text>
+<text top="314" left="486" width="324" height="13" font="5">youngsters: proﬁles of bullies and victims. <i>New media</i></text>
+<text top="332" left="486" width="172" height="13" font="24"><i>&amp; society</i>, 11(8):1349–1371.</text>
+<text top="351" left="462" width="348" height="13" font="5">[Wang, Iannotti, and Nansel2009] Wang, Jing, Ronald J.</text>
+<text top="369" left="486" width="324" height="13" font="5">Iannotti, and Tonja R. Nansel. 2009. School bully-</text>
+<text top="387" left="486" width="324" height="13" font="5">ing among adolescents in the united states: Physical,</text>
+<text top="405" left="486" width="324" height="13" font="5">verbal, relational, and cyber. <i>J. Adolescent Health</i>,</text>
+<text top="422" left="486" width="93" height="13" font="5">45(4):368–375.</text>
+</page>
+</pdf2xml>
