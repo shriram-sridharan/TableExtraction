@@ -81,7 +81,10 @@ def TestUsingLR(predictxmlname, location):
     for page in preprocessedxml:
         for col in page:
             if(len(col) < 2):
-                    continue
+                continue
+            for tup in col:
+                if(tup[1].text is None or tup[1].text.strip() == ''):
+                    col.remove(tup)
             for lineno in xrange(len(col)):
                 col[lineno].append(lineno)
             predicted = LR.domainpredict(col, fontdict)
@@ -117,12 +120,15 @@ def TestUsingCRF(predictxmlname, location):
         for col in page:
             if(len(col) < 2):
                     continue
+            for tup in col:
+                if(tup[1].text is None or tup[1].text.strip() == ''):
+                    col.remove(tup)
             for lineno in xrange(len(col)):
                 col[lineno].append(lineno)
             predicted = CRF.predict(col, fontdict)
 #            for r in predicted:
 #                if(r[0] == SparseType.OTHERSPARSE):
-#                    print r[1].text + " *** Line no *** " + str(r[2])
+#                    print r[1].text.encode('ascii','ignore') + " *** Line no *** " + str(r[2])
             data = postprocessor.findTables(predicted)
             tables = data
             if(len(tables) == 0):
@@ -144,12 +150,15 @@ def TestUsingSVM(svminstance, predictxmlname, location):
         for col in page:
             if(len(col) < 2):
                     continue
+            for tup in col:
+                if(tup[1].text is None or tup[1].text.strip() == ''):
+                    col.remove(tup)
             for lineno in xrange(len(col)):
                 col[lineno].append(lineno)
             predicted = svminstance.domainpredict(col, fontdict)
 #            for r in predicted:
 #                if(r[0] == SparseType.OTHERSPARSE):
-#                    print r[1].text + " *** Line no *** " + str(r[2])
+#                    print r[1].text.encode('ascii','ignore') + " *** Line no *** " + str(r[2])
             data = postprocessor.findTables(predicted)
             tables = data
             if(len(tables) == 0):
@@ -177,7 +186,7 @@ if __name__ == '__main__':
     #TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
     #TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
     
-    predictxmlname = '15'
+    predictxmlname = '4'
     location = "../TrainingData/xmls/cs/"
     TestUsingSVM(svminstance, predictxmlname, location)
     

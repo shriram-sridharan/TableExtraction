@@ -45,7 +45,7 @@ class PostProcessor:
         
         currentlineno = tablekeywordlineno
         nextlineno = tablekeywordlineno
-        while(nextlineno!= -1 and nextlineno - currentlineno <= 2 and currpredictedindex < len(predicted)):
+        while(nextlineno!= -1 and nextlineno - currentlineno <= Constants.ALLOWED_LIMIT_FOR_S_NS_INTERLEAVE and currpredictedindex < len(predicted)):
             table.append(predicted[currpredictedindex])
             currentlineno = predicted[currpredictedindex][2]
             nextlineno = predicted[self.getnextsparse(currpredictedindex, predicted)][2]
@@ -97,10 +97,12 @@ class PostProcessor:
                     continue
             if(predicted[currpredictedindex][0] == SparseType.OTHERSPARSE): #Hoping to find a table after this
                 data = self.findPossibleTableStructureAfterThis(predicted, currpredictedindex)
+                prevcurrpi = currpredictedindex
                 currpredictedindex = data[0]
                 if(len(data[1])!=0):
                     tblkeywordloc = self.isTableKeywordAfterThis(currpredictedindex-2, predicted) # minus 2 because table line could be sparse
                     if(tblkeywordloc == -1):
+                        currpredictedindex = prevcurrpi
                         continue
                     data = self.findPossibleTableStructureBeforeThis(predicted, tblkeywordloc)
                     if(len(data[1])!=0):

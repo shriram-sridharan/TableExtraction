@@ -1,9 +1,9 @@
 TRAINING SET:
-62 tables in 14 pdf files in CS folder
+65 tables in 15 pdf files in CS folder
 
 Steps:
 Pre Processing of pdf to xml output
-	Columns - A column will not end in Table
+	Columns - A column will not end in middle of a Table
 Creating a web server for annotating text
 Implemented CRF --> Collins perceptron
 Identifying Features
@@ -21,6 +21,7 @@ Perform Cross Validation for getting the approximate model (due to lack of train
 Confusion Matrix
 
 Future Work:
+SVM works equally well or better than CRF in all the cases. Initial assumption was CRF to do better. Need to test this with more features and 
 Highly dependent on Table keyword location Eg: 7.pdf
 Table Keyword presence Eg: 8.pdf
 SVM Parameters finding -> Grid Search
