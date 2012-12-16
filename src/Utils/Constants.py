@@ -6,19 +6,20 @@ Created on Nov 20, 2012
 
 class Constants:
 
+    AVG_TABLE_SIZE = 10
     ###################### FEATURES #########################
     NUM_TEXT_PIECES = 0
     LINES_TO_SEARCH_FOR_TABLE = 6
     MAX_DIFF_BETWEEN_SPARSE_AND_NONSPARSE = 6
     LARGEST_SPACE_DIFF = 3
+    NO_WORDS_WITH_LARGESTSPACEDIFF = 2
     WORDS_IN_LINE = 8
     SMALLEST_SPACE = 2
     LARGEST_SPACE = 4
-    DIFF_IN_NO_OF_WORDS = 4
     
     ###################### TRAINING ALGORITHM #########################
-    CRF_NUM_EPOCHS = 100
-    INITIAL_LEARNING_RATE = 0.2
+    CRF_NUM_EPOCHS = 120
+    INITIAL_LEARNING_RATE = 0.3
     
     LR_EPOCHS = 100
     LR_LEARNING_RATE = 0.2

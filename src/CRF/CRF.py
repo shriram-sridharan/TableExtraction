@@ -28,7 +28,6 @@ class CRF:
         self.Features = CRFFeatures()
         self.differenceweights = list()
         
-   
     def domaintrain(self, annotatedxmllist):
         collist = list()
         for annotatedxml in annotatedxmllist:
@@ -36,6 +35,9 @@ class CRF:
                 for col in page:
                     if(len(col) < 2):
                         continue
+                    for tup in col:
+                        if(tup[1].text is None or tup[1].text.strip() == ''):
+                            col.remove(tup)
                     trainfeatures = list()
                     for i in xrange(0, len(col)):
                         trainfeatures.append(self.Features.domainfindfeatureFunction(i, col, annotatedxml[1]))
@@ -51,11 +53,14 @@ class CRF:
             errorcount = 0.0
             totaltup = 0.0
             sparseerrorcount = 0.0
+            sparseerrorlist = list()
             
             for tup in collist:
                 errors = self.learnparameters(tup[0], tup[1], self.trainedweights, tup[2])
                 errorcount += errors[0]
                 sparseerrorcount += errors[1]
+                if(len(errors[2]) != 0):
+                    sparseerrorlist.append(errors[2])
                 totaltup += len(tup[0])
                 
             for weight in xrange(len(self.trainedweights)):
@@ -66,6 +71,11 @@ class CRF:
             self.learningrate = Constants.INITIAL_LEARNING_RATE * math.exp(-(float(r)/Constants.CRF_NUM_EPOCHS)) 
             print "Iteration " + str(r) + " Learning Rate " + str(self.learningrate) + " Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
             
+        for r in sparseerrorlist:
+            for x in r:
+                print x
+        
+           
     def predict(self, col, fontdict):
         tagbyumatrix = self.GetMatrixForCalculatingArgMax(col, self.trainedweights, fontdict)
         predicted = self.predictsequence(tagbyumatrix)
@@ -95,6 +105,7 @@ class CRF:
     
     def learnweightsBySG(self, predictedsequence, col, trainedweights, trainfeatures, fontdict):
         negativecol = list()
+        sparseerrorlist = list()
         errorcount = 0.0
         sparseerrorcount = 0.0
         for tup in xrange(len(col)):
@@ -102,6 +113,7 @@ class CRF:
                 errorcount += 1
                 if((predictedsequence[tup]+1) == SparseType.NONSPARSE): #for sparse error count # domain specific 
                     sparseerrorcount += 1
+                    sparseerrorlist.append(col[tup][1].text)
             negativecol.append([predictedsequence[tup]+1, col[tup][1]])
             
         predictedfeatures = list()
@@ -122,7 +134,7 @@ class CRF:
         for floc in xrange(len(predictedfeatures[0])):  #wi = wi + alpha(Fjactual - Fjpredicted)
             self.differenceweights[floc] += self.learningrate * (FActuallist[floc] - FPredictedlist[floc]) 
         
-        return [errorcount, sparseerrorcount]
+        return [errorcount, sparseerrorcount, sparseerrorlist]
         
     def learn(self, col, tagbyumatrix, trainfeatures, trainedweights, fontdict):
         predictedsequence = self.predictsequence(tagbyumatrix)

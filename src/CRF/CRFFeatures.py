@@ -7,7 +7,6 @@ from Utils.SparseType import SparseType
 from Utils.Constants import Constants
 from Utils.Utilities import Utilities
 import sys
-import math
 class CRFFeatures:
     
     def orthographicfeatures(self, featurelist, col, prevtag, curtag, i, fontdict):
@@ -21,43 +20,51 @@ class CRFFeatures:
             featurelist.append(1)
         else:
             featurelist.append(0)
+    
+    def isTableKeywordBeforeThis(self, currindex, col):
+        for r in xrange(currindex - Constants.AVG_TABLE_SIZE, currindex):
+            if(r < 0):
+                return False
+            if(Utilities().checkkeywordpresense(col, r)):
+                return True
+        return False
         
     def lexicalfeatures(self, featurelist, col, prevtag, curtag, i):
-        tabletextbefore = ((i>0 and Utilities().checkkeywordpresense(col, i-1)) or 
-                           (i>1 and Utilities().checkkeywordpresense(col, i-2)) or 
-                           (i>2 and Utilities().checkkeywordpresense(col, i-3)))
-        if(tabletextbefore and curtag == SparseType.OTHERSPARSE and prevtag == SparseType.NONSPARSE):
+        if(self.isTableKeywordBeforeThis(i, col) and curtag == SparseType.OTHERSPARSE and prevtag == SparseType.OTHERSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
-
+        
     def spaceinline(self, text):
         if(text is None):
-            return [0,0,0]
+            return [0,0,0,0]
         spacecount = 0
         largestspace = 0
         wordcount = 0
         smallestspace = sys.maxint
+        wordspacelist = list()
         for r in xrange(len(text)):
             if(text[r] == ' '):
                 spacecount += 1
             elif(spacecount != 0):
                 wordcount += 1
+                wordspacelist.append(spacecount)
                 if(spacecount < smallestspace):
                     smallestspace = spacecount
                 if(spacecount > largestspace):
                     largestspace = spacecount
                 spacecount = 0
-        return [largestspace, smallestspace, wordcount+1 ]
+                
+        wslcount = 0
+        for wsl in wordspacelist:
+            if(wsl > Constants.LARGEST_SPACE_DIFF):
+                wslcount += 1
+                
+        return [largestspace, smallestspace, wordcount+1, wslcount]
     
     def layoutfeatures(self, featurelist, col, prevtag, curtag, i): 
         #[textpieces, heightprev, heightnext, largest space, smallest space, words]
         if(int(col[i][1].attrib['textpieces']) > Constants.NUM_TEXT_PIECES and curtag == SparseType.OTHERSPARSE):
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
-        
-        if(int(col[i][1].attrib['textpieces']) == 0  and curtag == SparseType.NONSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
@@ -104,7 +111,17 @@ class CRFFeatures:
             featurelist.append(1)
         else:
             featurelist.append(0)
+            
+        if (spaceincurrentline[2] > Constants.WORDS_IN_LINE and curtag == SparseType.NONSPARSE):
+            featurelist.append(1)
+        else:
+            featurelist.append(0)
         
+        if (spaceincurrentline[3] > Constants.NO_WORDS_WITH_LARGESTSPACEDIFF and curtag == SparseType.OTHERSPARSE):
+            featurelist.append(1)
+        else:
+            featurelist.append(0)
+            
     def otherfeatures(self,featurelist, col, prevtag, curtag, i):
         if(i!=0 and prevtag == SparseType.OTHERSPARSE and curtag == SparseType.OTHERSPARSE):
             featurelist.append(1)

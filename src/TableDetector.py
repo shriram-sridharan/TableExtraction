@@ -170,11 +170,12 @@ if __name__ == '__main__':
     
     #CreateHtmls(xmls, preprocessor, trainer)
    
-    predictxmlname = '14'
+    predictxmlname = '1'
     location = "../TrainingData/xmls/cs/"
     annotatedxmlloc = "../TrainingData/annotated/"
+    
     TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
-    TestUsingCRF(predictxmlname, location)
+    #TestUsingCRF(predictxmlname, location)
        
 #    svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
 #    TestUsingSVM(svminstance, predictxmlname, location)
