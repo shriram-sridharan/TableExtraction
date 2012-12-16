@@ -102,22 +102,26 @@ class CRFFeatures:
         
     def spacelayoutfeatures(self, featurelist, col, curtag, prevtag, i):
         spaceincurrentline = self.spaceinline(col[i][1].text)
-        if (spaceincurrentline[0] >= Constants.LARGEST_SPACE and curtag == SparseType.OTHERSPARSE):
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
-            
-        if (spaceincurrentline[0] == spaceincurrentline[1] and curtag == SparseType.NONSPARSE):
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
-            
-        if (spaceincurrentline[2] > Constants.WORDS_IN_LINE and curtag == SparseType.NONSPARSE):
+        if (spaceincurrentline[0] >= Constants.LARGEST_SPACE and curtag == SparseType.OTHERSPARSE 
+            and prevtag == SparseType.OTHERSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)
         
-        if (spaceincurrentline[3] > Constants.NO_WORDS_WITH_LARGESTSPACEDIFF and curtag == SparseType.OTHERSPARSE):
+        if (spaceincurrentline[0] == spaceincurrentline[1] and curtag == SparseType.NONSPARSE 
+            and prevtag == SparseType.NONSPARSE):
+            featurelist.append(1)
+        else:
+            featurelist.append(0)
+        
+        if (spaceincurrentline[2] > Constants.WORDS_IN_LINE and curtag == SparseType.NONSPARSE 
+            and prevtag == SparseType.NONSPARSE):
+            featurelist.append(1)
+        else:
+            featurelist.append(0)
+        
+        if (spaceincurrentline[3] > Constants.NO_WORDS_WITH_LARGESTSPACEDIFF and curtag == SparseType.OTHERSPARSE
+            and prevtag == SparseType.OTHERSPARSE):
             featurelist.append(1)
         else:
             featurelist.append(0)

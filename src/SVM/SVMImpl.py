@@ -52,7 +52,9 @@ class SVMImpl:
         data = SparseDataSet(datalist)
         results = self.svminstance.test(data)
         return results.getPredictedLabels()[0]
-        
+    
+    def save(self, filename):
+        self.svminstance.save(filename)
         
         
         

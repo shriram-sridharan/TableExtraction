@@ -1,0 +1,642 @@
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="0" height="27" left="150" textpieces="0" top="109" width="614">Toward Software-Dened Middlebox Networking</text>
+2 <text font="1" height="18" left="191" textpieces="0" top="181" width="533">Aaron Gember, Prathmesh Prabhu, Zainab Ghadiyali, Aditya Akella</text>
+2 <text font="2" height="15" left="284" textpieces="0" top="202" width="346">University of Wisconsin-Madison, Madison, WI, USA</text>
+2 <text font="2" height="15" left="270" textpieces="0" top="220" width="373">{agember,pprabhu,zainab,akella}@cs.wisc.edu</text>
+2 <text font="3" height="18" left="81" textpieces="0" top="311" width="97">ABSTRACT</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="337" width="372">Current middlebox (MB) management mechanisms are clumsy</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="355" width="359">and unsuitable for taking full advantage of new MB deploy-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="373" width="359">ment models and diverse MB functionality. Instead, we ad-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="391" width="360">vocate for mechanisms that help exercise unied control over</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="409" width="359">the key factors inuencing MB operations. Our goal is to re-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="427" width="359">alize a software-dened MB networking framework to sim-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="445" width="359">plify management of complex, diverse functionalities and</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="463" width="359">engender rich deployments. We discuss the major challenges</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="480" width="359">that ariserepresenting, manipulating, and knowledgeably</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="498" width="359">controlling MB stateand we present initial thoughts on the</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="516" width="332">appropriate abstractions and interfaces to address them.</text>
+2 <text font="3" height="18" left="81" textpieces="0" top="549" width="270">Categories and Subject Descriptors</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="575" width="369">C.2.3 [Computer-Communication Networks]: Network Op-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="593" width="193">erationsNetwork management</text>
+2 <text font="3" height="18" left="81" textpieces="0" top="626" width="114">General Terms</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="652" width="230">Design, Management, Standardization</text>
+2 <text font="3" height="18" left="81" textpieces="1" top="685" width="174">1.  INTRODUCTION</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="711" width="344">Middleboxes (MBs) are a crucial part of many enterprise</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="729" width="359">LANs, data centers, and clouds, enabling enterprises to en-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="747" width="359">sure security, improve performance, and meet other sophisti-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="765" width="359">cated goals. MBs ll a unique and important role in the net-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="783" width="359">work: unlike networking equipment (e.g., switches), MBs</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="801" width="358">do more than just routing1, offering a variety of innovative</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="819" width="359">functions. Yet, MBs are not as general as application servers,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="837" width="340">as MBs focus solely on examining and modifying trafc.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="855" width="354">Recently, several new trends in MB deployment have arisen.</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="872" width="359">First, SDN has enabled MBs to be deployed at arbitrary lo-</text>
+2 <text font="7" height="9" left="82" textpieces="0" top="898" width="356">1Modern switches tend to be powerful enough to also fulll MB-</text>
+2 <text font="8" height="13" left="81" textpieces="0" top="915" width="313">like roles, but this is not the equipments primary purpose.</text>
+2 <text font="9" height="12" left="81" textpieces="0" top="976" width="359">Permission to make digital or hard copies of all or part of this work for</text>
+2 <text font="9" height="12" left="81" textpieces="0" top="990" width="359">personal or classroom use is granted without fee provided that copies are</text>
+2 <text font="9" height="12" left="81" textpieces="0" top="1003" width="358">not made or distributed for prot or commercial advantage and that copies</text>
+2 <text font="9" height="12" left="81" textpieces="0" top="1016" width="359">bear this notice and the full citation on the rst page. To copy otherwise, to</text>
+2 <text font="9" height="12" left="81" textpieces="0" top="1030" width="358">republish, to post on servers or to redistribute to lists, requires prior specic</text>
+2 <text font="9" height="12" left="81" textpieces="0" top="1043" width="115">permission and/or a fee.</text>
+2 <text font="10" height="12" left="81" textpieces="0" top="1057" width="259">Hotnets 12, October 2930, 2012, Seattle, WA, USA.</text>
+2 <text font="9" height="12" left="81" textpieces="0" top="1070" width="281">Copyright 2012 ACM 978-1-4503-1776-4/10/12 ...$10.00.</text>
+=============================== COL ===================================
+2 <text font="2" height="15" left="475" textpieces="0" top="313" width="359">cations in LANs and data centers [2], no longer limiting</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="331" width="359">placement to network choke points. In some cases, MBs</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="349" width="359">can even be implemented within the SDN itself (e.g., chang-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="367" width="359">ing IPs/ports like a NAT); although, the lack of support for</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="385" width="359">more complex MBs, such as those performing deep-packet</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="403" width="359">modication (e.g., WAN optimizers), means many MBs will</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="421" width="359">remain separate. Second, while MBs used to be deployed as</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="439" width="359">physical appliances or dedicated servers, MBs are now be-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="457" width="359">ing deployed in a variety of additional forms: as VMs, in</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="474" width="359">hypervisors, on arbitrary end-hosts [4], and as collections of</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="492" width="359">processes [9]. Both of these trends lend themselves towards</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="510" width="359">a more dynamic model of MB deployment, e.g., launching</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="528" width="273">new MB VMs when network load is high [5].</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="546" width="344">Several factors inuencing MB operations are crucial to</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="564" width="359">manage in such a dynamic setting. MBs must receive the</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="582" width="359">correct trafc, e.g., all inbound packets, and be congured</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="600" width="359">with the correct policies, e.g., rewall accept/drop rules, to</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="618" width="359">provide the intended enhancements. Additionally, changes</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="636" width="359">in a deployment, e.g., switching the MB a ow traverses due</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="654" width="359">to MB scaling, requires careful control over the data main-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="672" width="359">tained by MBs internal logic, e.g, the state of a TCP connec-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="690" width="359">tion, to ensure correct MB behavior. Ignoring one or more</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="708" width="296">of these aspects could have drastic consequences.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="726" width="344">Today, each of these factors inuencing the operations</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="744" width="359">of a dynamic MB deploymentconguration, trafc ow,</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="761" width="359">and internal datais managed through ad hoc point mech-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="779" width="359">anisms, including by-hand tweaking. This clumsy manage-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="797" width="359">ment approach primarily results from the diversity of MBs</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="815" width="359">in enterprises [9] and the unique conguration and tuning</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="833" width="359">each requires. Moreover, this approach makes it difcult to</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="851" width="359">leverage new MB deployment models and diverse MB func-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="869" width="359">tionality to enrich application deployments in sophisticated</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="887" width="359">ways (see examples in 2.1). Mechanisms that help exercise</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="905" width="357">unied control over all the factors can rectify this key issue.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="923" width="344">Currently, no framework for unied control exists. SDN</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="941" width="359">provides a unied approach to control plane management fo-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="959" width="359">cusing mainly on controlling trafc ow [6, 8]. Frameworks</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="977" width="359">like Stratos [5] address the ordering of MBs and load distri-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="994" width="359">bution. However, little progress has been made with regard</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1012" width="359">to controlling the stateinternal data, congured policies,</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1030" width="327">etc.associated with MBs (SIMCO [1] is the closest).</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="1048" width="344">Our ultimate goal is to realize an SDN-like framework for</text>
+2 <text font="2" height="15" left="454" textpieces="0" top="1110" width="7">1</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="4" height="15" left="81" textpieces="0" top="84" width="359">MB management. Akin to how SDN has vastly simplied</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="102" width="359">control plane management and led to a variety of innovative</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="120" width="359">new applications for network control, a software-dened MB</text>
+2 <text font="4" height="15" left="81" textpieces="0" top="138" width="364">networking framework that facilitates unied control can sim-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="156" width="359">ilarly simplify management of complex, diverse functionali-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="174" width="359">ties and engender rich, new applications. The key issues for</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="192" width="359">MBs, however, are that it is not clear what unied control</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="210" width="347">entails, to what extent it is possible, and how to achieve it.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="228" width="344">In this paper, we examine in depth the issues relating to</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="246" width="359">a software-dened MB networking framework. We present</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="264" width="367">several dynamic scenarios, and classify the MB state involved,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="282" width="359">to illustrate the major challenges that we believe need to be</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="300" width="359">addressed: representing, manipulating, and knowledgeably</text>
+2 <text font="4" height="15" left="81" textpieces="0" top="317" width="359">controlling MB state (2). We rst explore the challenges</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="335" width="359">in representing MB state, proposing an abstraction based on</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="353" width="359">the inherent mapping of state to protocol header elds as</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="371" width="359">a mechanism for dealing with internal, shared, and diverse</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="389" width="359">state (3). Next, we discuss the issue of state manipulation,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="407" width="359">highlighting the need for a broad interface that enables ma-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="425" width="359">nipulation of most MB state while keeping a sufcient level</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="443" width="359">of control in the hands of MBs themselves; we argue that</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="461" width="359">a properly detailed event abstraction is a necessary comple-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="479" width="359">ment, allowing MBs to expose their internal state changes</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="497" width="359">and request missing or updated state (4). Finally, we de-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="515" width="359">scribe how specic control logics might utilize these inter-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="533" width="359">faces and abstractions to achieve sophisticated control over</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="551" width="135">MB deployments (5).</text>
+2 <text font="3" height="18" left="81" textpieces="1" top="593" width="333">2.  BACKGROUND AND CHALLENGES</text>
+2 <text font="3" height="18" left="81" textpieces="0" top="633" width="204">2.1 Illustrative Examples</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="659" width="344">We begin by outlining a few scenarios where the need for</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="677" width="351">unied control of the state associated with MBs is evident:</text>
+2 <text font="5" height="15" left="81" textpieces="0" top="695" width="359">Virtual Machine (VM) Provisioning. Enterprises have spe-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="713" width="359">cic security and performance requirements for each appli-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="731" width="359">cation server. Traditionally, when a server is deployed, MBs</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="749" width="359">are statically congured to meet these requirements. As data</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="766" width="359">centers become entirely VM-based, server changes occur</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="784" width="359">more frequently and MB management becomes a major bur-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="802" width="359">den. Thus, MB control should happen automatically and in</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="820" width="359">concert with VM provisioning and migration: instantiating</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="838" width="359">new server-specic policies, e.g., rewall rules; migrating</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="856" width="359">MB state to ensure consistent, correct examination and mod-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="874" width="359">ication of server trafc; verifying existing MB policies will</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="892" width="224">not conict with server requirements.</text>
+2 <text font="5" height="15" left="81" textpieces="0" top="910" width="359">MB Scaling. The trafc load imposed on MBs will change</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="928" width="359">over time, especially in cloud environments, motivating dy-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="946" width="359">namic provisioning of MBs. While instantiating the neces-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="964" width="359">sary compute resources and network forwarding paths is im-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="982" width="359">portant [5], ensuring proper handling of MB state is also cru-</text>
+2 <text font="2" height="15" left="81" textpieces="1" top="1000" width="359">cial. MB state must be controlled at ne granularity2to al-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1017" width="359">low rebalancing of load during scale upe.g., policies must</text>
+2 <text font="7" height="9" left="82" textpieces="0" top="1049" width="356">2Wrapping each MB, and its state, in a VM limits our choice of</text>
+2 <text font="8" height="13" left="81" textpieces="0" top="1066" width="347">deployment models and the extent to which scaling is benecial.</text>
+=============================== COL ===================================
+1 <text font="11" height="12" left="480" textpieces="1" top="82" width="95">Middlebox   State</text>
+1 <text font="9" height="12" left="480" textpieces="1" top="96" width="319">Firewall      Rules; Connection records {IP-tuple, seq #s, status}</text>
+1 <text font="9" height="12" left="480" textpieces="1" top="111" width="348">NAT          Mappings {timer, internal IP-tuple, external IP-tuple};</text>
+1 <text font="9" height="12" left="549" textpieces="0" top="124" width="265">Port forwarding rules; Timer duration; External address</text>
+1 <text font="9" height="12" left="480" textpieces="0" top="139" width="25">Load</text>
+1 <text font="9" height="12" left="480" textpieces="0" top="152" width="42">Balancer</text>
+1 <text font="9" height="12" left="549" textpieces="0" top="139" width="279">Mappings {timer, destination, IP-tuple}; Destinations;</text>
+1 <text font="9" height="12" left="549" textpieces="0" top="152" width="261">Balancing algorithm; Load measurements; Granularity</text>
+1 <text font="9" height="12" left="480" textpieces="0" top="167" width="59">Redundancy</text>
+1 <text font="9" height="12" left="480" textpieces="0" top="181" width="56">Elimination</text>
+1 <text font="9" height="12" left="549" textpieces="0" top="167" width="280">Chunk cache; Fingerprinting algorithm; Cache size; Re-</text>
+1 <text font="9" height="12" left="549" textpieces="0" top="181" width="82">placement policy</text>
+1 <text font="9" height="12" left="480" textpieces="0" top="195" width="43">Intrusion</text>
+1 <text font="9" height="12" left="480" textpieces="0" top="209" width="51">Prevention</text>
+1 <text font="9" height="12" left="549" textpieces="0" top="195" width="280">Connection records {timer, IP-tuple, status, payloads, seq</text>
+1 <text font="9" height="12" left="549" textpieces="0" top="209" width="240">#}; Rules; Pattern-matching algorithm; Alert level</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="228" width="359">Table 1: State associated with several common types of MBs</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="245" width="294">(IP-tuple includes addresses, ports, and protocol)</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="270" width="359">be replicated or splitand merging of MBs during scale</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="288" width="282">downe.g., per-ow state must be aggregated.</text>
+2 <text font="5" height="15" left="475" textpieces="0" top="306" width="359">Live Network Migration. The virtualization of compute re-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="324" width="359">sources and networks, along with new MB deployment mod-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="342" width="359">els, makes live migration of an entire application deployment</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="359" width="359">possible. Such migrations require seamless MB operations</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="377" width="359">and consistent MB performance throughout the migration</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="395" width="359">(e.g., from a private data center to a public cloud). Some mi-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="413" width="359">grations may necessitate complex MB changes: e.g., a phys-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="431" width="359">ical MB appliance may be split into several MB VMs or the</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="449" width="359">entire network topology may change. These all require care-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="467" width="359">fully dividing and migrating MB policies and internal data</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="485" width="264">at the right time and between the right MBs.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="503" width="344">Current ad hoc point mechanisms for managing dynamic</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="521" width="359">MB deployments make supporting these scenarios complex</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="539" width="359">and, in some cases, impossible. Moreover, deep, exible</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="557" width="359">control of layer 3-7 network services is a crucial component</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="575" width="256">of an entirely software-dened data center.</text>
+2 <text font="3" height="18" left="475" textpieces="0" top="603" width="236">2.2 Classication of MB state</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="629" width="344">Before delving further into the problem of unied control,</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="647" width="220">we describe MB state in more depth.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="665" width="344">MBs rely on complex and diverse state for proper oper-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="683" width="359">ation. A single MB may receive dozens of conguration</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="701" width="359">inputs, and its internal logic may maintain detailed records</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="719" width="359">for thousands of ows. Moreover, the state a MB requires</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="737" width="359">for operation varies signicantly across MB types (and ven-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="755" width="359">dors), as shown in Table 1. In contrast, a network depends</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="773" width="359">only on the forwarding information bases (FIBs) for proper</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="791" width="359">trafc forwarding, which, in SDNs, is created and managed</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="809" width="359">by a controller running SDN applications. Note that MB</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="827" width="359">state will continue to increase in diversity and complexity as</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="845" width="359">new MB functionality emerges and competing MB vendors</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="863" width="187">try to specialize their offerings.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="881" width="344">Pieces of MB state can be classied along several possible</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="898" width="359">dimensionssource, structure, uidity, etc.but we believe</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="916" width="359">the most salient classication is based on the role the state</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="934" width="359">plays in a MBs operation. Accordingly, we divide MB state</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="952" width="359">into four classes, listed and dened in Table 2. Each class</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="970" width="359">of state has several properties: Some MB state is provided</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="988" width="359">as external conguration input, while other state is created</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1006" width="359">and manipulated by a MBs internal logic during operation.</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1024" width="358">Some MB state pertains to specic ows3, while other state</text>
+2 <text font="7" height="9" left="477" textpieces="0" top="1049" width="356">3Flow may refer to a transport connection, an application session,</text>
+2 <text font="8" height="13" left="475" textpieces="0" top="1066" width="290">a source/destination pair, or any another trafc subset.</text>
+2 <text font="2" height="15" left="454" textpieces="0" top="1110" width="7">2</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="2" height="15" left="81" textpieces="0" top="84" width="359">is shared by all, or an unknown subset of, trafc. Finally,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="102" width="359">for a specic type of MB, some classes of state have many</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="120" width="334">possible structures and meanings while others have few.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="138" width="344">We argue that it is crucial, and possible, to control two</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="156" width="359">of the four classesaction and supportingsince both are</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="174" width="359">critical to a MBs operation; hereafter MB state refers to</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="192" width="359">these two classes. We dont consider designing control over</text>
+2 <text font="4" height="15" left="81" textpieces="0" top="210" width="359">tuning state because: (i) A MB could rely on a default or</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="228" width="359">simpler form of tuning statealbeit at the cost of efciency</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="246" width="359">and performanceand still perform its basic operations cor-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="264" width="362">rectly. (ii) Tuning state tends to be more ne-grained, vendor-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="282" width="361">specic (i.e., has many forms), and consistent over long time-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="300" width="359">scales, making it more appropriate to manage this state out-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="317" width="359">of-band. Similarly, we eschew monitoring state because its</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="335" width="359">primarily intended for observing and tweaking MB behavior.</text>
+2 <text font="3" height="18" left="81" textpieces="0" top="365" width="174">2.3 Three Challenges</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="391" width="344">Given an understanding of what is amenable to unied</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="409" width="359">control, we argue that there are three major challenges that</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="427" width="359">must be addressed in achieving this control and moving to-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="445" width="310">wards a model of software-dened MB networking.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="468" width="268">1. How do you view and interpret MB state?</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="488" width="336">2. How do you manipulate what state exists and where?</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="507" width="329">3. How do you make informed state control decisions?</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="531" width="359">While these challenges are similar to those faced by SDN,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="549" width="359">addressing these challenges for MBs is harder due to the di-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="567" width="359">versity and complexity of MBs. We discuss these issues in</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="585" width="359">more depth in the sections that follow, and we present ini-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="603" width="359">tial thoughts on the appropriate abstractions and interfaces</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="621" width="359">that help address them. Additional challenges that require</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="639" width="214">further research are discussed in 7.</text>
+2 <text font="3" height="18" left="81" textpieces="1" top="676" width="254">3.  STATE REPRESENTATION</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="702" width="344">We believe that viewing and interpreting MB state is one</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="720" width="359">of the foremost issues in unied control: we need to know</text>
+2 <text font="4" height="15" left="81" textpieces="0" top="738" width="359">what we are controlling before we try to control it. However,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="756" width="239">there are several challenges in doing so:</text>
+2 <text font="2" height="15" left="100" textpieces="0" top="783" width="339"> Some state is established and manipulated by a MBs</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="801" width="325">internal control logic, causing the structure of this state</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="819" width="325">to only be known to the MBs themselves. Such con-</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="837" width="325">cealment arises from both vendors desire to protect</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="855" width="325">intellectual property and the disregard for this state in</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="873" width="151">ad hoc MB management.</text>
+2 <text font="2" height="15" left="100" textpieces="0" top="892" width="340"> Some state is shared by all (or an unknown subset of)</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="910" width="325">ows and impacts the MBs operations on all of these</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="928" width="325">ows. This conicts with the per-ow operations com-</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="946" width="222">mon in applications and the network.</text>
+2 <text font="2" height="15" left="100" textpieces="0" top="965" width="339"> There is high diversity in the structure and semantics of</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="983" width="325">state across several types of MBs. This diversity leads</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="1001" width="239">to complexity if not properly contained.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="1029" width="344">We believe these challenges can be addressed by exposing</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1047" width="359">the right abstraction for viewing and interpreting MB state.</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1065" width="359">The abstraction should hide the intricacies of individual MB</text>
+=============================== COL ===================================
+1 <text font="11" height="12" left="489" textpieces="2" top="81" width="320">Source       Destination Proto Other                  Action</text>
+1 <text font="9" height="12" left="489" textpieces="3" top="96" width="331">10.10.0.0/16 *             TCP   dport 22                ACCEPT</text>
+1 <text font="9" height="12" left="489" textpieces="3" top="109" width="331">*             10.20.1.0/24 TCP   dport 80                ACCEPT</text>
+1 <text font="9" height="12" left="489" textpieces="3" top="123" width="332">*             *              TCP   state ESTABLISHED ACCEPT</text>
+1 <text font="8" height="13" left="606" textpieces="0" top="143" width="98">(a) Rules (Action)</text>
+1 <text font="11" height="12" left="492" textpieces="2" top="174" width="272">SrcIP        DstIP        Proto SPort DPort State</text>
+1 <text font="9" height="12" left="492" textpieces="3" top="189" width="326">10.10.54.51 10.20.1.23   TCP   12983 22      ESTABLISHED</text>
+1 <text font="9" height="12" left="492" textpieces="2" top="202" width="306">10.10.12.37 192.168.0.2 TCP   25483 22      SYN RCVD</text>
+1 <text font="9" height="12" left="492" textpieces="3" top="216" width="326">192.168.0.1 10.20.1.73   TCP   52342 80      ESTABLISHED</text>
+1 <text font="8" height="13" left="554" textpieces="0" top="236" width="201">(b) Connection Records (Supporting)</text>
+2 <text font="2" height="15" left="506" textpieces="0" top="256" width="298">Table 3: Action and supporting state for a rewall</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="296" width="359">offerings while still allowing for specialization between MB</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="314" width="112">types and vendors.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="332" width="344">Fortunately, an inherent commonality exists in the oper-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="349" width="359">ations of many MBs that can aid the formation of such an</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="367" width="359">abstraction: many MB operations are a function of the val-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="385" width="359">ues in packet headers. For example, a stateful rewall cre-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="403" width="359">ates and updates connection records for each ow based on</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="421" width="359">the values in the network- and transport-layer headers of re-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="439" width="359">ceived packets (Table 3b). Likewise, the decision to accept</text>
+2 <text font="2" height="15" left="475" textpieces="1" top="457" width="359">or drop a packet is based on these header values4(Table 3a).</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="475" width="359">These are akin to SDNs use of protocol header elds to de-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="493" width="158">ne forwarding behaviors.</text>
+2 <text font="3" height="18" left="475" textpieces="0" top="525" width="174">3.1 View Abstraction</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="551" width="349">We propose an abstraction that leverages this inherent map-</text>
+2 <text font="4" height="15" left="475" textpieces="0" top="569" width="359">ping of state to protocol header values to provide a myopic</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="587" width="359">view of the complex and detailed state associated with a</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="605" width="359">MB. The view abstraction (Figure 1) uses pertinent proto-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="623" width="359">col header elds as a key for each distinct chunk of action</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="641" width="359">and/or supporting state. Figures 2 and 3 show examples of</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="659" width="216">state encoded using this abstraction.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="677" width="344">The key is carefully constructed to identify exactly the</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="694" width="359">trafc subsets to which a piece of state applies. A basic 5-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="712" width="359">tuple (source/destination network addresses, transport pro-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="730" width="359">tocol, and source/destination transport ports) is a sufcient</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="748" width="359">key for most state, but the protocol elds that form the key</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="766" width="359">are exible. Dening keys in this way enables us to leverage</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="784" width="359">the ubiquity of common protocols to counteract MB diver-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="802" width="359">sity. Moreover, it provides an inherent hierarchy (e.g., IP</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="820" width="359">addresses are hierarchical by design) for identifying subsets</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="838" width="131">and supersets of state.</text>
+2 <text font="4" height="15" left="490" textpieces="0" top="856" width="344">Action state is more challenging to represent because of</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="874" width="359">its intrinsic tie to MBs internal logic. For example, ac-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="892" width="359">tion state for rewalls is accept/drop rules, while action state</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="910" width="359">for NATs is a mapping from public addresses/ports to pri-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="927" width="359">vate addresses/ports. We could represent action state as a</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="945" width="359">binary blob. However, this would make creation and ma-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="963" width="359">nipulation of action state complex because of the need for</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="981" width="359">a deep understanding of MB semantics for the target MB.</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="999" width="359">Instead, we propose to represent action state as a transfor-</text>
+2 <text font="4" height="15" left="475" textpieces="0" top="1017" width="359">mation function that changes specic packet header elds to</text>
+2 <text font="7" height="9" left="477" textpieces="0" top="1049" width="356">4Along with extra values calculated or inferred by the MB, e.g.,</text>
+2 <text font="8" height="13" left="475" textpieces="0" top="1066" width="118">TCP connection state.</text>
+2 <text font="2" height="15" left="454" textpieces="0" top="1110" width="7">3</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+1 <text font="11" height="12" left="95" textpieces="2" top="82" width="462">Class         Denition                                                    Intrusion Prevention</text>
+1 <text font="11" height="12" left="451" textpieces="0" top="96" width="74">(IPS) Example</text>
+1 <text font="11" height="12" left="580" textpieces="0" top="82" width="45">Internal/</text>
+1 <text font="11" height="12" left="580" textpieces="0" top="96" width="44">External</text>
+1 <text font="11" height="12" left="641" textpieces="0" top="82" width="39">Shared/</text>
+1 <text font="11" height="12" left="641" textpieces="0" top="96" width="46">Per-Flow</text>
+1 <text font="11" height="12" left="703" textpieces="0" top="82" width="33">Many/</text>
+1 <text font="11" height="12" left="703" textpieces="0" top="96" width="57">Few Forms</text>
+1 <text font="11" height="12" left="771" textpieces="0" top="82" width="36">Should</text>
+1 <text font="11" height="12" left="771" textpieces="0" top="96" width="41">Manage</text>
+1 <text font="9" height="12" left="95" textpieces="6" top="110" width="693">Action        Denes operations to apply to packets/ows                Rules                      Both        ?            Few          Yes</text>
+1 <text font="9" height="12" left="95" textpieces="6" top="124" width="693">Supporting   Helps decide between multiple possible actions             Connection Records       Internal     Both        Many        Yes</text>
+1 <text font="9" height="12" left="95" textpieces="6" top="139" width="691">Tuning       Tunes MB algorithms for performance, efciency, etc.      Alert level                 External    Shared      Many        No</text>
+1 <text font="9" height="12" left="95" textpieces="6" top="153" width="691">Monitoring   Quanties MB operations                                    Packet counters            Internal     Both        Many        No</text>
+2 <text font="2" height="15" left="316" textpieces="0" top="173" width="283">Table 2: Classes of MB state, and its properties</text>
+2 <text font="2" height="15" left="152" textpieces="0" top="263" width="216">Figure 1: Abstract view of MB state</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="297" width="359">new constants (or discards the packet). This more generic</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="315" width="359">representation can encode most of the actions of rewalls,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="333" width="359">NATs, load balancers, and (partially) IPSs, which are among</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="351" width="359">the most common MBs [9]. MBs with different operational</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="369" width="359">semantics require alternative representations of action state,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="387" width="237">which we leave for future investigation.</text>
+2 <text font="4" height="15" left="96" textpieces="0" top="405" width="344">Supporting state is always represented as a binary blob,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="423" width="359">since its structure depends on a MBs deep internal logic.</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="441" width="359">In special cases, where the structure of the binary blob is</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="459" width="359">known, the blob may be analyzed by logic external to the</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="476" width="359">MB, but the blob should never be changed by external logic</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="494" width="260">to avoid inducing unintended MB behavior.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="512" width="344">Note that by basing our view abstraction primarily on pro-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="530" width="359">tocol header elds, we provide a mechanism for encoding</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="548" width="359">only per-ow MB state. Shared MB state is much more chal-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="566" width="359">lenging to represent because it is unclear how this state might</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="584" width="359">be controlled. For example, the cache on a redundancy elim-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="602" width="359">ination (RE) MB is shared across all ows and synchronized</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="620" width="359">between source and destination RE MBs; it is unclear how</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="638" width="359">an RE MBs cache should be changed to ensure redundancy</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="656" width="359">is correctly removed and restored when a ow is re-routed</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="674" width="359">through a different RE MB. Therefore, our current state ab-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="692" width="342">straction exposes all shared state as a single binary blob.</text>
+2 <text font="5" height="15" left="81" textpieces="0" top="710" width="359">Takeaways. The internal or shared nature of some MB state</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="728" width="359">makes representing MB state challenging. A view abstrac-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="746" width="359">tion provides a uniform and well-structured representation</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="763" width="359">of diverse MB state for the purposes of examining, den-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="781" width="359">ing, and facilitating migration of data that inuences MBs</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="799" width="359">behavior. It does not entirely solve the challenge of how to</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="817" width="359">manipulate what MB state exists and where; we address this</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="835" width="174">challenge in the next section.</text>
+2 <text font="3" height="18" left="81" textpieces="1" top="871" width="234">4.  STATE MANIPULATION</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="898" width="344">Inuencing a MBs behavior requires manipulating the</text>
+2 <text font="2" height="15" left="81" textpieces="1" top="916" width="359">state residing at the MB.5Today, this manipulation can only</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="933" width="359">occur through narrow, MB-specic conguration interfaces.</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="951" width="362">Moreover, these interfaces exclude signicant subsets of state</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="969" width="359">that are established and leveraged by the MBs internal logic.</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="987" width="359">This limited interface severely constrains the exibility and</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1005" width="359">potential sophistication of a MB deployment: e.g., a ows</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1023" width="359">packets must traverse the same IPS for the duration of the</text>
+2 <text font="7" height="9" left="82" textpieces="0" top="1049" width="356">5A MBss behavior can also be inuenced through changes in its</text>
+2 <text font="8" height="13" left="81" textpieces="0" top="1066" width="225">internal logic, but we assume this is xed.</text>
+=============================== COL ===================================
+2 <text font="2" height="15" left="475" textpieces="0" top="208" width="359">ow because a record of the connection, required for proper</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="226" width="359">attack detection, cannot be moved between IPSs. We argue</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="244" width="359">that MBs should expose a broad state manipulation interface,</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="262" width="359">complementary to our view abstraction. Unfortunately, this</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="280" width="199">is complicated by several factors:</text>
+2 <text font="2" height="15" left="495" textpieces="0" top="302" width="339"> Manipulation of some MB state is at the discretion of</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="320" width="325">the MBs themselves: e.g., an IPS may establish a drop</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="337" width="325">rule for ows believed to be malicious. This contrasts</text>
+2 <text font="2" height="15" left="509" textpieces="1" top="355" width="325">with SDNs where all state6is established and manipu-</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="373" width="168">lated by the SDN controller.</text>
+2 <text font="2" height="15" left="495" textpieces="0" top="393" width="339"> The state manipulation required to achieve a desired</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="411" width="325">MB behavior varies signicantly by MB type, and in</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="429" width="325">some cases the objective behind the manipulation: e.g.,</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="447" width="325">scaling a rewall requires an interface for migrating</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="465" width="325">connection records from an existing rewall and in-</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="483" width="325">stalling rules to apply to packets; scaling a load bal-</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="500" width="326">ancer requires transferring a partial list of potential des-</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="518" width="325">tination servers. This is in contrast to SDNs, where</text>
+2 <text font="2" height="15" left="509" textpieces="0" top="536" width="316">state manipulation is restricted to forwarding entries.</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="558" width="359">These factors highlight the importance of carefully harmo-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="576" width="359">nizing a MBs internal manipulation and use of state with</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="594" width="327">the external interfaces provided for state manipulation.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="612" width="344">One extreme point in the design space is to create and</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="630" width="359">modify all MB state externally. With this approach, the bulk</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="648" width="359">of MBs internal logics are reimplemented by a controller</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="666" width="359">application, and MBs become nothing more than dumb</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="684" width="360">packet modiers, akin to SDN switches being dumb packet</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="702" width="359">forwarders. While this very SDN-like approach provides</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="720" width="359">signicant exibility, we believe it removes too much control</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="738" width="357">from the MBs themselves, thereby constraining innovation.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="756" width="344">Instead, we believe that state manipulation interfaces on</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="774" width="359">MBs should be multi-faceted. First, MBs should expose</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="791" width="359">a generic interface, which builds on our view abstraction,</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="809" width="359">for externally accessing and updating diverse pieces of state.</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="827" width="359">Second, MBs should announce internal state changes and be</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="845" width="359">able to request external state changes. We present our ini-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="863" width="359">tial thoughts on these interfaces in this section. Decisions</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="881" width="359">on what the state should contain, when it should be changed,</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="899" width="359">and where it should reside are best addressed by scenario-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="917" width="353">specic control logic (5) which leverages these interfaces.</text>
+2 <text font="3" height="18" left="475" textpieces="0" top="944" width="126">4.1 Operations</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="970" width="344">We propose a broad, generic interface, complementary to</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="988" width="359">our view abstraction, for manipulating the state residing at</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1006" width="359">MBs. A broad interface accommodates MB diversity and</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1024" width="359">sophisticated MB control without introducing undue com-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1042" width="359">plexity. In contrast, narrow, state-specic interfaces, e.g., a</text>
+2 <text font="7" height="9" left="477" textpieces="0" top="1064" width="311">6With the exception of state like ow counters and timers.</text>
+2 <text font="2" height="15" left="454" textpieces="0" top="1110" width="7">4</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="2" height="15" left="135" textpieces="0" top="187" width="249">Figure 2: get operation applied to rewall</text>
+2 <text font="11" height="12" left="148" textpieces="0" top="263" width="222">Source Destination Proto Other Action</text>
+2 <text font="9" height="12" left="148" textpieces="3" top="277" width="218">*        10.20.1.0/24 TCP   *       DROP</text>
+2 <text font="2" height="15" left="133" textpieces="0" top="296" width="254">Figure 3: add operation applied to rewall</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="341" width="359">rewall with one interface for updating rules and another for</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="359" width="359">changing connection records, provide none of these benets.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="377" width="285">We believe three basic operations are sufcient:</text>
+2 <text font="2" height="15" left="100" textpieces="0" top="396" width="339"> get(lter, MB)  Obtains from a MB all chunks of state</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="414" width="325">whose key matches the lter and encodes the state us-</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="432" width="325">ing our view abstraction. Figure 2 shows an example</text>
+2 <text font="4" height="15" left="114" textpieces="0" top="450" width="325">get operation applied to the rewall state depicted in</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="468" width="325">Table 3. One rewall rule applies to all trafc match-</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="486" width="325">ing the lter, so one piece of action state is returned;</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="504" width="291">one matching connection record is also returned.</text>
+2 <text font="2" height="15" left="100" textpieces="0" top="524" width="339"> add(state, MB)  Adds a chunk of state, encoded us-</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="542" width="325">ing our view abstraction, to the MB. Figure 3 shows an</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="559" width="325">example add operation that instantiates a rewall rule</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="577" width="209">to drop trafc for a specic subnet.</text>
+2 <text font="2" height="15" left="100" textpieces="0" top="597" width="342"> remove(lter, MB)  Removes from the MB all chunks</text>
+2 <text font="2" height="15" left="114" textpieces="0" top="615" width="220">of state whose key matches the lter.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="634" width="344">A downside of these operations is their failure to com-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="652" width="359">municate what types of state are available and required at</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="670" width="359">a specic MB. For example, if a get operation applied to a</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="688" width="359">rewall returns no action state, the control logic must know</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="706" width="359">that some state (i.e., a rule) must be added for proper MB</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="724" width="359">operation; in contrast, a NAT will automatically create an</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="742" width="359">address/port mapping for new ows, so state need not pre-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="760" width="359">exist. This issue does not arise in SDNs because the state</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="778" width="359">required is always the same: a matching forwarding entry</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="796" width="198">for each ow traversing a switch.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="814" width="344">An additional downside of this generic interface is the po-</text>
+2 <text font="4" height="15" left="81" textpieces="0" top="832" width="359">tential for invalid manipulations of MB state. For exam-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="850" width="359">ple, an outdated connection record could be obtained from</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="868" width="359">one IPS and added to another; the second IPS will operate</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="885" width="359">under the assumption that the connection record accurately</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="903" width="359">portrays the full connection history, which it does not, allow-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="921" width="359">ing attacks to occur undetected. Methods for detecting such</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="939" width="314">invalid state manipulations requires further research.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="957" width="344">MBs internal logic must be carefully enhanced to support</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="975" width="359">the state manipulation operations proposed above without</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="993" width="359">introducing consistency or performance issues. Add/remove</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1011" width="359">operations may require manipulated, or related, state to be</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1029" width="359">merged, split, or transformed in some other complex way.</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1047" width="359">At a minimum, MBs need additional logic to translate be-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1065" width="359">tween our view abstraction and their own internal structures.</text>
+=============================== COL ===================================
+2 <text font="3" height="18" left="475" textpieces="0" top="82" width="92">4.2 Events</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="108" width="344">We believe that the operations discussed above must be</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="126" width="359">complemented by an event abstraction to guide external state</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="144" width="359">manipulation. This abstraction should expose the two types</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="162" width="359">of interactions that occur between a MBs internal logic and</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="180" width="359">state: (i) the MBs internal logic establishes or manipulates</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="198" width="359">state at the MB; or (ii) the MBs internal logic reaches an</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="216" width="359">operation that requires a piece of state. In SDNs, only the</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="234" width="359">latter form of interaction occurs at network elements and is</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="252" width="116">exposed via events.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="270" width="344">The same diversity issues that plague the abstractions dis-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="288" width="359">cussed thus far also make an event abstraction challenging</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="306" width="359">to design. In SDNs, a few common events are raised by all</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="324" width="359">networking equipment; MBs, in contrast, are highly special-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="341" width="359">ized. We borrow ideas from our view abstraction (3.1) and</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="359" width="359">dene the scope of an event based on protocol header elds.</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="377" width="359">However, the structure used to convey the type, parameters,</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="395" width="308">and semantics of an event requires further research.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="413" width="344">One of the most difcult aspects in designing an event</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="431" width="359">abstraction is exposing the right level of introspection into</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="449" width="359">MBs operations. Several distinct events could be raised</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="467" width="359">during the processing of even a single packet: e.g., received</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="485" width="359">rst packet of ow, created connection record, updated state</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="503" width="359">of TCP connection, etc. Exposing all these events could</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="521" width="359">quickly overwhelm a controller. Moreover, only a subset</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="539" width="359">of these events may be required in any given scenario. At</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="557" width="359">the same time, exposing too few of the events could result</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="575" width="359">in missing a crucial control operation: e.g., not knowing a</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="593" width="359">TCP connection has been reset may result in unnecessary</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="611" width="306">pinholes rules remaining on a downstream rewall.</text>
+2 <text font="5" height="15" left="475" textpieces="0" top="628" width="359">Takeaways. MBs should expose a broad interface for ma-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="646" width="369">nipulating both internally and externally constructed MB state.</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="664" width="359">A few basic operations are sufcient, but MBs must be en-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="682" width="359">hanced to support these operations without introducing con-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="700" width="359">sistency, performance, or state validity problems. Event ab-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="718" width="359">stractions serve as a necessary complement, exposing MBs</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="736" width="359">internal state manipulations and allowing MBs to request</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="754" width="359">missing or updated state. Operations performed in response</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="772" width="359">to events are determined by the control logic, discussed next.</text>
+2 <text font="3" height="18" left="475" textpieces="0" top="806" width="186">5. CONTROL LOGIC</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="832" width="344">Sophisticated control logics can be run atop the abstrac-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="850" width="359">tions and interfaces discussed in the previous sections to re-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="868" width="359">alize rich control over dynamic MB deployments. In this</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="885" width="359">section, we discuss the design of control logics for the rst</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="903" width="359">two scenarios presented in 2.1. These example control log-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="921" width="359">ics illustrate how our proposed mechanisms t together and</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="939" width="359">highlights the challenges that emerge in control logic design.</text>
+2 <text font="5" height="15" left="475" textpieces="0" top="957" width="359">VM Provisioning. When a new VM is provisioned, the con-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="975" width="359">trol logic holds the responsibility for identifying the MBs the</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="993" width="359">VMs trafc should traverse and instantiating the required</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1011" width="359">state on these MBs. This is similar to the common SDN con-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1029" width="359">trol task of identifying switches and installing forwarding</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1047" width="359">state to establish a path through the network. However, the</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="1065" width="359">task is more complex because MBs capabilities and state are</text>
+2 <text font="2" height="15" left="454" textpieces="0" top="1110" width="7">5</text>
+=============================== PAGE ===================================
+=============================== COL ===================================
+2 <text font="2" height="15" left="81" textpieces="0" top="84" width="359">not uniform. The control logic requires an augmented net-</text>
+2 <text font="4" height="15" left="81" textpieces="0" top="102" width="359">work graph, akin to those maintained by SDNs, with special</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="120" width="359">MB nodes that identify each MBs capabilities (e.g., using a</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="138" width="359">MB-specic modeling language [6]) and current state. The</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="156" width="359">control logic must search this graph to identify MBs pro-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="174" width="359">viding the necessary functionality, and select specic MBs</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="192" width="359">based on location (e.g., select a rewall close to the server</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="210" width="359">to minimize the potential for insider attacks), the presence</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="228" width="359">of existing state (e.g., use the load balancer already used by</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="246" width="191">related VMs), and other factors.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="264" width="344">Appropriate action state must be established at each of</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="282" width="359">the selected MBs to achieve the security and performance an</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="300" width="359">enterprise requires. A get operation can be used to determine</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="317" width="359">if the required state already exists, e.g., because a similar</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="335" width="359">VM is already using the MB. New state can be instantiated,</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="353" width="359">when necessary, by dening a transformation function using</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="371" width="359">the view abstraction and installing the state using the add</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="389" width="359">operation. It is imperative that the state added to each MB</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="407" width="359">considers the modications made by other MBs the VMs</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="425" width="359">trafc passes through: e.g., if the VMs trafc passes through</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="443" width="359">a rewall and then a load balancer, the state added to the</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="461" width="359">rewall must contain the IP address of the load balancer, not</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="479" width="359">the IP of the VM. In some cases, the action state may not</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="497" width="359">be known a priori: e.g., if outbound application ows pass</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="515" width="359">through a NAT followed by a rewall, the necessary rewall</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="533" width="359">pinholes are dependent on the port mapping selected by the</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="551" width="359">NAT. In this case, the control logic can monitor for events</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="569" width="359">raised by the NAT, e.g., indicating a new port mapping has</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="587" width="359">been established, and subsequently add the corresponding</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="605" width="118">state to the rewall.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="622" width="344">Finally, to ensure trafc passes through the chosen MB</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="640" width="359">sequence, the control logic (or an SDN controller) must in-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="658" width="359">stall the appropriate forwarding rules in network switches.</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="676" width="359">Again, careful attention must be paid to the manipulations</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="694" width="315">MBs perform to ensure the right trafc is forwarded.</text>
+2 <text font="5" height="15" left="81" textpieces="0" top="712" width="359">MB Scaling. The control logic for MB scaling is more com-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="730" width="359">plex because of the need to migrate state between MBs.</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="748" width="359">When a MB is scaled down, all supporting state for active</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="766" width="359">ows traversing that MB (MB E) must be moved to the re-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="784" width="359">maining MBs (MB R) using get and add operations. The</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="802" width="359">ows cannot be switched to traverse MB R until the state is</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="820" width="359">moved. Care must be taken to ensure consistency: e.g., if a</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="838" width="359">new packet for an active ow arrives (signaled by an event)</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="855" width="359">at MB E after the ows state has been moved, the packet</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="873" width="359">must either be forwarded to MB R or the state from MB E</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="891" width="131">must be moved again.</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="909" width="344">Similar design patterns and challenges arise in control ap-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="927" width="242">plications developed for other scenarios.</text>
+2 <text font="3" height="18" left="81" textpieces="1" top="967" width="179">6.  RELATED WORK</text>
+2 <text font="2" height="15" left="96" textpieces="0" top="993" width="344">Prior works have sought to provide specic forms of con-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1011" width="359">trol over MBs. Sekar et. al present optimization formula-</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1029" width="359">tions for dividing intrusion detection responsibilities based</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1047" width="373">on trafc paths and IPS processing capabilities [10]. PLayer [7]</text>
+2 <text font="2" height="15" left="81" textpieces="0" top="1065" width="359">passes trafc through specic MBs based on high-level poli-</text>
+=============================== COL ===================================
+2 <text font="2" height="15" left="475" textpieces="0" top="84" width="359">cies. Both of these could be implemented as specic con-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="102" width="359">trol logics in our framework. SIMCO [1], a protocol for dy-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="120" width="359">namic conguration of NATs and rewalls, has goals similar</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="138" width="236">to ours but only offers minimal control.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="156" width="359">New MB deployment models, e.g. CoMB [9] and ETTM [4],</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="174" width="359">are orthogonal to our frameworks design, but unied control</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="192" width="215">enables them to be better leveraged.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="210" width="352">Our framework is grounded in the principles of SDN, which</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="228" width="359">has a rich body of work ranging from specic control frame-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="246" width="233">works [2, 8] to high-level concepts [3].</text>
+2 <text font="3" height="18" left="475" textpieces="0" top="279" width="153">7. CONCLUSION</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="306" width="344">Enriching enterprise application deployments in sophisti-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="324" width="359">cated ways requires taking full advantage of new MB de-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="341" width="359">ployment models and diverse MB functionality. Current ad</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="359" width="359">hoc mechanisms for MB control, including by-hand tweak-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="377" width="359">ing, are clumsy and unsuitable for this task. Instead, we</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="395" width="359">have advocated for the design of a software-dened MB net-</text>
+2 <text font="4" height="15" left="475" textpieces="0" top="413" width="359">working framework capable of supporting scenarios like MB</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="431" width="359">scaling and live network migration. We have examined in</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="449" width="359">depth the major challenges in moving towards this control</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="467" width="364">modelrepresenting, manipulating, and knowledgeably con-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="485" width="359">trolling MB stateand presented our initial thoughts on the</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="503" width="355">appropriate abstraction and interfaces to help address them.</text>
+2 <text font="2" height="15" left="490" textpieces="0" top="521" width="344">Moving closer towards our goal of exible, unied control</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="539" width="359">requires further research into many additional issues, such</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="557" width="359">as: representing the state associated with a broader range of</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="575" width="359">MBs using well dened primitives, standardizing the rep-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="593" width="359">resentation of MB events, facilitating deep control of MB</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="611" width="359">functionality, preventing invalid manipulations of MB state</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="628" width="359">and ensuring consistency, augmenting MBs internal logic to</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="646" width="359">facilitate adequate manipulation of shared state, and design-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="664" width="359">ing control logics for a wide range of scenarios. More impor-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="682" width="359">tantly, we believe that continued innovation in MB function-</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="700" width="359">ality and operation hinges on the development of SDN-like</text>
+2 <text font="2" height="15" left="475" textpieces="0" top="718" width="203">frameworks for MB management.</text>
+2 <text font="3" height="18" left="475" textpieces="0" top="752" width="152">8. REFERENCES</text>
+2 <text font="6" height="10" left="480" textpieces="0" top="770" width="347">[1] Rfc 4540: Necs simple middlebox conguration (simco) protocol version 3.0.</text>
+2 <text font="6" height="11" left="499" textpieces="0" top="781" width="217">http://tools.ietf.org/html/rfc4540.</text>
+2 <text font="6" height="10" left="480" textpieces="0" top="794" width="335">[2] M. Casado, M. J. Freedman, J. Pettit, J. Luo, N. McKeown, and S. Shenker.</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="805" width="258">Ethane: taking control of the enterprise. In SIGCOMM, 2007.</text>
+2 <text font="6" height="10" left="480" textpieces="0" top="817" width="326">[3] M. Casado, T. Koponen, R. Ramanathan, and S. Shenker. Virtualizing the</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="829" width="191">network forwarding plane. In PRESTO, 2010.</text>
+2 <text font="6" height="10" left="480" textpieces="0" top="841" width="290">[4] C. Dixon, H. Uppal, V. Brajkovic, D. Brandon, T. Anderson, and</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="853" width="324">A. Krishnamurthy. Ettm: A scalable fault tolerant network manager. In NSDI,</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="865" width="23">2011.</text>
+2 <text font="6" height="10" left="480" textpieces="0" top="877" width="338">[5] A. Gember, R. Grandl, A. Anand, T. Benson, and A. Akella. Stratos: Virtual</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="889" width="314">middleboxes as rst-class entities. Technical Report TR1771, University of</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="901" width="113">Wisconsin-Madison, 2012.</text>
+2 <text font="6" height="10" left="480" textpieces="0" top="913" width="312">[6] D. Joseph and I. Stoica. Modeling middleboxes. IEEE Network, 2008.</text>
+2 <text font="6" height="10" left="480" textpieces="0" top="925" width="336">[7] D. A. Joseph, A. Tavakoli, and I. Stoica. A policy-aware switching layer for</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="937" width="143">data centers. In SIGCOMM, 2008.</text>
+2 <text font="6" height="10" left="480" textpieces="0" top="949" width="314">[8] N. McKeown, T. Anderson, H. Balakrishnan, G. Parulkar, L. Peterson,</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="961" width="304">J. Rexford, S. Shenker, and J. Turner. OpenFlow: Enabling innovation in</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="973" width="230">campus networks. ACM SIGCOMM CCR, 38(2), 2008.</text>
+2 <text font="6" height="10" left="480" textpieces="0" top="985" width="296">[9] V. Sekar, N. Egi, S. Ratnasamy, M. Reiter, and G. Shi. Design and</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="997" width="308">implementation of a consolidated middlebox architecture. In NSDI, 2012.</text>
+2 <text font="6" height="10" left="475" textpieces="0" top="1009" width="323">[10] V. Sekar, R. Krishnaswamy, A. Gupta, and M. K. Reiter. Network-wide</text>
+2 <text font="6" height="10" left="499" textpieces="0" top="1021" width="325">deployment of intrusion detection and prevention systems. In CoNEXT, 2010.</text>
+2 <text font="2" height="15" left="454" textpieces="0" top="1110" width="7">6</text>

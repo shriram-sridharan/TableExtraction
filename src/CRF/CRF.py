@@ -71,9 +71,9 @@ class CRF:
             self.learningrate = Constants.INITIAL_LEARNING_RATE * math.exp(-(float(r)/Constants.CRF_NUM_EPOCHS)) 
             print "Iteration " + str(r) + " Learning Rate " + str(self.learningrate) + " Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
             
-        for r in sparseerrorlist:
-            for x in r:
-                print x
+#        for r in sparseerrorlist:
+#            for x in r:
+#                print x
         
            
     def predict(self, col, fontdict):

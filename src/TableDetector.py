@@ -163,23 +163,23 @@ def TestUsingSVM(svminstance, predictxmlname, location):
             print row[1].text + " " + str(row[0]) 
                         
 if __name__ == '__main__':
-    xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14"]
+    xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"]
     preprocessor = Processors.PreProcessor.PreProcessor()
     postprocessor = Processors.PostProcessor.PostProcessor()
     trainer = Utils.Trainer.Trainer()
     
-    #CreateHtmls(xmls, preprocessor, trainer)
+    xmlloc = "../TrainingData/xmls/cs/"
+    #CreateHtmls(xmls, preprocessor, trainer, xmlloc)
    
-    predictxmlname = '1'
     location = "../TrainingData/xmls/cs/"
     annotatedxmlloc = "../TrainingData/annotated/"
+    svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
+    #TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
+    #TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
     
-    TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
-    #TestUsingCRF(predictxmlname, location)
-       
-#    svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
-#    TestUsingSVM(svminstance, predictxmlname, location)
-#  
-#    TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
-#    TestUsingLR(predictxmlname, location)
+    predictxmlname = '1'
+    location = "../TrainingData/xmls/cs/"
+    TestUsingSVM(svminstance, predictxmlname, location)
+    TestUsingCRF(predictxmlname, location)
+    #TestUsingLR(predictxmlname, location)
     

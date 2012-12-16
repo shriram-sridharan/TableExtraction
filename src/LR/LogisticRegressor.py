@@ -22,6 +22,9 @@ class LogisticRegressor:
                 for col in page:
                     if(len(col) < 2):
                         continue
+                    for tup in col:
+                        if(tup[1].text is None or tup[1].text.strip() == ''):
+                            col.remove(tup)
                     trainfeatures = list()
                     for i in xrange(0, len(col)):
                         trainfeatures.append(self.Features.domainfindfeatureFunction(i, col, annotatedxml[1]))
