@@ -19,7 +19,7 @@ class Constants:
     
     ###################### TRAINING ALGORITHM #########################
     CRF_NUM_EPOCHS = 120
-    INITIAL_LEARNING_RATE = 0.2
+    INITIAL_LEARNING_RATE = 0.3
     
     LR_EPOCHS = 100
     LR_LEARNING_RATE = 0.2

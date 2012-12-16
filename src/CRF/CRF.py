@@ -46,7 +46,7 @@ class CRF:
     
     def train(self, collist):
         for _ in xrange(len(collist[0][1][0])):
-            self.trainedweights.append(random.uniform(-0.001, 0.001))
+            self.trainedweights.append(random.uniform(-0.1, 0.1))
             self.differenceweights.append(0.0)
             
         for r in xrange(0,Constants.CRF_NUM_EPOCHS):

@@ -98,7 +98,7 @@ def TestUsingLR(predictxmlname, location):
     for table in alltables:
         print "============================================="
         for row in table:
-            print row[1].text + " " + str(row[0])   
+            print row[1].text.encode('ascii','ignore') + " " + str(row[0])   
 def CreateHtmls(xmls, preprocessor, trainer, xmlloc):
     for xmlname in xmls:
         try:
@@ -133,7 +133,7 @@ def TestUsingCRF(predictxmlname, location):
     for table in alltables:
         print "============================================="
         for row in table:
-            print row[1].text + " " + str(row[0]) 
+            print row[1].text.encode('ascii','ignore') + " " + str(row[0]) 
 
 def TestUsingSVM(svminstance, predictxmlname, location):
     fontdict = preprocessor.getFontDictionary(ET.parse(location + predictxmlname + ".xml"))                  
@@ -160,7 +160,7 @@ def TestUsingSVM(svminstance, predictxmlname, location):
     for table in alltables:
         print "============================================="
         for row in table:
-            print row[1].text + " " + str(row[0]) 
+            print row[1].text.encode('ascii','ignore') + " " + str(row[0]) 
                         
 if __name__ == '__main__':
     xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"]
@@ -177,9 +177,13 @@ if __name__ == '__main__':
     #TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
     #TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
     
-    predictxmlname = '1'
+    predictxmlname = '15'
     location = "../TrainingData/xmls/cs/"
     TestUsingSVM(svminstance, predictxmlname, location)
+    
+    print "******************************* CRF *************************************"
     TestUsingCRF(predictxmlname, location)
-    #TestUsingLR(predictxmlname, location)
+    
+    print "******************************* LR *************************************"
+    TestUsingLR(predictxmlname, location)
     

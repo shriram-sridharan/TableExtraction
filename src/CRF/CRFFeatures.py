@@ -7,6 +7,7 @@ from Utils.SparseType import SparseType
 from Utils.Constants import Constants
 from Utils.Utilities import Utilities
 import sys
+
 class CRFFeatures:
     
     def orthographicfeatures(self, featurelist, col, prevtag, curtag, i, fontdict):
