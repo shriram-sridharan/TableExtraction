@@ -52,8 +52,25 @@ Other Features (Only for CRF):
 
 3. Classifiers:
 Conditional Random Field (CRF):
-	We train a CRF using the algorithm specified by Charles Elkan in [6]. Also, for the weight learning we use a Collins Perceptron with average weights 
+	We implemented CRF using the algorithm specified by Charles Elkan in [6]. For the weight learning we use Stochastic Gradient Descent with the weight update rule specified by the Collins Perceptron. However, we use weights averaged over a epoch instead of actual weights to prevent the magnitude of the weights from getting a value too high. 
 
+The weight update rule is as follows:
+	wj := wj + λ(Fj (x, y) − Fj (x, y'))/N
+	wj -> weight of feature j
+	λ -> Learning rate 
+	Fj (x, y) -> (Actual) Feature function for that feature j for label y
+	Fj (x, y') -> (Predicted) Feature function for that feature j for label y'
+	N -> Total number of training instances
+
+We also used a decayed learning rate for quicker convergence of weight learning. The decaying function is given by
+	LearningRate (at a particular epoch) = StartLearningRate * exp(-Epochcount/TotalNumberofEpochs);
+
+Support Vector Machine (SVM):
+	The PyML [7] library was used for SVMs. For this classification problem, we used an SVM with a Gaussian Kernel of degree 5 with a C value of 20.
+The hyperparameters were chosen by trial and error and even this seemed to give us a better classification accuracy. In future work, we plan to do a more formal search of the hyperparameters using Grid Search.
+
+Logistic Regressor (LR):
+	We implemented a LR modeling it as a single layer neural network with sigmoid output using Stochastic gradient descent. Decayed learning rate was used for training. The sigmoid was thresholded to 0.5 for prediction. Anything above 0.5 is predicted as TABLELINE.
 
 4. Post Processing:
 	After the classifier identifies the candidate TABLELINEs, we postprocess it so that we can remove false positives and include those lines which are false negatives (ie lines which were TABLELINE but were classified as NONTABLELINE). We try to increase the recall of the table lines as much as possible as the NONTABLELINEs will however be removed (if irrelevant) in the table decomposition step. We adjust various thresholds with this premise in mind. The postprocessing algorithm is as follows:
