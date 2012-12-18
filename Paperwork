@@ -10,28 +10,86 @@ How the remaining of the paper is organised?
 No publicly available data set makes this problem harder. 
 No Open source working software.
 
-Related Work
-papers: 
-pdf2table: Purely Heuristics based
-Expects user to specify number of columns in a page. we have included it in preprocessing
+Architecture of Table Extractor: [A diagramatic representation]
+Fig 1 shows the architecture of our table extraction system. As can be inferred from Fig 1, our table extraction system is primarily divided into 2 major components: Table Detection and Table Decomposition. The Table Detection component detects the boundaries of the tables in the pdf documents and passes the detected tables to the Table Decomposition component. The Table Decomposition component processes the detected tables and identifies header rows/columns and data rows. We describe each component in detail in the following sections.
 
-Table Extraction Using CRF:
-	For data extraction from a particular website
-	Doing for HTML Tables.
-	Based on structure of the tables in the documents Eg: expects dashes to be present separating the tables etc
+Table Detection:
+	Liu et al.[4] observed that in most of the pdf documents, table lines followed a particular structure and are sparse. According to them, a line is sparse if the minimum space gap between pair of consecutive words is larger than a threshold (or) length of the line is much shorter than a threshold. We too observed the same behavior in the documents we examined and hence as proposed in [4], we use this sparse line property of table lines for table detection. In [4], the problem was posed as a sequence labeling problem where they labeled each line as either NONSPARSE or one of the different kind of SPARSE lines. We however, pose the problem as a classic classification problem where each line is classified as either a candidate TABLE or NONTABLE line. 
+We now explain the different modules in the table detection component.
 
-Table Seer 
-	Table search engine 
-	Futurework ??? Can think of saying that we plan to build an information extraction system and not only a search engine
-	Heuristic method (Page box cutting method) Eg: Considers only that the table captions are above the table
-	May be below.. may not be there
-	Fixed font size for all the table information
+1. Pre-Processing:
+	We use pdftohtml [5] for converting the input pdf document to a xml file. The xml output of pdftohtml [5] consists of a set of page tags with each page tag consisting of a set of text tags and fontspec tags. The text tags consists of attributes like top, left, width, height and font. The fontspec tag consists of attributes like id, size, family and color. However, pdftohtml does not convert image based tables. It also does not handle correctly column information (ie there is no column tags) or subscript/superscript information. In these cases, it splits the same sentence into multiple text tags and order of the text tags is not maintained. To overcome these limitations of [5], we had to do preprocess the xml documents based on certain heuristics. The pseudocode of our preprocessing algorithm is as follows:
+	for each pagetag in xml file:
+		combinesubscripts and superscripts based on top/height and left/width merge information
+		combine text pieces based on top information[Add 'textpieces' attribute for each texttag in xml]
+		find columns in page based on sharp difference in height between previous and current tag
 
-Identifying table boundaries:
-	We use the concepts specified in this paper and we validate the results specified in this paper.
-	They tried CRF and SVM linear. But we find SVM with a gaussian kernel perfoms better.
-	Also, some post processing with a lot of knobs performs really well
+The result of the preprocessing stage is a list of all page tags each containing a list of all preprocessed text tags (each containing an extra 'textpieces' attribute)
 
-Table Header Detection: [To be filled by ji]
-	
+2. Feature Sets:
+	We used a wide variety of featuers as suggested in [4]. However, we also introduced some new features by inspecting the structure of different tables in pdf documents. The features can be broadly divided into orthographic, lexical, layout and other features. We used the same feature set to train different classifiers like CRF, SVM and Logistic Regressor for our experiments, except that only CRF had the previous and current tag information for each feature. We used forward selection on a set of features and selected those features that provided us better classification accuracy. We describe each feature in detail below.
+
+Orthographic Features:
+1. Font Size - Same font size between previous and current line.
+2. Begins With Captial Letter - First word begins with a capital letter in current line.
+
+Lexical Features:
+1. Keyword Presence - Presence of 'Table' keyword followed by a number Eg: Table 1, Table 3.2
+
+Layout Features:
+1. Textpieces - Using the 'textpieces' attribute added in the proprocessing stage to check if it is greater than a threshold
+2. No. of words in line - If it is equal to 1. [This feature was useful because pdftohtml [5] created a separate text tag with only one word for certain table lines]
+3. Height Difference (Previous) - Difference in height between previous line and current line 
+4. Height Difference (Next) - Difference in height between next line and current line
+5. Largest Space - If the largest space between any pair of consecutive words in the current line is greater than a threshold.
+6. Same Space - If the largest space is equal to the smallest space between any pair of consecutive words in the current line.
+7. No. of words in line -  If it is greater than a threshold.
+8. No. of words with the largest space difference - If the number of the words with largest space difference (Layout Feature (5)) is greater than a threshold.
+
+Other Features (Only for CRF):
+1. Previous and current tag are TABLELINE
+2. Previous and current tag are NONTABLELINE
+
+3. Classifiers:
+Conditional Random Field (CRF):
+	We train a CRF using the algorithm specified by Charles Elkan in [6]. Also, for the weight learning we use a Collins Perceptron with average weights 
+
+
+4. Post Processing:
+	After the classifier identifies the candidate TABLELINEs, we postprocess it so that we can remove false positives and include those lines which are false negatives (ie lines which were TABLELINE but were classified as NONTABLELINE). We try to increase the recall of the table lines as much as possible as the NONTABLELINEs will however be removed (if irrelevant) in the table decomposition step. We adjust various thresholds with this premise in mind. The postprocessing algorithm is as follows:
+	output = list()
+	for all lines:
+		if line begins with a keyword*
+			data = FindPossibleTableStructureAfterThisLine(curindex)
+			if data is not null:
+				add table to output
+				continue
+		if line is TABLELINE
+			data = FindPossibleTableStructureAfterThisLine(curindex)
+			if data is not null:
+				keywordloc = IsTableKeywordAfterThisLine(curindex)
+				if keywordloc is not -1:
+					data = FindPossibleTableStructureBeforeThisLine(curindex)
+					if data is not null:
+						add table to output
+	return output
+
+*As of now, we only use table followed by a number (Eg: 'Table 1', 'Table 3.2') as our keyword. We plan to add more keywords like 'Figure' in future work.
+
+The subroutine FindPossibleTableStructureAfterThisLine is as follows:
+	data = list()
+	sparseline = find next sparse line after current line
+	if difference between current line no and sparseline's line no > threshold1
+		return
+	append the lines between current line and next sparseline to data
+	while (difference between current line no and next sparse line no < threshold2)
+		append lines to data
+	return data
+
+The subroutine FindPossibleTableStructureBeforeThisLine is similar to the FindPossibleTableStructureAfterThisLine subroutine except that the scan is carried bottom-up instead of top-down.
+
+
+
+
+
 

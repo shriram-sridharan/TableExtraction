@@ -26,22 +26,26 @@ Table Keyword presence Eg: 8.pdf
 SVM Parameters finding -> Grid Search
 
 Abstract ================= [very important]
-Introduction ================== [talk in terms of time to train and test for CRF??]
-Related Works: 
-Approach: Table Detection/Table structure decomposition/ Index or search
-ML Background: SVM/CRF/LR.. CRF how to do inference and training
-Architecture of our Table Extraction system [Talk about work done in Preprocessing too]
+1 Introduction ================== [talk in terms of time to train and test for CRF??]
+2 Related Works ==================== [posing the problem as classification between candidate table/non table lines]
+3 ML Background: SVM/CRF/LR.. CRF how to do inference and training
+4 Architecture of our Table Extraction system [Talk about work done in Preprocessing too]
 	say about pdftohtml. what output it gives.
-Table Detection: 
-	Pre processing/ CRF(Collins perceptron, decayed learning Rate), pyml, LR.
-	Feature Selection
-	PostProcessing
+        fig comes here
+5 Table Detection: 
+	Pre processing ========================================[Should I put it as an algorithm in latex?????]
+	Feature Set
+	CRF(Collins perceptron, decayed learning Rate), pyml, LR
+	PostProcessing ========================================[Should I put it as an algorithm in latex?????]
 
-Table Decomposition:
+6 Table Decomposition:
 	?????????????????
-Experiments:
-Table Detection:
-	Annotation of pdf files.
+7 Experiments and Result analysis: [Your experiments should be motivated by one or more explicitly stated hypotheses or questions]
+7.1 Table Detection:
+Experiments
+We train a CRF, SVM with a Gaussian Kernel and a Logistic Regressor for this classification task and we evaluate their performance. 
+testing whether sequence matters
+	Pre processing / Annotation of pdf files.
 	for all 3 methods:
 		Sparse Line PR
 		n fold CV with changing the no of epochs and learning rate
@@ -50,14 +54,15 @@ Table Detection:
 		Area under the ROC Curve 
 	Sample screen shots
 	Discussion: SVM performed better
-
-Code Open Source:
+7.2 =======
+8 Code Open Source:
 Location of project on Github. (change source code so that can be executed from command line)
 Project requisites
 How to run the code?
 
-Future Work
-More features
+9 Future Work
+Learnt that heuristics with ML algorithm performs really well but individually both of them perform poorly.
+feature selection is most important and so More features
 Evaluation with a real time system
 Schema matching and Information Extraction
 
