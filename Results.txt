@@ -25,27 +25,31 @@ Highly dependent on Table keyword location Eg: 7.pdf
 Table Keyword presence Eg: 8.pdf
 SVM Parameters finding -> Grid Search
 
-Abstract
-Introduction
-Related Works: pdf2table, tableseer
+Abstract ================= [very important]
+Introduction ================== [talk in terms of time to train and test for CRF??]
+Related Works: 
 Approach: Table Detection/Table structure decomposition/ Index or search
-ML Background: SVM/CRF/LR
+ML Background: SVM/CRF/LR.. CRF how to do inference and training
 Architecture of our Table Extraction system [Talk about work done in Preprocessing too]
+	say about pdftohtml. what output it gives.
 Table Detection: 
-Pre processing/ CRF(Collins perceptron, decayed learning Rate), pyml, LR.
-Feature Selection
-PostProcessing
-------
+	Pre processing/ CRF(Collins perceptron, decayed learning Rate), pyml, LR.
+	Feature Selection
+	PostProcessing
+
+Table Decomposition:
+	?????????????????
 Experiments:
-Annotation of pdf files.
-for all 3 methods:
-	Sparse Line PR
-	n fold CV with changing the no of epochs and learning rate
-	Confusion Matrix
-	ROC Curve
-	Area under the ROC Curve 
-Sample screen shots
-Discussion: SVM performed better
+Table Detection:
+	Annotation of pdf files.
+	for all 3 methods:
+		Sparse Line PR
+		n fold CV with changing the no of epochs and learning rate
+		Confusion Matrix
+		ROC Curve
+		Area under the ROC Curve 
+	Sample screen shots
+	Discussion: SVM performed better
 
 Code Open Source:
 Location of project on Github. (change source code so that can be executed from command line)

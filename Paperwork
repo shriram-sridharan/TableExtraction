@@ -7,11 +7,19 @@ Why concentrating on pdf documents?
 What does experimental results show you?
 How the remaining of the paper is organised?
 
+No publicly available data set makes this problem harder. 
+No Open source working software.
+
 Related Work
 papers: 
+pdf2table: Purely Heuristics based
+Expects user to specify number of columns in a page. we have included it in preprocessing
+
 Table Extraction Using CRF:
+	For data extraction from a particular website
 	Doing for HTML Tables.
-	Based on structure of the tables in the documents
+	Based on structure of the tables in the documents Eg: expects dashes to be present separating the tables etc
+
 Table Seer 
 	Table search engine 
 	Futurework ??? Can think of saying that we plan to build an information extraction system and not only a search engine
@@ -19,12 +27,11 @@ Table Seer
 	May be below.. may not be there
 	Fixed font size for all the table information
 
-Table Header Detection: [To be filled by ji]
-
-
-
-
 Identifying table boundaries:
 	We use the concepts specified in this paper and we validate the results specified in this paper.
 	They tried CRF and SVM linear. But we find SVM with a gaussian kernel perfoms better.
 	Also, some post processing with a lot of knobs performs really well
+
+Table Header Detection: [To be filled by ji]
+	
+
