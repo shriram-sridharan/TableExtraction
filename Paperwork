@@ -1,10 +1,30 @@
 Points:
 Introduction
+Why we chose this problem?
+	Error Analysis done on an existing IE system (GDD) showed us that there will be 5.6% improvement in PR.
+Why concentrating on pdf documents?
+	papers are published mostly as pdf docs.
+What does experimental results show you?
+How the remaining of the paper is organised?
 
 Related Work
 papers: 
-1. Table Seer 
-Table search engine 
-Futurework ??? Can think of saying that we plan to build an information extraction system and not only a search engine
+Table Extraction Using CRF:
+	Doing for HTML Tables.
+	Based on structure of the tables in the documents
+Table Seer 
+	Table search engine 
+	Futurework ??? Can think of saying that we plan to build an information extraction system and not only a search engine
+	Heuristic method (Page box cutting method) Eg: Considers only that the table captions are above the table
+	May be below.. may not be there
+	Fixed font size for all the table information
+
+Table Header Detection: [To be filled by ji]
 
 
+
+
+Identifying table boundaries:
+	We use the concepts specified in this paper and we validate the results specified in this paper.
+	They tried CRF and SVM linear. But we find SVM with a gaussian kernel perfoms better.
+	Also, some post processing with a lot of knobs performs really well

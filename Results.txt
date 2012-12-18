@@ -30,6 +30,7 @@ Introduction
 Related Works: pdf2table, tableseer
 Approach: Table Detection/Table structure decomposition/ Index or search
 ML Background: SVM/CRF/LR
+Architecture of our Table Extraction system [Talk about work done in Preprocessing too]
 Table Detection: 
 Pre processing/ CRF(Collins perceptron, decayed learning Rate), pyml, LR.
 Feature Selection
