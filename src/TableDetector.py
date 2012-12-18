@@ -186,8 +186,8 @@ if __name__ == '__main__':
     #TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
     #TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
     
-    predictxmlname = '4'
-    location = "../TrainingData/xmls/cs/"
+    predictxmlname = '1'
+    location = "../TestData/xmls/"
     TestUsingSVM(svminstance, predictxmlname, location)
     
     print "******************************* CRF *************************************"

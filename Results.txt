@@ -12,7 +12,6 @@ Tried out:
 Restricting to Table Keyword as of now
 Decaying the learning rate [as a single learning rate did not work for multiple training examples]
 
-
 To Show output:
 Graphs showing accuracy estimates
 Accuracy Estimates using N% Confidence intervals
@@ -25,3 +24,45 @@ SVM works equally well or better than CRF in all the cases. Initial assumption w
 Highly dependent on Table keyword location Eg: 7.pdf
 Table Keyword presence Eg: 8.pdf
 SVM Parameters finding -> Grid Search
+
+Abstract
+Introduction
+Related Works: pdf2table, tableseer
+Approach: Table Detection/Table structure decomposition/ Index or search
+ML Background: SVM/CRF/LR
+Table Detection: 
+Pre processing/ CRF(Collins perceptron, decayed learning Rate), pyml, LR.
+Feature Selection
+PostProcessing
+------
+Experiments:
+Annotation of pdf files.
+for all 3 methods:
+	Sparse Line PR
+	n fold CV with changing the no of epochs and learning rate
+	Confusion Matrix
+	ROC Curve
+	Area under the ROC Curve 
+Sample screen shots
+Discussion: SVM performed better
+
+Code Open Source:
+Location of project on Github. (change source code so that can be executed from command line)
+Project requisites
+How to run the code?
+
+Future Work
+More features
+Evaluation with a real time system
+Schema matching and Information Extraction
+
+
+
+
+
+
+
+
+
+
+
