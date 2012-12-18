@@ -28,7 +28,7 @@ SVM Parameters finding -> Grid Search
 Abstract ================= [very important]
 1 Introduction ================== [talk in terms of time to train and test for CRF??]
 2 Related Works ==================== [posing the problem as classification between candidate table/non table lines]
-3 ML Background: SVM/CRF/LR.. CRF how to do inference and training
+3 ML Background: CRF.. CRF how to do inference and training
 4 Architecture of our Table Extraction system [Talk about work done in Preprocessing too]
 	say about pdftohtml. what output it gives.
         fig comes here
