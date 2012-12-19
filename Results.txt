@@ -25,15 +25,15 @@ Highly dependent on Table keyword location Eg: 7.pdf
 Table Keyword presence Eg: 8.pdf
 SVM Parameters finding -> Grid Search
 
-Abstract ================= [very important]
+Abstract ================= [very important. Be precise]
 1 Introduction ================== [talk in terms of time to train and test for CRF??]
-2 Related Works ==================== [posing the problem as classification between candidate table/non table lines]
+2 Related Works ==================== 
 3 ML Background: CRF.. CRF how to do inference and training =================== [formula in latex???]
-4 Architecture of our Table Extraction system [Talk about work done in Preprocessing too]
+4 Architecture of our Table Extraction system 
 	say about pdftohtml. what output it gives.
         fig comes here
 5 Table Detection: 
-	Pre processing ========================================[Should I put it as an algorithm in latex?????]
+	Pre processing ========================================[Should I put it as an algorithm in latex?????] (Algorithm 1)
 	Feature Set
 	CRF(Collins perceptron, decayed learning Rate), pyml, LR
 	PostProcessing ========================================[Should I put it as an algorithm in latex?????]
@@ -70,7 +70,10 @@ Schema matching and Information Extraction
 Charles Elkan in [6].
 pyml [7]
 
-
+Work and reminder:
+1. Architecture diagram
+2. pdftohtml not a reference but in the footer
+3. Snapshot of training
 
 
 

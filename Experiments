@@ -1,0 +1,12 @@
+Experiments and Results analysis:
+In this section, we demonstrate the experiments we ran for table detection and table decomposition and analyse the results.
+
+Table Detection
+As described in Section 4 in this paper, we posed the table detection problem as a classification problem where every line is classified as either a TABLELINE or NONTABLELINE. We trained models using 3 different Machine Learning techniques - CRF, SVM (Gaussian kernel, degree 5) and LR and evaluated their performance.
+
+Data Set:
+One of the biggest challenges faced was that there was no off-the-shelf annotated data set available for this problem. So, we manually annotated our dataset. We took 15 pdf files(containing 65 tables in total) taken at random from the publications page of CS faculty from the University of Wisconsin, Madison. Each pdf file was first converted to xml using pdftohtml. They were then passed through the preprocessing algorithm as described in Algorithm 1. Each xml preprocessed was converted to a HTML file which was hosted on a web server. The HTML file was designed in a way to allow the user to demarcate the table boundary. When the user clicked on the 'Submit' button on the page, a CGI script written in python read the HTML post data and wrote the annotated data to a file. Though, annotations for all these 15 pdfs were done by us, the main reason to create HTML files and publish them in a web server is two fold: (1)It is easy to annotate the training data on a web page for the format that is required by our system, (2) For annotating a large number of pdf documents (going forward), we can easily crowd source the effort. Crowd sourcing drastically reduces the time required to annotate data and is very cheap. There are, of course, many challenges associated with crowd sourcing and tackling them is beyond the scope of this paper. 
+
+
+
+

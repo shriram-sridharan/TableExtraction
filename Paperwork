@@ -50,7 +50,7 @@ Other Features (Only for CRF):
 1. Previous and current tag are TABLELINE
 2. Previous and current tag are NONTABLELINE
 
-3. Classifiers:
+3. Machine Learning Techniques:
 Conditional Random Field (CRF):
 	We implemented CRF using the algorithm specified by Charles Elkan in [6]. For the weight learning we use Stochastic Gradient Descent with the weight update rule specified by the Collins Perceptron. However, we use weights averaged over a epoch instead of actual weights to prevent the magnitude of the weights from getting a value too high. 
 

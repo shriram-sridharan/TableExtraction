@@ -19,13 +19,13 @@ class PostProcessor:
     
     def getnextsparse(self, currpredictedindex, predicted):
         for r in xrange(currpredictedindex+1, len(predicted)):
-            if(predicted[r][0] == SparseType.OTHERSPARSE):
+            if(predicted[r][0] == SparseType.TABLELINE):
                 return r
         return -1
     
     def getprevioussparse(self, currpredictedindex, predicted):
         for r in reversed(xrange(0, currpredictedindex)):
-            if(predicted[r][0] == SparseType.OTHERSPARSE):
+            if(predicted[r][0] == SparseType.TABLELINE):
                 return r
         return -1
 
@@ -75,7 +75,7 @@ class PostProcessor:
             currentlineno = predicted[currpredictedindex][2]
             prevlineno = predicted[self.getprevioussparse(currpredictedindex, predicted)][2]
             if(currpredictedindex > 2 and math.fabs(currentlineno - prevlineno) >  2):
-                if(predicted[currpredictedindex][0] == SparseType.OTHERSPARSE):
+                if(predicted[currpredictedindex][0] == SparseType.TABLELINE):
                     table.append(predicted[currpredictedindex])
                 break
             table.append(predicted[currpredictedindex])
@@ -95,7 +95,7 @@ class PostProcessor:
                 if(len(data[1])!=0):
                     tables.append(data[1])
                     continue
-            if(predicted[currpredictedindex][0] == SparseType.OTHERSPARSE): #Hoping to find a table after this
+            if(predicted[currpredictedindex][0] == SparseType.TABLELINE): #Hoping to find a table after this
                 data = self.findPossibleTableStructureAfterThis(predicted, currpredictedindex)
                 prevcurrpi = currpredictedindex
                 currpredictedindex = data[0]

@@ -23,7 +23,7 @@ class CRF:
         self.trainedweights = trainedweights
         self.START = -1
         self.learningrate = Constants.INITIAL_LEARNING_RATE
-        self.possibletags = [SparseType.OTHERSPARSE, SparseType.NONSPARSE] #domain specific
+        self.possibletags = [SparseType.TABLELINE, SparseType.NONONTABLELINE#domain specific
         self.G1 = [0.01,0.99] #domain specific
         self.Features = CRFFeatures()
         self.differenceweights = list()
@@ -111,7 +111,7 @@ class CRF:
         for tup in xrange(len(col)):
             if((predictedsequence[tup]+1) != int(col[tup][0])): # +1 because index starts at 0 but sparsetype starts at 1
                 errorcount += 1
-                if((predictedsequence[tup]+1) == SparseType.NONSPARSE): #for sparse error count # domain specific 
+                if((predictedsequence[tup]+1) == SparseType.NONTABLELINE): #for sparse error count # domain specific 
                     sparseerrorcount += 1
                     sparseerrorlist.append(col[tup][1].text)
             negativecol.append([predictedsequence[tup]+1, col[tup][1]])

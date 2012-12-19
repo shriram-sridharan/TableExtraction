@@ -40,8 +40,8 @@ class LogisticRegressor:
     def predict(self, featurevector):
         sigmoid = self.getSigmoid(featurevector, self.trainedweights)
         if(sigmoid > 0.5):
-            return SparseType.OTHERSPARSE
-        return SparseType.NONSPARSE
+            return SparseType.TABLELINE
+        return SparseType.NONTABLELINE
     
     def train(self, collist):
         for _ in xrange(len(collist[0][1][0])):
@@ -55,13 +55,13 @@ class LogisticRegressor:
                     totalcount += 1
                     sigmoidExpected = 0
                     inputVector = collist[colnum][1][lineno]
-                    if(int(collist[colnum][0][lineno][0]) == SparseType.OTHERSPARSE):
+                    if(int(collist[colnum][0][lineno][0]) == SparseType.TABLELINE):
                         sigmoidExpected = 1
                     self.stochasticGradientDescent(inputVector, self.trainedweights, sigmoidExpected, self.learningrate);
                     predicted = self.predict(inputVector)
                     if(predicted != int(collist[colnum][0][lineno][0])):
                         errorcount += 1
-                        if(int(collist[colnum][0][lineno][0]) == SparseType.OTHERSPARSE): #for sparse error count # domain specific 
+                        if(int(collist[colnum][0][lineno][0]) == SparseType.TABLELINE): #for sparse error count # domain specific 
                             sparseerrorcount += 1
                             
             self.learningrate = Constants.INITIAL_LEARNING_RATE * math.exp(-(float(r)/Constants.CRF_NUM_EPOCHS))                 

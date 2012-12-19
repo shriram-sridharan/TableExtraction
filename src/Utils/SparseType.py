@@ -5,5 +5,5 @@ Created on Nov 20, 2012
 '''
 
 class SparseType:
-    OTHERSPARSE = 1
-    NONSPARSE = 2
+    TABLELINE = 1
+    NONTABLELINE = 2

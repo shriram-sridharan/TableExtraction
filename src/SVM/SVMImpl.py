@@ -25,7 +25,7 @@ class SVMImpl:
                         if(tup[1].text is None or tup[1].text.strip() == ''):
                             col.remove(tup)
                     for i in xrange(0, len(col)):
-                        if(int(col[i][0]) == SparseType.OTHERSPARSE):
+                        if(int(col[i][0]) == SparseType.TABLELINE):
                             labelslist.append("S")
                         else:
                             labelslist.append("NS")
@@ -37,9 +37,9 @@ class SVMImpl:
             test_list = list()
             test_list.append(self.Features.domainfindfeatureFunction(i, col, fontdict)) 
             if(self.predict(test_list) == 'S'):
-                col[i][0] = SparseType.OTHERSPARSE
+                col[i][0] = SparseType.TABLELINE
             else:
-                col[i][0] = SparseType.NONSPARSE
+                col[i][0] = SparseType.NONTABLELINE
         return col
         
     def train(self, datalist, labelslist):    
@@ -47,8 +47,8 @@ class SVMImpl:
         self.svminstance.C = 20
         data.attachKernel('gaussian', degree = 5)
         self.svminstance.train(data)
-        #result = self.svminstance.cv(data, 2)
-        #print result
+        result = self.svminstance.cv(data, 2)
+        print result
         #print result.getPredictedLabels()
         
     def predict(self, datalist):
