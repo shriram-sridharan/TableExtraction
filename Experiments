@@ -10,21 +10,47 @@ One of the biggest challenges faced was that there was no off-the-shelf annotate
 The 15 pdf files contained a total of 16010 lines out of which 14635 were NONTABLELINEs and 1375 lines were TABLELINEs. Also they contain 65 tables in total.
 
 Empirical Evaluation of the different techniques:
-We choose 
-We adopt a 5 fold Cross Validation approach to empirically compare the 3 different learning settings. The confusion matrix (indicating the actual vs predicted classes) for all the 3 methods are as follows. 
+We adopt a 5 fold Cross Validation approach to empirically compare the 3 different learning settings - CRF, SVM and LR. The confusion matrix (indicating the actual vs predicted classes) for the 3 methods - CRF, SVM and LR are listed in Tables 1, 2 and 3 respectively. Also, We can infer the precision and recall for both the classes (TABLELINE and NONTABLELINE) from the Confusion matrices.
+Precision is defined as True Positives / (True Positives + False Positives)
+Recall is defined as True Positives / (True Positives + False Negatives)
+The precision and recall are for the NONTABLELINE class is listed in Table 4. Table 5 contains the precision and recall for the TABLELINE class.
 
-CRF
+[======================= Replace NS with NONTABLELINE =======================
+ and =================== S with TABLELINE========== also x axis is Actual and y axis is predicted =======================]
+Table 1
+CRF (with Initial Learning Rate 0.2 and running for 80 epochs)
 	 NS    S   
-    NS14498   71  
-     S 879   562 
-SVM
+    NS14414   155  
+     S 1274   167 
+Table 2
+SVM (with a Gaussian Kernel of degree 5 and C = 20)
         NS    S   
     NS14498   71  
      S 879   562 
-
-LR
+Table 3
+LR (with Initial Learning Rate 0.2 and running for 50 epochs)
 	 NS    S   
     NS14483   86  
      S 1217   224 
+
+Table 4: Precision and Recall of NONTABLELINE
+			Precision Recall
+CRF			91.88      98.94
+SVM Gaussian		94.28	   99.51
+Logistic Regression	92.25	   99.41
+
+Table 5: Precision and Recall of TABLELINE
+			Precision Recall
+CRF			91.88      98.94
+SVM Gaussian		94.28	   99.51
+Logistic Regression	92.25	   99.41
+
+
+The reason for the very low precision and recall for the TABLELINE class are two fold: (1) Lack of a large number of TABLELINEs in our dataset. (2) Features engineered towards reducing the error of NONTABLELINEs. Nevertheless, if we add more training data with a lot of TABLELINEs and add in more features which are geared towards reducing the error rate of TABLELINEs, we are certain than the Precision and Recall of the TABLELINE class would improve.
+
+Even though the precision and recall of TABLELINEs is very low, when combined with our postprocessing algorithm (explained in Section 5.4) for Table boundary detection, surprisingly most of the tables and their boundaries are properly detected. This can be explained by the following reasons (1) A low precision and recall for TABLELINE class means that some of the TABLELINEs are missed and are classified as NONTABLELINEs. However, the precision and recall of NONTABLELINEs is very high. This means that not many NONTABLELINEs are classified as TABLELINEs. (2) Since our postprocessing algorithm tries to include those lines classified as NONTABLELINEs in between TABLELINEs (which seems to be the scenario in our case), the actual TABLELINEs which were misclassified as NONTABLELINEs are added back to the result.
+
+
+
 
 
