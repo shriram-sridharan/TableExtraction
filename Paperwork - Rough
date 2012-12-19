@@ -1,0 +1,23 @@
+
+Table Extraction is a well studied yet open research problem in the Machine Learning and Information Extraction communities. The reason it is still open is due to the varied structure of the tables in different document formats. There have two different schools working on table extraction : One primarily on the extraction of tables from HTML (web) documents and the second from pdf files. Each of them pose their own set of interesting challenges.
+
+Related works on Table Detection:
+Table Detection approaches can mainly be classified into (1) Predefined structure based (2) Heuristics based and (3) Statistical and ML based. 
+
+Pinto et al. [2] work on the table detection problem from HTML documents from a particular website (ie for a particular domain). They have used a CRF for table detection where they label all the lines in a document into a predefined set of labels. They use these labelled lines to detect the presense of a table and report a F1 of 92% on locating the table. However, their feature set relies heavily on the structure of tables and is domain dependent. They expect dashed lines and white space markers to be delineate table rows and data which is never the case in our training set. 
+
+Yildiz et al.[1] base their work primarily on heuristics to locate a table in pdf documents. They use the output of pdftohtml [5] to do preprocessing and table detection. No sophisticated algorithms are used in either the preprocessing and table detection phase and hence their recall is as low as 84%.
+
+Liu et al.[3] build a search engine for tables called TableSeer. They design a novel heuristics based method for table detection called the page box-cutting method to segment a page into different boxes where each box has a high cohesion but low coupling with other boxes. Nevertheless, Liu et al. work primarily on scientific pdf documents and make a lot of assumptions that do not work well in other cases. Eg: They assume that the table caption is always on the top of the table and there is a fixed font size for all table information. Given these assumptions they get a recall of 93.5% and a precision of 100%.
+
+Liu et al.[4] work exclusively on the table detection problem from pdf documents. They make use of the property that in most pdf documents, the table lines are sparse. They train a CRF and a linear SVM to detect tables and report a F-measure of 96.36% for CRF and 94.38% for linear SVM. Our work on table detection is also primarily based on this paper. However, we differ from [4] in that (1) We pose the problem as a classification problem where we classify each line as either SPARSE or NONSPARSE, whereas [4] posed it as a sequence labeling problem to label each line into either NONSPARSE or one of a several kind of SPARSE lines. (2) Also, our work involves a more sophisticated feature set and complex pre and post processing algorithms than described in [4]. (3) And we empirically compare the performance of CRF and a SVM with a Gaussian kernel (of degree 5) instead of a linear SVM as done in [4].
+
+
+Related works on Table Decomposition:
+	[My 2 cents] [2] relies on dashed markers and white space for separation between header and data rows
+
+1. pdf2table (Yildiz et al.)
+2. Table Extraction Using CRF (Pinto et al.)
+3. Table Seer (Liu et al.)
+4. Identifying table boundaries (Liu et al.)
+5. pdftohtml [http://pdftohtml.sourceforge.net]
