@@ -1,21 +1,20 @@
 '''
-Created on Dec 1, 2012
+Created on Dec 19, 2012
 
 @author: shriram
 '''
 from Utils.Constants import Constants
-import sys
 from Utils.Utilities import Utilities
+import sys
 
-class SVMFeatures:
-    
+class SVMTDFeatures:
     def orthographicfeatures(self, featurelist, col, i, fontdict):
-        issamefont = i!=0 and (fontdict[int(col[i][1].attrib['font'])] == fontdict[int(col[i - 1][1].attrib['font'])])
-        if(issamefont): 
-            featurelist.append(1)
-        else:
-            featurelist.append(0)
-       
+#        issamefont = i!=0 and (fontdict[int(col[i][1].attrib['font'])] == fontdict[int(col[i - 1][1].attrib['font'])])
+#        if(issamefont): 
+#            featurelist.append(1)
+#        else:
+#            featurelist.append(0)
+        
         if(col[i][1].text is not None and col[i][1].text[0].isupper()):
             featurelist.append(1)
         else:
@@ -118,7 +117,7 @@ class SVMFeatures:
         else:
             featurelist.append(0)
             
-    def domainfindfeatureFunction(self, i, col, fontdict, prevtag = None, curtag = None):
+    def domainfindfeatureFunction(self, i, col, fontdict = None, prevtag = None, curtag = None):
         featurelist = list()
         
         self.orthographicfeatures(featurelist, col, i, fontdict)

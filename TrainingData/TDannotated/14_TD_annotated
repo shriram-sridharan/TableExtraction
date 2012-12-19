@@ -1,0 +1,25 @@
+0	<text font="3" height="13" left="205" textpieces="0" top="370" width="58">Uniform</text>
+ 
+0	<text font="3" height="13" left="167" textpieces="2" top="386" width="234">8 threads  64 threads   Improvement</text>
+ 
+1	<text font="3" height="13" left="125" textpieces="3" top="402" width="253">NO      37.30        12.64          2.95X</text>
+ 
+1	<text font="3" height="13" left="126" textpieces="3" top="419" width="252">SN      55.70        22.25          2.50X</text>
+ 
+1	<text font="3" height="13" left="121" textpieces="3" top="435" width="257">L2-S     51.62        23.86          2.16X</text>
+ 
+1	<text font="3" height="13" left="120" textpieces="3" top="452" width="258">L2-R     46.62        18.88          2.47X</text>
+ 
+0	<text font="3" height="13" left="198" textpieces="0" top="471" width="72">High skew</text>
+ 
+0	<text font="3" height="13" left="167" textpieces="2" top="487" width="234">8 threads  64 threads   Improvement</text>
+ 
+1	<text font="3" height="13" left="125" textpieces="3" top="503" width="253">NO      23.92        11.67          2.05X</text>
+ 
+1	<text font="3" height="13" left="126" textpieces="3" top="519" width="252">SN      70.52        49.54          1.42X</text>
+ 
+1	<text font="3" height="13" left="121" textpieces="3" top="536" width="257">L2-S     73.91       221.01         0.33X</text>
+ 
+1	<text font="3" height="13" left="120" textpieces="3" top="552" width="258">L2-R     66.01        43.16          1.53X</text>
+ 
+1	<text font="3" height="13" left="81" textpieces="0" top="583" width="359">Table 6: Simultaneous multi-threading experiment</text>

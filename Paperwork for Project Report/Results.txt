@@ -1,30 +1,10 @@
-TRAINING SET:
-65 tables in 15 pdf files in CS folder
+To Do:
+1. Architecture diagram
+2. pdftohtml not a reference but in the footer
+3. Snapshot of training
+4. Some figure?? PR curve/ ROC curve??
 
-Steps:
-Pre Processing of pdf to xml output
-	Columns - A column will not end in middle of a Table
-Creating a web server for annotating text
-Implemented CRF --> Collins perceptron
-Identifying Features
-
-Tried out:
-Restricting to Table Keyword as of now
-Decaying the learning rate [as a single learning rate did not work for multiple training examples]
-
-To Show output:
-Graphs showing accuracy estimates
-Accuracy Estimates using N% Confidence intervals
-Varying the number of epochs (with decayed learning rate) and precision recall values
-Perform Cross Validation for getting the approximate model (due to lack of training data)
-Confusion Matrix
-
-Future Work:
-SVM works equally well or better than CRF in all the cases. Initial assumption was CRF to do better. Need to test this with more features and 
-Highly dependent on Table keyword location Eg: 7.pdf
-Table Keyword presence Eg: 8.pdf
-SVM Parameters finding -> Grid Search
-
+========================================================================================================================================
 Abstract ================= [very important. Be precise]
 1 Introduction ================== [talk in terms of time to train and test for CRF??]
 2 Related Works ==================== 
@@ -72,11 +52,7 @@ Schema matching and Information Extraction
 Charles Elkan in [6].
 pyml [7]
 
-Work and reminder:
-1. Architecture diagram
-2. pdftohtml not a reference but in the footer
-3. Snapshot of training
-4. Some figure?? PR curve/ ROC curve??
+========================================================================================================================================
 
 
 

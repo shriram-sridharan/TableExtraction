@@ -1,0 +1,9 @@
+0	<text font="2" height="13" left="434" textpieces="3" top="111" width="206">LP   IE       RC       ER</text>
+ 
+1	<text font="2" height="13" left="299" textpieces="4" top="129" width="341">Full optimizer         6    13         40        106</text>
+ 
+1	<text font="2" height="13" left="292" textpieces="4" top="148" width="348">Fixed join order        7    13         43        111</text>
+ 
+1	<text font="2" height="13" left="277" textpieces="4" top="166" width="363">Fixed join algorithm   112   306   &gt;36,000   &gt;16,000</text>
+ 
+1	<text font="4" height="15" left="330" textpieces="0" top="202" width="257">Table 6: Grounding time in seconds</text>

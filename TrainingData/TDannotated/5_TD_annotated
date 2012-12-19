@@ -1,0 +1,13 @@
+0	<text font="4" height="15" left="426" textpieces="3" top="149" width="208">LP    IE    RC      ER</text>
+ 
+1	<text font="4" height="15" left="289" textpieces="4" top="170" width="346">#components       1   5341     489        1</text>
+ 
+1	<text font="4" height="14" left="283" textpieces="4" top="194" width="352">Tuffy-p RAM   9MB  8MB  19MB  184MB</text>
+ 
+1	<text font="4" height="14" left="291" textpieces="4" top="215" width="344">Tuffy RAM    9MB  8MB  15MB  184MB</text>
+ 
+1	<text font="4" height="14" left="289" textpieces="4" top="236" width="346">Tuffy-p cost    2534  1933    1943    18717</text>
+ 
+1	<text font="4" height="14" left="296" textpieces="4" top="257" width="339">Tuffy cost     2534  1635    1281    18717</text>
+ 
+1	<text font="4" height="17" left="169" textpieces="0" top="291" width="579">Table 5: Performance of Tuffy vs. Tuffy-p (i.e., Tuffy without partitioning)</text>

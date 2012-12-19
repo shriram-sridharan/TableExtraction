@@ -1,0 +1,9 @@
+0	<text font="2" height="13" left="500" textpieces="1" top="240" width="62">IE   RC</text>
+ 
+1	<text font="2" height="13" left="377" textpieces="2" top="259" width="184">Tuï¬€y-batch       448   133</text>
+ 
+1	<text font="2" height="13" left="398" textpieces="2" top="277" width="163">Tuï¬€y          117    77</text>
+ 
+1	<text font="2" height="13" left="357" textpieces="2" top="296" width="204">Tuï¬€y+parallelism    28    42</text>
+ 
+1	<text font="4" height="15" left="280" textpieces="0" top="331" width="358">Table 7: Comparison of execution time in seconds</text>

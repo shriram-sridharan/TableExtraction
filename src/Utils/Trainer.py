@@ -59,8 +59,16 @@ class Trainer:
         
         return preprocessedxml
                     
-                
-        
+    def readAnnotatedxmlforTableDecomposition(self, xmlname):
+        f = open(xmlname)
+        table = list()
+        for line in f:
+            if(line.strip() == ''):
+                continue
+            tup0 = line[:line.find("\t")]
+            tup1 = line[line.find("\t")+1:]
+            table.append([tup0,ET.fromstring(tup1)])
+        return table
         
         
         

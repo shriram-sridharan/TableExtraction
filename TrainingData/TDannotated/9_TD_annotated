@@ -1,0 +1,30 @@
+0	<text font="4" height="9" left="668" textpieces="0" top="897" width="91">Intel Nehalem</text>
+ 
+1	<text font="4" height="12" left="555" textpieces="1" top="911" width="225">CPU              Xeon X5650 @ 2.67GHz</text>
+ 
+1	<text font="4" height="12" left="553" textpieces="1" top="925" width="163">Cores                            6</text>
+ 
+1	<text font="4" height="12" left="520" textpieces="1" top="939" width="196">Contexts per core                    2</text>
+ 
+1	<text font="4" height="12" left="516" textpieces="1" top="953" width="245">Cache size, sharing         12MB L3, shared</text>
+ 
+1	<text font="4" height="12" left="546" textpieces="1" top="968" width="208">Memory                 3x 4GB DDR3</text>
+ 
+0	<text font="4" height="9" left="646" textpieces="0" top="985" width="135">Sun UltraSPARC T2</text>
+ 
+1	<text font="4" height="12" left="555" textpieces="1" top="999" width="234">CPU            UltraSPARC T2 @ 1.2GHz</text>
+ 
+1	<text font="4" height="12" left="553" textpieces="1" top="1013" width="163">Cores                            8</text>
+ 
+1	<text font="4" height="12" left="520" textpieces="1" top="1027" width="196">Contexts per core                    8</text>
+ 
+1	<text font="4" height="12" left="516" textpieces="1" top="1041" width="242">Cache size, sharing          4MB L2, shared</text>
+ 
+1	<text font="4" height="12" left="546" textpieces="1" top="1056" width="208">Memory                 8x 2GB DDR2</text>
+ 
+1	<text font="3" height="13" left="538" textpieces="0" top="1080" width="233">Table 1: Platform characteristics.</text>
+
+
+
+
+ 

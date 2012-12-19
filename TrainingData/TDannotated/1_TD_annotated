@@ -1,0 +1,16 @@
+0	<text font="2" height="13" left="436" textpieces="3" top="354" width="189">LP      IE     RC    ER</text>
+ 
+1	<text font="2" height="13" left="293" textpieces="4" top="373" width="332">#relations             22       18        4     10</text>
+ 
+1	<text font="2" height="13" left="293" textpieces="4" top="391" width="332">#rules                 94      1K       15   3.8K</text>
+ 
+1	<text font="2" height="13" left="293" textpieces="4" top="409" width="331">#entities             302    2.6K     51K    510</text>
+ 
+1	<text font="2" height="13" left="293" textpieces="4" top="426" width="331">#evidence tuples     731   0.25M   0.43M    676</text>
+ 
+1	<text font="2" height="13" left="293" textpieces="4" top="444" width="332">#query atoms      4.6K   0.34M     10K   16K</text>
+ 
+1	<text font="2" height="13" left="293" textpieces="4" top="462" width="331">#components           1     5341      489       1</text>
+ 
+1	<text font="4" height="15" left="365" textpieces="0" top="498" width="189">Table 1: Dataset statistics</text>
+

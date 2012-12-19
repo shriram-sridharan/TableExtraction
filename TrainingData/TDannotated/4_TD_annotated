@@ -1,0 +1,9 @@
+0	<text font="4" height="15" left="422" textpieces="3" top="908" width="246">LP        IE      RC       ER</text>
+ 
+1	<text font="4" height="15" left="267" textpieces="4" top="929" width="402">clause table      5.2 MB   0.6 MB  4.8 MB  164 MB</text>
+ 
+1	<text font="4" height="14" left="250" textpieces="4" top="952" width="418">Alchemy RAM   411 MB  206 MB  2.8 GB   3.5 GB</text>
+ 
+1	<text font="4" height="14" left="254" textpieces="4" top="973" width="415">Tuffy-p RAM      9 MB     8 MB   19 MB  184 MB</text>
+ 
+1	<text font="4" height="17" left="191" textpieces="0" top="1008" width="536">Table 4: Space eï¬ƒciency of Alchemy vs. Tuffy-p (without partitioning)</text>

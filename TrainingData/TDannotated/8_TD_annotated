@@ -1,0 +1,9 @@
+1	<text font="16" height="14" left="494" textpieces="0" top="338" width="322">Table 1. The performance evaluation of two</text>
+ 
+1	<text font="16" height="14" left="494" textpieces="0" top="356" width="252">text sequence resorting algorithms</text>
+ 
+0	<text font="5" height="10" left="592" textpieces="3" top="389" width="215">Algo1(P)    Algo1(R)    Algo2(P)    Algo2(R)</text>
+ 
+1	<text font="5" height="10" left="485" textpieces="4" top="402" width="308">Cross-column tables      95.7%        49.8%        100%      99.6%</text>
+
+1	<text font="5" height="10" left="485" textpieces="4" top="414" width="308">Single-column tables      96%         94.8%       94.5%      99.8%</text>
