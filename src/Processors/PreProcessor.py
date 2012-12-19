@@ -95,7 +95,7 @@ class PreProcessor:
                 newtexttag = previnsertedtexttag[1]
                 
             newtexttag.attrib['textpieces'] = "0"
-            texttags.append([SparseType.NONSPARSE, newtexttag])
+            texttags.append([SparseType.NONTABLELINE, newtexttag])
             prevtexttag = newtexttag
         
         return texttags
@@ -106,7 +106,7 @@ class PreProcessor:
         texttags = list()
         for tup in subSupCombinedTexttags:
             texttag = tup[1]
-            sparsetype = SparseType.NONSPARSE
+            sparsetype = SparseType.NONTABLELINE
             newtexttag = texttag
             currtop = int(texttag.attrib['top'])
             prevtop = int(prevtexttag.attrib['top'])
@@ -127,7 +127,7 @@ class PreProcessor:
                 previnsertedtexttag[1].attrib['width'] = str(currleft - int(previnsertedtexttag[1].attrib['left']) + int(texttag.attrib['width']))
                 newtexttag = previnsertedtexttag[1]
                 if (prevtop == currtop):
-                    sparsetype = SparseType.OTHERSPARSE
+                    sparsetype = SparseType.TABLELINE
                 
                 newtexttag.attrib['textpieces'] = str(int(newtexttag.attrib['textpieces']) + 1) #Computing Number of text pieces for CRF
                     

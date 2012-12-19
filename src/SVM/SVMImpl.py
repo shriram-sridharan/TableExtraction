@@ -47,7 +47,7 @@ class SVMImpl:
         self.svminstance.C = 20
         data.attachKernel('gaussian', degree = 5)
         self.svminstance.train(data)
-        result = self.svminstance.cv(data, 2)
+        result = self.svminstance.cv(data, 5)
         print result
         #print result.getPredictedLabels()
         

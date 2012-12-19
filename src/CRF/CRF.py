@@ -23,7 +23,7 @@ class CRF:
         self.trainedweights = trainedweights
         self.START = -1
         self.learningrate = Constants.INITIAL_LEARNING_RATE
-        self.possibletags = [SparseType.TABLELINE, SparseType.NONONTABLELINE#domain specific
+        self.possibletags = [SparseType.TABLELINE, SparseType.NONTABLELINE]#domain specific
         self.G1 = [0.01,0.99] #domain specific
         self.Features = CRFFeatures()
         self.differenceweights = list()
@@ -45,6 +45,7 @@ class CRF:
         self.train(collist)
     
     def train(self, collist):
+        self.trainedweights = list()
         for _ in xrange(len(collist[0][1][0])):
             self.trainedweights.append(random.uniform(-0.1, 0.1))
             self.differenceweights.append(0.0)
@@ -78,11 +79,17 @@ class CRF:
            
     def predict(self, col, fontdict):
         tagbyumatrix = self.GetMatrixForCalculatingArgMax(col, self.trainedweights, fontdict)
+        errorcount = 0
+        sparseerror = 0
         predicted = self.predictsequence(tagbyumatrix)
+        for r in xrange(len(predicted)):
+            if((predicted[r] + 1) != int(col[r][0])):
+                errorcount += 1 
+                if((predicted[r] + 1) == SparseType.NONTABLELINE):
+                    sparseerror += 1
         for i in xrange(len(col)):
             col[i][0] = predicted[i] + 1
-        
-        return col
+        return [col, errorcount, sparseerror]
 
     def predictsequence(self, tagbyumatrix):
         prevvalue = -sys.maxint - 1

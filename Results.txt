@@ -46,12 +46,14 @@ Experiments
 We train a CRF, SVM with a Gaussian Kernel and a Logistic Regressor for this classification task and we evaluate their performance. 
 testing whether sequence matters
 	Pre processing / Annotation of pdf files.
-	for all 3 methods:
+	for all 3 methods: performance of sparseline detection
 		Sparse Line PR
 		n fold CV with changing the no of epochs and learning rate
 		Confusion Matrix
-		ROC Curve
-		Area under the ROC Curve 
+
+	with postprocessing:
+		PR
+			 
 	Sample screen shots
 	Discussion: SVM performed better
 7.2 =======

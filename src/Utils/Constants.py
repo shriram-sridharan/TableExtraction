@@ -20,10 +20,10 @@ class Constants:
     LARGEST_SPACE = 4
     
     ###################### TRAINING ALGORITHM #########################
-    CRF_NUM_EPOCHS = 120
-    INITIAL_LEARNING_RATE = 0.3
+    CRF_NUM_EPOCHS = 80
+    INITIAL_LEARNING_RATE = 0.2
     
-    LR_EPOCHS = 100
+    LR_EPOCHS = 50
     LR_LEARNING_RATE = 0.2
     
     ###################### PREPROCESSING #########################

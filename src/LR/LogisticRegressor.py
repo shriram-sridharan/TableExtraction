@@ -32,10 +32,18 @@ class LogisticRegressor:
         self.train(collist)
         
     def domainpredict(self, col, fontdict):
+        errorcount = 0
+        sparseerror = 0
         for i in xrange(0, len(col)):
             featurevector = self.Features.domainfindfeatureFunction(i, col, fontdict)
-            col[i][0] = self.predict(featurevector)
-        return col
+            predicted = self.predict(featurevector)
+            if((predicted) != int(col[i][0])):
+                errorcount += 1 
+                if((predicted) == SparseType.NONTABLELINE):
+                    sparseerror += 1
+            col[i][0] = predicted
+            
+        return [col,errorcount, sparseerror]
                 
     def predict(self, featurevector):
         sigmoid = self.getSigmoid(featurevector, self.trainedweights)
@@ -44,6 +52,7 @@ class LogisticRegressor:
         return SparseType.NONTABLELINE
     
     def train(self, collist):
+        self.trainedweights = list()
         for _ in xrange(len(collist[0][1][0])):
             self.trainedweights.append(random.uniform(-0.1, 0.1))
         for r in range(Constants.LR_EPOCHS):

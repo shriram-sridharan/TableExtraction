@@ -78,6 +78,8 @@ def TestUsingLR(predictxmlname, location):
     preprocessedxml = preprocessor.preprocessxml(location + predictxmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
     
     alltables = list()
+    errorcount = 0
+    sparseerror = 0
     for page in preprocessedxml:
         for col in page:
             if(len(col) < 2):
@@ -87,7 +89,10 @@ def TestUsingLR(predictxmlname, location):
                     col.remove(tup)
             for lineno in xrange(len(col)):
                 col[lineno].append(lineno)
-            predicted = LR.domainpredict(col, fontdict)
+            result = LR.domainpredict(col, fontdict)
+            predicted = result[0]
+            errorcount+= result[1]
+            sparseerror += result[2]
 #            for r in predicted:
 #                if(r[0] == SparseType.OTHERSPARSE):
 #                    print r[1].text + " *** Line no *** " + str(r[2])
@@ -101,7 +106,13 @@ def TestUsingLR(predictxmlname, location):
     for table in alltables:
         print "============================================="
         for row in table:
-            print row[1].text.encode('ascii','ignore') + " " + str(row[0])   
+            print row[1].text.encode('ascii','ignore') + " " + str(row[0]) 
+    
+    print errorcount 
+    print sparseerror    
+    
+    return [errorcount, sparseerror]
+  
 def CreateHtmls(xmls, preprocessor, trainer, xmlloc):
     for xmlname in xmls:
         try:
@@ -116,6 +127,8 @@ def TestUsingCRF(predictxmlname, location):
     preprocessedxml = preprocessor.preprocessxml(location + predictxmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
     
     alltables = list()
+    errorcount = 0
+    sparseerror = 0
     for page in preprocessedxml:
         for col in page:
             if(len(col) < 2):
@@ -125,7 +138,11 @@ def TestUsingCRF(predictxmlname, location):
                     col.remove(tup)
             for lineno in xrange(len(col)):
                 col[lineno].append(lineno)
-            predicted = CRF.predict(col, fontdict)
+            
+            result = CRF.predict(col, fontdict)
+            predicted = result[0]
+            errorcount += result[1]
+            sparseerror += result[2]
 #            for r in predicted:
 #                if(r[0] == SparseType.OTHERSPARSE):
 #                    print r[1].text.encode('ascii','ignore') + " *** Line no *** " + str(r[2])
@@ -135,11 +152,13 @@ def TestUsingCRF(predictxmlname, location):
                 continue
             for t in tables:
                 alltables.append(t)
-    
+
     for table in alltables:
         print "============================================="
         for row in table:
             print row[1].text.encode('ascii','ignore') + " " + str(row[0]) 
+    
+    return [errorcount, sparseerror]
 
 def TestUsingSVM(svminstance, predictxmlname, location):
     fontdict = preprocessor.getFontDictionary(ET.parse(location + predictxmlname + ".xml"))                  
@@ -170,6 +189,80 @@ def TestUsingSVM(svminstance, predictxmlname, location):
         print "============================================="
         for row in table:
             print row[1].text.encode('ascii','ignore') + " " + str(row[0]) 
+   
+def crossValidation():
+    location = "../TrainingData/xmls/cs/"
+    annotatedxmlloc = "../TrainingData/annotated/"
+    errorcount = 0
+    sparseerror = 0
+    
+    preprocessor = Processors.PreProcessor.PreProcessor()
+    trainer = Utils.Trainer.Trainer()
+    xmls = ["1","2","3","4","5","6","7","8","9","10"]
+    TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
+    for predictxmlname in ["11","12","13","14","15"]:
+        error = TestUsingCRF(predictxmlname, location)
+        errorcount += error[0]
+        sparseerror += error[1]
+    
+    preprocessor = Processors.PreProcessor.PreProcessor()
+    trainer = Utils.Trainer.Trainer()
+    xmls = ["11","12","13","14","15","6","7","8","9","10"]
+    TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
+    for predictxmlname in ["1","2","3","4","5"]:
+        error =TestUsingCRF(predictxmlname, location)
+        errorcount += error[0]
+        sparseerror += error[1]
+    
+    preprocessor = Processors.PreProcessor.PreProcessor()
+    trainer = Utils.Trainer.Trainer()
+    xmls = ["1","2","3","4","5","11","12","13","14","15"]
+    TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
+    for predictxmlname in ["6","7","8","9","10"]:
+        error =TestUsingCRF(predictxmlname, location)
+        errorcount += error[0]
+        sparseerror += error[1]
+    
+    print "**********************************************************"
+    print errorcount
+    print sparseerror
+
+def crossValidationLR():
+    location = "../TrainingData/xmls/cs/"
+    annotatedxmlloc = "../TrainingData/annotated/"
+    errorcount1 = 0
+    sparseerror1 = 0
+    
+    preprocessor = Processors.PreProcessor.PreProcessor()
+    trainer = Utils.Trainer.Trainer()
+    xmls = ["1","2","3","4","5","6","7","8","9","10"]
+    TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
+    for predictxmlname in ["11","12","13","14","15"]:
+        error = TestUsingLR(predictxmlname, location)
+        errorcount1 += error[0]
+        sparseerror1 += error[1]
+    
+    preprocessor = Processors.PreProcessor.PreProcessor()
+    trainer = Utils.Trainer.Trainer()
+    xmls = ["11","12","13","14","15","6","7","8","9","10"]
+    TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
+    for predictxmlname in ["1","2","3","4","5"]:
+        error =TestUsingLR(predictxmlname, location)
+        errorcount1 += error[0]
+        sparseerror1 += error[1]
+    
+    preprocessor = Processors.PreProcessor.PreProcessor()
+    trainer = Utils.Trainer.Trainer()
+    xmls = ["1","2","3","4","5","11","12","13","14","15"]
+    TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
+    for predictxmlname in ["6","7","8","9","10"]:
+        error =TestUsingLR(predictxmlname, location)
+        errorcount1 += error[0]
+        sparseerror1 += error[1]
+    
+    print "**********************************************************"
+    print errorcount1
+    print sparseerror1
                         
 if __name__ == '__main__':
     xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"]
@@ -182,7 +275,9 @@ if __name__ == '__main__':
    
     location = "../TrainingData/xmls/cs/"
     annotatedxmlloc = "../TrainingData/annotated/"
-    svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
+    crossValidation()
+    #crossValidationLR()
+    #svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
     #TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
     #TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
     
