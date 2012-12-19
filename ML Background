@@ -1,2 +1,16 @@
-Machine Learning Background for CRF:
+Machine Learning Background for Conditional Random Fields (CRF):
+Conditional Random Fields (CRF) are undirected graphical models primarily used for sequence labeling. CRF - HMM form a discriminative - generative pair of graphical models. CRF models the posterior probability of predicting a label sequence given an input sequence. 
+
+The posterior probability is given by
+P (O|I) = (1/Z) exp( (i =1..n)(j=1..m) Lj fj (Oi−1 , Oi , I, i))
+O -> Output (label) sequence
+I -> Input sequence
+Lj -> weight of the feature
+fj -> feature given previous state, current state, Input sequence and i
+Z -> Normalisation factor (sum over all possible output label sequences)
+
+(i = 1..n) fj  (Oi−1 , Oi , I, i) => Fj (I, O) (feature function)
+
+Inference is done by a variation of the vitterbi algorithm as specified in [6].
+Training is to done by setting the weights to maximize the conditional log likelihood of labeled sequences in the training set D. The algorithms and techniques to update the weights is specified in [6]
 
