@@ -62,7 +62,7 @@ Location of project on Github. (change source code so that can be executed from 
 Project requisites
 How to run the code?
 
-9 Future Work
+9 Conclusion
 Learnt that heuristics with ML algorithm performs really well but individually both of them perform poorly.
 feature selection is most important and so More features
 Evaluation with a real time system
@@ -76,6 +76,7 @@ Work and reminder:
 1. Architecture diagram
 2. pdftohtml not a reference but in the footer
 3. Snapshot of training
+4. Some figure?? PR curve/ ROC curve??
 
 
 
