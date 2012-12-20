@@ -57,22 +57,30 @@ class SVMImpl:
         return table
                
     def domainpredict(self, col, fontdict):
+        errorcount = 0
+        sparseerror = 0
         for i in xrange(0, len(col)):
             test_list = list()
             test_list.append(self.Features.domainfindfeatureFunction(i, col, fontdict)) 
             if(self.predict(test_list) == 'S'):
-                col[i][0] = SparseType.TABLELINE
+                predicted = SparseType.TABLELINE
             else:
-                col[i][0] = SparseType.NONTABLELINE
-        return col
+                predicted = SparseType.NONTABLELINE
+            if((predicted) != int(col[i][0])):
+                errorcount += 1 
+                if((predicted) == SparseType.NONTABLELINE):
+                    sparseerror += 1
+            col[i][0] = predicted
+        
+        return [col, errorcount, sparseerror]
         
     def train(self, datalist, labelslist):    
         data = SparseDataSet(datalist, L = labelslist)
         self.svminstance.C = 20
         data.attachKernel('gaussian', degree = 5)
         self.svminstance.train(data)
-        result = self.svminstance.cv(data, 5)
-        print result
+        #result = self.svminstance.cv(data, 5)
+        #print result
         
     def trainforTD(self, datalist, labelslist):    
         data = SparseDataSet(datalist, L = labelslist)

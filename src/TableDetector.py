@@ -178,6 +178,8 @@ def TestUsingSVM(svminstance, predictxmlname, location):
     preprocessedxml = preprocessor.preprocessxml(location + predictxmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
     
     alltables = list()
+    errorcount = 0
+    sparseerror = 0
     ntlafterpostproc = 0
     for page in preprocessedxml:
         for col in page:
@@ -188,7 +190,11 @@ def TestUsingSVM(svminstance, predictxmlname, location):
                     col.remove(tup)
             for lineno in xrange(len(col)):
                 col[lineno].append(lineno)
-            predicted = svminstance.domainpredict(col, fontdict)
+            result = svminstance.domainpredict(col, fontdict)
+            predicted = result[0]
+            errorcount += result[1]
+            sparseerror += result[2]
+            
 #            for r in predicted:
 #                if(r[0] == SparseType.OTHERSPARSE):
 #                    print r[1].text.encode('ascii','ignore') + " *** Line no *** " + str(r[2])
@@ -206,7 +212,7 @@ def TestUsingSVM(svminstance, predictxmlname, location):
                 ntlafterpostproc += 1
             print row[1].text.encode('ascii','ignore') 
    
-    return ntlafterpostproc
+    return [errorcount, sparseerror, ntlafterpostproc]
 def crossValidation():
     location = "../TrainingData/xmls/cs/"
     annotatedxmlloc = "../TrainingData/annotated/"
@@ -292,14 +298,17 @@ def crossValidationSVM():
     location = "../TrainingData/xmls/cs/"
     annotatedxmlloc = "../TrainingData/annotated/"
     ntlafterpostproc = 0
-    
+    errorcount = 0
+    sparseerror = 0
     preprocessor = Processors.PreProcessor.PreProcessor()
     trainer = Utils.Trainer.Trainer()
     xmls = ["1","2","3","4","5","6","7","8","9","10"]
     svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
     for predictxmlname in ["11","12","13","14","15"]:
         error = TestUsingSVM(svminstance, predictxmlname, location)
-        ntlafterpostproc += error
+        errorcount += error[0]
+        sparseerror += error[1]
+        ntlafterpostproc += error[2]
         
     preprocessor = Processors.PreProcessor.PreProcessor()
     trainer = Utils.Trainer.Trainer()
@@ -307,7 +316,9 @@ def crossValidationSVM():
     svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
     for predictxmlname in ["1","2","3","4","5"]:
         error =TestUsingSVM(svminstance, predictxmlname, location)
-        ntlafterpostproc += error
+        errorcount += error[0]
+        sparseerror += error[1]
+        ntlafterpostproc += error[2]
         
     preprocessor = Processors.PreProcessor.PreProcessor()
     trainer = Utils.Trainer.Trainer()
@@ -315,10 +326,14 @@ def crossValidationSVM():
     svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
     for predictxmlname in ["6","7","8","9","10"]:
         error =TestUsingSVM(svminstance, predictxmlname, location)
-        ntlafterpostproc += error
+        errorcount += error[0]
+        sparseerror += error[1]
+        ntlafterpostproc += error[2]
         
     print "**********************************************************"
-    print ntlafterpostproc
+    print "ErrorCount = " + str(errorcount)
+    print "Tablelineerror = " + str(sparseerror)
+    print "After Post processing = " + str(ntlafterpostproc)
 
 def UserTesting(predictxmlname, location, method):
     xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"]
@@ -337,22 +352,23 @@ def UserTesting(predictxmlname, location, method):
         TestUsingLR(predictxmlname, location)
     
 def DebuggingOnlyTableDetection():
-    #crossValidation()
+    xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"]
+    crossValidation()
     #crossValidationLR()
     #crossValidationSVM()
-    svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
-    #TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
-    #TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
-    
-    predictxmlname = '1'
-    location = "../TrainingData/xmls/cs/"
-    TestUsingSVM(svminstance, predictxmlname, location)
-    
-    print "******************************* CRF *************************************"
-    TestUsingCRF(predictxmlname, location)
-    
-    print "******************************* LR *************************************"
-    TestUsingLR(predictxmlname, location)
+    #svminstance = TrainUsingSVM(xmls, preprocessor, trainer, location, annotatedxmlloc)
+#    #TrainUsingCRF(xmls, preprocessor, trainer, location, annotatedxmlloc)
+#    #TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
+#    
+#    predictxmlname = '1'
+#    location = "../TrainingData/xmls/cs/"
+#    TestUsingSVM(svminstance, predictxmlname, location)
+#    
+#    print "******************************* CRF *************************************"
+#    TestUsingCRF(predictxmlname, location)
+#    
+#    print "******************************* LR *************************************"
+#    TestUsingLR(predictxmlname, location)
 
 def DebuggingTableDecomposition():
     xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"]
@@ -373,10 +389,10 @@ if __name__ == '__main__':
     
     xmlloc = "../TrainingData/xmls/cs/"
     #CreateHtmls(xmls, preprocessor, trainer, xmlloc)
-    
     location = "../TrainingData/xmls/cs/"
     annotatedxmlloc = "../TrainingData/annotated/"
-    #DebuggingOnlyTableDetection()
-    DebuggingTableDecomposition()
+    DebuggingOnlyTableDetection()
+    
+    #DebuggingTableDecomposition()
     #UserTesting(sys.argv[1], location, int(sys.argv[2]))
 #    

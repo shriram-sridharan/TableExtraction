@@ -155,53 +155,59 @@ As described in Section 4 in this paper, we posed the table detection problem as
 7.1.1 Data Set:
 One of the biggest challenges faced was that there was no off-the-shelf annotated data set available for this problem. So, we manually annotated our dataset. We took 15 pdf files taken at random from the publications page of CS faculty from the University of Wisconsin, Madison. Each pdf file was first converted to xml using pdftohtml. They were then passed through the preprocessing algorithm as described in Algorithm 1. Each xml preprocessed was converted to a HTML file which was hosted on a web server. The HTML file was designed in a way to allow the user to demarcate the table boundary. When the user clicked on the 'Submit' button on the page, a CGI script written in python read the HTML post data and wrote the annotated data to a file. Though, annotations for all these 15 pdfs were done by us, the main reason to create HTML files and publish them in a web server is two fold: (1)It is easy to annotate the training data on a web page for the format that is required by our system, (2) For annotating a large number of pdf documents (going forward), we can easily crowd source the effort. Crowd sourcing drastically reduces the time required to annotate data and is very cheap. There are, of course, many challenges associated with crowd sourcing and tackling them is beyond the scope of this paper. 
 
-The 15 pdf files contained a total of 16010 lines out of which 14635 were NONTABLELINEs and 1375 lines were TABLELINEs. Also they contain 65 tables in total.
+The 15 pdf files contained a total of 16052 lines out of which 14310 were NONTABLELINEs and 1742 lines were TABLELINEs. Also they contain 65 tables in total.
 
-7.1.2 Empirical Evaluation of the different techniques:
-7.1.2.1 Detection of TABLELINE:
+Empirical Evaluation of the different techniques:
+Detection of TABLELINE:
 We adopt a 5 fold Cross Validation approach to empirically compare the 3 different learning settings - CRF, SVM and LR. The confusion matrix (indicating the actual vs predicted classes) for the 3 methods - CRF, SVM and LR are listed in Tables 1, 2 and 3 respectively. Also, We can infer the precision and recall for both the classes (TABLELINE and NONTABLELINE) from the Confusion matrices.
 Precision is defined as True Positives / (True Positives + False Positives)
 Recall is defined as True Positives / (True Positives + False Negatives)
 The precision and recall for the NONTABLELINE class are listed in Table 4. Table 5 contains the precision and recall for the TABLELINE class.
 
-[??????????????????? ======================= Replace NS with NONTABLELINE =======================
-and  =================== S with TABLELINE========== also x axis is Actual and y axis is predicted (label axis properly) 
-======================= ?????????????????]
+[======================= Replace NS with NONTABLELINE =======================
+ and =================== S with TABLELINE========== also x axis is Actual and y axis is predicted =======================]
 Table 1
 CRF (with Initial Learning Rate 0.2 and running for 80 epochs)
 	 NS    S   
-    NS14414   155  
-     S 1274   167 
+    NS14156   154  
+     S 1291   451 
 Table 2
 SVM (with a Gaussian Kernel of degree 5 and C = 20)
         NS    S   
-    NS14498   71  
-     S 879   562 
+    NS13809   501  
+     S 821    921 
 Table 3
 LR (with Initial Learning Rate 0.2 and running for 50 epochs)
 	 NS    S   
-    NS14483   86  
-     S 1217   224 
+    NS14224   86  
+     S 1216   526 
 
 Table 4: Precision and Recall of NONTABLELINE
 			Precision Recall (in percentage)
-CRF			91.88      98.94
-SVM Gaussian		94.28	   99.51
-Logistic Regression	92.25	   99.41
+CRF			91.64      98.92
+SVM Gaussian		94.39	   96.50
+Logistic Regression	92.12	   99.40
 
 Table 5: Precision and Recall of TABLELINE
 			Precision Recall (in percentage)
-CRF			51.86      11.59
-SVM Gaussian		88.78	   39.00
-Logistic Regression	72.23	   15.54
+CRF			74.55      25.89
+SVM Gaussian		64.77	   52.87
+Logistic Regression	85.95	   30.19
+
 
 The reason for the very low precision and recall for the TABLELINE class are two fold: (1) Lack of a large number of TABLELINEs in our dataset. (2) Features engineered towards reducing the error of NONTABLELINEs instead of that of TABLELINEs. Nevertheless, if we add more training data with a lot of TABLELINEs and add in more features which are geared towards reducing the error rate of TABLELINEs, we are certain than the Precision and Recall of the TABLELINE class would improve.
 
-7.1.2.2 Impact of PostProcessing:
+Impact of PostProcessing:
 
-Even though the precision and recall of TABLELINEs is very low, when combined with our postprocessing algorithm (explained in Section 5.4) for Table boundary detection, surprisingly most of the tables and their boundaries are properly detected. This can be explained by the following reasons (1) A low precision and recall for TABLELINE class means that some of the TABLELINEs are missed and are classified as NONTABLELINEs. However, the precision and recall of the NONTABLELINEs is very high. This means that not many NONTABLELINEs are classified as TABLELINEs. (2) Since our postprocessing algorithm tries to include those lines classified as NONTABLELINEs in between TABLELINEs (which seems to be the major scenario in our case), the actual TABLELINEs which were misclassified as NONTABLELINEs are added back to the result. The precision after postprocessing of the results given by CRF goes to 66%, LR goes to 80.67% and that of SVM goes to 90.72%
+Even though the precision and recall of TABLELINEs is very low, when combined with our postprocessing algorithm (explained in Section 5.4) for Table boundary detection, surprisingly most of the tables and their boundaries are properly detected. This can be explained by the following reasons (1) A low precision and recall for TABLELINE class means that some of the TABLELINEs are missed and are classified as NONTABLELINEs. However, the precision and recall of the NONTABLELINEs is very high. This means that not many NONTABLELINEs are classified as TABLELINEs. (2) Since our postprocessing algorithm tries to include those lines classified as NONTABLELINEs in between TABLELINEs (which seems to be the major scenario in our case), the actual TABLELINEs which were misclassified as NONTABLELINEs are added back to the result. The precision and recall of TABLELINE after postprocessing is given by Table 6.
 
-Our initial assumption from the works of Liu et al. [4] was that sequence labeling using CRF should perform better than any classifier. But surprisingly, we find that both the classifiers (SVM and LR) perform better for table boundary detection than CRF. Though our initial experiments suggest that an SVM with a Gaussian Kernel (a classifier) performs relatively better than CRF (a sequence labeler) for this problem, to conclusively say that, we need to try out more experiments with carefully selected new features and varying the number of epochs and the learning rate of CRF. We plan to do this as part of our future work.
+Table 6: Precision and Recall of TABLELINE after postprocessing
+			Precision Recall (in percentage)
+CRF			79.10      33.46
+SVM Gaussian		67.76	   60.44
+Logistic Regression	88.49	   37.94
+
+Our initial assumption from the works of Liu et al. [4] was that sequence labeling using CRF should perform better than any classifier. But surprisingly, in our experiments we found that SVM with a Gaussian Kernel gave better detection of table boundaries than CRF and LR. Eventhough the precision of SVM is lower, the recall is high relative to the other techniques which implies most of the TABLELINEs are retrieved after postprocessing leading to better table boundary detection. However, to conclusively say that SVM with a Gaussian Kernel is the best approach for this problem, we need to try out more experiments with carefully selected new features and varying the number of epochs and the learning rate of CRF and LR. We plan to do this as part of our future work.
 
 7.2 Table Decomposition: ??????????????????????
 
@@ -209,7 +215,8 @@ Our initial assumption from the works of Liu et al. [4] was that sequence labeli
 The implementation is open source and is located in GitHub (https://github.com/shriram-sridharan/TableExtraction). Please read the README.txt file for the dependencies and the procedure to execute the code. We greatly encourage and appreciate any feedback on the project. 
 
 9 Conclusion:
-In this project, we have built a prototype of a table extraction system. We empirically tested the table detection part on a sequence labeler and two classifiers and have shared our experimental results. We learnt this problem, a purely heuristic solution or a purely Machine Learning technique based solution perform poorly when compared with a hybrid approach involving both heuristics and Machine Learning (ML) techniques. Also, we learnt that feature selection and evaluation plays a vital role in the performance of a ML technique. Going forward, we plan to add in more features and evaluate the performance. We also plan to use Schema Matching techniques to identify the significance of the detected rows/columns so that the information in the data rows become more relevant in the context of an Information Extraction (IE) system. We plan to incorporate and test this with a real time IE system such as GeoDeepDive (http://hazy.cs.wisc.edu/hazy/geodeepdive/) and evaluate how the precision and recall of GeoDeepDive improves with the table information. 
+In this project, we have built a prototype of a table extraction system. We empirically tested the table detection part on a sequence labeler and two classifiers and have shared our experimental results. [Insert for Table decomposition ???????????]We learnt that for this problem, a purely heuristic solution or a purely Machine Learning technique based solution perform poorly when compared with a hybrid approach involving both heuristics and Machine Learning (ML) techniques. Also, we learnt that feature selection and evaluation plays a vital role in the performance of a ML technique. Going forward, we plan to add in more features and evaluate the performance. We also plan to use Schema Matching techniques to identify the significance of the detected rows/columns so that the information in the data rows become more relevant in the context of an Information Extraction (IE) system. We plan to incorporate and test this with a real time IE system such as GeoDeepDive (http://hazy.cs.wisc.edu/hazy/geodeepdive/) and evaluate how the precision and recall of GeoDeepDive improves with the table information. 
+
 
 10 References:
 1. pdf2table (Yildiz et al.)
