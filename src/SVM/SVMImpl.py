@@ -61,7 +61,7 @@ class SVMImpl:
                 if((predicted) == SparseType.HEADER):
                     sparseerror += 1
             
-            predicted = table[i][0]
+            table[i][0] = predicted
             
         return [table, errorcount, sparseerror]
                
@@ -94,8 +94,8 @@ class SVMImpl:
     def trainforTD(self, datalist, labelslist):    
         data = SparseDataSet(datalist, L = labelslist)
         self.svminstance.train(data)
-        result = self.svminstance.cv(data, 6)
-        print result    
+        #result = self.svminstance.cv(data, 6)
+        #print result    
         
     def predict(self, datalist):
         data = SparseDataSet(datalist)

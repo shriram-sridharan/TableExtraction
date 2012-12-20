@@ -123,7 +123,7 @@ if __name__ == '__main__':
     location = "../TrainingData/TDannotated/"
     
     #CrossValidationLR()
-    CrossValidationSVM()
+    #CrossValidationSVM()
 #    LR = TrainUsingLR(xmls, annotatedxmlloc)
 #    TestUsingLR(LR, predictxml, location)
 #    
