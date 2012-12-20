@@ -1,0 +1,5 @@
+1	<text font="3" height="14" left="109" textpieces="0" top="94" width="301">Table 3: The testing set for table detection</text>
+0	<text font="9" height="11" left="120" textpieces="2" top="109" width="187">Fields            Documents    Tables</text>
+1	<text font="9" height="11" left="109" textpieces="2" top="125" width="182">Chemistry              100         245</text>
+1	<text font="9" height="11" left="116" textpieces="2" top="137" width="169">Biology                50         84</text>
+1	<text font="9" height="11" left="89" textpieces="2" top="150" width="196">Computer Science         50         68</text>

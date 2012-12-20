@@ -1,0 +1,26 @@
+0	<text font="4" height="15" left="276" textpieces="3" top="329" width="366">Dataset  S.No.         Query         # in Truth</text>
+1	<text font="4" height="15" left="292" textpieces="0" top="415" width="24">CA</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="354" width="245">1          Attorney            28</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="374" width="250">2        Commission          128</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="394" width="245">3        employment          73</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="415" width="245">4         President            14</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="435" width="245">5       United States         52</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="455" width="245">6    Public Law (8|9)\d       55</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="476" width="245">7      U.S.C. 2\d\d\d         25</text>
+1	<text font="4" height="15" left="292" textpieces="0" top="561" width="24">DB</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="500" width="245">1          accuracy            65</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="520" width="245">2         conï¬dence           36</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="541" width="245">3          database            43</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="561" width="245">4           lineage             83</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="581" width="245">5            Trio              68</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="602" width="245">6         Sec(\x) âˆ— d           33</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="622" width="245">7        \x\x\x\d\d          47</text>
+1	<text font="4" height="15" left="293" textpieces="0" top="708" width="21">LT</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="647" width="245">1        Brinkmann           92</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="667" width="245">2           Hitler              12</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="687" width="245">3         Jonathan            18</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="708" width="245">4          Kerouac            21</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="728" width="241">5        Third Reich           7</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="748" width="245">6       19\d\d, \d\d          32</text>
+1	<text font="4" height="15" left="365" textpieces="2" top="768" width="245">7       spontan(\x)âˆ—          99</text>
+1	<text font="4" height="15" left="299" textpieces="0" top="803" width="315">Table 6: Queries and ground truth numbers</text>

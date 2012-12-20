@@ -1,0 +1,23 @@
+1	<text font="3" height="14" left="226" textpieces="0" top="94" width="463">Table 2: The Vector Space Model for rating &lt;Query, Table&gt; pairs</text>
+0	<text font="9" height="11" left="226" textpieces="7" top="109" width="554">m1(M W1)                            m2(M W2)                ...                mk(M Wk)                T LB    DLB</text>
+0	<text font="9" height="11" left="185" textpieces="11" top="125" width="587">t1,1           ...           tx,1       t1,2           ...           ty,2     ...     t1,k           ...           tz,k       ...        ...</text>
+1	<text font="9" height="11" left="137" textpieces="12" top="140" width="635">tb1      w1,1,1         ...         wx,1,1    w1,1,2          ...         wy,1,2    ...    w1,1,k          ...          wz,1,k      ...        ...</text>
+1	<text font="9" height="11" left="137" textpieces="12" top="152" width="635">tb2      w1,2,1         ...         wx,2,1    w1,2,2          ...         wy,2,2    ...    w1,2,k          ...          wz,2,k      ...        ...</text>
+1	<text font="9" height="11" left="144" textpieces="0" top="166" width="4">.</text>
+1	<text font="9" height="11" left="144" textpieces="0" top="172" width="4">.</text>
+1	<text font="9" height="11" left="144" textpieces="1" top="178" width="55">.          ...</text>
+1	<text font="9" height="11" left="252" textpieces="0" top="166" width="3">.</text>
+1	<text font="9" height="11" left="252" textpieces="0" top="172" width="3">.</text>
+1	<text font="9" height="11" left="252" textpieces="2" top="178" width="115">.             ...         ...</text>
+1	<text font="9" height="11" left="420" textpieces="0" top="166" width="3">.</text>
+1	<text font="9" height="11" left="420" textpieces="0" top="172" width="3">.</text>
+1	<text font="9" height="11" left="420" textpieces="1" top="178" width="67">.             ...</text>
+1	<text font="9" height="11" left="517" textpieces="0" top="166" width="3">.</text>
+1	<text font="9" height="11" left="517" textpieces="0" top="172" width="3">.</text>
+1	<text font="9" height="11" left="517" textpieces="1" top="178" width="44">.       ...</text>
+1	<text font="9" height="11" left="615" textpieces="0" top="166" width="3">.</text>
+1	<text font="9" height="11" left="615" textpieces="0" top="172" width="3">.</text>
+1	<text font="9" height="11" left="615" textpieces="3" top="178" width="157">.             ...        ...        ...</text>
+1	<text font="9" height="11" left="139" textpieces="12" top="190" width="633">tbb      w1,b,1         ...         wx,b,1    w1,b,2         ...         wy,b,2    ...    w1,b,k          ...          wz,b,k      ...        ...</text>
+1	<text font="9" height="11" left="142" textpieces="6" top="205" width="630">Q       w1,q,1                                  w1,q,2                                  ...    w1,q,k                                    ...        ...</text>
+1	<text font="9" height="11" left="130" textpieces="11" top="217" width="642">IT T F       ...            ...            ...                        ...            ...      ...      ...            ...            ...        ...        ...</text>

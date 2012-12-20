@@ -1,0 +1,13 @@
+1	<text font="3" height="14" left="92" textpieces="0" top="475" width="336">Table 1: Heuristic Rules for Table Box Dections</text>
+0	<text font="9" height="11" left="89" textpieces="1" top="488" width="88">Rules    Content</text>
+1	<text font="9" height="11" left="100" textpieces="2" top="504" width="322">1       â€¢ Document title, author, aï¬ƒliation, heading âˆˆ BLF.</text>
+1	<text font="9" height="11" left="100" textpieces="1" top="516" width="337">2       â€¢ Document title, author, aï¬ƒliation, abstract âˆˆ Page 1,</text>
+1	<text font="9" height="11" left="135" textpieces="0" top="528" width="84">in a ï¬xed order.</text>
+1	<text font="9" height="11" left="100" textpieces="1" top="540" width="337">3       â€¢ Figure caption, table caption, table body, footnote, Ref-</text>
+1	<text font="9" height="11" left="135" textpieces="1" top="552" width="119">erence usually âˆˆ BSF.</text>
+1	<text font="9" height="11" left="100" textpieces="3" top="565" width="337">4       â€¢   Table caption, table body, footnote, Reference âˆˆ BLF.</text>
+1	<text font="9" height="11" left="100" textpieces="1" top="577" width="222">5       â€¢ âˆ€ Figure and table have captions.</text>
+1	<text font="9" height="11" left="100" textpieces="1" top="589" width="337">6       â€¢ âˆ€ Figure captions are beneath the ï¬gure; âˆ€ table captions</text>
+1	<text font="9" height="11" left="135" textpieces="0" top="601" width="104">are above the table.</text>
+1	<text font="9" height="11" left="100" textpieces="1" top="613" width="337">7       â€¢ Table captions start with keywords â€œTableâ€ or â€œTABLEâ€</text>
+1	<text font="9" height="11" left="135" textpieces="0" top="625" width="301">while Figure captions start with â€œFigureâ€ or â€œFIGUREâ€.</text>

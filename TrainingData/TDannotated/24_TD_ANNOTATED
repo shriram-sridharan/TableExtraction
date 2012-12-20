@@ -1,0 +1,7 @@
+0	<text font="3" height="13" left="550" textpieces="2" top="510" width="252">Scale 0.5        Scale 1        Scale 2</text>
+1	<text font="3" height="13" left="495" textpieces="3" top="526" width="324">NO     7.65 (0.47X)  16.15 (1.00X)  62.27 (3.86X)</text>
+1	<text font="3" height="13" left="497" textpieces="3" top="543" width="322">SN    11.76 (0.46X)  25.62 (1.00X)  98.82 (3.86X)</text>
+1	<text font="3" height="13" left="492" textpieces="3" top="559" width="327">L2-S     8.47 (0.47X)  18.13 (1.00X)  68.48 (3.78X)</text>
+1	<text font="3" height="13" left="490" textpieces="3" top="575" width="303">L2-R     5.82 (0.46X)  12.71 (1.00X)       DNF</text>
+1	<text font="3" height="13" left="475" textpieces="0" top="606" width="359">Table 8: Join sensitivity with varying input cardi-</text>
+1	<text font="3" height="13" left="475" textpieces="0" top="622" width="359">nalities for the uniform dataset on Intel Nehalem.</text>

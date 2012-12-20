@@ -1,0 +1,8 @@
+1	<text font="3" height="14" left="81" textpieces="0" top="223" width="358">Table 7: The Ablation Experiment to Learn the</text>
+1	<text font="3" height="14" left="81" textpieces="0" top="239" width="359">Real Contribution of Each Factor of TableRank Al-</text>
+1	<text font="3" height="14" left="81" textpieces="0" top="255" width="55">gorithm</text>
+0	<text font="9" height="11" left="90" textpieces="2" top="270" width="322">Without Factor    Accuracy (%)    Decrease in Accuracy (%)</text>
+1	<text font="9" height="11" left="118" textpieces="2" top="286" width="180">DLB                 68.50         1.11</text>
+1	<text font="9" height="11" left="119" textpieces="2" top="298" width="179">TLB                 69.46         0.15</text>
+1	<text font="9" height="11" left="119" textpieces="2" top="311" width="179">MW                 68.19         1.42</text>
+1	<text font="9" height="11" left="89" textpieces="2" top="323" width="209">TTFITTF, MW         58.05         9.56</text>

@@ -1,0 +1,25 @@
+0	<text font="4" height="15" left="258" textpieces="0" top="325" width="44">Query</text>
+0	<text font="4" height="15" left="458" textpieces="0" top="315" width="69">Approach</text>
+0	<text font="4" height="15" left="339" textpieces="3" top="335" width="321">MAP     k-MAP    FullSFA   Staccato</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="360" width="390">CA1    1.00/0.93  1.00/0.93  0.28/1.00    0.87/0.96</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="381" width="390">CA2    1.00/0.78  1.00/0.78  1.00/0.78    1.00/0.78</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="402" width="390">CA3    1.00/0.90  1.00/0.90  0.73/1.00    0.97/0.93</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="423" width="390">CA4    1.00/0.79  1.00/0.79  0.14/1.00    0.85/0.79</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="444" width="390">CA5    1.00/0.77  1.00/0.79  0.52/1.00    1.00/0.88</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="465" width="390">CA6    1.00/0.87  1.00/0.96  0.55/1.00    1.00/0.98</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="486" width="390">CA7    1.00/0.28  1.00/0.52  0.25/1.00    0.50/0.80</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="510" width="390">DB1    1.00/0.58  0.98/0.93  0.65/1.00    0.95/0.97</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="531" width="390">DB2    0.00/0.00  0.87/0.19  0.36/1.00    0.90/0.53</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="552" width="390">DB3    0.85/0.67  0.87/0.79  0.43/1.00    0.90/1.00</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="573" width="390">DB4    0.97/0.91  0.96/0.93  0.82/0.99    0.85/0.95</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="594" width="390">DB5    0.93/0.75  0.90/0.95  0.67/0.99    0.79/0.96</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="615" width="390">DB6    0.96/0.76  0.96/0.81  0.33/1.00    0.40/0.96</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="636" width="390">DB7    0.91/0.85  0.73/0.89  0.44/0.94    0.42/0.89</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="660" width="388">LT1    0.96/0.87  0.96/0.90  0.92/1.00    0.94/0.91</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="681" width="388">LT2    1.00/0.92  1.00/1.00  0.12/1.00    0.12/1.00</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="702" width="388">LT3    1.00/0.11  1.00/0.17  0.18/1.00    0.94/0.83</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="723" width="388">LT4    0.81/0.62  0.86/0.90  0.21/1.00    0.74/0.95</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="744" width="388">LT5    1.00/0.29  1.00/1.00  0.07/1.00    1.00/1.00</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="765" width="388">LT6    0.77/0.65  0.76/0.67  0.31/0.97    0.26/0.81</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="786" width="388">LT7    0.84/0.88  0.83/0.88  0.83/0.88    0.83/0.88</text>
+1	<text font="4" height="15" left="328" textpieces="0" top="820" width="257">Table 7: Precision and recall results</text>

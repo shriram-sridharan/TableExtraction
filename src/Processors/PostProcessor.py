@@ -106,7 +106,7 @@ class PostProcessor:
                         continue
                     data = self.findPossibleTableStructureBeforeThis(predicted, tblkeywordloc)
                     if(len(data[1])!=0):
-                        tables.append(reversed(data[1]))
+                        tables.append(list(reversed(data[1])))
                         currpredictedindex = data[0]
                         
         return tables

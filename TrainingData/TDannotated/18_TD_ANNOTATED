@@ -1,0 +1,6 @@
+0	<text font="3" height="13" left="212" textpieces="1" top="388" width="133">Intel              Sun</text>
+0	<text font="3" height="13" left="199" textpieces="1" top="404" width="184">Nehalem     UltraSPARC T2</text>
+1	<text font="3" height="13" left="141" textpieces="2" top="420" width="213">NO       No / 1            No / 1</text>
+1	<text font="3" height="13" left="143" textpieces="2" top="437" width="225">SN     Indep. / 16       Indep. / 64</text>
+1	<text font="3" height="13" left="138" textpieces="2" top="453" width="238">L2-S   Shared / 2048    Shared / 2048</text>
+1	<text font="3" height="13" left="136" textpieces="2" top="470" width="237">L2-R   Radix / 2048     Radix / 2048</text>

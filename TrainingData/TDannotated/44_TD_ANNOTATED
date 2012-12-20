@@ -1,0 +1,16 @@
+0	<text font="4" height="15" left="258" textpieces="4" top="211" width="402">Query     MAP     k-MAP    FullSFA   Staccato</text>
+0	<text font="4" height="15" left="424" textpieces="0" top="232" width="135">Precision/Recall</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="253" width="390">CA1    1.00/0.79  1.00/0.79  0.14/1.00    1.00/0.79</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="273" width="390">CA2    1.00/0.28  1.00/0.52  0.25/1.00    0.73/0.76</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="294" width="388">LT1    0.96/0.87  0.96/0.90  0.92/1.00    0.97/0.91</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="314" width="388">LT2    0.78/0.66  0.76/0.66  0.31/0.97    0.44/0.81</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="335" width="390">DB1    0.93/0.75  0.90/0.92  0.67/0.99    0.90/0.96</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="356" width="390">DB2    0.96/0.76  0.96/0.76  0.33/1.00    0.91/0.97</text>
+0	<text font="4" height="15" left="404" textpieces="0" top="376" width="176">Runtime (in seconds)</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="397" width="372">CA1      0.17        0.75       86.72        2.87</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="418" width="372">CA2      0.18        0.84      150.35        3.36</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="439" width="370">LT1      0.13        0.19       83.78        1.98</text>
+1	<text font="4" height="15" left="266" textpieces="4" top="459" width="370">LT2      0.14        0.24      155.45        2.88</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="480" width="372">DB1      0.07        0.29       40.73        0.75</text>
+1	<text font="4" height="15" left="264" textpieces="4" top="500" width="372">DB2      0.07        0.33      619.31        0.86</text>
+1	<text font="4" height="15" left="108" textpieces="0" top="535" width="702">Table 4: Recall and runtime results across datasets. The keyword queries are â€“ CA1: â€˜P residentâ€™,</text>

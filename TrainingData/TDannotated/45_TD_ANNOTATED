@@ -1,0 +1,35 @@
+0	<text font="4" height="15" left="134" textpieces="1" top="122" width="190">Approach     Table Name</text>
+0	<text font="4" height="15" left="438" textpieces="0" top="111" width="74">Attributes</text>
+0	<text font="4" height="15" left="615" textpieces="0" top="122" width="93">Primary Key</text>
+0	<text font="4" height="15" left="353" textpieces="1" top="132" width="162">Name            Type</text>
+1	<text font="4" height="15" left="166" textpieces="1" top="177" width="158">-         MasterData</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="156" width="202">DataKey        INTEGER</text>
+1	<text font="4" height="15" left="615" textpieces="2" top="177" width="-25">DataKey                                              DocName       VARCHAR(50)</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="197" width="202">SFANum        INTEGER</text>
+1	<text font="4" height="15" left="142" textpieces="1" top="242" width="180">k-MAP      kMAPData</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="221" width="202">DataKey        INTEGER</text>
+1	<text font="4" height="15" left="615" textpieces="2" top="242" width="-60">DataKey, LineNum                                                         LineNum        INTEGER</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="262" width="172">Data            TEXT</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="282" width="189">LogProb         FLOAT8</text>
+1	<text font="4" height="15" left="139" textpieces="1" top="317" width="189">FullSFA     FullSFAData</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="307" width="202">DataKey        INTEGER</text>
+1	<text font="4" height="15" left="615" textpieces="0" top="317" width="64">DataKey</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="327" width="156">SFABlob        OID</text>
+1	<text font="4" height="14" left="127" textpieces="0" top="416" width="77">Staccato</text>
+1	<text font="4" height="15" left="233" textpieces="0" top="392" width="96">StaccatoData</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="352" width="202">DataKey        INTEGER</text>
+1	<text font="4" height="15" left="615" textpieces="0" top="384" width="159">DataKey, ChunkNum,</text>
+1	<text font="4" height="15" left="615" textpieces="0" top="404" width="66">LineNum</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="372" width="202">ChunkNum      INTEGER</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="392" width="202">LineNum        INTEGER</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="413" width="172">Data            TEXT</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="433" width="189">LogProb         FLOAT8</text>
+1	<text font="4" height="15" left="228" textpieces="0" top="464" width="107">StaccatoGraph</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="453" width="202">DataKey        INTEGER</text>
+1	<text font="4" height="15" left="615" textpieces="0" top="463" width="64">DataKey</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="474" width="156">GraphBlob      OID</text>
+1	<text font="4" height="15" left="166" textpieces="1" top="508" width="163">-        GroundTruth</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="498" width="202">DataKey        INTEGER</text>
+1	<text font="4" height="15" left="615" textpieces="0" top="508" width="64">DataKey</text>
+1	<text font="4" height="15" left="353" textpieces="1" top="519" width="172">Data            TEXT</text>
+1	<text font="4" height="15" left="285" textpieces="0" top="553" width="348">Table 5: Relational schema for storing SFA data</text>

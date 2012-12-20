@@ -1,0 +1,15 @@
+0	<text font="4" height="12" left="354" textpieces="1" top="82" width="69">TLB   TLB</text>
+0	<text font="4" height="12" left="202" textpieces="4" top="95" width="221">Cycles     L3   Instruc-    load   store</text>
+0	<text font="4" height="12" left="254" textpieces="3" top="109" width="169">miss      -tions    miss    miss</text>
+1	<text font="4" height="12" left="137" textpieces="5" top="123" width="285">partition          0       0            0        0        0</text>
+1	<text font="4" height="12" left="97" textpieces="6" top="136" width="325">NO         build       323       3       2,215       1        0</text>
+1	<text font="4" height="12" left="154" textpieces="5" top="150" width="268">probe     6,433      98     54,762     201        0</text>
+1	<text font="4" height="12" left="137" textpieces="5" top="164" width="285">partition     3,577      17     29,096        6        1</text>
+1	<text font="4" height="12" left="99" textpieces="6" top="178" width="323">SN         build       329       8       2,064       0        0</text>
+1	<text font="4" height="12" left="154" textpieces="5" top="191" width="268">probe   13,241      61     54,761      80        0</text>
+1	<text font="4" height="12" left="137" textpieces="5" top="205" width="286">partition   36,631      79     34,941      67     106</text>
+1	<text font="4" height="12" left="94" textpieces="6" top="219" width="328">L2-S        build       210       5       2,064       0        0</text>
+1	<text font="4" height="12" left="154" textpieces="5" top="232" width="268">probe     8,024      13     54,762        1        0</text>
+1	<text font="4" height="12" left="137" textpieces="5" top="246" width="286">partition     5,344    178     34,241        5      72</text>
+1	<text font="4" height="12" left="93" textpieces="6" top="260" width="329">L2-R        build       209       4       2,064       0        0</text>
+1	<text font="4" height="12" left="154" textpieces="5" top="273" width="268">probe     8,052      13     54,761        1        0</text>

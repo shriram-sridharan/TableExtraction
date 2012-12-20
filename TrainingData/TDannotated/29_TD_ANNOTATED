@@ -1,0 +1,9 @@
+1	<text font="3" height="14" left="475" textpieces="0" top="94" width="359">Table 5: The Basic Ranking Results on the Manu-</text>
+1	<text font="3" height="14" left="475" textpieces="0" top="110" width="197">ally Created Document Sets</text>
+0	<text font="9" height="11" left="501" textpieces="1" top="125" width="207">Ranking        The Method to set-up</text>
+0	<text font="9" height="11" left="578" textpieces="0" top="137" width="63">the test-bed</text>
+0	<text font="9" height="11" left="723" textpieces="0" top="125" width="71">Accuracy (%)</text>
+1	<text font="9" height="11" left="504" textpieces="2" top="152" width="240">Google         Custom search engine       51.8</text>
+1	<text font="9" height="11" left="483" textpieces="2" top="165" width="267">Google Scholar    bottom-up method           52.72</text>
+1	<text font="9" height="11" left="501" textpieces="2" top="177" width="249">CiteSeer        bottom-up method           55.35</text>
+1	<text font="9" height="11" left="497" textpieces="2" top="190" width="253">TableSeer       Both methods                 69.61</text>

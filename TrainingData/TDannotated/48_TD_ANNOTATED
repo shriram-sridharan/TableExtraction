@@ -1,0 +1,23 @@
+0	<text font="4" height="15" left="283" textpieces="0" top="325" width="44">Query</text>
+0	<text font="4" height="15" left="458" textpieces="0" top="315" width="69">Approach</text>
+0	<text font="4" height="15" left="350" textpieces="3" top="335" width="285">MAP  k-MAP  FullSFA   Staccato</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="360" width="322">CA1    0.17     0.82     81.54        4.38</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="381" width="322">CA2    0.17     0.96     91.84        4.93</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="402" width="322">CA3    0.17     0.96     91.85        4.94</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="423" width="322">CA4    0.17     0.89     86.72        4.63</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="444" width="322">CA5    0.18     1.16     106.17       5.97</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="465" width="322">CA6    0.18     1.17     125.63       5.98</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="486" width="322">CA7    0.18     1.05     150.35       5.40</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="510" width="322">DB1    0.07     0.44     56.42        1.61</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="552" width="322">DB3    0.07     0.43     54.92        1.59</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="573" width="322">DB4    0.07     0.40     51.45        1.48</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="594" width="322">DB5    0.07     0.42     40.72        1.21</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="615" width="322">DB6    0.07     0.35     619.31       1.39</text>
+1	<text font="4" height="15" left="289" textpieces="4" top="636" width="322">DB7    0.07     0.31    1738.78      1.37</text>
+1	<text font="4" height="15" left="291" textpieces="4" top="660" width="320">LT1    0.14     0.73     83.78        3.27</text>
+1	<text font="4" height="15" left="291" textpieces="4" top="681" width="320">LT2    0.13     0.59     69.68        2.72</text>
+1	<text font="4" height="15" left="291" textpieces="4" top="702" width="320">LT3    0.14     0.71     79.76        3.10</text>
+1	<text font="4" height="15" left="291" textpieces="4" top="744" width="320">LT5    0.14     0.85     93.35        3.72</text>
+1	<text font="4" height="15" left="291" textpieces="4" top="765" width="320">LT6    0.14     1.02     155.45       4.52</text>
+1	<text font="4" height="15" left="291" textpieces="4" top="786" width="320">LT7    0.15     1.00     887.19       4.23</text>
+1	<text font="4" height="15" left="271" textpieces="0" top="820" width="369">Table 8: Runtime results. Runtimes are in seconds.</text>

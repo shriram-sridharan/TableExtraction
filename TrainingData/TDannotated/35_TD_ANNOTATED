@@ -1,0 +1,10 @@
+0	<text font="5" height="13" left="255" textpieces="0" top="111" width="72">predicted as</text>
+0	<text font="5" height="13" left="184" textpieces="5" top="129" width="213">A     B   R     V    O      N</text>
+1	<text font="5" height="13" left="156" textpieces="6" top="147" width="240">A   0     4    5    10     0      4</text>
+1	<text font="5" height="13" left="156" textpieces="6" top="165" width="240">B   0   406   13   125   103    302</text>
+1	<text font="5" height="13" left="156" textpieces="6" top="183" width="241">R   0    28  31    67     0     13</text>
+1	<text font="5" height="13" left="156" textpieces="6" top="201" width="240">V   0   142   28   380    43    202</text>
+1	<text font="5" height="13" left="156" textpieces="6" top="219" width="241">O   0   112    4    42   156     86</text>
+1	<text font="5" height="13" left="156" textpieces="6" top="237" width="241">N   0    78    4    41    16   9306</text>
+1	<text font="5" height="13" left="108" textpieces="0" top="270" width="340">Table 3: Confusion Matrix of Person-Mention Roles by</text>
+1	<text font="5" height="13" left="108" textpieces="0" top="288" width="28">CRF</text>

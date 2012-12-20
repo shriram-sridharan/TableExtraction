@@ -1,0 +1,3 @@
+1	<text font="4" height="12" left="81" textpieces="0" top="306" width="359">Table 2: Cross validation error of diï¬€erent methods</text>
+0	<text font="4" height="12" left="118" textpieces="3" top="320" width="285">Fast Training SVM  SSY N   SW N   Majority</text>
+1	<text font="4" height="12" left="164" textpieces="3" top="337" width="225">0.15            0.31    0.43      0.42</text>

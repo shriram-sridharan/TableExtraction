@@ -1,0 +1,16 @@
+0	<text font="4" height="12" left="748" textpieces="1" top="388" width="69">TLB   TLB</text>
+0	<text font="4" height="12" left="597" textpieces="4" top="401" width="220">Cycles     L3   Instruc-    load   store</text>
+0	<text font="4" height="12" left="648" textpieces="3" top="415" width="169">miss      -tions    miss    miss</text>
+1	<text font="4" height="12" left="532" textpieces="5" top="429" width="285">partition          0       0            0        0        0</text>
+1	<text font="4" height="12" left="492" textpieces="6" top="442" width="325">NO         build       322       2      2,215        1        0</text>
+1	<text font="4" height="12" left="549" textpieces="5" top="456" width="268">probe   15,829    862     54,762     557        0</text>
+1	<text font="4" height="12" left="532" textpieces="5" top="470" width="285">partition    3,578      18     29,096        6        2</text>
+1	<text font="4" height="12" left="493" textpieces="6" top="483" width="324">SN         build       328       8      2,064        0        0</text>
+1	<text font="4" height="12" left="549" textpieces="5" top="497" width="268">probe   21,717    866     54,761     505        0</text>
+1	<text font="4" height="12" left="532" textpieces="5" top="511" width="285">partition   11,778    103     31,117     167     257</text>
+1	<text font="4" height="12" left="489" textpieces="6" top="525" width="328">L2-S        build       211       1      2,064        0        0</text>
+1	<text font="4" height="12" left="549" textpieces="5" top="538" width="268">probe     6,144      35     54,762        1        0</text>
+1	<text font="4" height="12" left="532" textpieces="5" top="552" width="285">partition    6,343    221     34,241        7     237</text>
+1	<text font="4" height="12" left="488" textpieces="6" top="566" width="329">L2-R        build       210       1      2,064        0        0</text>
+1	<text font="4" height="12" left="549" textpieces="5" top="579" width="268">probe     6,152      36     54,761        1        0</text>
+1	<text font="3" height="13" left="475" textpieces="0" top="608" width="359">Table 3: Performance counter averages for the uni-</text>

@@ -1,0 +1,10 @@
+0	<text font="5" height="13" left="616" textpieces="0" top="367" width="72">predicted as</text>
+0	<text font="5" height="13" left="578" textpieces="4" top="385" width="153">A   B     R     V  O</text>
+1	<text font="5" height="13" left="545" textpieces="5" top="403" width="186">A   33    3    39    10   1</text>
+1	<text font="5" height="13" left="545" textpieces="5" top="421" width="186">B    5   25    57    11   0</text>
+1	<text font="5" height="13" left="545" textpieces="5" top="439" width="186">R   15    5   249    27   0</text>
+1	<text font="5" height="13" left="545" textpieces="5" top="457" width="186">V    1    4    48   109   0</text>
+1	<text font="5" height="13" left="545" textpieces="5" top="475" width="186">O    1    1    37     3   0</text>
+1	<text font="5" height="13" left="470" textpieces="0" top="507" width="339">Table 1: Confusion Matrix of Author Role Classiï¬cation</text>
+1	<text font="6" height="15" left="470" textpieces="0" top="561" width="340">that there is signal in the text to infer the authorsâ€™</text>
+1	<text font="6" height="15" left="470" textpieces="0" top="581" width="36">roles.</text>

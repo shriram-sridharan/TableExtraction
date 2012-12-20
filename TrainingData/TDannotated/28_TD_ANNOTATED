@@ -1,0 +1,13 @@
+1	<text font="3" height="14" left="85" textpieces="0" top="94" width="345">Table 4: Table Metadata Extraction Performance</text>
+0	<text font="9" height="11" left="115" textpieces="2" top="107" width="284">Table Metadata          Precision(P %)    Recall(R %)</text>
+1	<text font="9" height="11" left="114" textpieces="2" top="122" width="254">Document Type                100.00         100.00</text>
+1	<text font="9" height="11" left="92" textpieces="2" top="135" width="276">Document Page Number          100.00         100.00</text>
+1	<text font="9" height="11" left="89" textpieces="2" top="147" width="279">The page number of table         100.00         100.00</text>
+1	<text font="9" height="11" left="115" textpieces="2" top="160" width="247">Document Title                 95.65          95.65</text>
+1	<text font="9" height="11" left="109" textpieces="2" top="172" width="253">Document Author               92.58          92.58</text>
+1	<text font="9" height="11" left="119" textpieces="2" top="185" width="243">Table Caption                  95.96          95.96</text>
+1	<text font="9" height="11" left="99" textpieces="2" top="197" width="263">Table Column Header             93.79          93.79</text>
+1	<text font="9" height="11" left="119" textpieces="2" top="210" width="243">Table Content                  90.15          90.15</text>
+1	<text font="9" height="11" left="96" textpieces="2" top="222" width="272">Table Caption Position           100.00         100.00</text>
+1	<text font="9" height="11" left="117" textpieces="2" top="235" width="245">Table Footnote                 82.77          82.77</text>
+1	<text font="9" height="11" left="102" textpieces="2" top="248" width="266">Table Reference text             100.00         100.00</text>

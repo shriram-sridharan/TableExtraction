@@ -8,7 +8,6 @@ from SVMFeatures import SVMFeatures
 from PyML import SVM
 from PyML import SparseDataSet
 from SVM.SVMTDFeatures import SVMTDFeatures
-from Utils.Utilities import Utilities
 
 class SVMImpl:
     def __init__(self):
@@ -45,9 +44,9 @@ class SVMImpl:
                 else:
                     labelslist.append("DATA")
                 datalist.append(self.TDFeatures.domainfindfeatureFunction(i, table, None))
-        self.train(datalist, labelslist)
+        self.trainforTD(datalist, labelslist)
         
-    def domainpredictforTableDecomposition(self, table):     
+    def domainpredictforTableDecomposition(self, table): 
         for i in xrange(0, len(table)):
             test_list = list()
             test_list.append(self.TDFeatures.domainfindfeatureFunction(i, table, None)) 
@@ -74,6 +73,12 @@ class SVMImpl:
         self.svminstance.train(data)
         result = self.svminstance.cv(data, 5)
         print result
+        
+    def trainforTD(self, datalist, labelslist):    
+        data = SparseDataSet(datalist, L = labelslist)
+        self.svminstance.train(data)
+        result = self.svminstance.cv(data, 6)
+        print result    
         
     def predict(self, datalist):
         data = SparseDataSet(datalist)

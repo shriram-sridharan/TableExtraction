@@ -1,0 +1,11 @@
+0	<text font="3" height="13" left="609" textpieces="1" top="89" width="180">Movie Reviews      Science</text>
+0	<text font="3" height="13" left="474" textpieces="4" top="107" width="321">Action                   Î²   SE          Î²    SE</text>
+1	<text font="3" height="13" left="474" textpieces="1" top="139" width="341">(intercept)           0.505 0.038 *** 0.473 0.147 **</text>
+1	<text font="3" height="16" left="474" textpieces="2" top="156" width="323">ÂŒ label query docs   0.001 0.001      0.005 0.005</text>
+1	<text font="3" height="16" left="474" textpieces="1" top="174" width="323">Â label query words -0.001 0.001      0.000 0.001</text>
+1	<text font="3" height="16" left="474" textpieces="2" top="192" width="323">ÂŽ volunteer words   0.002 0.001 *    0.000 0.002</text>
+1	<text font="3" height="13" left="474" textpieces="2" top="210" width="323">human error rate    -0.036 0.109     -0.328 0.230</text>
+1	<text font="3" height="13" left="474" textpieces="2" top="228" width="330">word label entropy   0.053 0.051      0.201 0.102 .</text>
+1	<text font="3" height="13" left="603" textpieces="3" top="258" width="192">R2 = 0.4608 **  R2= 0.3342</text>
+1	<text font="5" height="11" left="474" textpieces="3" top="281" width="261">*** p &lt; 0.001  ** p &lt; 0.01  * p &lt; 0.05  . p &lt; 0.1</text>
+1	<text font="3" height="13" left="470" textpieces="0" top="311" width="340">Table 2: Linear regressions estimating the accuracy of a</text>

@@ -8,10 +8,12 @@ import random
 from LRFeatures import LRFeatures
 from Utils.SparseType import SparseType
 from Utils.Constants import Constants
+from LRTDFeatures import LRTDFeatures
 
 class LogisticRegressor:
     def __init__(self, trainedweights = list()):
         self.Features = LRFeatures()
+        self.TDFeatures = LRTDFeatures()
         self.trainedweights = trainedweights
         self.learningrate = Constants.LR_LEARNING_RATE
                 
@@ -44,6 +46,28 @@ class LogisticRegressor:
             col[i][0] = predicted
             
         return [col,errorcount, sparseerror]
+    
+    def domaintrainforTableDecomposition(self, tableslist):
+        datalist = list()
+        labelslist = list()
+        for table in tableslist:
+            for i in xrange(0, len(table)):
+                labelslist.append(table[i][0])
+                datalist.append(self.TDFeatures.domainfindfeatureFunction(i, table, None))
+        self.trainforTD(datalist, labelslist)
+        
+    def domainpredictforTableDecomposition(self, table): 
+        errorcount = 0
+        sparseerror = 0
+        for i in xrange(0, len(table)):
+            test_list = self.TDFeatures.domainfindfeatureFunction(i, table, None) 
+            predicted = self.predictforTD(test_list)
+            if((predicted) != int(table[i][0])):
+                errorcount += 1 
+                if((predicted) == SparseType.HEADER):
+                    sparseerror += 1
+            table[i][0] = predicted
+        return [table, errorcount, sparseerror]
                 
     def predict(self, featurevector):
         sigmoid = self.getSigmoid(featurevector, self.trainedweights)
@@ -51,6 +75,36 @@ class LogisticRegressor:
             return SparseType.TABLELINE
         return SparseType.NONTABLELINE
     
+    def predictforTD(self, featurevector):
+        sigmoid = self.getSigmoid(featurevector, self.trainedweights)
+        if(sigmoid > 0.5):
+            return SparseType.HEADER
+        return SparseType.DATA
+    
+    def trainforTD(self, datalist, labelslist):
+        self.trainedweights = list()
+        for _ in xrange(len(datalist[0])):
+            self.trainedweights.append(random.uniform(-0.1, 0.1))
+        for r in range(Constants.LR_EPOCHS):
+            errorcount = 0.0
+            sparseerrorcount = 0.0
+            totalcount = 0.0
+            for datarow in xrange(len(datalist)):
+                totalcount += 1
+                sigmoidExpected = 0
+                inputVector = datalist[datarow]
+                if(int(labelslist[datarow]) == SparseType.HEADER):
+                    sigmoidExpected = 1
+                self.stochasticGradientDescent(inputVector, self.trainedweights, sigmoidExpected, self.learningrate);
+                predicted = self.predictforTD(inputVector)
+                if(predicted != int(labelslist[datarow])):
+                    errorcount += 1
+                    if(int(labelslist[datarow]) == SparseType.HEADER): #for sparse error count # domain specific 
+                        sparseerrorcount += 1
+                            
+            self.learningrate = Constants.INITIAL_LEARNING_RATE * math.exp(-(float(r)/Constants.CRF_NUM_EPOCHS))                 
+            print "Iteration " + str(r) + " Learning Rate " + str(self.learningrate) + " Count= " + str(totalcount) +" Total Error = " + str(errorcount) + " Sparse Error = " + str(sparseerrorcount)
+
     def train(self, collist):
         self.trainedweights = list()
         for _ in xrange(len(collist[0][1][0])):

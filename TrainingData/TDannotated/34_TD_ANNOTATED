@@ -1,0 +1,5 @@
+0	<text font="5" height="13" left="548" textpieces="3" top="111" width="231">Accuracy   Precision  Recall    F-1</text>
+1	<text font="5" height="13" left="500" textpieces="4" top="129" width="278">CRF        0.87       0.53     0.42   0.47</text>
+1	<text font="5" height="13" left="497" textpieces="4" top="147" width="281">SVM        0.85       0.42     0.31   0.36</text>
+1	<text font="5" height="13" left="470" textpieces="0" top="180" width="340">Table 2: Cross Validation Result of Person-Mention</text>
+1	<text font="5" height="13" left="470" textpieces="0" top="198" width="34">Roles</text>

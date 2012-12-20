@@ -1,0 +1,5 @@
+0	<text font="4" height="15" left="271" textpieces="1" top="725" width="279">Symbol                 Description</text>
+1	<text font="4" height="15" left="297" textpieces="1" top="746" width="353">k      # Paths Parameter (k-MAP, Staccato)</text>
+1	<text font="4" height="15" left="295" textpieces="1" top="767" width="331">m          # Chunks Parameter (Staccato)</text>
+1	<text font="4" height="15" left="267" textpieces="1" top="788" width="316">N umAns            # Answers queried for</text>
+1	<text font="4" height="15" left="336" textpieces="0" top="822" width="246">Table 3: Notations for Parameters</text>

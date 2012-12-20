@@ -1,0 +1,7 @@
+0	<text font="4" height="15" left="291" textpieces="0" top="236" width="63">Dataset</text>
+0	<text font="4" height="15" left="404" textpieces="2" top="226" width="231">No. of  No. of      Size as:</text>
+0	<text font="4" height="15" left="408" textpieces="3" top="247" width="249">Pages    SFAs    SFAs   Text</text>
+1	<text font="4" height="15" left="261" textpieces="4" top="267" width="396">Cong. Acts (CA)     38       1590    533MB  90kB</text>
+1	<text font="4" height="15" left="261" textpieces="4" top="288" width="396">English Lit. (LT)     32       1211    524MB  78kB</text>
+1	<text font="4" height="15" left="263" textpieces="4" top="309" width="394">DB Papers (DB)     16       627    359MB  54kB</text>
+1	<text font="4" height="15" left="181" textpieces="0" top="344" width="549">Table 2: Dataset Statistics. Each SFA represents one line of a scanned page.</text>

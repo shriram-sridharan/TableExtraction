@@ -1,0 +1,9 @@
+0	<text font="4" height="15" left="330" textpieces="2" top="393" width="293">k-MAP   FullSFA           Staccato</text>
+1	<text font="4" height="14" left="260" textpieces="5" top="420" width="398">Query  lqk        lq|Î£| + q3(l âˆ’ 1)   lqk + q3(m âˆ’ 1)</text>
+1	<text font="4" height="14" left="260" textpieces="3" top="441" width="359">Space   lk + 16k  l|Î£| + 16l|Î£|      lk + 16mk</text>
+1	<text font="4" height="15" left="287" textpieces="2" top="481" width="242">l   :  length of the SFAâ€™s strings</text>
+1	<text font="4" height="15" left="286" textpieces="2" top="501" width="244">q   :  # states in the query DFA</text>
+1	<text font="4" height="15" left="285" textpieces="2" top="522" width="351">k   :  # paths parameter in k-MAP, Staccato</text>
+1	<text font="4" height="15" left="283" textpieces="2" top="542" width="314">m  :  # chunks in Staccato (1 â‰¤ m â‰¤ l)</text>
+1	<text font="4" height="15" left="108" textpieces="0" top="576" width="702">Table 1: Space costs and query processing times for a simple chain SFA. The space indicates the</text>
+1	<text font="4" height="15" left="108" textpieces="0" top="596" width="259">number of bytes of storage required.</text>

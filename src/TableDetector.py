@@ -7,6 +7,7 @@ from Utils.SparseType import SparseType
 from LR.LogisticRegressor import LogisticRegressor
 from SVM.SVMImpl import SVMImpl
 import sys
+import TableDecomposer
 
 def TrainUsingCRF(xmls, preprocessor, trainer, xmlloc, annotatedxmlloc):
     CRFImpl = CRF()
@@ -121,7 +122,7 @@ def CreateHtmls(xmls, preprocessor, trainer, xmlloc):
         except:
             print "Problem with " + xmlname, sys.exc_info()[0]
 
-def TestUsingCRF(predictxmlname, location):
+def TestUsingCRF(predictxmlname, location, TDsvm = None):
     CRF = getModelwithTrainedWeights()
     fontdict = preprocessor.getFontDictionary(ET.parse(location + predictxmlname + ".xml"))                  
     preprocessedxml = preprocessor.preprocessxml(location + predictxmlname + ".xml") #list(pages), pages -> list(cols), col -> list(<Sparse/NonSparse, tag>)
@@ -153,7 +154,7 @@ def TestUsingCRF(predictxmlname, location):
                 continue
             for t in tables:
                 alltables.append(t)
-
+                
     for table in alltables:
         print "============================================="
         for row in table:
@@ -161,6 +162,15 @@ def TestUsingCRF(predictxmlname, location):
                 ntlafterpostproc += 1
             print row[1].text.encode('ascii','ignore')
     
+    if TDsvm is not None:
+        for t in alltables:
+            predicted = TDsvm.domainpredictforTableDecomposition(t)
+            for r in predicted:
+                if(r[0] == SparseType.HEADER):
+                    print r[1].text + "***** HEADER *****"
+                else:
+                    print r[1].text + "***** DATA *****"
+        
     return [errorcount, sparseerror, ntlafterpostproc]
 
 def TestUsingSVM(svminstance, predictxmlname, location):
@@ -326,7 +336,7 @@ def UserTesting(predictxmlname, location, method):
         print "******************************* LR  *************************************"
         TestUsingLR(predictxmlname, location)
     
-def Debugging():
+def DebuggingOnlyTableDetection():
     #crossValidation()
     #crossValidationLR()
     #crossValidationSVM()
@@ -335,7 +345,7 @@ def Debugging():
     #TrainUsingLR(xmls, preprocessor, trainer, location, annotatedxmlloc)
     
     predictxmlname = '1'
-    location = "../TestData/xmls/"
+    location = "../TrainingData/xmls/cs/"
     TestUsingSVM(svminstance, predictxmlname, location)
     
     print "******************************* CRF *************************************"
@@ -343,7 +353,18 @@ def Debugging():
     
     print "******************************* LR *************************************"
     TestUsingLR(predictxmlname, location)
-                                
+
+def DebuggingTableDecomposition():
+    xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"]
+    annotatedxmlloc = "../TrainingData/TDannotated/"
+    tdsvm = TableDecomposer.TrainUsingSVM(xmls, annotatedxmlloc)
+    
+    predictxmlname = '1'
+    location = "../TrainingData/xmls/cs/"
+    
+    print "******************************* CRF *************************************"
+    TestUsingCRF(predictxmlname, location, tdsvm)
+    
 if __name__ == '__main__':
     xmls = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"]
     preprocessor = Processors.PreProcessor.PreProcessor()
@@ -355,6 +376,7 @@ if __name__ == '__main__':
     
     location = "../TrainingData/xmls/cs/"
     annotatedxmlloc = "../TrainingData/annotated/"
-    #Debugging()
-    UserTesting(sys.argv[1], location, int(sys.argv[2]))
+    #DebuggingOnlyTableDetection()
+    DebuggingTableDecomposition()
+    #UserTesting(sys.argv[1], location, int(sys.argv[2]))
 #    
