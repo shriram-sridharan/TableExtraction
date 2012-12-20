@@ -47,14 +47,23 @@ class SVMImpl:
         self.trainforTD(datalist, labelslist)
         
     def domainpredictforTableDecomposition(self, table): 
+        errorcount = 0
+        sparseerror = 0
         for i in xrange(0, len(table)):
             test_list = list()
             test_list.append(self.TDFeatures.domainfindfeatureFunction(i, table, None)) 
             if(self.predict(test_list) == 'HEADER'):
-                table[i][0] = SparseType.HEADER
+                predicted = SparseType.HEADER
             else:
-                table[i][0] = SparseType.DATA
-        return table
+                predicted = SparseType.DATA
+            if((predicted) != int(table[i][0])):
+                errorcount += 1 
+                if((predicted) == SparseType.HEADER):
+                    sparseerror += 1
+            
+            predicted = table[i][0]
+            
+        return [table, errorcount, sparseerror]
                
     def domainpredict(self, col, fontdict):
         errorcount = 0

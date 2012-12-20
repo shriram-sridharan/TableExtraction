@@ -1,0 +1,33 @@
+Table Decomposition
+As described in Section 6 in this paper, the table decomposition step takes the tables detected from the Table Detection component and identifies the Header and data rows in the table. This makes it easy to pose the problem as yet another classification problem each table line is classified as either HEADER or DATA line. We trained a linear SVM and a Logistic Regressor (LR) and evaluated their performance.
+
+Data Set:
+Since no data set was publicly available as in the case of Table Detection, we had to manually annotate training data. We annotated 9 pdf files (containing 48 tables in total) taken at random from the publications page of CS faculty from the University of Wisconsin, Madison. Each pdf file was first converted to xml using pdftohtml. They were then passed through the preprocessing algorithm as described in Algorithm 1. Then, each table in the xml files was extracted into a separate file where each line of the table was annotated as HEADER or DATA.
+
+Empirical Evaluation:
+We adopt a 6 fold Cross Validation approach to empirically compare the 2 different classifiers - linear SVM and LR. The confusion matrix (indicating the actual vs predicted classes) for the 2 methods - SVM and LR are listed in Tables 7, 8. The precision and recall for the DATA class are listed in Table 9. Table 10 contains the precision and recall for the HEADER class.
+
+Table 7
+SVM (with a linear Kernel and C = 10)
+        	DATA    HEADER   
+    DATA	414      31  
+    HEADER 	26    	 44
+
+Table 8
+LR (with Initial Learning Rate 0.2 and running for 50 epochs)
+		DATA    HEADER   
+    DATA	405      40  
+    HEADER 	20    	 50
+
+Table 9: Precision and Recall of DATA
+			Precision Recall (in percentage)
+SVM Linear		94.09	   93.03
+Logistic Regression	95.29	   91.01
+
+Table 10: Precision and Recall of HEADER
+			Precision Recall (in percentage)
+SVM Linear		58.67	   62.86
+Logistic Regression	55.56	   71.43
+
+We infer that both the methods perform almost similarly. However, we have only tried on a linear SVM with C = 10. We need to perform Grid search to find out the kernel and the hyperparameters that give us the best accuracy given the feature set, which we consider in our future work. Also, the reason for the very low precision and recall for the HEADER class are two fold: (1) Lack of a large number of HEADERs in our dataset. (2) Features engineered towards reducing the error of DATAs instead of that of HEADERs. Nevertheless, if we add more training data with a lot of HEADERs and add in more features which are geared towards reducing the error rate of HEADERs, we are certain than the Precision and Recall of the HEADER class would improve.
+
